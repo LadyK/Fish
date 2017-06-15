@@ -9,14 +9,14 @@ class Shape {
   int rd, gn, blu;
   //float centerX = width/2;
   //float centerY = height/2;
+  int opacity = 50;
 
 
-
-  Shape() {
+  Shape(int x_, int y_) {
 
     smooth();
-    centerX = mouseX;
-    centerY = mouseY;
+    centerX = x_;
+    centerY = y_;
     float angle = radians(360/float(numPoints));
     for (int i = 0; i < numPoints; i++) {
       x[i] = cos(angle*i) * r;
@@ -26,7 +26,7 @@ class Shape {
 
   void display() {
 
-    stroke(0, 50);
+    stroke(0, opacity);
     float rand2 = random(0, 1);
 
     if (rand2 > .6) {
@@ -61,6 +61,8 @@ class Shape {
 
     curveVertex(x[1]+centerX, y[1]+centerY);
     endShape();
+    
+    opacity--;
   }
 
   void move() {
