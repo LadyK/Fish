@@ -1,7 +1,12 @@
-class Shape {
+/*
+this is the base unit for a shape. It makes 1 ring/unit
+
+*/
+
+class Ring {
   int numPoints = 10;
-  float r = 15;
-  int stepSize = 1;
+  float r = 10;  // 25, 75, 125
+  int stepSize = 2;  // 10 - 125
   //float distortionFactor = 1;
   float centerX, centerY;
   float [] x = new float[numPoints];
@@ -9,54 +14,56 @@ class Shape {
   int rd, gn, blu;
   //float centerX = width/2;
   //float centerY = height/2;
-  float opacity = 50;
-  float opChanger = .5;
-  //long birth;
-  //float elderly = 10000;
-  boolean AARP = true;
+  int opacity = 50;
 
-  Shape(int x_, int y_) {
+
+  Ring(int mX, int mY) {
 
     smooth();
-    centerX = x_;
-    centerY = y_;
+    centerX = mX;
+    centerY = mY;
     float angle = radians(360/float(numPoints));
     for (int i = 0; i < numPoints; i++) {
       x[i] = cos(angle*i) * r;
       y[i] = sin(angle*i) * r;
     }
-    //birth = millis();  // get a birthday
   }
 
   void display() {
+  // stroke fill here
+   //stroke(0, opacity); // line-y scribble 
+   noStroke();
+   
+    float rand2 = random(0, 1); // new step
 
-    stroke(0, opacity);
-    float rand2 = random(0, 1);
-
-    if (rand2 > .6) {
+    if (rand2 > .4) { // lower this and increase in diversity of size
       // new points for the shapes
-      for (int i = 0; i < numPoints; i++) {
+      //for (int i = 0; i < numPoints; i++) {
+        for (int i = numPoints-1; i >= 0; i--) {
         x[i] += random(-stepSize, stepSize);
         y[i] += random(-stepSize, stepSize);
       }
     }
 
     strokeWeight(0.75);
-
+  
+  
     float rand3 = random(0, 1);
-    // likelihood to shift color
-    if (rand3 > 0.9) {
+
+    if (rand3 > 0.9) {  // lower this and increase color difference
       rd = 0;
       gn = int(random(128, 255));
-      blu = int(random(0, 192));
+      blu = int(random(128, 255));  //0, 192
     }
-    fill(rd, gn, blu, 25);
+    
+    fill(rd, gn, blu, opacity);  // opacity was 25
     beginShape();
     //start controlpoint from the last point in the array
     curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
 
     //only these points are drawn
     for (int i = 0; i < numPoints; i++) {
+      //for (int i = numPoints-1; i >= 0; i--) {
       curveVertex(x[i]+centerX, y[i]+centerY);
     }
     //
@@ -65,19 +72,7 @@ class Shape {
 
     curveVertex(x[1]+centerX, y[1]+centerY);
     endShape();
-    
-    if(opacity < (opacity * 0.5) && AARP ){ // if opacity is half way gone...
-      AARP = false;
-      opChanger = 0.5; // shrink the amount we are changing the opacity by to slow down
-    }
-    if( opacity < (opacity * 0.25) ){
-      opChanger = 0.25;
-    }
-    /*
-    if(millis() - birth > elderly){
-      opChanger *= 0.25;
-    } */
-    opacity = opacity - opChanger;
+    opacity--;
   }
 
   void move() {
@@ -97,4 +92,6 @@ class Shape {
       y[i] = sin(angle * i) * radius;
     }
   } //newLoc
+  
+  
 } // end shape class

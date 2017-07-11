@@ -1,86 +1,89 @@
+
+/* This makes one unit or shape out of multiple rings
+ * 
+ *
+ */
+
 class Shape {
-  int numPoints = 10;
-  float r = 125;  // 25, 75, 125
-  int stepSize = 10;  // 10 - 125
-  //float distortionFactor = 1;
-  float centerX, centerY;
-  float [] x = new float[numPoints];
-  float [] y = new float[numPoints];
-  int rd, gn, blu;
-  //float centerX = width/2;
-  //float centerY = height/2;
-  int opacity = 50;
 
+  //Ring[] the_shape;
+  ArrayList<Ring> the_shape;
+  int ticker;
+  boolean dead;
 
-  Shape() {
+  Shape(int x_, int y_, int num_r) {
+    dead = false;
+    ticker = 0;
+    //the_shape = new Ring[30];
+    the_shape = new ArrayList<Ring>();
 
-    smooth();
-    centerX = mouseX;
-    centerY = mouseY;
-    float angle = radians(360/float(numPoints));
-    for (int i = 0; i < numPoints; i++) {
-      x[i] = cos(angle*i) * r;
-      y[i] = sin(angle*i) * r;
+    for (int i = 0; i < num_r; i++) {  // loop through the array
+      //the_shape[i] = new Ring(x_, y_);      // make a new object at each indice
+
+      the_shape.add(new Ring(x_, y_));
     }
   }
 
-  void display() {
-  // stroke fill here
-   //stroke(0, opacity); // line-y scribble 
-   noStroke();
-   
-    float rand2 = random(0, 1); // new step
 
-    if (rand2 > .4) { // lower this and increase in diversity of size
-      // new points for the shapes
-      for (int i = 0; i < numPoints; i++) {
-        x[i] += random(-stepSize, stepSize);
-        y[i] += random(-stepSize, stepSize);
+  /*
+  for (int i = 0; i < the_shapes.length-1; i++) {  // loop through the arrray
+   the_shapes[i] = the_shapes[i+1];    // fill the first spot, with the one to the right
+   }
+   //portal.display();
+   //portal.move();
+   
+   //add a new one on the end of the array with new location
+   Shape newbie = new Shape();  // make a new shape objecct
+   newbie.centerX = mouseX;    // assign mouseX to shape's centerX parameter
+   newbie.centerY = mouseY;
+   the_shapes[the_shapes.length-1] = newbie; // put that new shape in the last spot
+   */
+
+  void run() {
+    //for (int i = 0; i < the_shape.size()-1; i++) {
+    for (int i = the_shape.size()-1; i >= 0; i--) {
+   // for (Ring temp : the_shape) {
+      Ring temp = the_shape.get(i);
+      //the_shape[i].move();
+      //temp.newLoc(mouseX, mouseY);
+      temp.move();
+      temp.display();
+      //the_shape[i].display();
+      
+    }
+  }
+
+  void check() {
+
+    for (int i = the_shape.size()-1; i >= 0; i--) {
+      Ring temp = the_shape.get(i);
+      if (temp.opacity <= 0) {
+        the_shape.remove(i);
+        ticker++;
       }
     }
-
-    strokeWeight(0.75);
-  
-  
-    float rand3 = random(0, 1);
-
-    if (rand3 > 0.9) {  // lower this and increase color difference
-      rd = 0;
-      gn = int(random(128, 255));
-      blu = int(random(128, 255));  //0, 192
-    }
-    fill(rd, gn, blu, 25);
-    beginShape();
-    //start controlpoint from the last point in the array
-    curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
-
-    //only these points are drawn
-    for (int i = 0; i < numPoints; i++) {
-      curveVertex(x[i]+centerX, y[i]+centerY);
-    }
-    //
-    curveVertex(x[0]+centerX, y[0]+centerY);
-    //end control point
-
-    curveVertex(x[1]+centerX, y[1]+centerY);
-    endShape();
-  }
-
-  void move() {
-    if (mouseX != 0 || mouseY != 0) {
-      centerX += (mouseX-centerX) * 0.01;
-      centerY += (mouseY-centerY) * 0.01;
+    if (ticker >= the_shape.size()) {
+      dead = true;
     }
   }
 
-  void newLoc(int cX, int cY) {
-    centerX = cX;
-    centerY = cY;
-    float angle = radians(360/float(numPoints));
-    float radius = r * random(0.5, 1.0);
-    for (int i = 0; i < numPoints; i++) {
-      x[i] = cos(angle * i) * radius;
-      y[i] = sin(angle * i) * radius;
-    }
-  } //newLoc
-} // end shape class
+  void interaction() {
+    if (mouseX != 0 || mouseY != 0) {  // if the mouse isn't pressed
+
+      for (int i = 0; i < the_shape.size()-1; i++) { // loop through the shapes
+        float rand = random(0, 1); // pick a new random value
+        Ring temp = the_shape.get(i); 
+        //Ring temp = the_shape[i];  // pull a shape of the array to work with
+        // How response to the mouse? this slows the movement
+        if (rand < .65) {  
+          temp.centerX += (mouseX - temp.centerX) * 0.001;  // assign that shape a new centerX parameter
+          temp.centerY += (mouseY - temp.centerY) * 0.001;
+        }
+        if ( rand >= .65) {
+          temp.centerX += (mouseX - temp.centerX) * 0.01; // assign that shape a new centerX
+          temp.centerY += (mouseY - temp.centerY) * 0.01;
+        }
+      } // for-loop of shapes
+    } // if the mouse isn't clicked
+  }
+} //class

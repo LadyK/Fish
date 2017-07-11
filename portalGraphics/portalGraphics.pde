@@ -3,7 +3,7 @@
  objects disappear over time
  
  - dbl check array list mgmnt. additions seem oddly spikey
- - slow down last visuals
+ - slow down last visuals  --> time between mouse moved
  
  - multiples + smaller
  - change color
@@ -12,26 +12,29 @@
  */
 //Shape portal = new Shape();
 //Shape[] shapes = new Shape[50];
-ArrayList<Shape> shapes = new ArrayList<Shape>();
-long stamp;
-boolean disappear = false;
+//ArrayList<Shape> shapes = new ArrayList<Shape>();
+ ArrayList<Shape> cloudArray = new ArrayList<Shape>();
+//long stamp;
+//boolean disappear = false;
+
+
 
 void setup() {
   size(displayWidth, displayHeight); 
   //size(400, 400);
   background(255);
-  for (int i = 0; i < 50; i++) {  // loop through the array
+  for (int i = 0; i < 25; i++) {  // loop through the array
     //shapes[i] = new Shape();      // make a new object at each indice
-    shapes.add(new Shape(width/2, height/2));
+    cloudArray.add(new Shape(width/2, height/2));
   }
 }
 
 void draw() {
   background(0);
-  println(disappear);
+  //println(disappear);
   println();
-  print("size of shapes: "); 
-  println(shapes.size()); //51
+  print("size of shapeCloud: "); 
+  println(shapeCloud.size()); //51
   //if (disappear == false){
   //add a new one on the end of the array with new location
   //Shape newbie = new Shape();  // make a new shape objecct
@@ -45,10 +48,10 @@ void draw() {
 
   if (mouseX != 0 || mouseY != 0) {  // if the mouse isn't pressed
     //for (int i = 0; i < shapes.size()-1; i++) { // loop through the shapes
-    for (int i = shapes.size()-1; i >= 0; i--) {
+    for (int i = shapeCloud.size()-1; i >= 0; i--) {
       float rand = random(0, 1); // pick a new random value
       //Shape temp = shapes[i];  // pull a shape of the array to work with
-      Shape temp = shapes.get(i);
+      Shape temp = shapeCloud.get(i);
       // this slows the movement
       if (rand < .65) {  
         temp.centerX += (mouseX - temp.centerX) * 0.001;  // assign that shape a new centerX parameter
@@ -61,14 +64,14 @@ void draw() {
     } // for-loop of shapes
   } // if the mouse isn't clicked
 
-  //for (int i = 0; i < shapes.size()-1; i++) {
-  for (int i = shapes.size()-1; i >= 0; i--) {
-    Shape temp = shapes.get(i);
+  for (int i = 0; i < shapeCloud.size()-1; i++) {
+  //for (int i = shapes.size()-1; i >= 0; i--) {
+    Shape temp = shapeCloud.get(i);
     temp.move();
     temp.display();
     // if (disappear == true) {
     if ( temp.opacity <= 0) {
-      shapes.remove(i);
+      shapeCloud.remove(i);
     }
   }
 
@@ -101,6 +104,6 @@ void mousePressed() {
 void mouseMoved() {
   //stamp = millis();
 
-  shapes.add(new Shape(mouseX, mouseY));
+  shapeCloud.add(new Shape(mouseX, mouseY));
   println("added new one");
 }
