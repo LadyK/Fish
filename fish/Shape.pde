@@ -7,7 +7,7 @@
 class Shape {
 
   //Ring[] the_shape;
-  ArrayList<Ring> the_shape;
+  ArrayList<Ring> the_shape;  // this could be an array. length set by num_r
   int ticker;
   boolean dead;
 
@@ -17,56 +17,72 @@ class Shape {
     //the_shape = new Ring[30];
     the_shape = new ArrayList<Ring>();
 
-    for (int i = 0; i < num_r; i++) {  // loop through the array
+    //for (int i = 0; i < num_r; i++) {  // loop through the array
+    for (int i = num_r; i >= 0; i--) {  
       //the_shape[i] = new Ring(x_, y_);      // make a new object at each indice
 
       the_shape.add(new Ring(x_, y_));
     }
   }
-
-
   /*
-  for (int i = 0; i < the_shapes.length-1; i++) {  // loop through the arrray
-   the_shapes[i] = the_shapes[i+1];    // fill the first spot, with the one to the right
+  void update() {
+   for (int i = 0; i < (the_shape.size()-1); i++) {
+   Ring temp = the_shape.get(i);
+   //temp.shiftLocs();
    }
-   //portal.display();
-   //portal.move();
-   
-   //add a new one on the end of the array with new location
-   Shape newbie = new Shape();  // make a new shape objecct
-   newbie.centerX = mouseX;    // assign mouseX to shape's centerX parameter
-   newbie.centerY = mouseY;
-   the_shapes[the_shapes.length-1] = newbie; // put that new shape in the last spot
+   }
    */
 
   void run() {
-    //for (int i = 0; i < the_shape.size()-1; i++) {
-    for (int i = the_shape.size()-1; i >= 0; i--) {
-   // for (Ring temp : the_shape) {
+    for (int i = 0; i < (the_shape.size()-1); i++) {
+      //for (int i = the_shape.size()-1; i >= 0; i--) {
+      // for (Ring temp : the_shape) {
       Ring temp = the_shape.get(i);
       //the_shape[i].move();
-      //temp.newLoc(mouseX, mouseY);
-      temp.move();
+      /*
+      if (wait == true) {
+        temp.portal(mouseX, mouseY);// <-- portals  (formerly newLoc old-style)
+      }
+      */
+      //temp.shiftLocs();
+      //temp.move(); // <-- shifts towards the mouse. ...eh.
       temp.display();
       //the_shape[i].display();
-      
     }
   }
 
+  // if the opacity is below zero on A RING, remove it and increase our age
   void check() {
-
     for (int i = the_shape.size()-1; i >= 0; i--) {
+      //for (int i = 0; i <= the_shape.size()-1; i++) {
       Ring temp = the_shape.get(i);
-      if (temp.opacity <= 0) {
+      // if they are younger than 30
+      if (temp.age <= 30) { //&&(temp.age >= 2) )
+         temp.opacity--;
+      }
+      // if they are older than thrity and younger than
+      else if ((temp.age > 30)&& (temp.age <= 60) )  {
+        temp.opacity = temp.opacity - 0.5;
+      } 
+      
+      else if (temp.age > 60 ){
+        temp.opacity = temp.opacity - 0.25;
+      }
+      
+      // if a particular ring is faded away, remove it and age us
+      if (temp.opacity <= 0.0) {
         the_shape.remove(i);
-        ticker++;
+        ticker++;   //we've aged
+      }
+
+      // if we are older than we have rings, we are dead
+      if (ticker >= the_shape.size()) {
+        dead = true;
       }
     }
-    if (ticker >= the_shape.size()) {
-      dead = true;
-    }
   }
 
+  // current the below function is not in service
   void interaction() {
     if (mouseX != 0 || mouseY != 0) {  // if the mouse isn't pressed
 
