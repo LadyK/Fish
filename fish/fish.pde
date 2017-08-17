@@ -8,14 +8,14 @@
 //Shape portal = new Shape();
 //Shape[] cloud = new Shape[30];
 ArrayList<Shape> cloud = new ArrayList<Shape>();
-ArrayList<Shape> portals = new ArrayList<Shape>();
+ArrayList<Portal> portals = new ArrayList<Portal>();
 Shape m;
 int limit = 5;  // number of shapes
 PVector[] locs = new PVector[limit];  // locations of shapes
 int incrementer = 0;
 //float r_ = 30;
 long lastMove;
-long still_interval = 3000;
+long still_interval = 1500;
 boolean w = false;
 
 void setup() {
@@ -61,11 +61,11 @@ void draw() {
   //println(cld_size);
   //int elders = cld_size - limit;
   if (cld_size > 0) {
-    boolean tracking = false;
+    //boolean tracking = false;
     for ( int i = cld_size; i >= 0; i--) {
       Shape temp = cloud.get(i);
       //temp.check();
-      temp.run(tracking);
+      temp.run();
       // check to see if the opacity + cloud are dead. If so, get rid of them
       // but not on the last 5, since they are new.
       //if( i <= elders){  // mucks with slow fade; so took it out
@@ -81,11 +81,11 @@ void draw() {
   //shiftCloud();
   //*************************
   // TO DO:
-  // 1. create a class based off of shape for portals
+
   // 2. control radius to expand but up to a point
   // 3. need to figure out how/when to kill/transition 
   // 4. as well as the fade of the portal rings ...? or when kill?
-  
+
   // create a portal  <--- need to do this separate from the shapes currently present
   if ((millis() - lastMove) > still_interval) {
     portals();  // create the portals
@@ -93,20 +93,23 @@ void draw() {
   }
 
   int portals_size = portals.size()-1;
-  if (portals.size() != 0) { // if we have some portals, run them:
-    //w = true;
-    for (int i = portals_size; i >= 0; i--) {
-      Shape temp2 = portals.get(i);
-      temp2.run();
-      
-      // after so long, kill portal:
-      // need to figure out how long to keep them
-      temp2.check();
-      if (temp2.dead == true) {
-        portals.remove(i);
+  if ((millis() - lastMove) < still_interval) {
+    if (portals.size() != 0) { // if we have some portals, run them:
+      //w = true;
+      for (int i = portals_size; i >= 0; i--) {
+        Portal temp2 = portals.get(i);
+        temp2.run();
+
+        // after so long, kill portal:
+        // need to figure out how long to keep them
+        temp2.check();
+        if (temp2.dead == true) {
+          portals.remove(i);
+        }
       }
     }
-  }
+  } // smaller than interval, not moving
+  
 } // draw loop
 
 /* not needed: 
@@ -150,39 +153,42 @@ void updateLocations() { //float r
 ///*
 void mouseMoved() {
   w = false;  // stop making portals
-  //portal.newLoc(mouseX, mouseY);
-  //int rand = int(random(10, 30));
-  //cloud.add(new Shape(mouseX, mouseY, rand));
-  updateLocations();  // update locations of newbies, with ref to mouse. more sense to have this here
+  if ((mouseX != pmouseX) || (mouseY != pmouseY)) {
+    //portal.newLoc(mouseX, mouseY);
+    //int rand = int(random(10, 30));
+    //cloud.add(new Shape(mouseX, mouseY, rand));
+    updateLocations();  // update locations of newbies, with ref to mouse. more sense to have this here
 
-  Shape newbie;
-  // adding 5 more each time
-  // many around the mouse, fade away
-  // with # same as limit get a field or a ring if radius isn't random
-  for (int i = 0; i < limit; i++) {  // one shape each loop + update locations
-    int randy = int(random(2, 5)); // how many rings in this shape?
-    newbie = new Shape(int(locs[i].x), int(locs[i].y), randy);
-    //newbie.run(); // don't run them here, lest black dots
-    cloud.add(newbie);
-  }
+    Shape newbie;
+    // adding 5 more each time
+    // many around the mouse, fade away
+    // with # same as limit get a field or a ring if radius isn't random
+    for (int i = 0; i < limit; i++) {  // one shape each loop + update locations
+      int randy = int(random(2, 5)); // how many rings in this shape?
+      newbie = new Shape(int(locs[i].x), int(locs[i].y), randy);
+      //newbie.run(); // don't run them here, lest black dots
+      cloud.add(newbie);
+    }
 
-  //Shifting all the locations of the shapes arrays:
-  /*
+    //Shifting all the locations of the shapes arrays:
+    /*
   for (int i = 0; i < cloud.size()-1; i++) {
-   //for (int i = cloud.size()-1; i >= 0; i--) {
-   Shape temp = cloud.get(i);
-   temp.update();
-   }
-   */
+     //for (int i = cloud.size()-1; i >= 0; i--) {
+     Shape temp = cloud.get(i);
+     temp.update();
+     }
+     */
+  }
   lastMove = millis();  // time stamp from last moved
 } // mouseMove()y//*/
 
 void portals() {
-  Shape newbie;
+  Portal newbie;
   for (int i = 0; i < limit; i++) {  // one shape each loop + update locations
-    int randy = int(random(2, 5)); // how many rings in this shape?
+    int randy = int(random(2, 7)); // how many rings in this shape?
     //newbie = new Shape(int(locs[i].x), int(locs[i].y), randy);
-    newbie = new Shape(mouseX, mouseY, randy);
+    //newbie = new Portal(mouseX, mouseY, randy, 2);
+    newbie = new Portal(mouseX, mouseY, randy, 1);
     //newbie.run(); // don't run them here, lest black dots
     portals.add(newbie);
   }

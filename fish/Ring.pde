@@ -10,8 +10,8 @@ this is the base unit for a shape. It makes 1 ring/unit
 
 class Ring {
   int numPoints = 5;
-  float r = 10;  // 25, 75, 125
-  int stepSize = 10;  // 10 - 125  /* size 10, with 5 shapes, is cool effect */
+  float r;  // 25, 75, 125
+  int stepSize;  // 10 - 125  /* size 10, with 5 shapes, is cool effect */
   //float distortionFactor = 1;
   float centerX, centerY;
   float [] x = new float[numPoints];
@@ -22,11 +22,12 @@ class Ring {
   float opacity = 50;
   float age;
 
-  Ring(int mX, int mY) {
+  Ring(int mX, int mY, int rad_, int s) {
 
     smooth();
     centerX = mX;
     centerY = mY;
+    r = rad_;
     float angle = radians(360/float(numPoints));
     /*
     assign values to x + y, which create a circular shape 
@@ -36,6 +37,7 @@ class Ring {
       y[i] = sin(angle*i) * r;
     }
     age = 0;
+    stepSize = s;
   }
 
   void display() {
@@ -68,6 +70,7 @@ class Ring {
       gn = int(random(128, 255));
       blu = int(random(128, 255));  //0, 192
     }
+
 
     fill(rd, gn, blu, opacity);  // opacity was 25
 
@@ -110,11 +113,13 @@ class Ring {
     }
   }
 
-  void portal(int cX, int cY) {
-    centerX = cX;
-    centerY = cY;
+  void portalGrowth(int r__) { //(int cX, int cY, int r__)
+    //centerX = cX;
+    //centerY = cY;
     float angle = radians(360/float(numPoints));
-    float radius = r * random(0.5, 1.0);
+    float radius = r__ * random(0.5, 1.0);
+    radius = constrain(radius, 0.0, 3.5); // limit the radius
+    print("Radius is:  "); println(radius);
     for (int i = 0; i < numPoints; i++) {  
       x[i] += cos(angle * i) * radius;
       y[i] += sin(angle * i) * radius;

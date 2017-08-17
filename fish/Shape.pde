@@ -10,18 +10,20 @@ class Shape {
   ArrayList<Ring> the_shape;  // this could be an array. length set by num_r
   int ticker;
   boolean dead;
+  int rad;
 
   Shape(int x_, int y_, int num_r) {
     dead = false;
     ticker = 0;
+    rad = 10;
     //the_shape = new Ring[30];
     the_shape = new ArrayList<Ring>();
-
+    int s_size = 10; //10 - 125  /* size 10, with 5 shapes, is cool effect */
     //for (int i = 0; i < num_r; i++) {  // loop through the array
     for (int i = num_r; i >= 0; i--) {  
       //the_shape[i] = new Ring(x_, y_);      // make a new object at each indice
 
-      the_shape.add(new Ring(x_, y_));
+      the_shape.add(new Ring(x_, y_, rad, s_size));
     }
   }
   /*
@@ -82,7 +84,7 @@ class Shape {
     }
   }
 
-  // current the below function is not in service
+  // currently, the below function is not in service
   void interaction() {
     if (mouseX != 0 || mouseY != 0) {  // if the mouse isn't pressed
 
