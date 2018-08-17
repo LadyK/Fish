@@ -105,13 +105,15 @@ class Ring {
     */
   }
 
-
+/*
+// not in service:
   void move() {
     if (mouseX != 0 || mouseY != 0) {
       centerX += (mouseX-centerX) * 0.01;
       centerY += (mouseY-centerY) * 0.01;
     }
   }
+*/
 
   void portalGrowth(int r__) { //(int cX, int cY, int r__)
     //centerX = cX;
