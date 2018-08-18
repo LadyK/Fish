@@ -62,7 +62,7 @@ class Shape {
       } else {  // 30% of the time, 
        // yrsOld += 0.025;
        yrsOld = yrsOld-1;
-        println("slow down aging");
+       // println("slow down aging");
       }
     }
     if (yrsOld >= 80) {
@@ -72,13 +72,13 @@ class Shape {
         //yrsOld = yrsOld + .05;
       } else {  // 30% of the time, slow down how fast we age
         yrsOld += 0.025;
-        println("slow down aging");
+        //println("slow down aging");
       }
     } else {
       yrsOld++;
     }
-    print("we are: "); 
-    println(yrsOld);
+   // print("we are: "); 
+   // println(yrsOld);
     age();
     ///*
 
@@ -178,7 +178,7 @@ class Shape {
       opacity = opacity - .05;
     }
     if (opacity < 0) opacity = 0;
-    println(opacity);
+    //println(opacity);
     return opacity;
   } // age
 } // end shape class
