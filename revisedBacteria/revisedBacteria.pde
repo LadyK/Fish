@@ -10,10 +10,23 @@ KinectTracker tracker;
 Kinect kinect;
 PVector v2;
 PVector v2_old;
+boolean debug = true;
+
+float minThresh = 480;
+float maxThresh = 830;
+
+// camera scaling help from Amnon Owed's kinect physics tutorial on CAN
+PImage blobs;
+int kinectWidth = 640;
+int kinectHeight = 480;
+float reScale;
 
 void setup() {
   //size(400, displayHeight); 
-  size(640, 520);
+  //size(640, 520);
+  //size(displayWidth, displayHeight);
+  //size(1280, 960);
+  fullScreen(P2D, 1);
   //frameRate(20);
   //size(400, 400);
   background(0);
@@ -22,8 +35,12 @@ void setup() {
   shapeCloud = new ArrayList<Shape>();
 
   kinect = new Kinect(this);
+  kinect.initDepth();
   tracker = new KinectTracker();
   v2_old = new PVector(0, 0);
+
+  reScale = (float) width/kinect.width;
+  //cam = createImage(kinectWidth/3, kinectHeight/3, RGB);
 }
 
 void draw() {
@@ -32,6 +49,9 @@ void draw() {
   tracker.track();
   // Show the image
   if (keyPressed && key == 32) {
+    debug = !debug;
+  }
+  if (debug) {
     tracker.display();
   }
   /*
@@ -44,22 +64,22 @@ void draw() {
   // Let's draw the "lerped" location
   v2 = tracker.getLerpedPos();
   // debugging tracking:
-  // /*  
-  fill(100, 250, 50, 200);
-  noStroke();
-  ellipse(v2.x, v2.y, 20, 20);
-  //  */
-/*
+  /*  
+   fill(100, 250, 50, 200);
+   noStroke();
+   ellipse(v2.x, v2.y, 20, 20);
+   */
+  /*
   if (v2.x != v2_old.x) {
-    if (v2.y != v2_old.y) {
-      makeNew(v2);
-    }
-  }
-  */
+   if (v2.y != v2_old.y) {
+   makeNew(v2);
+   }
+   }
+   */
   float d = PVector.dist(v2, v2_old);
-  print("distance btwn is:  "); println(d);
-  if( d > 2){
-   makeNew(v2); 
+  //print("distance btwn is:  "); println(d);
+  if ( d > 2) {
+    makeNew(v2);
   }
   v2_old.set(v2.x, v2.y);
   // Display some info
@@ -83,6 +103,7 @@ void draw() {
       }
     }
   }
+  // println(kinect.width, kinect.height);
 }
 
 void makeNew(PVector loc) {
@@ -173,5 +194,8 @@ void keyPressed() {
       t-=5;
       tracker.setThreshold(t);
     }
+  }
+
+  if (key == 'f') {
   }
 }

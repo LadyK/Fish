@@ -18,10 +18,13 @@ class KinectTracker {
 
   // Depth data
   int[] depth;
-  
+
   // What we'll show the user
   PImage display;
-   
+  PImage kinectImg;
+  PImage cam;
+  PVector scaledPos;
+
   KinectTracker() {
     // This is an awkard use of a global variable here
     // But doing it this way for simplicity
@@ -29,9 +32,11 @@ class KinectTracker {
     kinect.enableMirror(true);
     // Make a blank image
     display = createImage(kinect.width, kinect.height, RGB);
+    //kinectImg = createImage(displayWidth, displayHeight, RGB);
     // Set up the vectors
     loc = new PVector(0, 0);
     lerpedLoc = new PVector(0, 0);
+    scaledPos = new PVector();
   }
 
   void track() {
@@ -45,9 +50,11 @@ class KinectTracker {
     float sumY = 0;
     float count = 0;
 
+    // skip some pixels to speed up in here
+
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
-        
+
         int offset =  x + y*kinect.width;
         // Grabbing the raw depth
         int rawDepth = depth[offset];
@@ -68,10 +75,16 @@ class KinectTracker {
     // Interpolating the location, doing it arbitrarily for now
     lerpedLoc.x = PApplet.lerp(lerpedLoc.x, loc.x, 0.3f);
     lerpedLoc.y = PApplet.lerp(lerpedLoc.y, loc.y, 0.3f);
+
+    //lerpedLoc.x = map(lerpedLoc.x, 0, 640, 0, displayWidth);
+    //lerpedLoc.y  = map(lerpedLoc.y, 0, 480, 0, displayHeight);
+    // scale it up for the display
+    scaledPos.x = map(lerpedLoc.x, 0, 640, 0, displayWidth);
+    scaledPos.y = map(lerpedLoc.y, 0, 480, 0, displayHeight);
   }
 
   PVector getLerpedPos() {
-    return lerpedLoc;
+    return scaledPos; // lerpedLoc;
   }
 
   PVector getPos() {
@@ -79,13 +92,14 @@ class KinectTracker {
   }
 
   void display() {
-    PImage img = kinect.getDepthImage();
+    display = kinect.getDepthImage();
 
     // Being overly cautious here
-    if (depth == null || img == null) return;
+    if (depth == null || display == null) return;
 
     // Going to rewrite the depth image to show which pixels are in threshold
     // A lot of this is redundant, but this is just for demonstration purposes
+    //kinectImg.loadPixels();
     display.loadPixels();
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
@@ -98,14 +112,20 @@ class KinectTracker {
           // A red color instead
           display.pixels[pix] = color(150, 50, 50);
         } else {
-          display.pixels[pix] = img.pixels[offset];
+          display.pixels[pix] = display.pixels[offset];
         }
       }
     }
     display.updatePixels();
 
     // Draw the image
-    image(display, 0, 0);
+    // image(display, 0, 0);
+    //image(kinectImg, 0, 0, displayWidth, displayHeight); <-- not wrking
+    //cam.copy(kinectImg, 0, 0, dis
+    //display.resize(displayWidth, displayHeight);
+    //image(display, 0, 0);
+    copy(display, 0, 0, kinect.width, kinect.height, 0, 0, displayWidth, displayHeight);
+    //image(cam, 0, 0);
   }
 
   int getThreshold() {
