@@ -1,6 +1,6 @@
 class Shape {
   int numPoints = 10;
-  float r = 25; //width of shape
+  float r = 25; //width of shape  future= relation to body re: w + h
   int stepSize = 1;
   //float distortionFactor = 1;
   float centerX, centerY;
@@ -27,7 +27,7 @@ class Shape {
       y[i] = sin(angle*i) * r;
     }
     //birth = millis();  // get a birthday
-     opacity = op_start ;
+    opacity = op_start ;
     yrsOld = 0;
   }
 
@@ -56,31 +56,35 @@ class Shape {
     endShape();
 
     // depending on how old we are, mess with how quickly/slowly we age:
-    if (yrsOld >=  10 && yrsOld < 30) {
+    if (yrsOld >=  10 && yrsOld < 80) {   //10 + 40
       float randy = random(0, 1);
-      if (randy > 0.7) {   // 30% of the time,
+      if (randy < 0.2) {   // 30% of the time,   .7
         // age much more 
-        yrsOld = yrsOld + 3;
+        yrsOld = yrsOld + 2;
       } else {  // 70% of time:
         // yrsOld += 0.025;
         yrsOld = yrsOld+1;
         // println("slow down aging");
       }
     }
-    if (yrsOld >= 30) {
+    if (yrsOld >= 80) {
       float randy = random(0, 1);
       if (randy > 0.3) {
-        // don't age
-        yrsOld = yrsOld + 2;
+        yrsOld = yrsOld + 1;
       } else {  // 30% of the time, slow down how fast we age
-        yrsOld -= 2;
+        yrsOld -= 1;
         //println("slow down aging");
       }
     } else {
-      yrsOld+=3;
+      float randy = random(0, 1);
+      if (randy > 0.3) {
+        yrsOld+=3;
+      } else {
+        yrsOld -=2;
+      }
     }
-    print("we are: "); 
-    println(yrsOld);
+    //print("we are: "); 
+    //println(yrsOld);
     changeOp();
   }
 
@@ -126,37 +130,37 @@ class Shape {
     }
   } //featureShifter
 
- 
+
   //  vary opacity as a result of age:
   void changeOp() {
-   if (yrsOld < 20) {
+    if (yrsOld < 30) {
       opacity--;
-    } else if ((yrsOld >= 20) && (yrsOld < 40)) {
+    } else if ((yrsOld >= 30) && (yrsOld < 80)) {  // 30, 60
       opacity = opacity - 0.5;
-    } else if (yrsOld >= 40 && yrsOld < 80 ) {  //<---
+    } else if (yrsOld >= 80 && yrsOld < 190 ) {  //<--- 60 - 80
       opacity = opacity - 0.05;
     }
-   /* } else if (yrsOld > 60 ) {
-      opacity = opacity - 0.025;
-    }
-    */
-   // /*
-    else if (yrsOld > 80 ) {  //<--- Probability addition
-     float rand3 = random(0, 1);
-     if( rand3 > .6){
-      opacity = opacity + 1 ; //2
-    } else {
-      opacity = opacity - 2;  //-3
-    }
-   // */
+    /* } else if (yrsOld > 60 ) {
+     opacity = opacity - 0.025;
+     }
+     */
+    // /*
+    else if (yrsOld > 190 ) {  //was 80
+      float rand3 = random(0, 1);
+      if ( rand3 > .6) {
+        opacity = opacity + 1 ; //2
+      } else {
+        opacity = opacity - 2;  //-3
+        println("still here");
+        println();
+      }
+      // */
       /*
      else if ( yrsOld > 80) {
-      opacity = opacity - .05;
-    }
-    */
+       opacity = opacity - .05;
+       }
+       */
     }
     if (opacity < 0) opacity = 0;
   } // age
-  
-  
 } // end shape class

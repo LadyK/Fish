@@ -34,21 +34,19 @@ class Cloud {
       float op = temp.opacity;
       // let's get the average opacity for the cloud, incl all shapes
       aveOp += op;
-      ///* 
+       // removing a *shape* from memory since can't see it
        if (op <= 0) {
-       shapeCloud.remove(i);  // removing a shape from memory since can't see it
-       println("removed one");
+       shapeCloud.remove(i);  
        }
-      //*/
     }
     // double check how many shapes we have currently:
     //int currentSize = shapeCloud.size();
     // what's our average opacity, considering how many there were of us:
     float total = aveOp / limit;
-    print("total op for 1 cloud:  ");
-    println(total);
+    //print("total op for 1 cloud:  ");
+    //println(total);
     if (total <= 0) { 
-      dead = true;
+      dead = true; // if alpha of shapes is less than starting #
     } else {
       dead = false;
     }
