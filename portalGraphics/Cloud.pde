@@ -2,10 +2,15 @@ class Cloud {
 
   ArrayList<Shape> shapeCloud; //shapes to form one cloud
 
-  int limit = 5;
+  int limit;
+  int numPts;
+  int rad;
 
   Cloud(int mX, int mY) {
     shapeCloud = new ArrayList<Shape>();
+    limit = 5;
+    numPts = 10;
+    rad = 25;
     
     // creating #limit shapes and push to cloud array:
     for (int i = 0; i < limit; i++) {
@@ -13,7 +18,7 @@ class Cloud {
       int randX = int(random(-20, 20)) + mX; 
       int randY = int(random(-20, 20)) + mY;
 
-      Shape temp = new Shape(randX, randY);
+      Shape temp = new Shape(randX, randY, numPts, rad);
       shapeCloud.add(temp);
     }
   } 

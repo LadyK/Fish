@@ -1,50 +1,39 @@
-import controlP5.*;
-
-//ControlP5 cp5;
-//int sliderValue = 100;
-
+ //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 /*
- objects disappear over time
- 
- - dbl check array list mgmnt. additions seem oddly spikey
- - slow down last visuals  --> time between mouse moved
- 
+
  - multiples + smaller
  - change color
  - stroke ?
  */
 
 
-Cloud portal;
+Cloud fish;
 
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 boolean trigger;
-int lastMouseX;
-int lastMouseY;
-int distDiff= 10; // how much of a difference in mouse location needed
+int lastRecMouseX;
+int lastRecMouseY;
+int lastMouseX, lastMouseY;
+int distDiff= 30; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
+//Portal entry;
+ArrayList<Portal> entry;
+long portBirth;
+PVector lastLoc, currentLoc;
+boolean newSpot = false;
+
+//int portalPoints = 18;
 
 void setup() {
   //size(displayWidth, displayHeight); 
   size(300, 800);
   //background(0);
-  //cp5 = new ControlP5(this); // interface
-  //fill(0);  // interface
-  // rect(0, 0, 300, 800);  // interface
-  /*
-    cp5.addSlider("slider")
-   .setPosition(325,10)
-   .setSize(200,20)
-   .setRange(0,200)
-   .setValue(128)
-   ;
-   
-   */
 
   trigger = false;
   herd = new ArrayList<Cloud>(); 
   portalTrig = false;
+  entry = new ArrayList<Portal>();
   /*
   clouds = new ArrayList<Cloud>();
    
@@ -86,31 +75,93 @@ void draw() {
   } //herd runs and checks
 
   // portal trigger:
-  if (millis() - movedStamp > 2000) {
-    ellipseMode(CENTER);
-    fill(255, 0, 0);
-    ellipse(mouseX, mouseY, 10, 10);
-    portalTrig = true;
+  long stamp = millis();
+  // if we have been sitting for a bit in one place, but not super long:
+  if (((stamp - movedStamp) > 2000) && ((stamp - movedStamp) < 15000) ) {
+    triggerPortal();
+  } else {
+    //portalTrig = false;
+  } // if sitting
+  print("portBirth: "); 
+  println(portBirth);
+
+  // need to be able to have more than one. and to not restart one
+  if ((millis() - portBirth < 10000)) {
+    // are we on the edges of the screen?
+    if (lastMouseX > 10 && lastMouseX < (width - 10) && (lastMouseY > 10 && lastMouseY < (height -10)) ) {
+      // if (mouseX < (lastMouseX + distDiff) || mouseX > (lastMouseX - distDiff ) ||
+      //   mouseY < (lastMouseY + distDiff) || mouseY > (lastMouseY - distDiff) ) {
+      if (newSpot == false) { 
+        if (entry.size() > 0) {
+          for (int i = entry.size()-1; i >= 0; i--) {
+            Portal temp = entry.get(i);
+            temp.featureShifter();
+            //temp.shift();
+            //if (i % 2 == 0) {
+            temp.grow();
+            //}
+            temp.display();
+            //temp.move();
+            println("display, move");
+          }
+        } //have portals; run them
+      } // same location
+    }// not on edges
+  } //young
+
+  if ((millis() - portBirth) > 10100 || newSpot == true) {
+    // portalTrig = false;
+    portBirth = 0;
+    println("removing ");
+    for (int i = entry.size()-1; i >= 0; i--) {
+      entry.remove(i);  // clean out array
+    }
   }
+  //*/
 } // draw loop
+
+
+void triggerPortal() {
+  print("num of portals: ");
+  println(entry.size());
+  if (entry.size() < 1 && portBirth <= 0) {
+    for (int i = 0; i < 5; i++) {
+      int randX = 0; //int(random(-5, 5));
+      int randY = 0; //int(random(-5, 5));
+      Portal temp = new Portal(mouseX + randX, mouseY + randY, 10, 15);
+      entry.add(temp);
+      //  portalTrig = false;
+    }
+    portBirth = millis();
+  } else {
+  };
+}
 
 void mousePressed() {
 
   print("herd is  ");
   println(herd.size());
+  print("entry is  ");
+  println(entry.size());
 }
 
 
 void mouseMoved() {
-  //if (mouseX < 250 ) { //interface
-  if ( ( mouseX > (lastMouseX + distDiff)  || mouseX < (lastMouseX - distDiff)) ||
-    ( mouseY > (lastMouseY + distDiff)  || mouseY < (lastMouseY - distDiff)) ) {
-    portal = new Cloud(mouseX, mouseY);
-    herd.add(portal);
+  //if we have moved a lot
+  if ( ( mouseX > (lastRecMouseX + distDiff)  || mouseX < (lastRecMouseX - distDiff)) ||
+    ( mouseY > (lastRecMouseY + distDiff)  || mouseY < (lastRecMouseY - distDiff)) ) {
+    fish = new Cloud(mouseX, mouseY);
+    herd.add(fish);
+    // record locations and time
+    lastRecMouseX = mouseX;
+    lastRecMouseY = mouseY;
+    movedStamp = millis();
+    newSpot  = true;
+  } else {
+    newSpot = false;
     lastMouseX = mouseX;
     lastMouseY = mouseY;
-    movedStamp = millis();
-  } else {
-    // } //interface
   }
+  print("newSpot is:  "); 
+  println(newSpot);
 }
