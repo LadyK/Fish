@@ -2,6 +2,10 @@ class Portal extends BasicShapeElement {
 
   PVector spread;
   int origX, origY;
+  
+  // 1. opacity
+  // 2. shrinking
+  // 3. disappearance
 
   Portal(int x_, int y_, int p_, int r) {
     super(x_, y_, p_, r);
@@ -14,7 +18,7 @@ class Portal extends BasicShapeElement {
   }
 
   void display() {
-    super.display(false, rd, gn, blu, 200);
+    super.display(false, rd, gn, blu, 200); // last is opacity
     //featureShifter();
   }
 
@@ -28,14 +32,30 @@ class Portal extends BasicShapeElement {
   }
 
   void grow() {
-    if (x[0] < (origX - 10) && y[0] < (origY - 10) ) {
-      for (int i = 0; i < numPoints; i++) {
-      x[i] += cos(angle*i) * 0.05;  // decmal helps grow slow
+    //if our current X/Y.0 location is less than original, minus a smidge
+    //if (x[0] < (origX - 50) && y[0] < (origY - 50) ) {
+    //println("meeeee");
+    for (int i = 0; i < numPoints; i++) {
+      x[i] += cos(angle*i) * 0.05;  // decimal helps grow slow
       y[i] += sin(angle*i) * 0.05;
     }
-      
-    }; // if
+    // } // if
   } // grow
+
+  boolean shrink() {
+    boolean tooSmall = false;
+    for (int i = 0; i < numPoints; i++) {
+      x[i] -= cos(angle*i) * 0.5;  
+      y[i] -= sin(angle*i) * 0.5;
+    }
+
+    if ((x[0] <= origX) || (y[0] <= origY)) {
+      tooSmall = true;
+    } else{
+      tooSmall = false;
+    }
+    return tooSmall;
+  }
 
   void featureShifter() {
     super.featureShifter();
