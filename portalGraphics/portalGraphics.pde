@@ -93,7 +93,7 @@ void draw() {
   long stamp = millis();
   // if we have been sitting for a bit in one place, but not super long:
   if (((stamp - movedStamp) > 2000) && ((stamp - movedStamp) < 15000) ) {
-    //triggerPortal();
+    //triggerPortal();  ///<-- commented out for testing
   } else {
     //portalTrig = false;
   } // if sitting
@@ -206,6 +206,7 @@ void oscEvent(OscMessage theOscMessage) {
 
   // splice theOscMessage.addrPattern()
   String[] screenLoc = splitTokens(theOscMessage.addrPattern());
-  //println(screenLoc[0]);
-  //println(screenLoc[1]);
+  print(screenLoc[0]); print(", ");
+  println(screenLoc[1]);
+  //println(theOscMessage.addrPattern().length());
 }
