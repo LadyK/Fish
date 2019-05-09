@@ -1,4 +1,4 @@
-import oscP5.*; //<>//
+import oscP5.*; //<>// //<>//
 import netP5.*;
 
 //OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
@@ -11,8 +11,10 @@ OscP5 whereimlistening;
 
 String messageselector;
 
+Integer[] screenLoc = {0, 0};
+PVector[] locations = {};
 
-Cloud fish; //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+Cloud fish; //<>// //<>// //<>// //<>// //<>// //<>//
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 boolean trigger;
 int lastRecMouseX = 0;
@@ -32,8 +34,8 @@ boolean shrinking = false;
 //int portalPoints = 18;
 
 void setup() {
-  //size(displayWidth, displayHeight); 
-  size(300, 800);
+  size(displayWidth, displayHeight); 
+  //size(300, 800);
   //background(0);
 
   trigger = false;
@@ -60,10 +62,15 @@ void setup() {
    */
   /* start oscP5, listening for incoming messages at port 12000 */
   whereimlistening = new OscP5(this, 12000);
+
+  //screenLoc[0] = 0;
+  //screenLoc[1] = 0;
+  oscEvent();
 }
 
 void draw() {
   background(0);
+  while (areWeRunning){
   //fill(0);  // interface
   //rect(0, 0, 300, 800);  // interface
   // if we have shapes, run them as clouds:
@@ -89,7 +96,9 @@ void draw() {
     }
   } //herd runs and checks
 
-  // portal trigger: VVVVVVVVV
+/*  *****************re-coding below to work for multiple people with Max:
+
+  // portal trigger: VVVVVVVVV  ; <<--- reconfig
   long stamp = millis();
   // if we have been sitting for a bit in one place, but not super long:
   if (((stamp - movedStamp) > 2000) && ((stamp - movedStamp) < 15000) ) {
@@ -98,11 +107,11 @@ void draw() {
     //portalTrig = false;
   } // if sitting
   //print("portBirth: "); 
-  println(portBirth);
+  //println(portBirth);
 
   // need to be able to have more than one. 
 
-  // if the we haven't moved:
+  // if the we haven't moved:  <----- eyeyaiyyiyiy
   if (newSpot == false) { //if ((millis() - portBirth < 10000)) {
     // if we are not  on the edges of the screen:
     if (lastMouseX > 10 && lastMouseX < (width - 10) && (lastMouseY > 10 && lastMouseY < (height -10)) ) {
@@ -146,8 +155,10 @@ void draw() {
       }
       portBirth = 0; //<<--
     }
-  }
+  } ********** end stuff to re-code  */
   //*/
+    } // while loop
+    println("no values");
 } // draw loop
 
 
@@ -159,7 +170,7 @@ void triggerPortal() {
     for (int i = 0; i < 5; i++) {
       int randX = 0; //int(random(-5, 5));
       int randY = 0; //int(random(-5, 5));
-      Portal temp = new Portal(mouseX + randX, mouseY + randY, 10, 15);
+      Portal temp = new Portal(screenLoc[0] + randX, screenLoc[1]  + randY, 10, 15);
       entry.add(temp);
       //  portalTrig = false;
     }
@@ -175,27 +186,27 @@ void mousePressed() {
   //println(entry.size());
 }
 
-
-void mouseMoved() {
+/*
+void mouseMoved() { // <----- revise this!
   //if we have moved a lot
-  if ( ( mouseX > (lastRecMouseX + distDiff)  || mouseX < (lastRecMouseX - distDiff)) ||
-    ( mouseY > (lastRecMouseY + distDiff)  || mouseY < (lastRecMouseY - distDiff)) ) {
-    fish = new Cloud(mouseX, mouseY);
+  if ( ( screenLoc[0]  > (lastRecMouseX + distDiff)  || screenLoc[0]  < (lastRecMouseX - distDiff)) ||
+    ( screenLoc[1]  > (lastRecMouseY + distDiff)  || screenLoc[1]  < (lastRecMouseY - distDiff)) ) {
+    fish = new Cloud(screenLoc[0], screenLoc[1] );
     herd.add(fish);
     // record locations and time
-    lastRecMouseX = mouseX;
-    lastRecMouseY = mouseY;
+    lastRecMouseX = screenLoc[0] ;
+    lastRecMouseY = screenLoc[1] ;
     movedStamp = millis();
     newSpot  = true;
   } else {
     newSpot = false;
-    lastMouseX = mouseX;
-    lastMouseY = mouseY;
+    lastMouseX = screenLoc[0] ;
+    lastMouseY = screenLoc[1] ;
   }
   // print("newSpot is:  "); 
   // println(newSpot);
 }
-
+*/
 
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
@@ -205,8 +216,41 @@ void oscEvent(OscMessage theOscMessage) {
   //theOscMessage.print();
 
   // splice theOscMessage.addrPattern()
-  String[] screenLoc = splitTokens(theOscMessage.addrPattern());
-  print(screenLoc[0]); print(", ");
+  boolean areWeRunning = true;
+  String [] newLocations = splitTokens(theOscMessage.addrPattern());
+  for (int i =0; i < newLocations.length; i ++) {
+    screenLoc[i] = int(newLocations[i]);
+  }
+  print(screenLoc[0]); 
+  print(", ");
   println(screenLoc[1]);
   //println(theOscMessage.addrPattern().length());
+  int tempX = int(screenLoc[0]);
+  int tempY = int(screenLoc[1]);
+  PVector newLoc = new PVector(tempX, tempY);
+  newSpot(newLoc);
+}
+
+void newSpot(PVector newbie) {
+  //println("do we have locations?");
+  if (locations.length > 0) {  // if we have locations in our array
+    //we have locations:
+    println("locs = yes");
+    for (int i = 0; i < (locations.length)-1; i++) {
+      // check to see if new spot is a new location; if so, create a new fish:
+      if (newbie.x > (locations[i].x + distDiff) || newbie.x < (locations[i].x - distDiff) ||
+        newbie.y  > (locations[i].y + distDiff)  || newbie.y  < (locations[i].y - distDiff) ) {
+        fish = new Cloud(int(newbie.x), int(newbie.y));  // <--- not sure about this
+        locations = (PVector[])append(locations, (new PVector(int(newbie.x), int(newbie.y))));
+        herd.add(fish);
+        println("new fish added");
+      }// possible is new locations 
+      else {
+        float timeStamp = millis();
+        // then store in an array that is same size as locations
+        // then else where, we can use this to see if we've been at a spot for a long
+        // enough time to create a portal
+      }
+    } // for current locations
+  }// if
 }
