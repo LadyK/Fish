@@ -1,5 +1,5 @@
 class Shape extends BasicShapeElement {
-  int numPoints = 10;
+  int numPoints = 5; //10
   //float r = 25; //width of shape  future= relation to body re: w + h
   //int stepSize = 1;
   ////float distortionFactor = 1;
@@ -9,17 +9,16 @@ class Shape extends BasicShapeElement {
   //int rd, gn, blu;
   ////float centerX = width/2;
   ////float centerY = height/2;
-  //float opacity = 0; // 100
-  //float op_start = 50; // orignation of opacity
   //float opChanger;  ///slow down death
 
 
   float yrsOld;
-
+  int opacity;
 
 
   Shape(int x_, int y_, int p_, int r) {
     super(x_, y_, p_, r);  // <--- can't pass variables
+    //super();
     //smooth();
     //centerX = x_;
     //centerY = y_;
@@ -29,7 +28,7 @@ class Shape extends BasicShapeElement {
     //  y[i] = sin(angle*i) * r;
     //}
     //birth = millis();  // get a birthday
-    opacity = op_start ;
+    opacity = 50;
     yrsOld = 0;
     rd = 0;
     gn = int(random(128, 255));
@@ -37,7 +36,8 @@ class Shape extends BasicShapeElement {
   }
 
   void display() {
-    super.display(true, rd, gn, blu, 50);
+    //super.display(true, rd, gn, blu, opacity); //50
+    super.display();
     //opacity = op_;
 
 
@@ -62,9 +62,9 @@ class Shape extends BasicShapeElement {
     //endShape();
 
     // depending on how old we are, mess with how quickly/slowly we age:
-    if (yrsOld >=  10 && yrsOld < 80) {   //10 + 40
+    if (yrsOld >=  10 && yrsOld < 40) {   //10 + 40
       float randy = random(0, 1);
-      if (randy < 0.2) {   // 30% of the time,   .7
+      if (randy < 0.2) {   // 20% of the time,   .7
         // age much more 
         yrsOld = yrsOld + 2;
       } else {  // 70% of time:
@@ -73,7 +73,7 @@ class Shape extends BasicShapeElement {
         // println("slow down aging");
       }
     }
-    if (yrsOld >= 80) {
+    if (yrsOld >= 40) {
       float randy = random(0, 1);
       if (randy > 0.3) {
         yrsOld = yrsOld + 1;
@@ -140,19 +140,21 @@ class Shape extends BasicShapeElement {
 
   //  vary opacity as a result of age:
   void changeOp() {
-    if (yrsOld < 30) {
+    if (yrsOld < 20) {
       opacity--;
-    } else if ((yrsOld >= 30) && (yrsOld < 80)) {  // 30, 60
-      opacity = opacity - 0.5;
-    } else if (yrsOld >= 80 && yrsOld < 190 ) {  //<--- 60 - 80
-      opacity = opacity - 0.05;
+    } else if ((yrsOld >= 20) && (yrsOld < 50)) {  // 30, 60
+      float rand8 = random(0, 1);
+      if(rand8 >= .5)opacity-=2;
+    } else if (yrsOld >= 50 && yrsOld < 90 ) {  //<--- 60 - 80
+      float rand8 = random(0, 1);
+      if(rand8 > .95) opacity+=2;
     }
     /* } else if (yrsOld > 60 ) {
      opacity = opacity - 0.025;
      }
      */
     // /*
-    else if (yrsOld > 190 ) {  //was 80
+    else if (yrsOld > 90 ) {  //was 80
       float rand3 = random(0, 1);
       if ( rand3 > .6) {
         opacity = opacity + 1 ; //2

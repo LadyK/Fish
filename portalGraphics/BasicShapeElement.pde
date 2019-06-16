@@ -7,20 +7,27 @@ class BasicShapeElement {
   float [] x; // = new float[numPoints];
   float [] y; // = new float[numPoints];
   int rd, gn, blu;
-  float opacity; //= 0; // 100
-  float op_start;// = 50; // orignation of opacity
-  float opChanger;  ///slow down death
+  int opacity; //= 0; // 100
+  int op_start;// = 50; // orignation of opacity
+  int opChanger;  ///slow down death
   float angle;
+  float birthTime;
+  boolean dead, line;
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
+    dead = false;
     numPoints = pts;
     x = new float[numPoints];
     y = new float[numPoints];
-    opacity = 0;
+    opacity = 150;
     op_start= 50;
-    stepSize = 1;
+    stepSize = 1; // crazy at 5 very jiggly
     r = radius;
+    line = true;
     smooth();
+    rd = 0;
+    gn = int(random(128, 255));
+    blu = int(random(0, 192));
     centerX = x_;
     centerY = y_;
     angle = radians(360/float(numPoints));
@@ -31,55 +38,140 @@ class BasicShapeElement {
     }
   } // constructor
 
-  void display(boolean line, int rd, int gn, int blu, int op) {
-    if (line == true) {
-      stroke(0, op);
-      strokeWeight(0.75);
+  boolean update() {
+    int op = ageOpacity(); // fade data
+    //print("op is: "); println(op);
+    if (op < 1) {
+      dead = true;
+    } else {
+      dead = false;
+      featureShifter();  // move/squigle <-- do we want these to change location to?
+      //display(true, rd, gn, blu, op); //<-- use variables
     }
-    fill(rd, gn, blu, op); // opacity was manually set at 25 -> ?
-    beginShape();
-    //start controlpoint from the last point in the array
-    curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
-
-    //only these points are drawn
-    for (int i = 0; i < numPoints; i++) {
-      curveVertex(x[i]+centerX, y[i]+centerY);
-    }
-    //
-    curveVertex(x[0]+centerX, y[0]+centerY);
-    //end control point
-
-    curveVertex(x[1]+centerX, y[1]+centerY);
-    endShape();
-  } // display
-
-  void move() {
-    if (mouseX != 0 || mouseY != 0) {
-      centerX += (mouseX-centerX) * 0.01;
-      centerY += (mouseY-centerY) * 0.01;
-    }
+    return dead;
   }
 
-  void newLoc(int cX, int cY) {
-    centerX = cX;
-    centerY = cY;
-    float angle = radians(360/float(numPoints));
-    float radius = r * random(0.5, 1.0);
-    for (int i = 0; i < numPoints; i++) {
-      x[i] = cos(angle * i) * radius;
-      y[i] = sin(angle * i) * radius;
-    }
-  } //newLoc
+  int ageOpacity() {
+    birthTime++;   //age by one
+    // centerX--; 
+    // centerY--;   //shrink a bit <--- does this work?
+    shrink();
+    //shrinkExpand();
 
-  void featureShifter() {
-    // location of points, shift slightly for motion:
-    float rand2 = random(0, 1);
-    if (rand2 > .95) {
-      // new points for the shapes
+    if (birthTime < 50) {
+      opacity--;
+    } else if ((birthTime >= 50) && (birthTime < 70)) {  // 30, 60
+      float rand8 = random(0, 1);
+      if (rand8 >= .5)opacity-=2;
+    } else if (birthTime >= 70 && birthTime < 130 ) {  //<--- 60 - 80
+      float rand8 = random(0, 1);
+      if (rand8 > .75) opacity+=2;
+    }
+    /* } else if (yrsOld > 60 ) {
+     opacity = opacity - 0.025;
+     }
+     */
+    // /*
+    else if (birthTime > 130 ) {  //was 80
+      float rand3 = random(0, 1);
+      if ( rand3 > .6) {
+        opacity = opacity + 1 ; //2
+      } else {
+        opacity = opacity - 2;  //-3
+        // println("still here");
+        // println();
+      }
+      // */
+      /*
+     else if ( yrsOld > 80) {
+       opacity = opacity - .05;
+       }
+       */
+    }
+    if (opacity < 3) { 
+      opacity = 0;
+    }  // it's pretty much gone, but had to set a limit
+    return opacity;
+  }
+
+  
+    void expand() {  // if the mouse is close expand
+      
+      if (r < 150) { // as long as we have a radius
+        //if (rand < 0.1) {  // and once in a (fast) while:
+          r= r + 1; // expand a bit
+        //}
+      }
+      // update locations:
       for (int i = 0; i < numPoints; i++) {
-        x[i] += random(-stepSize, stepSize);
-        y[i] += random(-stepSize, stepSize);
+        x[i] = cos(angle*i) * r;
+        y[i] = sin(angle*i) * r;
       }
     }
-  }// feature shifter
-}
+
+    void shrink() {
+      float rand = random(0, 1);
+      if (r > 0) { // as long as we have a radius
+        if (rand < 0.1) {  // and once in a (fast) while:
+          r= r - .5; // shrink a bit
+        }
+      }
+      // update locations:
+      for (int i = 0; i < numPoints; i++) {
+        x[i] = cos(angle*i) * r;
+        y[i] = sin(angle*i) * r;
+      }
+    }
+
+    void display() {
+      if (line == true) {
+        stroke(0, opacity);
+        strokeWeight(0.25);
+      }
+      fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
+      beginShape();
+      //start controlpoint from the last point in the array
+      curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
+
+      //only these points are drawn
+      for (int i = 0; i < numPoints; i++) {
+        curveVertex(x[i]+centerX, y[i]+centerY);
+      }
+      //
+      curveVertex(x[0]+centerX, y[0]+centerY);
+      //end control point
+
+      curveVertex(x[1]+centerX, y[1]+centerY);
+      endShape();
+    } // display
+
+    //void move() {
+    //  if (mouseX != 0 || mouseY != 0) {
+    //    centerX += (mouseX-centerX) * 0.01;
+    //    centerY += (mouseY-centerY) * 0.01;
+    //  }
+    //}
+
+    void newLoc(int cX, int cY) {
+      centerX = cX;
+      centerY = cY;
+      float angle = radians(360/float(numPoints));
+      float radius = r * random(0.5, 1.0);
+      for (int i = 0; i < numPoints; i++) {
+        x[i] = cos(angle * i) * radius;
+        y[i] = sin(angle * i) * radius;
+      }
+    } //newLoc
+
+    void featureShifter() {
+      // location of points, shift slightly for motion:
+      float rand2 = random(0, 1);
+      if (rand2 > .98) { // fun to play with this value w/changing stepSize<-- 
+        // new points for the shapes
+        for (int i = 0; i < numPoints; i++) {
+          x[i] += random(-stepSize, stepSize);
+          y[i] += random(-stepSize, stepSize);
+        }
+      }
+    }// feature shifter
+  }

@@ -18,7 +18,8 @@ class Portal extends BasicShapeElement {
   }
 
   void display() {
-    super.display(false, rd, gn, blu, 200); // last is opacity
+    //super.display(false, rd, gn, blu, 200); // last is opacity
+    super.display();
     //featureShifter();
   }
 
@@ -42,6 +43,7 @@ class Portal extends BasicShapeElement {
     // } // if
   } // grow
 
+/*
   boolean shrink() {
     boolean tooSmall = false;
     for (int i = 0; i < numPoints; i++) {
@@ -56,6 +58,7 @@ class Portal extends BasicShapeElement {
     }
     return tooSmall;
   }
+  */
 
   void featureShifter() {
     super.featureShifter();
