@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>//
 import netP5.*;
 
 //OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
@@ -14,7 +14,7 @@ String messageselector;
 Integer[] screenLoc = {0, 0};
 ArrayList <PVector> locations;
 
-Cloud fish; //<>// //<>// //<>// //<>// //<>//
+Cloud fish; //<>// //<>// //<>// //<>//
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 
 ArrayList <BasicShapeElement> demos;
@@ -173,55 +173,56 @@ void draw() {
     println(demos.size());
 
     for (int i= demos.size()-1; i >= 0; i--) {
-      BasicShapeElement shape = demos.get(i); // <--- hmmm
+      BasicShapeElement shape = demos.get(i); 
       //shape.display(true, 30, 100, 200, 100); 
-      expandShrink();
+      //expandShrink();
       shape.display();
+      //shape.shrink();
       boolean dead = shape.update();
       //print("are we dead?  ");
       //println(dead);
-      if(dead) {   
+      if (dead) {   
         demos.remove(i);  // if we remove one, breaks out of loop and stops
         println("removed one");  // displaying rest, until loop is restored
       } else continue;  // continue keeps the for-loop running
-
     }
     //println("no values");
     if (locations.size() > 100) {
-      locations_indice = 0;
+      //int l_size = locations.size();
+      for (PVector locs : locations) {
+       // locations.remove(locs); // also need to do for demos?
+      }
     }
   }
 } // draw loop
 
-void expandShrink(){
+
+
+/* this isn't working correct
+ desired: when close: shape expands
+ when far: shape shrinks  */
+void expandShrink() {
   /* all kinds of weird action happening here. fun. but not what I'm after
    for(BasicShapeElement shapie: demos){
    if (shapie.centerX > (mouseX + distDiff) || shapie.centerX < (mouseX - distDiff) ||
-      shapie.centerY  > (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
-       // shapie.expand();
-      } // if we are close
-      else {
-        shapie.shrink();
-      }
+   shapie.centerY  > (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
+   // shapie.expand();
+   } // if we are close
+   else {
+   shapie.shrink();
+   }
    }
    */
-   
-   /* this isn't working correct
-   desired: when close: shape expands
-            when far: shape shrinks
-   
-   */
-   for(BasicShapeElement shapie: demos){
-     if (shapie.centerX < (mouseX + distDiff) || shapie.centerX < (mouseX - distDiff) ||
-      shapie.centerY  < (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
-        shapie.shrink();
-      } // if we are close
-      else {
-        shapie.expand();
-      }
-   }
-     
-  
+
+
+  for (BasicShapeElement shapie : demos) {
+    float d = dist(shapie.centerX, mouseX, shapie.centerY, mouseY);
+    if (d < shapie.r) {
+      shapie.expand();
+    } else {
+      shapie.shrink();
+    }
+  }
 }
 
 
@@ -250,9 +251,10 @@ void mousePressed() {
 
 void mouseMoved() {
   // create testers here:
-  BasicShapeElement tester = new BasicShapeElement(mouseX, mouseY, 5, 25);
-  //append(demos, tester);
-  demos.add(0, tester);
+  //BasicShapeElement tester = new BasicShapeElement(mouseX, mouseY, 5, 25);
+  PVector tester = new PVector(mouseX, mouseY);
+  newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  //demos.add(0, tester); // add to the beginning
   //tester = demos[0];
 }
 
@@ -288,8 +290,8 @@ void oscEvent(OscMessage theOscMessage) {
   // splice theOscMessage.addrPattern()
   //areWeRunning = true;
   String [] newLocations = splitTokens(theOscMessage.addrPattern());
-  for (int i =0; i < newLocations.length; i ++) {
-    screenLoc[i] = int(newLocations[i]);
+  for (int j =0; j < newLocations.length; j ++) {
+    screenLoc[j] = int(newLocations[j]);
   }
   print(screenLoc[0]); 
   print(", ");
@@ -298,40 +300,39 @@ void oscEvent(OscMessage theOscMessage) {
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
   PVector newLoc = new PVector(tempX, tempY);
-  /*
-  if (locations_indice == 0) {
-    fish = new Cloud(tempX, tempY);  // <--- not sure about this
-    // keeping track of locations:
-    //locations = (PVector[])append(locations, (new PVector(tempX, tempY)));
-    //locations[0] = new PVector(tempX, tempY);
-    herd.add(fish);
-    //println("new fish added");
-    //firstLoc = false;
-  } else {
-    locations_indice++;
-    newSpot(newLoc);
-  }
-  */
+  newSpot(newLoc);
 }
 
 void newSpot(PVector newbie) {
-  for (PVector i : locations) {
-    // check to see if new spot is a new location; if so, create a new fish:
-    if (newbie.x > (i.x + distDiff) || newbie.x < (i.x - distDiff) ||
-      newbie.y  > (i.y + distDiff)  || newbie.y  < (i.y - distDiff) ) {
-      //println("make new cloud");
-      fish = new Cloud(int(newbie.x), int(newbie.y));  // <--- not sure about this
-      //locations = (PVector[])append(locations, (new PVector(int(newbie.x), int(newbie.y))));
-      // locations[locations_indice] = new PVector(int(newbie.x), int(newbie.y));
-      herd.add(fish);
-      //println("new fish added");
-    }// possible is new locations 
-    else {
-      float timeStamp = millis();
-      //println("not a new position");
-      // then store in an array that is same size as locations
-      // then else where, we can use this to see if we've been at a spot for a long
-      // enough time to create a portal
-    }
-  } // for current locations
+  // if newbie is first one:
+  if (locations.size() <= 0) {
+    BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25);
+    demos.add(tester);
+    locations.add(newbie);
+  } else {
+    // if not first one, then check to see if it's similar to another one:
+    for (PVector i : locations) {
+      // check to see if new spot is a new location; if so, create a new fish:
+      if (newbie.x > (i.x + distDiff) || newbie.x < (i.x - distDiff) ||
+        newbie.y  > (i.y + distDiff)  || newbie.y  < (i.y - distDiff) ) {
+        //println("make new cloud");
+        // fish = new Cloud(int(newbie.x), int(newbie.y));  // <--- not sure about this
+        BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
+        //(PVector[])append(demos, tester); //add shape to collection
+        demos.add(tester);
+        //would it be faster to work with a fixed array size?
+        //(PVector[])append(locations, (new PVector(int(newbie.x), int(newbie.y))));
+        locations.add(newbie);
+        //println("new fish added");
+      }// possible is new locations 
+      /*else {
+       float timeStamp = millis();
+       //println("not a new position");
+       // then store in an array that is same size as locations
+       // then else where, we can use this to see if we've been at a spot for a long
+       // enough time to create a portal
+       }*/
+      //locations_indice++;
+    }// for current locations
+  } //else
 }
