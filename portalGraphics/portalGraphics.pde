@@ -1,6 +1,7 @@
-import oscP5.*; //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>//
 import netP5.*;
-
+int checker = 0;
+int loopChecker = 0;
 //OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
 NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
 //String messageselector;
@@ -12,12 +13,16 @@ OscP5 whereimlistening;
 String messageselector;
 
 Integer[] screenLoc = {0, 0};
-ArrayList <PVector> locations;
+//ArrayList <PVector> locations;
+PVector[] locations;
+
 
 Cloud fish; //<>// //<>// //<>// //<>//
-ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
+//ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
+Cloud[] herd;
 
-ArrayList <BasicShapeElement> demos;
+//ArrayList <BasicShapeElement> demos;
+BasicShapeElement[] demos;
 
 boolean trigger;
 //int lastRecMouseX = 0;
@@ -27,7 +32,7 @@ int distDiff= 10; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
 //Portal entry;
-ArrayList<Portal> entry;
+//ArrayList<Portal> entry;
 long portBirth;
 PVector lastLoc, currentLoc;
 boolean newSpot = false;
@@ -43,14 +48,18 @@ void setup() {
   //background(0);
 
   trigger = false;
-  herd = new ArrayList<Cloud>(); // <--- hmm
+  //herd = new ArrayList<Cloud>(); // <--- hmm
+  //herd = new Array[2000];
+  PVector[] locations = new PVector[2000];
+  BasicShapeElement[] demo = new BasicShapeElement[2000];
   portalTrig = false;
-  entry = new ArrayList<Portal>();
+  //entry = new ArrayList<Portal>();
 
-  demos = new ArrayList <BasicShapeElement>(); 
-  locations = new ArrayList<PVector>();
+  //demos = new ArrayList <BasicShapeElement>(); 
+  //locations = new ArrayList<PVector>();
   /*
-  clouds = new ArrayList<Cloud>();
+  Cloud[] herd = new Cloud[2000];
+  //clouds = new ArrayList<Cloud>();
    
    for (int i = 0; i < 10; i++) {  // loop through the array
    //shapes[i] = new Shape();      // make a new object at each indice
@@ -72,6 +81,9 @@ void setup() {
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
+  
+  PVector tester = new PVector(mouseX, mouseY);
+  newSpot(tester);
 }
 
 void draw() {
@@ -169,30 +181,38 @@ void draw() {
   //************************ refactor is below:
 
   // run the demos if we have any:
-  if (demos.size() > 0) {
-    println(demos.size());
-
-    for (int i= demos.size()-1; i >= 0; i--) {
-      BasicShapeElement shape = demos.get(i); 
+  if (demos.length > 0) {
+  
+    loopChecker++;
+    print("loopChecker: ");
+    println(loopChecker);
+    
+    print("Demos is: ");
+    println(demos.length-1);
+    for (int i= demos.length-1; i >= 0; i--) {
+      
+      BasicShapeElement shape = demos[i]; 
       //shape.display(true, 30, 100, 200, 100); 
       //expandShrink();
-      shape.display();
+      shape.display(); //<>//
       //shape.shrink();
       boolean dead = shape.update();
       //print("are we dead?  ");
       //println(dead);
-      if (dead) {   
+      if (dead) {   // **** here with refactoring code with arrays //<>//
         demos.remove(i);  // if we remove one, breaks out of loop and stops
+        locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
       } else continue;  // continue keeps the for-loop running
     }
+    /*
     //println("no values");
     if (locations.size() > 100) {
       //int l_size = locations.size();
       for (PVector locs : locations) {
        // locations.remove(locs); // also need to do for demos?
       }
-    }
+    } */
   }
 } // draw loop
 
@@ -247,15 +267,18 @@ void mousePressed() {
   //BasicShapeElement tester = new BasicShapeElement(mouseX, mouseY, 5, 25);
   //append(demos, tester);
   //demos.add(0, tester);
+  PVector tester = new PVector(mouseX, mouseY);
+  newSpot(tester);   //send location to be checked. then made a new one elsewhere
 }
 
 void mouseMoved() {
   // create testers here:
   //BasicShapeElement tester = new BasicShapeElement(mouseX, mouseY, 5, 25);
-  PVector tester = new PVector(mouseX, mouseY);
-  newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  //PVector tester = new PVector(mouseX, mouseY);
+  //newSpot(tester);   //send location to be checked. then made a new one elsewhere
   //demos.add(0, tester); // add to the beginning
   //tester = demos[0];
+ 
 }
 
 /*
@@ -306,24 +329,33 @@ void oscEvent(OscMessage theOscMessage) {
 void newSpot(PVector newbie) {
   // if newbie is first one:
   if (locations.size() <= 0) {
+     
     BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25);
     demos.add(tester);
     locations.add(newbie);
   } else {
+    
     // if not first one, then check to see if it's similar to another one:
-    for (PVector i : locations) {
+    //for (PVector i : locations) {
+       
+        print(locations.size()-1);
+        println("   is how many locations we have");
+        
+      for(int i = locations.size()-1; i >=0; i--){
+        PVector locLookUp = locations.get(i); //<>//
       // check to see if new spot is a new location; if so, create a new fish:
-      if (newbie.x > (i.x + distDiff) || newbie.x < (i.x - distDiff) ||
-        newbie.y  > (i.y + distDiff)  || newbie.y  < (i.y - distDiff) ) {
+      if (newbie.x > (locLookUp.x + distDiff) || newbie.x < (locLookUp.x - distDiff) || //<>//
+        newbie.y  > (locLookUp.y + distDiff)  || newbie.y  < (locLookUp.y - distDiff) ) {
         //println("make new cloud");
         // fish = new Cloud(int(newbie.x), int(newbie.y));  // <--- not sure about this
-        BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
+        BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25);  //<>//
         //(PVector[])append(demos, tester); //add shape to collection
-        demos.add(tester);
+        demos.add(tester); //<>//
         //would it be faster to work with a fixed array size?
         //(PVector[])append(locations, (new PVector(int(newbie.x), int(newbie.y))));
-        locations.add(newbie);
+        locations.add(newbie); //<>//
         //println("new fish added");
+       
       }// possible is new locations 
       /*else {
        float timeStamp = millis();
@@ -335,4 +367,5 @@ void newSpot(PVector newbie) {
       //locations_indice++;
     }// for current locations
   } //else
+  println("new spot added");
 }
