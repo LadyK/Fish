@@ -13,6 +13,8 @@ class BasicShapeElement {
   float angle;
   float birthTime;
   boolean dead, line;
+  PVector middle;
+  
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
     dead = false;
@@ -48,6 +50,7 @@ class BasicShapeElement {
       featureShifter();  // move/squigle <-- do we want these to change location to?
       //display(true, rd, gn, blu, op); //<-- use variables
     }
+    middle = centerLoc();
     return dead;
   }
 
@@ -94,84 +97,92 @@ class BasicShapeElement {
     return opacity;
   }
 
-  
-    void expand() {  // if the mouse is close expand
-      
-      if (r < 150) { // as long as we have a radius
-        //if (rand < 0.1) {  // and once in a (fast) while:
-          r= r + 1; // expand a bit
-        //}
-      }
-      // update locations:
-      for (int i = 0; i < numPoints; i++) {
-        x[i] = cos(angle*i) * r;
-        y[i] = sin(angle*i) * r;
-      }
+
+  void expand() {  // if the mouse is close expand
+
+   // if (r < 150) { // as long as we have a radius
+      //if (rand < 0.1) {  // and once in a (fast) while:
+      //r= r + 1; // expand a bit
+      //}
+   // }
+
+    // update locations:
+    for (int i = 0; i < numPoints; i++) {
+      x[i] = cos(angle*i) * 0.05;
+      y[i] = sin(angle*i) * 0.05;
     }
-
-    void shrink() {
-      float rand = random(0, 1);
-      if (r > 0) { // as long as we have a radius
-        if (rand < 0.1) {  // and once in a (fast) while:
-          r= r - .5; // shrink a bit
-        }
-      }
-      // update locations:
-      for (int i = 0; i < numPoints; i++) {
-        x[i] = cos(angle*i) * r;
-        y[i] = sin(angle*i) * r;
-      }
-    }
-
-    void display() {
-      if (line == true) {
-        stroke(0, opacity);
-        strokeWeight(0.25);
-      }
-      fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
-      beginShape();
-      //start controlpoint from the last point in the array
-      curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
-
-      //only these points are drawn
-      for (int i = 0; i < numPoints; i++) {
-        curveVertex(x[i]+centerX, y[i]+centerY);
-      }
-      //
-      curveVertex(x[0]+centerX, y[0]+centerY);
-      //end control point
-
-      curveVertex(x[1]+centerX, y[1]+centerY);
-      endShape();
-    } // display
-
-    //void move() {
-    //  if (mouseX != 0 || mouseY != 0) {
-    //    centerX += (mouseX-centerX) * 0.01;
-    //    centerY += (mouseY-centerY) * 0.01;
-    //  }
-    //}
-
-    void newLoc(int cX, int cY) {
-      centerX = cX;
-      centerY = cY;
-      float angle = radians(360/float(numPoints));
-      float radius = r * random(0.5, 1.0);
-      for (int i = 0; i < numPoints; i++) {
-        x[i] = cos(angle * i) * radius;
-        y[i] = sin(angle * i) * radius;
-      }
-    } //newLoc
-
-    void featureShifter() {
-      // location of points, shift slightly for motion:
-      float rand2 = random(0, 1);
-      if (rand2 > .98) { // fun to play with this value w/changing stepSize<-- 
-        // new points for the shapes
-        for (int i = 0; i < numPoints; i++) {
-          x[i] += random(-stepSize, stepSize);
-          y[i] += random(-stepSize, stepSize);
-        }
-      }
-    }// feature shifter
   }
+
+  void shrink() {
+    float rand = random(0, 1);
+    if (r > 0) { // as long as we have a radius
+      if (rand < 0.3) {  // and once in a while:
+        r= r - random(0,.8); // shrink a bit
+        // update locations:
+        for (int i = 0; i < numPoints; i++) {
+          x[i] = cos(angle*i) * r;
+          y[i] = sin(angle*i) * r;
+        }
+      }
+    }
+  }
+
+  void display() {
+    if (line == true) {
+      stroke(0, opacity);
+      strokeWeight(0.25);
+    }
+    fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
+    beginShape();
+    //start controlpoint from the last point in the array
+    curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
+
+    //only these points are drawn
+    for (int i = 0; i < numPoints; i++) {
+      curveVertex(x[i]+centerX, y[i]+centerY);
+    }
+    //
+    curveVertex(x[0]+centerX, y[0]+centerY);
+    //end control point
+
+    curveVertex(x[1]+centerX, y[1]+centerY);
+    endShape();
+  } // display
+
+  //void move() {
+  //  if (mouseX != 0 || mouseY != 0) {
+  //    centerX += (mouseX-centerX) * 0.01;
+  //    centerY += (mouseY-centerY) * 0.01;
+  //  }
+  //}
+  
+  PVector centerLoc(){   // this logic is whack
+    int xC = int(abs(x[3] - x[0]));
+    int yC = int(abs(y[3] - y[0]));
+    return new PVector(xC, yC);
+    
+  }
+
+  void newLoc(int cX, int cY) {
+    centerX = cX;
+    centerY = cY;
+    float angle = radians(360/float(numPoints));
+    float radius = r * random(0.5, 1.0);
+    for (int i = 0; i < numPoints; i++) {
+      x[i] = cos(angle * i) * radius;
+      y[i] = sin(angle * i) * radius;
+    }
+  } //newLoc
+
+  void featureShifter() {
+    // location of points, shift slightly for motion:
+    float rand2 = random(0, 1);
+    if (rand2 > .8) { // fun to play with this value w/changing stepSize<-- 
+      // new points for the shapes
+      for (int i = 0; i < numPoints; i++) {
+        x[i] += random(-stepSize, stepSize);
+        y[i] += random(-stepSize, stepSize);
+      }
+    }
+  }// feature shifter
+}

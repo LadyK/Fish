@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 int checker = 0;
 int loopChecker = 0;
@@ -17,7 +17,7 @@ ArrayList <PVector> locations;
 //PVector[] locations;
 
 
-Cloud fish; //<>// //<>// //<>//
+Cloud fish; //<>// //<>//
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 //Cloud[] herd;
 
@@ -89,22 +89,22 @@ void draw() {
   background(0);
 
   /* // ************* old code (before refactor)
-
+   
    // randomly kill off a few _shapes_ from within the cloud herd
    if (frameCount % 8 == 0) {
    for (int i = 5; i < 0; i--) {
    int rando = floor(random(0, herd.size()-1));
    Cloud temp = herd.get(rando);
    temp.plague(); 
-  //float whichOne = abs(random(1, herd.size()));
-  // herd.remove(whichOne); 
-  */
-     
+   //float whichOne = abs(random(1, herd.size()));
+   // herd.remove(whichOne); 
+   */
+
   // run the demos if we have any:
   if (demos.size() > 0) {
-    loopChecker++;
-    print("loopChecker: ");
-    println(loopChecker);
+    //loopChecker++;
+    // print("loopChecker: ");
+    // println(loopChecker);
     print("Demos is: ");
     println(demos.size()-1);
     for (int i= demos.size()-1; i >= 0; i--) {
@@ -117,7 +117,28 @@ void draw() {
         demos.remove(i);  // if we remove one, breaks out of loop and stops
         locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
-      } else continue;  // continue keeps the for-loop running
+      } else {//continue;  // continue keeps the for-loop running
+        //print("middle point is:  "); println(shape.middle);
+        //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
+        if(locations[i] == mouseLoc + 10/-10){
+          
+        }
+        
+        /*
+        PVector middle = shape.centerLoc();  // <-- not sure if this is right
+        PVector m = new PVector(mouseX, mouseY);
+        PVector difference = PVector.sub(m, middle);
+        float d = difference.mag();
+        //print("distance is:   "); println(d);
+        //print("shape diameter is:  "); println(shape.r * 2);
+        
+        if (d < (shape.r * 2)) {  // <-- logic here is off
+          
+          shape.expand();
+          println("expand");
+        }
+        */
+      }
     }
   }
 } // draw loop
@@ -146,7 +167,7 @@ void expandShrink() {
     if (d < shapie.r) {
       shapie.expand();
     } else {
-      shapie.shrink();
+      // shapie.shrink();
     }
   }
 }
@@ -169,7 +190,6 @@ void triggerPortal() {
 }
 
 void mousePressed() {
-
 }
 
 void mouseMoved() {
