@@ -13,7 +13,7 @@ OscP5 whereimlistening;
 String messageselector;
 
 Integer[] screenLoc = {0, 0};
-ArrayList <PVector> locations;
+//ArrayList <PVector> locations;
 //PVector[] locations;
 
 
@@ -40,7 +40,7 @@ boolean maturePort = false;
 boolean shrinking = false;
 boolean firstLoc = true;
 //int portalPoints = 18;
-int locations_indice = 0;
+//int locations_indice = 0;
 
 void setup() {
   //size(displayWidth, displayHeight); 
@@ -51,7 +51,7 @@ void setup() {
   herd = new ArrayList<Cloud>(1000); // <--- hmm
   //herd = new Array[2000];
   //PVector[] locations = new PVector[2000];
-  locations = new ArrayList<PVector>(1000);
+ // locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
@@ -115,14 +115,14 @@ void draw() {
       boolean dead = shape.update();
       if (dead) {   // **** here with refactoring code with arrays
         demos.remove(i);  // if we remove one, breaks out of loop and stops
-        locations.remove(i);
+        //locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
-      } else {//continue;  // continue keeps the for-loop running
+      } else {  continue;  // continue keeps the for-loop running
         //print("middle point is:  "); println(shape.middle);
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
-        if(locations[i] == mouseLoc + 10/-10){
+        //if(locations[i] == mouseLoc + 10/-10){ <<-------
           
-        }
+        
         
         /*
         PVector middle = shape.centerLoc();  // <-- not sure if this is right
@@ -136,6 +136,7 @@ void draw() {
           
           shape.expand();
           println("expand");
+        }
         }
         */
       }
@@ -222,10 +223,10 @@ void oscEvent(OscMessage theOscMessage) {
 }
 
 void newSpot(PVector newbie) {
-  print(locations.size()-1);
-  println("   is how many locations we have");
+  //print(locations.size()-1);
+  //println("   is how many locations we have");
   BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
   demos.add(0, tester);
-  locations.add(newbie);
+  //locations.add(newbie);
   println("new spot added");
 }

@@ -4,8 +4,9 @@ class BasicShapeElement {
   int stepSize; // = 1;
   //float distortionFactor = 1;
   float centerX, centerY;
-  float [] x; // = new float[numPoints];
-  float [] y; // = new float[numPoints];
+  //float [] x; // = new float[numPoints];
+  //float [] y; // = new float[numPoints];
+  PVector [] coordinates;
   int rd, gn, blu;
   int opacity; //= 0; // 100
   int op_start;// = 50; // orignation of opacity
@@ -14,13 +15,14 @@ class BasicShapeElement {
   float birthTime;
   boolean dead, line;
   PVector middle;
-  
+
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
     dead = false;
     numPoints = pts;
-    x = new float[numPoints];
-    y = new float[numPoints];
+    // x = new float[numPoints];
+    //y = new float[numPoints];
+    coordinates = new PVector[numPoints];
     opacity = 150;
     op_start= 50;
     stepSize = 1; // crazy at 5 very jiggly
@@ -35,8 +37,7 @@ class BasicShapeElement {
     angle = radians(360/float(numPoints));
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
-      x[i] = cos(angle*i) * r;
-      y[i] = sin(angle*i) * r;
+      coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
     }
   } // constructor
 
@@ -50,7 +51,7 @@ class BasicShapeElement {
       featureShifter();  // move/squigle <-- do we want these to change location to?
       //display(true, rd, gn, blu, op); //<-- use variables
     }
-    middle = centerLoc();
+    // middle = centerLoc();
     return dead;
   }
 
@@ -100,16 +101,17 @@ class BasicShapeElement {
 
   void expand() {  // if the mouse is close expand
 
-   // if (r < 150) { // as long as we have a radius
-      //if (rand < 0.1) {  // and once in a (fast) while:
-      //r= r + 1; // expand a bit
-      //}
-   // }
+    // if (r < 150) { // as long as we have a radius
+    //if (rand < 0.1) {  // and once in a (fast) while:
+    //r= r + 1; // expand a bit
+    //}
+    // }
 
     // update locations:
     for (int i = 0; i < numPoints; i++) {
-      x[i] = cos(angle*i) * 0.05;
-      y[i] = sin(angle*i) * 0.05;
+      PVector coor = coordinates[i];
+      coor.x = cos(angle*i) * 0.05;
+      coor.y = sin(angle*i) * 0.05;
     }
   }
 
@@ -117,11 +119,12 @@ class BasicShapeElement {
     float rand = random(0, 1);
     if (r > 0) { // as long as we have a radius
       if (rand < 0.3) {  // and once in a while:
-        r= r - random(0,.8); // shrink a bit
+        r= r - random(0, .8); // shrink a bit
         // update locations:
         for (int i = 0; i < numPoints; i++) {
-          x[i] = cos(angle*i) * r;
-          y[i] = sin(angle*i) * r;
+          PVector coor = coordinates[i];
+          coor.x = cos(angle*i) * r;
+          coor.y = sin(angle*i) * r;
         }
       }
     }
@@ -135,17 +138,17 @@ class BasicShapeElement {
     fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
     beginShape();
     //start controlpoint from the last point in the array
-    curveVertex(x[numPoints-1]+centerX, y[numPoints-1]+centerY);
+    curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
 
     //only these points are drawn
     for (int i = 0; i < numPoints; i++) {
-      curveVertex(x[i]+centerX, y[i]+centerY);
+      curveVertex(coordinates[i].x+centerX, coordinates[i].y+centerY);
     }
     //
-    curveVertex(x[0]+centerX, y[0]+centerY);
+    curveVertex(coordinates[0].x +centerX, coordinates[0].y+centerY);
     //end control point
 
-    curveVertex(x[1]+centerX, y[1]+centerY);
+    curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
     endShape();
   } // display
 
@@ -155,13 +158,13 @@ class BasicShapeElement {
   //    centerY += (mouseY-centerY) * 0.01;
   //  }
   //}
-  
-  PVector centerLoc(){   // this logic is whack
-    int xC = int(abs(x[3] - x[0]));
-    int yC = int(abs(y[3] - y[0]));
-    return new PVector(xC, yC);
-    
-  }
+  /*
+  PVector centerLoc() {   // this logic is whack
+   // int xC = int(abs(x[3] - x[0]));
+   // int yC = int(abs(y[3] - y[0]));
+   // return new PVector(xC, yC);
+   }
+   */
 
   void newLoc(int cX, int cY) {
     centerX = cX;
@@ -169,8 +172,9 @@ class BasicShapeElement {
     float angle = radians(360/float(numPoints));
     float radius = r * random(0.5, 1.0);
     for (int i = 0; i < numPoints; i++) {
-      x[i] = cos(angle * i) * radius;
-      y[i] = sin(angle * i) * radius;
+      PVector coor = coordinates[i];
+      coor.x = cos(angle*i) * radius;
+      coor.y = sin(angle*i) * radius;
     }
   } //newLoc
 
@@ -180,8 +184,9 @@ class BasicShapeElement {
     if (rand2 > .8) { // fun to play with this value w/changing stepSize<-- 
       // new points for the shapes
       for (int i = 0; i < numPoints; i++) {
-        x[i] += random(-stepSize, stepSize);
-        y[i] += random(-stepSize, stepSize);
+        PVector coor = coordinates[i];
+        coor.x += random(-stepSize, stepSize);
+        coor.y += random(-stepSize, stepSize);
       }
     }
   }// feature shifter
