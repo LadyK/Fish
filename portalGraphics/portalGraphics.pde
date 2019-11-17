@@ -109,6 +109,7 @@ void draw() {
     print("Demos is: ");
     println(demos.size()-1);
     for (int i= demos.size()-1; i >= 0; i--) {
+      PVector loc = all_locations.get(i);
       BasicShapeElement shape = demos.get(i);
       //expandShrink();
       shape.display();
@@ -116,18 +117,18 @@ void draw() {
       boolean dead = shape.update();
       if (dead) {   // **** here with refactoring code with arrays
         demos.remove(i);  // if we remove one, breaks out of loop and stops
-        //locations.remove(i);
+        all_locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
       } else {  //continue;  // continue keeps the for-loop running
         //print("middle point is:  "); println(shape.middle);
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
         //if(locations[i] == mouseLoc + 10/-10){ <<-------
-        
-        PVector loc = all_locations.get(i);
+
+
         float d = dist(loc.x, mouseX, loc.y, mouseY);
         if (d < shape.r ) {
           shape.expand();
-          println("close so grow");
+          println(" close so grow");
         }
 
 
@@ -176,19 +177,19 @@ void expandShrink() {
    }
    }
    
-
-  println("checking spot to grow");
-  for (PVector loc : all_locations) {
-    float d = dist(loc.x, mouseX, loc.y, mouseY);
-    BasicShapeElement shapie = demos.get(loc);
-    if (d < shapie.r) {
-      shapie.expand();
-      println("close so grow");
-    } else {
-      // shapie.shrink();
-    }
-  }
-  */
+   
+   println("checking spot to grow");
+   for (PVector loc : all_locations) {
+   float d = dist(loc.x, mouseX, loc.y, mouseY);
+   BasicShapeElement shapie = demos.get(loc);
+   if (d < shapie.r) {
+   shapie.expand();
+   println("close so grow");
+   } else {
+   // shapie.shrink();
+   }
+   }
+   */
 }
 
 
