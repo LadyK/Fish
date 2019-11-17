@@ -1,6 +1,7 @@
-import oscP5.*; //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
-
+int checker = 0;
+int loopChecker = 0;
 //OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
 NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
 //String messageselector;
@@ -12,15 +13,22 @@ OscP5 whereimlistening;
 String messageselector;
 
 Integer[] screenLoc = {0, 0};
-PVector[] locations = {};
+ArrayList <PVector> all_locations;
+//PVector[] locations;
 
-Cloud fish; //<>// //<>// //<>// //<>// //<>// //<>//
+
+Cloud fish; //<>//
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
+//Cloud[] herd;
+
+ArrayList <BasicShapeElement> demos;
+//BasicShapeElement[] demos;
+
 boolean trigger;
-int lastRecMouseX = 0;
-int lastRecMouseY = 0;
-int lastMouseX, lastMouseY;
-int distDiff= 30; // how much of a difference in mouse location needed
+//int lastRecMouseX = 0;
+//int lastRecMouseY = 0;
+//int lastMouseX, lastMouseY;
+int distDiff= 10; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
 //Portal entry;
@@ -30,20 +38,28 @@ PVector lastLoc, currentLoc;
 boolean newSpot = false;
 boolean maturePort = false;
 boolean shrinking = false;
-
+boolean firstLoc = true;
 //int portalPoints = 18;
+//int locations_indice = 0;
+PVector newLoc;
 
 void setup() {
-  size(displayWidth, displayHeight); 
-  //size(300, 800);
+  //size(displayWidth, displayHeight); 
+  size(800, 800);
   //background(0);
 
   trigger = false;
-  herd = new ArrayList<Cloud>(); 
+  herd = new ArrayList<Cloud>(1000); // <--- hmm
+  //herd = new Array[2000];
+  //all_locations = new PVector[1000];
+  all_locations = new ArrayList<PVector>(1000);
+  //BasicShapeElement[] demo = new BasicShapeElement[2000];
+  demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
-  entry = new ArrayList<Portal>();
+  entry = new ArrayList<Portal>(1000);
   /*
-  clouds = new ArrayList<Cloud>();
+  Cloud[] herd = new Cloud[2000];
+   //clouds = new ArrayList<Cloud>();
    
    for (int i = 0; i < 10; i++) {  // loop through the array
    //shapes[i] = new Shape();      // make a new object at each indice
@@ -65,101 +81,115 @@ void setup() {
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
-  oscEvent();
+
+  PVector tester = new PVector(mouseX, mouseY);
+  newSpot(tester);
 }
 
 void draw() {
   background(0);
-  while (areWeRunning){
-  //fill(0);  // interface
-  //rect(0, 0, 300, 800);  // interface
-  // if we have shapes, run them as clouds:
-  if (herd.size() >= 1) {
-    for (int i = herd.size()-1; i >= 0; i--) {
-      Cloud temp = herd.get(i);
-      temp.run();
-      if (temp.tooOld()) {
-        herd.remove(i);  // remove a shape cloud kernel from the cloud mass
-      }
-    }
-    // randomly kill off a few _shapes_ from within the cloud herd
-    if (frameCount % 8 == 0) {
-      for (int i = 5; i < 0; i--) {
-        // /*
-        int rando = floor(random(0, herd.size()-1));
-        Cloud temp = herd.get(rando);
-        temp.plague(); //*/
-        //^^ || vv is more effective?
-        //float whichOne = abs(random(1, herd.size()));
-        // herd.remove(whichOne);
-      }
-    }
-  } //herd runs and checks
 
-/*  *****************re-coding below to work for multiple people with Max:
+  /* // ************* old code (before refactor)
+   
+   // randomly kill off a few _shapes_ from within the cloud herd
+   if (frameCount % 8 == 0) {
+   for (int i = 5; i < 0; i--) {
+   int rando = floor(random(0, herd.size()-1));
+   Cloud temp = herd.get(rando);
+   temp.plague(); 
+   //float whichOne = abs(random(1, herd.size()));
+   // herd.remove(whichOne); 
+   */
 
-  // portal trigger: VVVVVVVVV  ; <<--- reconfig
-  long stamp = millis();
-  // if we have been sitting for a bit in one place, but not super long:
-  if (((stamp - movedStamp) > 2000) && ((stamp - movedStamp) < 15000) ) {
-    //triggerPortal();  ///<-- commented out for testing
-  } else {
-    //portalTrig = false;
-  } // if sitting
-  //print("portBirth: "); 
-  //println(portBirth);
-
-  // need to be able to have more than one. 
-
-  // if the we haven't moved:  <----- eyeyaiyyiyiy
-  if (newSpot == false) { //if ((millis() - portBirth < 10000)) {
-    // if we are not  on the edges of the screen:
-    if (lastMouseX > 10 && lastMouseX < (width - 10) && (lastMouseY > 10 && lastMouseY < (height -10)) ) {
-      // if we are in the same spot:
-      //if (newSpot == false) { 
-      //if (entry.size() > 0) {
-      // run the portals:
-      for (int i = entry.size()-1; i >= 0; i--) {
-        Portal temp = entry.get(i);
-        temp.featureShifter();
-        //temp.shift();
-        if (20000 > (millis() - portBirth)) {
-          temp.grow();
-        } else {
-          maturePort = true;
-          //println("port is mature");
+  // run the demos if we have any:
+  if (demos.size() > 0) {
+    //loopChecker++;
+    // print("loopChecker: ");
+    // println(loopChecker);
+    print("Demos is: ");
+    println(demos.size()-1);
+    for (int i= demos.size()-1; i >= 0; i--) {
+      BasicShapeElement shape = demos.get(i);
+      //expandShrink();
+      shape.display();
+      //shape.shrink();
+      boolean dead = shape.update();
+      if (dead) {   // **** here with refactoring code with arrays
+        demos.remove(i);  // if we remove one, breaks out of loop and stops
+        //locations.remove(i);
+        println("removed one");  // displaying rest, until loop is restored
+      } else {  //continue;  // continue keeps the for-loop running
+        //print("middle point is:  "); println(shape.middle);
+        //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
+        //if(locations[i] == mouseLoc + 10/-10){ <<-------
+        
+        PVector loc = all_locations.get(i);
+        float d = dist(loc.x, mouseX, loc.y, mouseY);
+        if (d < shape.r ) {
+          shape.expand();
+          println("close so grow");
         }
-        temp.display();
-        //println("display, move");
-      }
-    }// not on edges
-  } //young
 
-  // if we are too old, or if we are in a new spot, kill portals:
-  if ( newSpot == true) { //(millis() - portBirth) > 10100 ||
-    // portalTrig = false;
 
-    // if we are mature, shrink a bit before wiping out:
-    if (maturePort == true && shrinking == false) {
-      //println("shrinking");
-      for (int i = entry.size()-1; i >= 0; i--) {
-        Portal temp = entry.get(i);
-        shrinking = temp.shrink();  // clean out array
+        //expandShrink();
+        /*
+        //if shape location is similar to newest/mouse/current
+         if(newLoc.x < shape.centerX + 5 || newLoc.x > shape.centerY - 5 ){
+         println("EXPAND");
+         }
+         */
+
+        /*
+        PVector middle = shape.centerLoc();  // <-- not sure if this is right
+         PVector m = new PVector(mouseX, mouseY);
+         PVector difference = PVector.sub(m, middle);
+         float d = difference.mag();
+         //print("distance is:   "); println(d);
+         //print("shape diameter is:  "); println(shape.r * 2);
+         
+         if (d < (shape.r * 2)) {  // <-- logic here is off
+         
+         shape.expand();
+         println("expand");
+         }
+         }
+         */
       }
-      //portBirth = 0; //<<--
-    } else if (shrinking == true) {
-      // now remove them
-      //println("removing ");
-      for (int i = entry.size()-1; i >= 0; i--) {
-        entry.remove(i);  // clean out array
-      }
-      portBirth = 0; //<<--
     }
-  } ********** end stuff to re-code  */
-  //*/
-    } // while loop
-    println("no values");
+  }
 } // draw loop
+
+
+
+/* this isn't working correct
+ desired: when close: shape expands
+ when far: shape shrinks  */
+void expandShrink() {
+  /* all kinds of weird action happening here. fun. but not what I'm after
+   for(BasicShapeElement shapie: demos){
+   if (shapie.centerX > (mouseX + distDiff) || shapie.centerX < (mouseX - distDiff) ||
+   shapie.centerY  > (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
+   // shapie.expand();
+   } // if we are close
+   else {
+   shapie.shrink();
+   }
+   }
+   
+
+  println("checking spot to grow");
+  for (PVector loc : all_locations) {
+    float d = dist(loc.x, mouseX, loc.y, mouseY);
+    BasicShapeElement shapie = demos.get(loc);
+    if (d < shapie.r) {
+      shapie.expand();
+      println("close so grow");
+    } else {
+      // shapie.shrink();
+    }
+  }
+  */
+}
 
 
 void triggerPortal() {
@@ -179,34 +209,13 @@ void triggerPortal() {
 }
 
 void mousePressed() {
-
-  //print("herd is  ");
-  //println(herd.size());
-  //print("entry is  ");
-  //println(entry.size());
 }
 
-/*
-void mouseMoved() { // <----- revise this!
-  //if we have moved a lot
-  if ( ( screenLoc[0]  > (lastRecMouseX + distDiff)  || screenLoc[0]  < (lastRecMouseX - distDiff)) ||
-    ( screenLoc[1]  > (lastRecMouseY + distDiff)  || screenLoc[1]  < (lastRecMouseY - distDiff)) ) {
-    fish = new Cloud(screenLoc[0], screenLoc[1] );
-    herd.add(fish);
-    // record locations and time
-    lastRecMouseX = screenLoc[0] ;
-    lastRecMouseY = screenLoc[1] ;
-    movedStamp = millis();
-    newSpot  = true;
-  } else {
-    newSpot = false;
-    lastMouseX = screenLoc[0] ;
-    lastMouseY = screenLoc[1] ;
-  }
-  // print("newSpot is:  "); 
-  // println(newSpot);
+void mouseMoved() {
+  PVector tester = new PVector(mouseX, mouseY);
+  newSpot(tester);   //send location to be checked. then made a new one elsewhere
 }
-*/
+
 
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
@@ -216,10 +225,10 @@ void oscEvent(OscMessage theOscMessage) {
   //theOscMessage.print();
 
   // splice theOscMessage.addrPattern()
-  boolean areWeRunning = true;
+  //areWeRunning = true;
   String [] newLocations = splitTokens(theOscMessage.addrPattern());
-  for (int i =0; i < newLocations.length; i ++) {
-    screenLoc[i] = int(newLocations[i]);
+  for (int j =0; j < newLocations.length; j ++) {
+    screenLoc[j] = int(newLocations[j]);
   }
   print(screenLoc[0]); 
   print(", ");
@@ -227,30 +236,15 @@ void oscEvent(OscMessage theOscMessage) {
   //println(theOscMessage.addrPattern().length());
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
-  PVector newLoc = new PVector(tempX, tempY);
+  newLoc = new PVector(tempX, tempY);
   newSpot(newLoc);
 }
 
 void newSpot(PVector newbie) {
-  //println("do we have locations?");
-  if (locations.length > 0) {  // if we have locations in our array
-    //we have locations:
-    println("locs = yes");
-    for (int i = 0; i < (locations.length)-1; i++) {
-      // check to see if new spot is a new location; if so, create a new fish:
-      if (newbie.x > (locations[i].x + distDiff) || newbie.x < (locations[i].x - distDiff) ||
-        newbie.y  > (locations[i].y + distDiff)  || newbie.y  < (locations[i].y - distDiff) ) {
-        fish = new Cloud(int(newbie.x), int(newbie.y));  // <--- not sure about this
-        locations = (PVector[])append(locations, (new PVector(int(newbie.x), int(newbie.y))));
-        herd.add(fish);
-        println("new fish added");
-      }// possible is new locations 
-      else {
-        float timeStamp = millis();
-        // then store in an array that is same size as locations
-        // then else where, we can use this to see if we've been at a spot for a long
-        // enough time to create a portal
-      }
-    } // for current locations
-  }// if
+  //print(locations.size()-1);
+  //println("   is how many locations we have");
+  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
+  demos.add(0, tester);
+  all_locations.add(newbie);
+  println("new spot added");
 }

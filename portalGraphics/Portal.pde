@@ -2,7 +2,7 @@ class Portal extends BasicShapeElement {
 
   PVector spread;
   int origX, origY;
-  
+
   // 1. opacity
   // 2. shrinking
   // 3. disappearance
@@ -18,17 +18,22 @@ class Portal extends BasicShapeElement {
   }
 
   void display() {
-    super.display(false, rd, gn, blu, 200); // last is opacity
+    //super.display(false, rd, gn, blu, 200); // last is opacity
+    super.display();
     //featureShifter();
   }
 
   void shift() {
-    if (x[0] < 50 && y[0] < 50) {
-      for (int i = 0; i < numPoints; i++) {
-        x[i]++;
-        y[i]++;
-      };
-    };
+    /*
+    if (coordinate[0].x < 50 && coordinate[0].y < 50) {  // ??
+     for (int i = 0; i < numPoints; i++) {
+     //x[i]++;
+     //y[i]++;
+     coordinate[i].x++;
+     coordinate[i].y++;
+     };
+     };
+     */
   }
 
   void grow() {
@@ -36,26 +41,29 @@ class Portal extends BasicShapeElement {
     //if (x[0] < (origX - 50) && y[0] < (origY - 50) ) {
     //println("meeeee");
     for (int i = 0; i < numPoints; i++) {
-      x[i] += cos(angle*i) * 0.05;  // decimal helps grow slow
-      y[i] += sin(angle*i) * 0.05;
+      PVector coor = coordinates[i];
+      coor.x += cos(angle*i) * 0.05;  // decimal helps grow slow
+      coor.y += sin(angle*i) * 0.05;
     }
     // } // if
   } // grow
 
+  /*
   boolean shrink() {
-    boolean tooSmall = false;
-    for (int i = 0; i < numPoints; i++) {
-      x[i] -= cos(angle*i) * 0.5;  
-      y[i] -= sin(angle*i) * 0.5;
-    }
-
-    if ((x[0] <= origX) || (y[0] <= origY)) {
-      tooSmall = true;
-    } else{
-      tooSmall = false;
-    }
-    return tooSmall;
-  }
+   boolean tooSmall = false;
+   for (int i = 0; i < numPoints; i++) {
+   x[i] -= cos(angle*i) * 0.5;  
+   y[i] -= sin(angle*i) * 0.5;
+   }
+   
+   if ((x[0] <= origX) || (y[0] <= origY)) {
+   tooSmall = true;
+   } else{
+   tooSmall = false;
+   }
+   return tooSmall;
+   }
+   */
 
   void featureShifter() {
     super.featureShifter();
