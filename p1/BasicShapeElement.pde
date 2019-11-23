@@ -29,7 +29,7 @@ class BasicShapeElement {
     op_start= 50;
     stepSize = 3; // crazy at 5 very jiggly
     r = radius;
-    line = true;
+    line = false;
     smooth();
     rd = 0;
     gn = random(128, 255);
@@ -142,6 +142,8 @@ class BasicShapeElement {
     if (line == true) {
       stroke(0, opacity);
       strokeWeight(0.25);
+    } else{
+      noStroke();
     }
 
     fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?

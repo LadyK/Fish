@@ -41,7 +41,9 @@ boolean shrinking = false;
 boolean firstLoc = true;
 //int portalPoints = 18;
 //int locations_indice = 0;
-PVector newLoc;
+PVector newLoc, currentLocation;
+int numColors = 300;
+float c_rand;
 
 void setup() {
   //size(displayWidth, displayHeight); 
@@ -81,7 +83,7 @@ void setup() {
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
-
+  currentLocation = new PVector(-100, -100);
   PVector tester = new PVector(mouseX, mouseY);
   newSpot(tester);
 }
@@ -111,7 +113,9 @@ void draw() {
     for (int i= demos.size()-1; i >= 0; i--) {
       PVector loc = all_locations.get(i);
       BasicShapeElement shape = demos.get(i);
-      //expandShrink();
+      shape.featureShifter();
+      //int rand_c = int(random(1, 300));
+      //color c_ = colorChanger();
       shape.display();
       //shape.shrink();
       boolean dead = shape.update();
@@ -124,11 +128,10 @@ void draw() {
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
         //if(locations[i] == mouseLoc + 10/-10){ <<-------
 
-
-        float d = dist(loc.x, mouseX, loc.y, mouseY);
+        float d = abs(dist(loc.x, currentLocation.x, loc.y, currentLocation.y));
         if (d < shape.r ) {
           shape.expand();
-          println(" close so grow");
+          //println(" close so grow");
         }
 
 
@@ -214,7 +217,27 @@ void mousePressed() {
 
 void mouseMoved() {
   PVector tester = new PVector(mouseX, mouseY);
-  newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+}
+
+color colorChanger() {
+  color c = 127;
+  float curTime = millis()/1000.0;
+  c_rand = random(0.5, 0.6);
+  curTime = c_rand * curTime;
+
+  //println(curTime);
+  for (int i=0; i< numColors; i++) {
+    c = color(
+      sin(curTime * 0.8f + i * 0.0011f) * 0.5f + 0.5f, //R
+      sin(curTime * 0.7f + i * 0.0013f) * 0.5f + 0.5f, //G
+      sin(curTime * 0.3f + i * 0.0017f) * 0.5f + 0.5f //B
+      );
+    //theta += sin(curTime * 0.5f) * i * 0.00002;
+  }
+  print("color is: ");
+  println(c);
+  return c;
 }
 
 
@@ -241,11 +264,12 @@ void oscEvent(OscMessage theOscMessage) {
   newSpot(newLoc);
 }
 
-void newSpot(PVector newbie) {
+PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
-  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
+  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 35); 
   demos.add(0, tester);
   all_locations.add(newbie);
   println("new spot added");
+  return newbie;
 }
