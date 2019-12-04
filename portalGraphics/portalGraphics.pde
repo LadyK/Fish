@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 int checker = 0;
 int loopChecker = 0;
@@ -13,11 +13,19 @@ OscP5 whereimlistening;
 String messageselector;
 
 Integer[] screenLoc = {0, 0};
+
 ArrayList <PVector> all_locations;
 //PVector[] locations;
 
 
 Cloud fish; //<>//
+
+//ArrayList <PVector> locations;
+//PVector[] locations;
+
+
+Cloud fish; //<>// //<>//
+
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 //Cloud[] herd;
 
@@ -41,7 +49,9 @@ boolean shrinking = false;
 boolean firstLoc = true;
 //int portalPoints = 18;
 //int locations_indice = 0;
+
 PVector newLoc;
+
 
 void setup() {
   //size(displayWidth, displayHeight); 
@@ -53,6 +63,9 @@ void setup() {
   //herd = new Array[2000];
   //all_locations = new PVector[1000];
   all_locations = new ArrayList<PVector>(1000);
+  //PVector[] locations = new PVector[2000];
+ // locations = new ArrayList<PVector>(1000);
+
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
@@ -88,6 +101,7 @@ void setup() {
 
 void draw() {
   background(0);
+
 
   /* // ************* old code (before refactor)
    
@@ -158,6 +172,93 @@ void draw() {
     }
   }
 } // draw loop
+
+
+  /* // ************* old code (before refactor)
+   
+   // randomly kill off a few _shapes_ from within the cloud herd
+   if (frameCount % 8 == 0) {
+   for (int i = 5; i < 0; i--) {
+   int rando = floor(random(0, herd.size()-1));
+   Cloud temp = herd.get(rando);
+   temp.plague(); 
+   //float whichOne = abs(random(1, herd.size()));
+   // herd.remove(whichOne); 
+   */
+
+  // run the demos if we have any:
+  if (demos.size() > 0) {
+    //loopChecker++;
+    // print("loopChecker: ");
+    // println(loopChecker);
+    print("Demos is: ");
+    println(demos.size()-1);
+    for (int i= demos.size()-1; i >= 0; i--) {
+      BasicShapeElement shape = demos.get(i);
+      //expandShrink();
+      shape.display();
+      //shape.shrink();
+      boolean dead = shape.update();
+      if (dead) {   // **** here with refactoring code with arrays
+        demos.remove(i);  // if we remove one, breaks out of loop and stops
+        //locations.remove(i);
+        println("removed one");  // displaying rest, until loop is restored
+      } else {  continue;  // continue keeps the for-loop running
+        //print("middle point is:  "); println(shape.middle);
+        //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
+        //if(locations[i] == mouseLoc + 10/-10){ <<-------
+          
+        
+        
+        /*
+        PVector middle = shape.centerLoc();  // <-- not sure if this is right
+        PVector m = new PVector(mouseX, mouseY);
+        PVector difference = PVector.sub(m, middle);
+        float d = difference.mag();
+        //print("distance is:   "); println(d);
+        //print("shape diameter is:  "); println(shape.r * 2);
+        
+        if (d < (shape.r * 2)) {  // <-- logic here is off
+          
+          shape.expand();
+          println("expand");
+        }
+        }
+        */
+      }
+    }
+  }
+} // draw loop
+
+
+
+/* this isn't working correct
+ desired: when close: shape expands
+ when far: shape shrinks  */
+void expandShrink() {
+  /* all kinds of weird action happening here. fun. but not what I'm after
+   for(BasicShapeElement shapie: demos){
+   if (shapie.centerX > (mouseX + distDiff) || shapie.centerX < (mouseX - distDiff) ||
+   shapie.centerY  > (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
+   // shapie.expand();
+   } // if we are close
+   else {
+   shapie.shrink();
+   }
+   }
+   */
+
+
+  for (BasicShapeElement shapie : demos) {
+    float d = dist(shapie.centerX, mouseX, shapie.centerY, mouseY);
+    if (d < shapie.r) {
+      shapie.expand();
+    } else {
+      // shapie.shrink();
+    }
+  }
+}
+
 
 
 
@@ -245,6 +346,10 @@ void newSpot(PVector newbie) {
   //println("   is how many locations we have");
   BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
   demos.add(0, tester);
+
   all_locations.add(newbie);
+
+  //locations.add(newbie);
+
   println("new spot added");
 }

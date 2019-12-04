@@ -15,7 +15,9 @@ class BasicShapeElement {
   float birthTime;
   boolean dead, line;
   PVector middle;
+
   float theta, incrementer, c_rand;
+
 
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
@@ -57,7 +59,7 @@ class BasicShapeElement {
       //display(true, rd, gn, blu, op); //<-- use variables
     }
     // middle = centerLoc();
-   
+
     return dead;
   }
 
@@ -112,14 +114,21 @@ class BasicShapeElement {
     //r= r + 1; // expand a bit
     //}
     // }
+
      theta += incrementer;
      float r_local = r + r * (sin(theta) + 1);  //radius changes
+
 
     // update locations:
     for (int i = 0; i < numPoints; i++) {
       PVector coor = coordinates[i];
+
       coor.x += cos(angle*i) * r_local ;
       coor.y += sin(angle*i) * r_local ;
+
+      coor.x = cos(angle*i) * 0.05;
+      coor.y = sin(angle*i) * 0.05;
+
     }
   }
 
