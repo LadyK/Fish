@@ -24,8 +24,6 @@ Cloud fish; //<>//
 //PVector[] locations;
 
 
-Cloud fish; //<>// //<>//
-
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 //Cloud[] herd;
 
@@ -64,7 +62,7 @@ void setup() {
   //all_locations = new PVector[1000];
   all_locations = new ArrayList<PVector>(1000);
   //PVector[] locations = new PVector[2000];
- // locations = new ArrayList<PVector>(1000);
+  // locations = new ArrayList<PVector>(1000);
 
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
@@ -103,6 +101,7 @@ void draw() {
   background(0);
 
 
+
   /* // ************* old code (before refactor)
    
    // randomly kill off a few _shapes_ from within the cloud herd
@@ -115,6 +114,7 @@ void draw() {
    // herd.remove(whichOne); 
    */
 
+/*
   // run the demos if we have any:
   if (demos.size() > 0) {
     //loopChecker++;
@@ -136,98 +136,22 @@ void draw() {
         //print("middle point is:  "); println(shape.middle);
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
         //if(locations[i] == mouseLoc + 10/-10){ <<-------
-        
+
         PVector loc = all_locations.get(i);
         float d = dist(loc.x, mouseX, loc.y, mouseY);
         if (d < shape.r ) {
           shape.expand();
           println("close so grow");
         }
-
-
-        //expandShrink();
-        /*
-        //if shape location is similar to newest/mouse/current
-         if(newLoc.x < shape.centerX + 5 || newLoc.x > shape.centerY - 5 ){
-         println("EXPAND");
-         }
-         */
-
-        /*
-        PVector middle = shape.centerLoc();  // <-- not sure if this is right
-         PVector m = new PVector(mouseX, mouseY);
-         PVector difference = PVector.sub(m, middle);
-         float d = difference.mag();
-         //print("distance is:   "); println(d);
-         //print("shape diameter is:  "); println(shape.r * 2);
-         
-         if (d < (shape.r * 2)) {  // <-- logic here is off
-         
-         shape.expand();
-         println("expand");
-         }
-         }
-         */
       }
     }
   }
-} // draw loop
-
-
-  /* // ************* old code (before refactor)
-   
-   // randomly kill off a few _shapes_ from within the cloud herd
-   if (frameCount % 8 == 0) {
-   for (int i = 5; i < 0; i--) {
-   int rando = floor(random(0, herd.size()-1));
-   Cloud temp = herd.get(rando);
-   temp.plague(); 
-   //float whichOne = abs(random(1, herd.size()));
-   // herd.remove(whichOne); 
-   */
-
-  // run the demos if we have any:
-  if (demos.size() > 0) {
-    //loopChecker++;
-    // print("loopChecker: ");
-    // println(loopChecker);
-    print("Demos is: ");
-    println(demos.size()-1);
-    for (int i= demos.size()-1; i >= 0; i--) {
-      BasicShapeElement shape = demos.get(i);
-      //expandShrink();
-      shape.display();
-      //shape.shrink();
-      boolean dead = shape.update();
-      if (dead) {   // **** here with refactoring code with arrays
-        demos.remove(i);  // if we remove one, breaks out of loop and stops
-        //locations.remove(i);
-        println("removed one");  // displaying rest, until loop is restored
-      } else {  continue;  // continue keeps the for-loop running
-        //print("middle point is:  "); println(shape.middle);
-        //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
-        //if(locations[i] == mouseLoc + 10/-10){ <<-------
-          
-        
-        
-        /*
-        PVector middle = shape.centerLoc();  // <-- not sure if this is right
-        PVector m = new PVector(mouseX, mouseY);
-        PVector difference = PVector.sub(m, middle);
-        float d = difference.mag();
-        //print("distance is:   "); println(d);
-        //print("shape diameter is:  "); println(shape.r * 2);
-        
-        if (d < (shape.r * 2)) {  // <-- logic here is off
-          
-          shape.expand();
-          println("expand");
-        }
-        }
-        */
-      }
-    }
+  */
+  for(Portal p_: entry){
+    p_.grow();
+    p_.display();
   }
+  
 } // draw loop
 
 
@@ -246,8 +170,20 @@ void expandShrink() {
    shapie.shrink();
    }
    }
+   
+   
+   println("checking spot to grow");
+   for (PVector loc : all_locations) {
+   float d = dist(loc.x, mouseX, loc.y, mouseY);
+   BasicShapeElement shapie = demos.get(loc);
+   if (d < shapie.r) {
+   shapie.expand();
+   println("close so grow");
+   } else {
+   // shapie.shrink();
+   }
+   }
    */
-
 
   for (BasicShapeElement shapie : demos) {
     float d = dist(shapie.centerX, mouseX, shapie.centerY, mouseY);
@@ -257,39 +193,6 @@ void expandShrink() {
       // shapie.shrink();
     }
   }
-}
-
-
-
-
-/* this isn't working correct
- desired: when close: shape expands
- when far: shape shrinks  */
-void expandShrink() {
-  /* all kinds of weird action happening here. fun. but not what I'm after
-   for(BasicShapeElement shapie: demos){
-   if (shapie.centerX > (mouseX + distDiff) || shapie.centerX < (mouseX - distDiff) ||
-   shapie.centerY  > (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
-   // shapie.expand();
-   } // if we are close
-   else {
-   shapie.shrink();
-   }
-   }
-   
-
-  println("checking spot to grow");
-  for (PVector loc : all_locations) {
-    float d = dist(loc.x, mouseX, loc.y, mouseY);
-    BasicShapeElement shapie = demos.get(loc);
-    if (d < shapie.r) {
-      shapie.expand();
-      println("close so grow");
-    } else {
-      // shapie.shrink();
-    }
-  }
-  */
 }
 
 
@@ -310,11 +213,16 @@ void triggerPortal() {
 }
 
 void mousePressed() {
+  Portal p = new Portal(mouseX, mouseY, 10, 20);
+  entry.add(0, p);
+  
 }
 
 void mouseMoved() {
+  /*
   PVector tester = new PVector(mouseX, mouseY);
   newSpot(tester);   //send location to be checked. then made a new one elsewhere
+*/
 }
 
 
