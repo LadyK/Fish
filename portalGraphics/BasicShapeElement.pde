@@ -68,6 +68,7 @@ class BasicShapeElement {
     // centerX--; 
     // centerY--;   //shrink a bit <--- does this work?
     if(!h) shrink();
+    
     else if(h == true){    }
     //shrinkExpand();
 

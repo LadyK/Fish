@@ -36,7 +36,7 @@ boolean portalTrig;
 ArrayList<Portal> entry;
 long portBirth;
 PVector lastLoc, currentLoc;
-boolean newSpot = false;
+//boolean newSpot = false;
 boolean maturePort = false;
 boolean shrinking = false;
 boolean firstLoc = true;
@@ -59,7 +59,7 @@ void setup() {
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
-  entry = new ArrayList<Portal>(1000);
+  entry = new ArrayList<Portal>(100);
   /*
   Cloud[] herd = new Cloud[2000];
    //clouds = new ArrayList<Cloud>();
@@ -120,6 +120,8 @@ void draw() {
       //color c_ = colorChanger();
       PVector demoLoc  = shape.middle;
       float d = dist(demoLoc.x, mouseX, demoLoc.x, mouseY);
+      print("distance is:  ");
+      println(d);
       if (d < 50 ) {
         here = true;
       }
@@ -132,11 +134,13 @@ void draw() {
       } else {
 
         shape.display();
-        if (here== true) {
-          triggerPortal();
-          println();
-          println("trigger portal");
-          println();
+        if (here== true) {  // if we are over the shape we are iterating over:
+
+          if (pmouseX == mouseX || pmouseY == mouseY) {
+
+           // triggerPortal();  // trigger a portal
+           // println("trigger portal");
+          }
         }
       }
       //continue;  // continue keeps the for-loop running
@@ -187,6 +191,15 @@ void draw() {
        }  */
     }
   } //demos
+/*
+  if (entry.size() > 0) {
+    for (int i= entry.size()-1; i >= 0; i--) {
+      Portal p = entry.get(i);
+      p.grow();
+      p.display();
+    }
+  }
+*/
 
   /*
    if (demos.size() > 0) {
@@ -239,16 +252,24 @@ void triggerPortal() {
   //print("num of portals: ");
   //println(entry.size());
   // if we dont have portals, create some:
+  /*
   if (entry.size() < 1 && portBirth <= 0) {
-    for (int i = 0; i < 5; i++) {
-      int randX = 0; //int(random(-5, 5));
-      int randY = 0; //int(random(-5, 5));
-      Portal temp = new Portal(screenLoc[0] + randX, screenLoc[1]  + randY, 10, 15);
-      entry.add(temp);
-      //  portalTrig = false;
-    }
-    portBirth = millis();
-  }
+   for (int i = 0; i < 5; i++) {
+   int randX = 0; //int(random(-5, 5));
+   int randY = 0; //int(random(-5, 5));
+   Portal temp = new Portal(screenLoc[0] + randX, screenLoc[1]  + randY, 10, 15);
+   entry.add(temp);
+   //  portalTrig = false;
+   }
+   portBirth = millis();
+   }*/
+
+  int randX = 0; //int(random(-5, 5));
+  int randY = 0; //int(random(-5, 5));
+  Portal temp = new Portal(screenLoc[0] + randX, screenLoc[1]  + randY, 10, 15);
+  entry.add(temp);
+  print("entry is: ");
+  println(entry.size()-1);
 }
 
 void mousePressed() {
@@ -308,7 +329,7 @@ PVector newSpot(PVector newbie) {
   //println("   is how many locations we have");
   BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 35); 
   demos.add(0, tester);
-  all_locations.add(newbie);
+  //all_locations.add(newbie);
   println("new spot added");
   return newbie;
 }

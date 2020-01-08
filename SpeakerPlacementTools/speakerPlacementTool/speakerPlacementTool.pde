@@ -190,51 +190,51 @@ void draw() {
 void loadMap() { // the panning map, holds the block# and the speaker array that block controls
   ArrayList<Integer> B7 = new ArrayList<Integer>();
   B7.add(1);
-  B7.add(3);
+  B7.add(2);
   panning.put("7", B7); // box/spot + speakers effected
 
   ArrayList<Integer> B10 = new ArrayList<Integer>();
-  B10.add(6);
+  B10.add(2);
   B10.add(3);
   panning.put("10", B10); // box/spot + speakers effected
 
   ArrayList<Integer> B14 = new ArrayList<Integer>();
   B14.add(1);
-  B14.add(3);
+  B14.add(2);
   panning.put("14", B14); // box/spot + speakers effected
 
   ArrayList<Integer> B15 = new ArrayList<Integer>();
-  B15.add(6);
+  B15.add(2);
   B15.add(3);
   panning.put("15", B15); // box/spot + speakers effected
 
   ArrayList<Integer> B20 = new ArrayList<Integer>();
   B20.add(1);
-  B20.add(4);
+  B20.add(6);
   panning.put("20", B20); // box/spot + speakers effected
 
   ArrayList<Integer> B21 = new ArrayList<Integer>();
   B21.add(6);
-  B21.add(4);
+  B21.add(3);
   panning.put("21", B21); // box/spot + speakers effected
 
   ArrayList<Integer> B25 = new ArrayList<Integer>();
   B25.add(1);
-  B25.add(4);
+  B25.add(6);
   panning.put("25", B25); // box/spot + speakers effected
 
   ArrayList<Integer> B28 = new ArrayList<Integer>();
   B28.add(6);
-  B28.add(4);
+  B28.add(3);
   panning.put("28", B28); // box/spot + speakers effected
 
   ArrayList<Integer> B31 = new ArrayList<Integer>();
-  B31.add(2);
-  B31.add(4);
+  B31.add(6);
+  B31.add(7);
   panning.put("31", B31); // box/spot + speakers effected
 
   ArrayList<Integer> B34 = new ArrayList<Integer>();
-  B34.add(7);
+  B34.add(6);
   B34.add(4);
   panning.put("34", B34); // box/spot + speakers effected
 
@@ -270,51 +270,51 @@ void loadMap() { // the panning map, holds the block# and the speaker array that
 }
 
 void loadSimpleSpeakers() {
-  simpleSpeakers.put("1", 3);
-  simpleSpeakers.put("4", 3);
+  simpleSpeakers.put("1", 2);
+  simpleSpeakers.put("4", 2);
   simpleSpeakers.put("6", 1);
-  simpleSpeakers.put("11", 6);
+  simpleSpeakers.put("11", 3);
   simpleSpeakers.put("24", 1);
-  simpleSpeakers.put("29", 6);
-  simpleSpeakers.put("30", 2);
-  simpleSpeakers.put("35", 7);
-  simpleSpeakers.put("48", 2);
-  simpleSpeakers.put("53", 7);
+  simpleSpeakers.put("29", 3);
+  simpleSpeakers.put("30", 7);
+  simpleSpeakers.put("35", 4);
+  simpleSpeakers.put("48", 7);
+  simpleSpeakers.put("53", 4);
   simpleSpeakers.put("55", 5);
   simpleSpeakers.put("58", 5);
 }
 
 void loadHashMap() { // key-value pairs; grid location-associated speaker
 
-  speakerBox.put("2", 3);
-  speakerBox.put("3", 3);
-  speakerBox.put("8", 3);
-  speakerBox.put("9", 3);
+  speakerBox.put("2", 2);
+  speakerBox.put("3", 2);
+  speakerBox.put("8", 2);
+  speakerBox.put("9", 2);
 
   speakerBox.put("12", 1);
   speakerBox.put("13", 1);
   speakerBox.put("18", 1);
   speakerBox.put("19", 1);
 
-  speakerBox.put("16", 6);
-  speakerBox.put("17", 6);
-  speakerBox.put("22", 6);
-  speakerBox.put("23", 6);
+  speakerBox.put("16", 3);
+  speakerBox.put("17", 3);
+  speakerBox.put("22", 3);
+  speakerBox.put("23", 3);
 
-  speakerBox.put("26", 4);
-  speakerBox.put("27", 4);
-  speakerBox.put("32", 4);
-  speakerBox.put("33", 4);
+  speakerBox.put("26", 6);
+  speakerBox.put("27", 6);
+  speakerBox.put("32", 6);
+  speakerBox.put("33", 6);
 
-  speakerBox.put("36", 2);
-  speakerBox.put("37", 2);
-  speakerBox.put("42", 2);
-  speakerBox.put("43", 2);
+  speakerBox.put("36", 7);
+  speakerBox.put("37", 7);
+  speakerBox.put("42", 7);
+  speakerBox.put("43", 7);
 
-  speakerBox.put("40", 7);
-  speakerBox.put("41", 7);
-  speakerBox.put("46", 7);
-  speakerBox.put("47", 7);
+  speakerBox.put("40", 4);
+  speakerBox.put("41", 4);
+  speakerBox.put("46", 4);
+  speakerBox.put("47", 4);
 
   speakerBox.put("50", 5);
   speakerBox.put("51", 5);
