@@ -13,17 +13,12 @@ OscP5 whereimlistening;
 String messageselector;
 
 Integer[] screenLoc = {0, 0};
-
-ArrayList <PVector> all_locations;
+ArrayList <PVector> all_locations; // locations of shapes
+ArrayList <PVector> viewers; // locations of a few viewers
 //PVector[] locations;
 
 
-Cloud fish; //<>//
-
-//ArrayList <PVector> locations;
-//PVector[] locations;
-
-
+Cloud fish;
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 //Cloud[] herd;
 
@@ -47,9 +42,9 @@ boolean shrinking = false;
 boolean firstLoc = true;
 //int portalPoints = 18;
 //int locations_indice = 0;
-
-PVector newLoc;
-
+PVector newLoc, currentLocation;
+int numColors = 300;
+float c_rand;
 
 void setup() {
   //size(displayWidth, displayHeight); 
@@ -61,9 +56,6 @@ void setup() {
   //herd = new Array[2000];
   //all_locations = new PVector[1000];
   all_locations = new ArrayList<PVector>(1000);
-  //PVector[] locations = new PVector[2000];
-  // locations = new ArrayList<PVector>(1000);
-
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
@@ -92,15 +84,13 @@ void setup() {
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
-
+  currentLocation = new PVector(-100, -100);
   PVector tester = new PVector(mouseX, mouseY);
   newSpot(tester);
 }
 
 void draw() {
   background(0);
-
-
 
   /* // ************* old code (before refactor)
    
@@ -114,7 +104,6 @@ void draw() {
    // herd.remove(whichOne); 
    */
 
-/*
   // run the demos if we have any:
   if (demos.size() > 0) {
     //loopChecker++;
@@ -123,35 +112,94 @@ void draw() {
     print("Demos is: ");
     println(demos.size()-1);
     for (int i= demos.size()-1; i >= 0; i--) {
+      PVector loc = all_locations.get(i);
       BasicShapeElement shape = demos.get(i);
-      //expandShrink();
-      shape.display();
+      boolean here = false;
+      shape.featureShifter();
+      //int rand_c = int(random(1, 300));
+      //color c_ = colorChanger();
+      PVector demoLoc  = shape.middle;
+      float d = dist(demoLoc.x, mouseX, demoLoc.x, mouseY);
+      if (d < 50 ) {
+        here = true;
+      }
       //shape.shrink();
-      boolean dead = shape.update();
+      boolean dead = shape.update(here);  //this ages, opacity, and shrinks
       if (dead) {   // **** here with refactoring code with arrays
         demos.remove(i);  // if we remove one, breaks out of loop and stops
-        //locations.remove(i);
+        all_locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
-      } else {  //continue;  // continue keeps the for-loop running
-        //print("middle point is:  "); println(shape.middle);
-        //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
-        //if(locations[i] == mouseLoc + 10/-10){ <<-------
+      } else {
 
-        PVector loc = all_locations.get(i);
-        float d = dist(loc.x, mouseX, loc.y, mouseY);
-        if (d < shape.r ) {
-          shape.expand();
-          println("close so grow");
+        shape.display();
+        if (here== true) {
+          triggerPortal();
+          println();
+          println("trigger portal");
+          println();
         }
       }
+      //continue;  // continue keeps the for-loop running
+      //print("middle point is:  "); println(shape.middle);
+      //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
+      //if(locations[i] == mouseLoc + 10/-10){ <<-------
+
+
+
+      //float d = abs(dist(loc.x, currentLocation.x, loc.y, currentLocation.y));
+      // int dist.x = circle.x- moussX;
+      /*
+      if (d < 50 ) { // if(sqrt(sq(dist.x) + sq(dist.y)) < diameter/2
+       //shape.expand(); // don't want to do this here for portals
+       println(" GROWING");
+       }
+       
+       shape.featureShifter();
+       //int rand_c = int(random(1, 300));
+       //color c_ = colorChanger();
+       shape.display();
+       */
+
+      //expandShrink();
+      /*
+        //if shape location is similar to newest/mouse/current
+       if(newLoc.x < shape.centerX + 5 || newLoc.x > shape.centerY - 5 ){
+       println("EXPAND");
+       }
+       */
+
+      /*
+        PVector middle = shape.centerLoc();  // <-- not sure if this is right
+       PVector m = new PVector(mouseX, mouseY);
+       PVector difference = PVector.sub(m, middle);
+       float d = difference.mag();
+       //print("distance is:   "); println(d);
+       //print("shape diameter is:  "); println(shape.r * 2);
+       
+       if (d < (shape.r * 2)) {  // <-- logic here is off
+       
+       shape.expand();
+       println("expand");
+       }
+       }
+       
+       
+       }  */
     }
-  }
-  */
-  for(Portal p_: entry){
-    p_.grow();
-    p_.display();
-  }
-  
+  } //demos
+
+  /*
+   if (demos.size() > 0) {
+   //loopChecker++;
+   // print("loopChecker: ");
+   // println(loopChecker);
+   print("Demos is: ");
+   println(demos.size()-1);
+   for (int i= demos.size()-1; i >= 0; i--) {
+   PVector loc = all_locations.get(i);
+   BasicShapeElement shape = demos.get(i);
+   
+   */
 } // draw loop
 
 
@@ -184,15 +232,6 @@ void expandShrink() {
    }
    }
    */
-
-  for (BasicShapeElement shapie : demos) {
-    float d = dist(shapie.centerX, mouseX, shapie.centerY, mouseY);
-    if (d < shapie.r) {
-      shapie.expand();
-    } else {
-      // shapie.shrink();
-    }
-  }
 }
 
 
@@ -213,16 +252,31 @@ void triggerPortal() {
 }
 
 void mousePressed() {
-  Portal p = new Portal(mouseX, mouseY, 10, 20);
-  entry.add(0, p);
-  
 }
 
 void mouseMoved() {
-  /*
   PVector tester = new PVector(mouseX, mouseY);
-  newSpot(tester);   //send location to be checked. then made a new one elsewhere
-*/
+  currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+}
+
+color colorChanger() {
+  color c = 127;
+  float curTime = millis()/1000.0;
+  c_rand = random(0.5, 0.6);
+  curTime = c_rand * curTime;
+
+  //println(curTime);
+  for (int i=0; i< numColors; i++) {
+    c = color(
+      sin(curTime * 0.8f + i * 0.0011f) * 0.5f + 0.5f, //R
+      sin(curTime * 0.7f + i * 0.0013f) * 0.5f + 0.5f, //G
+      sin(curTime * 0.3f + i * 0.0017f) * 0.5f + 0.5f //B
+      );
+    //theta += sin(curTime * 0.5f) * i * 0.00002;
+  }
+  print("color is: ");
+  println(c);
+  return c;
 }
 
 
@@ -249,15 +303,12 @@ void oscEvent(OscMessage theOscMessage) {
   newSpot(newLoc);
 }
 
-void newSpot(PVector newbie) {
+PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
-  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 25); 
+  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 35); 
   demos.add(0, tester);
-
   all_locations.add(newbie);
-
-  //locations.add(newbie);
-
   println("new spot added");
+  return newbie;
 }

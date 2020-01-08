@@ -37,6 +37,32 @@ class Portal extends BasicShapeElement {
      };
      */
   }
+  
+    void expand() {  // if the mouse is close expand
+
+    // if (r < 150) { // as long as we have a radius
+    //if (rand < 0.1) {  // and once in a (fast) while:
+    //r= r + 1; // expand a bit
+    //}
+    // }
+
+     theta += incrementer;
+     float r_local = r + r * (sin(theta) + 1);  //radius changes
+
+
+    // update locations:
+    for (int i = 0; i < numPoints; i++) {
+      PVector coor = coordinates[i];
+
+      coor.x += cos(angle*i) * r_local ;
+      coor.y += sin(angle*i) * r_local ;
+
+      coor.x = cos(angle*i) * 0.05;
+      coor.y = sin(angle*i) * 0.05;
+
+    }
+  }
+
 
   void grow() {
     for (int i = 0; i < numPoints; i++) {
