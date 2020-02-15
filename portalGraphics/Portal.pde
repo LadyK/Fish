@@ -2,25 +2,27 @@ class Portal extends BasicShapeElement {
 
   PVector spread;
   int origX, origY;
-
+  long portalBirth;
   // 1. opacity
   // 2. shrinking
   // 3. disappearance
 
   Portal(int x_, int y_, int p_, int r) {
     super(x_, y_, p_, r);
-    rd = 0;
+    rd = int(random(0, 255));
     gn = int(random(128, 255));
     blu = int(random(100, 200));
     spread = PVector.random2D();
     origX = x_;
     origY = y_;
+    portBirth = millis();
   }
 
   void display() {
     //super.display(false, rd, gn, blu, 200); // last is opacity
+    featureShifter();
     super.display();
-    //featureShifter();
+   
   }
 
   void shift() {
@@ -35,11 +37,34 @@ class Portal extends BasicShapeElement {
      };
      */
   }
+  
+    void expand() {  // if the mouse is close expand
+
+    // if (r < 150) { // as long as we have a radius
+    //if (rand < 0.1) {  // and once in a (fast) while:
+    //r= r + 1; // expand a bit
+    //}
+    // }
+
+     theta += incrementer;
+     float r_local = r + r * (sin(theta) + 1);  //radius changes
+
+
+    // update locations:
+    for (int i = 0; i < numPoints; i++) {
+      PVector coor = coordinates[i];
+
+      coor.x += cos(angle*i) * r_local ;
+      coor.y += sin(angle*i) * r_local ;
+
+      coor.x = cos(angle*i) * 0.05;
+      coor.y = sin(angle*i) * 0.05;
+
+    }
+  }
+
 
   void grow() {
-    //if our current X/Y.0 location is less than original, minus a smidge
-    //if (x[0] < (origX - 50) && y[0] < (origY - 50) ) {
-    //println("meeeee");
     for (int i = 0; i < numPoints; i++) {
       PVector coor = coordinates[i];
       coor.x += cos(angle*i) * 0.05;  // decimal helps grow slow
