@@ -8,6 +8,8 @@ NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
 
 OscP5 whereimlistening;
 
+int radius = 150; // radius of shapes
+
 /* a NetAddress contains the ip address and port number of a remote location in the network. */
 
 String messageselector;
@@ -52,13 +54,13 @@ void setup() {
 
   trigger = false;
   herd = new ArrayList<Cloud>(1000); // <--- hmm
-  //herd = new Array[2000];
+ // herd = new ArrayList[1000];
   //all_locations = new PVector[1000];
   all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
-  entry = new ArrayList<Portal>(1000);
+  //entry = new ArrayList<Portal>(1000);
   /*
   Cloud[] herd = new Cloud[2000];
    //clouds = new ArrayList<Cloud>();
@@ -128,9 +130,15 @@ void draw() {
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
         //if(locations[i] == mouseLoc + 10/-10){ <<-------
 
+<<<<<<< Updated upstream
         float d = abs(dist(loc.x, currentLocation.x, loc.y, currentLocation.y));
         if (d < shape.r ) {
           shape.expand();
+=======
+        float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
+        if (d < shape.r ) {
+          //shape.expand();
+>>>>>>> Stashed changes
           //println(" close so grow");
         }
 
@@ -267,7 +275,11 @@ void oscEvent(OscMessage theOscMessage) {
 PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
+<<<<<<< Updated upstream
   BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 35); 
+=======
+  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 7, radius); 
+>>>>>>> Stashed changes
   demos.add(0, tester);
   all_locations.add(newbie);
   println("new spot added");

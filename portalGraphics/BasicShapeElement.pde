@@ -29,7 +29,7 @@ class BasicShapeElement {
     op_start= 50;
     stepSize = 3; // crazy at 5 very jiggly
     r = radius;
-    line = true;
+    line = false;
     smooth();
     rd = 0;
     gn = random(128, 255);
