@@ -114,33 +114,14 @@ void draw() {
     for (int i= demos.size()-1; i >= 0; i--) {
       PVector loc = all_locations.get(i);
       BasicShapeElement shape = demos.get(i);
-      boolean here = false;
-      shape.featureShifter();
-      //int rand_c = int(random(1, 300));
-      //color c_ = colorChanger();
-      PVector demoLoc  = shape.middle;
-      float d = dist(demoLoc.x, mouseX, demoLoc.x, mouseY);
-      print("distance is:  ");
-      println(d);
-      if (d < 50 ) {
-        here = true;
-      }
+
       //shape.shrink();
       boolean dead = shape.update(here);  //this ages, opacity, and shrinks
       if (dead) {   // **** here with refactoring code with arrays
         demos.remove(i);  // if we remove one, breaks out of loop and stops
         all_locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
-      } else {
 
-        shape.display();
-        if (here== true) {  // if we are over the shape we are iterating over:
-
-          if (pmouseX == mouseX || pmouseY == mouseY) {
-
-           // triggerPortal();  // trigger a portal
-           // println("trigger portal");
-          }
         }
       }
       //continue;  // continue keeps the for-loop running

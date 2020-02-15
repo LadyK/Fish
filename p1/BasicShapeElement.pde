@@ -15,8 +15,8 @@ class BasicShapeElement {
   float birthTime;
   boolean dead, line;
   PVector middle;
-
-
+  float theta, incrementer, op;
+  int j = 0;
 
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
@@ -29,7 +29,7 @@ class BasicShapeElement {
     op_start= 50;
     stepSize = 3; // crazy at 5 very jiggly
     r = radius;
-    line = true;
+    line = false;
     smooth();
     rd = 0;
     gn = random(128, 255);
@@ -39,15 +39,15 @@ class BasicShapeElement {
     angle = radians(360/float(numPoints));
     theta = random(PI);
     incrementer = random(0.02, 0.05);
-
+    //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
       coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
     }
   } // constructor
 
-  boolean update(boolean h) {
-    int op = ageOpacity(h); // fade data
+  boolean update() {
+    int op = ageOpacity(); // fade data
     //print("op is: "); println(op);
     if (op < 1) {
       dead = true;
@@ -61,13 +61,11 @@ class BasicShapeElement {
     return dead;
   }
 
-  int ageOpacity(boolean h) {
+  int ageOpacity() {
     birthTime++;   //age by one
     // centerX--; 
     // centerY--;   //shrink a bit <--- does this work?
-    if(!h) shrink();
-    
-    else if(h == true){    }
+    shrink();
     //shrinkExpand();
 
     if (birthTime < 50) {
@@ -114,17 +112,14 @@ class BasicShapeElement {
     //r= r + 1; // expand a bit
     //}
     // }
-
+    theta += incrementer;
+    float r_local = r + r * (sin(theta) + 1);  //radius changes
 
     // update locations:
     for (int i = 0; i < numPoints; i++) {
       PVector coor = coordinates[i];
-
-      //coor.x += cos(angle*i) * r_local ;
-      //coor.y += sin(angle*i) * r_local ;
-
-      coor.x = cos(angle*i) * 0.05;
-      coor.y = sin(angle*i) * 0.05;
+      coor.x += cos(angle*i) * r_local ;
+      coor.y += sin(angle*i) * r_local ;
     }
   }
 
@@ -147,6 +142,8 @@ class BasicShapeElement {
     if (line == true) {
       stroke(0, opacity);
       strokeWeight(0.25);
+    } else{
+      noStroke();
     }
 
     fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
