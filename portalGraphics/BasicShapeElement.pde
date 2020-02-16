@@ -12,21 +12,24 @@ class BasicShapeElement {
   int op_start;// = 50; // orignation of opacity
   int opChanger;  ///slow down death
   float angle;
-  float birthTime;
+  int birthTime;
   boolean dead, line;
   PVector middle;
   float theta, incrementer, op;
   int j = 0;
+  int limit;
 
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
     dead = false;
+    limit = 400;
+    birthTime = -limit;
     numPoints = pts;
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 150;
-    op_start= 50;
+    opacity = 10;
+    op_start= 0;
     stepSize = 3; // crazy at 5 very jiggly
     r = radius;
     line = false;
@@ -39,6 +42,7 @@ class BasicShapeElement {
     angle = radians(360/float(numPoints));
     theta = random(PI);
     incrementer = random(0.02, 0.05);
+    
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
@@ -49,8 +53,9 @@ class BasicShapeElement {
   boolean update() {
     int op = ageOpacity(); // fade data
     //print("op is: "); println(op);
-    if (op < 1) {
+    if (op < 10) {
       dead = true;
+      birthTime = 0;
     } else {
       dead = false;
       featureShifter();  // move/squigle <-- do we want these to change location to?
@@ -62,45 +67,59 @@ class BasicShapeElement {
   }
 
   int ageOpacity() {
-    birthTime++;   //age by one
-    // centerX--; 
-    // centerY--;   //shrink a bit <--- does this work?
-    shrink();
-    //shrinkExpand();
+    // for a time: increase the opacity:
+    if (birthTime <= 0  && frameCount % 10 == 0) {
+      println("opacity increase");
+      println();
+     opacity+=2; // if 4 or more, variable rolls over into mess
+    } else  { // if birthTime > 0
 
-    if (birthTime < 50) {
-      opacity--;
-    } else if ((birthTime >= 50) && (birthTime < 70)) {  // 30, 60
-      float rand8 = random(0, 1);
-      if (rand8 >= .5)opacity-=2;
-    } else if (birthTime >= 70 && birthTime < 130 ) {  //<--- 60 - 80
-      float rand8 = random(0, 1);
-      if (rand8 > .75) opacity+=2;
-    }
-    /* } else if (yrsOld > 60 ) {
-     opacity = opacity - 0.025;
-     }
-     */
-    // /*
-    else if (birthTime > 130 ) {  //was 80
-      float rand3 = random(0, 1);
-      if ( rand3 > .6) {
-        opacity = opacity + 1 ; //2
-      } else {
-        opacity = opacity - 2;  //-3
-        // println("still here");
-        // println();
+      // centerX--; 
+      // centerY--;   //shrink a bit <--- does this work?
+      shrink();
+      //shrinkExpand();
+
+      if (birthTime > 0 && birthTime < (limit * .25)) {
+        opacity--;
+      } else if ((birthTime >= limit * .25) && (birthTime < (limit * .375)) ) {  // 30, 60
+        float rand8 = random(0, 1);
+        if (rand8 >= .5)opacity-=2;
+      } else if (birthTime >= (limit * .375) && birthTime < (limit * .75)) {  //<--- 60 - 80
+        float rand8 = random(0, 1);
+        if (rand8 > .35) opacity+=2; // bump/increase....makes fade slower
       }
-      // */
-      /*
-     else if ( yrsOld > 80) {
-       opacity = opacity - .05;
+      /* } else if (yrsOld > 60 ) {
+       opacity = opacity - 0.025;
        }
        */
+      // /*
+      else if (birthTime > limit ) {  
+        float rand3 = random(0, 1);
+        if ( rand3 > .95) {
+          opacity = opacity + (limit/4) ; // jump in opacity for effect
+        } else if (rand3 < .5) {
+          opacity = opacity - 2;  //-3
+          // println("still here");
+          // println();
+        }
+        // */
+        /*
+     else if ( yrsOld > 80) {
+         opacity = opacity - .05;
+         }
+         */
+      }
     }
+    birthTime++;   //age by one
+    /*
     if (opacity < 3) { 
-      opacity = 0;
-    }  // it's pretty much gone, but had to set a limit
+     opacity = 0;
+     }  // it's pretty much gone, but had to set a limit
+     */
+    print("birthTime is = ");
+    println(birthTime);
+    print("opacity is = ");
+    println(opacity);
     return opacity;
   }
 
@@ -142,25 +161,26 @@ class BasicShapeElement {
     if (line == true) {
       stroke(0, opacity);
       strokeWeight(0.25);
+    } else {
+      noStroke();
+      fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
+      // fill(_c);
+      beginShape();
+      //start controlpoint from the last point in the array
+      curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
+
+      //only these points are drawn
+      for (int i = 0; i < numPoints; i++) {
+        curveVertex(coordinates[i].x+centerX, coordinates[i].y+centerY);
+      }
+      //
+      curveVertex(coordinates[0].x +centerX, coordinates[0].y+centerY);
+      //end control point
+
+      curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
+      endShape();
     }
-
-    fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
-    // fill(_c);
-    beginShape();
-    //start controlpoint from the last point in the array
-    curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
-
-    //only these points are drawn
-    for (int i = 0; i < numPoints; i++) {
-      curveVertex(coordinates[i].x+centerX, coordinates[i].y+centerY);
-    }
-    //
-    curveVertex(coordinates[0].x +centerX, coordinates[0].y+centerY);
-    //end control point
-
-    curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
-    endShape();
-  } // display
+  }// display
 
   //void move() {
   //  if (mouseX != 0 || mouseY != 0) {

@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 int checker = 0;
 int loopChecker = 0;
@@ -19,7 +19,7 @@ ArrayList <PVector> all_locations;
 //PVector[] locations;
 
 
-Cloud fish; //<>//
+Cloud fish;
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 //Cloud[] herd;
 
@@ -54,7 +54,7 @@ void setup() {
 
   trigger = false;
   herd = new ArrayList<Cloud>(1000); // <--- hmm
- // herd = new ArrayList[1000];
+  // herd = new ArrayList[1000];
   //all_locations = new PVector[1000];
   all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
@@ -76,12 +76,12 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
+  //  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-  whereimlistening = new OscP5(this, 12000);
+  //  whereimlistening = new OscP5(this, 12000);
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
@@ -130,15 +130,10 @@ void draw() {
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
         //if(locations[i] == mouseLoc + 10/-10){ <<-------
 
-<<<<<<< Updated upstream
-        float d = abs(dist(loc.x, currentLocation.x, loc.y, currentLocation.y));
-        if (d < shape.r ) {
-          shape.expand();
-=======
         float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
         if (d < shape.r ) {
           //shape.expand();
->>>>>>> Stashed changes
+
           //println(" close so grow");
         }
 
@@ -221,11 +216,23 @@ void triggerPortal() {
 }
 
 void mousePressed() {
+  /*
+  if (frameCount % 2 == 0) {
+    float randX = random((-radius), (radius));
+    float randY = random((-radius), (radius));
+    PVector tester = new PVector(mouseX + randX, mouseY + randY);
+    currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  }
+  */
 }
 
 void mouseMoved() {
-  PVector tester = new PVector(mouseX, mouseY);
-  currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  // if (frameCount % 2 == 0) {
+    float randX = random((-radius), (radius));
+    float randY = random((-radius), (radius));
+    PVector tester = new PVector(mouseX + randX, mouseY + randY);
+    currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+ // }
 }
 
 color colorChanger() {
@@ -275,11 +282,9 @@ void oscEvent(OscMessage theOscMessage) {
 PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
-<<<<<<< Updated upstream
-  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 5, 35); 
-=======
+
   BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 7, radius); 
->>>>>>> Stashed changes
+
   demos.add(0, tester);
   all_locations.add(newbie);
   println("new spot added");
