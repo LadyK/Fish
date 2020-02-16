@@ -45,7 +45,7 @@ class BasicShapeElement {
     theta = random(PI);
     incrementer = random(0.02, 0.05);
     paint = color(rd, gn, blu, opacity);
-    numColors = 500;
+    numColors = 1000;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
@@ -135,9 +135,9 @@ class BasicShapeElement {
     //println(curTime);
     for (int i=0; i< numColors; i++) {
       c = color(
-        sin(curTime * 0.8f + i * 0.0011f) * 0.5f + 0.5f, //R
-        sin(curTime * 0.7f + i * 0.0013f) * 0.5f + 0.5f, //G
-        sin(curTime * 0.3f + i * 0.0017f) * 0.5f + 0.5f, //B
+        sin(curTime * 0.8f + i * 0.0011f), //R
+        sin(curTime * 0.7f + i * 0.0013f), //G * 0.5f + 0.5f
+        sin(curTime * 0.3f + i * 0.0017f), //B
         opacity);
       //theta += sin(curTime * 0.5f) * i * 0.00002;
     }

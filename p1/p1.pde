@@ -1,25 +1,21 @@
-<<<<<<< Updated upstream
-import processing.pdf.*;
-import java.util.Calendar;
+ //<>// //<>// //<>// //<>//
 
-=======
-import processing.pdf.*; //<>// //<>//
+import processing.pdf.*; //<>//
 import java.util.Calendar;
 
 
->>>>>>> Stashed changes
+
 boolean savePDF = false;
 
 PImage orig;
 PImage mask;
-<<<<<<< Updated upstream
 
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
-=======
-int radius = 150; // radius of shapes
 
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
->>>>>>> Stashed changes
+
+int radius = 50; // radius of shapes
+
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+
 import netP5.*;
 int checker = 0;
 int loopChecker = 0;
@@ -38,11 +34,9 @@ ArrayList <PVector> all_locations;
 //PVector[] locations;
 
 
-<<<<<<< Updated upstream
-Cloud fish; //<>//
-=======
+
 Cloud fish;
->>>>>>> Stashed changes
+
 ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
 //Cloud[] herd;
 
@@ -57,11 +51,9 @@ int distDiff= 10; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
 //Portal entry;
-<<<<<<< Updated upstream
-//ArrayList<Portal> entry;
-=======
+
 ArrayList<Portal> entry;
->>>>>>> Stashed changes
+
 long portBirth;
 PVector lastLoc, currentLoc;
 boolean newSpot = false;
@@ -78,22 +70,18 @@ float c_rand;
 void setup() {
 
   size(672, 896);
-<<<<<<< Updated upstream
-  orig = loadImage("L_300dpi_smallerStill.jpg");
-  mask = loadImage("maskBlack_inv.png");
-=======
+  colorMode(RGB, 1.0, 1.0, 1.0, 255);
   frameRate(3);
-  orig = loadImage("backLeftPresent.png");
-  mask = loadImage("backLeftAbsent.png");
->>>>>>> Stashed changes
+  orig = loadImage("3Present.png");
+  mask = loadImage("3Absent.png");
+
   image(orig, 0, 0);
   //mask.mask(orig);
 
   trigger = false;
-<<<<<<< Updated upstream
-=======
-  //  all_locations = new ArrayList<PVector>(1000);
->>>>>>> Stashed changes
+
+
+
   all_locations = new ArrayList<PVector>(1000);
   herd = new ArrayList<Cloud>(1000); // <--- hmm
   demos = new ArrayList<BasicShapeElement>(1000);
@@ -106,14 +94,11 @@ void setup() {
 
 
 void draw() {
-<<<<<<< Updated upstream
-  if (savePDF) beginRecord(PDF, timestamp()+".pdf");
-  //image(mask, 0, 0);
-=======
+
   background(0);
   if (savePDF) beginRecord(PDF, timestamp()+".pdf");
   image(mask, 0, 0);
->>>>>>> Stashed changes
+
   image(orig, 0, 0);
 
   //mask.loadPixels();
@@ -145,11 +130,9 @@ void draw() {
       } else {  
         float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
         if (d < shape.r ) {
-<<<<<<< Updated upstream
-          shape.expand();
-=======
+
           //shape.expand();
->>>>>>> Stashed changes
+
           //println(" close so grow");
         }
       }
@@ -158,17 +141,8 @@ void draw() {
   image(mask, 0, 0); //<---
 } // draw loop
 
-<<<<<<< Updated upstream
 
 
-void mousePressed() {
-
-  // PVector tester = new PVector(mouseX, mouseY);
-  //newSpot(tester);   //send location to be checked. then made a new one elsewhere
-}
-
-void mouseMoved() {
-=======
 void triggerPortal() {
   //print("num of portals: ");
   //println(entry.size());
@@ -212,25 +186,20 @@ void mouseMoved() {
    println(abs(d));
    if ( abs(d) > radius) {
    */
->>>>>>> Stashed changes
-  PVector tester = new PVector(mouseX, mouseY);
+  float randX = random((-radius), (radius));
+  float randY = random((-radius), (radius));
+  PVector tester = new PVector(mouseX + randX, mouseY + randY);
   currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
 }
 
 
-<<<<<<< Updated upstream
-PVector newSpot(PVector newbie) {
-  //print(locations.size()-1);
-  //println("   is how many locations we have");
-  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 7, 35); 
-=======
+
 
 
 PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
   BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 7, radius); 
->>>>>>> Stashed changes
   demos.add(0, tester);
   all_locations.add(newbie);
   println("new spot added");

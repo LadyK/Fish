@@ -17,6 +17,9 @@ class BasicShapeElement {
   PVector middle;
   float theta, incrementer, op;
   int j = 0;
+  int limit;
+  color paint;
+  int numColors;
 
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
@@ -39,6 +42,8 @@ class BasicShapeElement {
     angle = radians(360/float(numPoints));
     theta = random(PI);
     incrementer = random(0.02, 0.05);
+    paint = color(rd, gn, blu, opacity);
+    numColors = 500;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
@@ -49,7 +54,7 @@ class BasicShapeElement {
   boolean update() {
     int op = ageOpacity(); // fade data
     //print("op is: "); println(op);
-    if (op < 1) {
+    if (op < 10) {
       dead = true;
     } else {
       dead = false;
@@ -62,48 +67,76 @@ class BasicShapeElement {
   }
 
   int ageOpacity() {
-    birthTime++;   //age by one
-    // centerX--; 
-    // centerY--;   //shrink a bit <--- does this work?
-    shrink();
-    //shrinkExpand();
+    if (birthTime <= 0  && frameCount % 10 == 0) {
+      println("opacity increase");
+      println();
+      opacity+=2; // if 4 or more, variable rolls over into mess
+    } else { // if birthTime > 0
+      // centerX--; 
+      // centerY--;   //shrink a bit <--- does this work?
+      shrink();
+      //shrinkExpand();
 
-    if (birthTime < 50) {
-      opacity--;
-    } else if ((birthTime >= 50) && (birthTime < 70)) {  // 30, 60
-      float rand8 = random(0, 1);
-      if (rand8 >= .5)opacity-=2;
-    } else if (birthTime >= 70 && birthTime < 130 ) {  //<--- 60 - 80
-      float rand8 = random(0, 1);
-      if (rand8 > .75) opacity+=2;
-    }
-    /* } else if (yrsOld > 60 ) {
-     opacity = opacity - 0.025;
-     }
-     */
-    // /*
-    else if (birthTime > 130 ) {  //was 80
-      float rand3 = random(0, 1);
-      if ( rand3 > .6) {
-        opacity = opacity + 1 ; //2
-      } else {
-        opacity = opacity - 2;  //-3
-        // println("still here");
-        // println();
+      if (birthTime > 0 && birthTime < (limit * .25)) {
+        opacity--;
+      } else if ((birthTime >= limit * .25) && (birthTime < (limit * .375)) ) { 
+        float rand8 = random(0, 1);
+        if (rand8 >= .5)opacity-=2;
+      } else if (birthTime >= (limit * .375) && birthTime < (limit * .75)) {  //<---
+        float rand8 = random(0, 1);
+        if (rand8 > .35) opacity+=2; // bump/increase....makes fade slower
       }
-      // */
-      /*
-     else if ( yrsOld > 80) {
-       opacity = opacity - .05;
+      /* } else if (yrsOld > 60 ) {
+       opacity = opacity - 0.025;
        }
        */
-    }
+      // /*
+      else if (birthTime > limit ) {  
+        float rand3 = random(0, 1);
+        if ( rand3 > .95) {
+          opacity = opacity + (limit/4) ; // jump in opacity for effect
+        } else {
+          opacity = opacity - 2;  //-3
+          // println("still here");
+          // println();
+        }
+        // */
+        /*
+     else if ( yrsOld > 80) {
+         opacity = opacity - .05;
+         }
+         */
+      }
+    } // else
+    birthTime++;   //age by one
+    /*
     if (opacity < 3) { 
-      opacity = 0;
-    }  // it's pretty much gone, but had to set a limit
+     opacity = 0;
+     }  // it's pretty much gone, but had to set a limit
+     */
     return opacity;
   }
 
+  void colorChanger() {
+    color c = (0);
+    float curTime = millis()/1000.0;
+    //c_rand = random(0.5, 0.6);
+    // curTime = c_rand * curTime;
+
+    //println(curTime);
+    for (int i=0; i< numColors; i++) {
+      c = color(
+        sin(curTime * 0.8f + i * 0.0011f) * 0.5f + 0.5f, //R
+        sin(curTime * 0.7f + i * 0.0013f) * 0.5f + 0.5f, //G
+        sin(curTime * 0.3f + i * 0.0017f) * 0.5f + 0.5f, //B
+        opacity);
+      //theta += sin(curTime * 0.5f) * i * 0.00002;
+    }
+    //print("color is: ");
+    //println(c);
+    paint = c;
+    //return c;
+  }
 
   void expand() {  // if the mouse is close expand
 
@@ -142,11 +175,11 @@ class BasicShapeElement {
     if (line == true) {
       stroke(0, opacity);
       strokeWeight(0.25);
-    } else{
+    } else {
       noStroke();
     }
 
-    fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
+    fill(paint, opacity); // opacity was manually set at 25 -> ?
     // fill(_c);
     beginShape();
     //start controlpoint from the last point in the array
