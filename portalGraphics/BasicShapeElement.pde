@@ -18,6 +18,8 @@ class BasicShapeElement {
   float theta, incrementer, op;
   int j = 0;
   int limit;
+  color paint;
+  int numColors;
 
 
   BasicShapeElement(int x_, int y_, int pts, int radius) {
@@ -42,7 +44,8 @@ class BasicShapeElement {
     angle = radians(360/float(numPoints));
     theta = random(PI);
     incrementer = random(0.02, 0.05);
-    
+    paint = color(rd, gn, blu, opacity);
+    numColors = 500;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
@@ -71,8 +74,8 @@ class BasicShapeElement {
     if (birthTime <= 0  && frameCount % 10 == 0) {
       println("opacity increase");
       println();
-     opacity+=2; // if 4 or more, variable rolls over into mess
-    } else  { // if birthTime > 0
+      opacity+=2; // if 4 or more, variable rolls over into mess
+    } else { // if birthTime > 0
 
       // centerX--; 
       // centerY--;   //shrink a bit <--- does this work?
@@ -116,11 +119,32 @@ class BasicShapeElement {
      opacity = 0;
      }  // it's pretty much gone, but had to set a limit
      */
-    print("birthTime is = ");
-    println(birthTime);
-    print("opacity is = ");
-    println(opacity);
+   // print("birthTime is = ");
+   // println(birthTime);
+  //  print("opacity is = ");
+   // println(opacity);
     return opacity;
+  }
+
+  void colorChanger() {
+    color c = (0);
+    float curTime = millis()/1000.0;
+    //c_rand = random(0.5, 0.6);
+   // curTime = c_rand * curTime;
+
+    //println(curTime);
+    for (int i=0; i< numColors; i++) {
+      c = color(
+        sin(curTime * 0.8f + i * 0.0011f) * 0.5f + 0.5f, //R
+        sin(curTime * 0.7f + i * 0.0013f) * 0.5f + 0.5f, //G
+        sin(curTime * 0.3f + i * 0.0017f) * 0.5f + 0.5f, //B
+        opacity);
+      //theta += sin(curTime * 0.5f) * i * 0.00002;
+    }
+    //print("color is: ");
+    //println(c);
+    paint = c;
+    //return c;
   }
 
 
@@ -158,12 +182,13 @@ class BasicShapeElement {
   }
 
   void display() {
+   //colorChanger();
     if (line == true) {
       stroke(0, opacity);
       strokeWeight(0.25);
     } else {
       noStroke();
-      fill(rd, gn, blu, opacity); // opacity was manually set at 25 -> ?
+      fill(paint, opacity); // opacity was manually set at 25 -> ?
       // fill(_c);
       beginShape();
       //start controlpoint from the last point in the array

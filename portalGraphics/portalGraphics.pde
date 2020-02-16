@@ -51,6 +51,7 @@ void setup() {
   //size(displayWidth, displayHeight); 
   size(800, 800);
   //background(0);
+  colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
   trigger = false;
   herd = new ArrayList<Cloud>(1000); // <--- hmm
