@@ -30,7 +30,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 10;
+    opacity = 20;
     op_start= 0;
     stepSize = 3; // crazy at 5 very jiggly
     r = radius;
@@ -45,7 +45,7 @@ class BasicShapeElement {
     theta = random(PI);
     incrementer = random(0.02, 0.05);
     paint = color(rd, gn, blu, opacity);
-    numColors = 1000;
+    numColors = 200; // <--- messing with this....
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
@@ -119,10 +119,10 @@ class BasicShapeElement {
      opacity = 0;
      }  // it's pretty much gone, but had to set a limit
      */
-   // print("birthTime is = ");
-   // println(birthTime);
-  //  print("opacity is = ");
-   // println(opacity);
+    // print("birthTime is = ");
+    // println(birthTime);
+    //  print("opacity is = ");
+    // println(opacity);
     return opacity;
   }
 
@@ -130,20 +130,23 @@ class BasicShapeElement {
     color c = (0);
     float curTime = millis()/1000.0;
     //c_rand = random(0.5, 0.6);
-   // curTime = c_rand * curTime;
+    // curTime = c_rand * curTime;
 
     //println(curTime);
-    for (int i=0; i< numColors; i++) {
-      c = color(
-        sin(curTime * 0.8f + i * 0.0011f), //R
-        sin(curTime * 0.7f + i * 0.0013f), //G * 0.5f + 0.5f
-        sin(curTime * 0.3f + i * 0.0017f), //B
-        opacity);
-      //theta += sin(curTime * 0.5f) * i * 0.00002;
-    }
-    //print("color is: ");
-    //println(c);
-    paint = c;
+    //if (frameCount % 10 == 0) {
+      for (int i=0; i< numColors; i++) {
+        c = color(
+          sin(curTime * 0.8f + i * 0.0011f), //R
+          sin(curTime * 0.7f + i * 0.0013f), //G * 0.5f + 0.5f
+          sin(curTime * 0.3f + i * 0.0017f), //B
+          opacity);
+        //theta += sin(curTime * 0.5f) * i * 0.00002;
+      }
+
+      //print("color is: ");
+      //println(c);
+      paint = c;
+   // }
     //return c;
   }
 
@@ -182,7 +185,7 @@ class BasicShapeElement {
   }
 
   void display() {
-   //colorChanger();
+    colorChanger();
     if (line == true) {
       stroke(0, opacity);
       strokeWeight(0.25);

@@ -218,22 +218,24 @@ void triggerPortal() {
 
 void mousePressed() {
   /*
-  if (frameCount % 2 == 0) {
+// if (frameCount % 2 == 0) {
     float randX = random((-radius), (radius));
     float randY = random((-radius), (radius));
     PVector tester = new PVector(mouseX + randX, mouseY + randY);
     currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
-  }
-  */
+ // }
+ */
 }
 
 void mouseMoved() {
+ // /*
   // if (frameCount % 2 == 0) {
     float randX = random((-radius), (radius));
     float randY = random((-radius), (radius));
     PVector tester = new PVector(mouseX + randX, mouseY + randY);
     currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
  // }
+ //*/
 }
 
 color colorChanger() {
