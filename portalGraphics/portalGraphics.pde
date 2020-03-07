@@ -15,7 +15,7 @@ int radius = 150; // radius of shapes
 String messageselector;
 
 Integer[] screenLoc = {0, 0};
-ArrayList <PVector> all_locations;
+//ArrayList <PVector> all_locations;
 //PVector[] locations;
 
 
@@ -46,6 +46,7 @@ boolean firstLoc = true;
 PVector newLoc, currentLocation;
 int numColors = 300;
 float c_rand;
+PVector previousMouse;
 
 void setup() {
   //size(displayWidth, displayHeight); 
@@ -54,10 +55,10 @@ void setup() {
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
   trigger = false;
-  herd = new ArrayList<Cloud>(1000); // <--- hmm
+  // herd = new ArrayList<Cloud>(1000); // <--- hmm
   // herd = new ArrayList[1000];
   //all_locations = new PVector[1000];
-  all_locations = new ArrayList<PVector>(1000);
+  // all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<BasicShapeElement>(1000);
   portalTrig = false;
@@ -73,22 +74,22 @@ void setup() {
    }
    */
   // do the OSC setup stuff
-  //whereimlistening = new OscP5(this, 12000);
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  //  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
+  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-  //  whereimlistening = new OscP5(this, 12000);
+  whereimlistening = new OscP5(this, 12000);
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
   currentLocation = new PVector(-100, -100);
   PVector tester = new PVector(mouseX, mouseY);
   newSpot(tester);
+  previousMouse = new PVector(-100, -200);
 }
 
 void draw() {
@@ -111,10 +112,10 @@ void draw() {
     //loopChecker++;
     // print("loopChecker: ");
     // println(loopChecker);
-    print("Demos is: ");
-    println(demos.size()-1);
+    // print("Demos is: ");
+    // println(demos.size()-1);
     for (int i= demos.size()-1; i >= 0; i--) {
-      PVector loc = all_locations.get(i);
+      // PVector loc = all_locations.get(i);
       BasicShapeElement shape = demos.get(i);
       shape.featureShifter();
       //int rand_c = int(random(1, 300));
@@ -124,21 +125,21 @@ void draw() {
       boolean dead = shape.update();
       if (dead) {   // **** here with refactoring code with arrays
         demos.remove(i);  // if we remove one, breaks out of loop and stops
-        all_locations.remove(i);
+        // all_locations.remove(i);
         println("removed one");  // displaying rest, until loop is restored
       } else {  //continue;  // continue keeps the for-loop running
         //print("middle point is:  "); println(shape.middle);
         //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
         //if(locations[i] == mouseLoc + 10/-10){ <<-------
-
+        /*
         float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
-        if (d < shape.r ) {
-          //shape.expand();
-
-          //println(" close so grow");
-        }
-
-
+         if (d < shape.r ) {
+         //shape.expand();
+         
+         //println(" close so grow");
+         }
+         
+         */
         //expandShrink();
         /*
         //if shape location is similar to newest/mouse/current
@@ -219,23 +220,37 @@ void triggerPortal() {
 void mousePressed() {
   /*
 // if (frameCount % 2 == 0) {
-    float randX = random((-radius), (radius));
-    float randY = random((-radius), (radius));
-    PVector tester = new PVector(mouseX + randX, mouseY + randY);
-    currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
- // }
- */
+   float randX = random((-radius), (radius));
+   float randY = random((-radius), (radius));
+   PVector tester = new PVector(mouseX + randX, mouseY + randY);
+   currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+   // }
+   */
+}
+
+void keyPressed() {
+
+  print("Demos is: ");
+  println(demos.size()-1);
 }
 
 void mouseMoved() {
- // /*
-  // if (frameCount % 2 == 0) {
+  PVector m = new PVector(mouseX, mouseY);
+  float d = m.dist(previousMouse);
+  print(" distance between is:  ");
+  println(d);
+  if (d < 3 && d >= 0.2) {
+    // if( d > 0.0){
     float randX = random((-radius), (radius));
     float randY = random((-radius), (radius));
     PVector tester = new PVector(mouseX + randX, mouseY + randY);
     currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
- // }
- //*/
+  } else if (d < .2) {
+    //fill(255, 0, 0);
+    //ellipse(mouseX, mouseY, 20, 20);
+    // launch portal if a long time been here
+  } 
+  previousMouse = m;
 }
 
 color colorChanger() {
@@ -278,18 +293,54 @@ void oscEvent(OscMessage theOscMessage) {
   //println(theOscMessage.addrPattern().length());
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
-  newLoc = new PVector(tempX, tempY);
-  newSpot(newLoc);
+
+  float randX = random((-radius), (radius));
+  float randY = random((-radius), (radius));
+  //   PVector tester = new PVector(mouseX + randX, mouseY + randY);
+  newLoc = new PVector(tempX + randX, tempY + randY);
+  //newLoc = new PVector(tempX, tempY);
+ // if (repeat(newLoc) != true) { // <---- same spot?
+    newSpot(newLoc);
+ // }
+  //Reference for a portals and alleviation of duplicates:
+  //PVector m = new PVector(mouseX, mouseY);
+  //float d = m.dist(previousMouse);
+  //print(" distance between is:  ");
+  //println(d);
+  //if (d < 3 && d >= 0.2) {
+  //  // if( d > 0.0){
+  //  float randX = random((-radius), (radius));
+  //  float randY = random((-radius), (radius));
+  //  PVector tester = new PVector(mouseX + randX, mouseY + randY);
+  //  currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  //} 
+  //previousMouse = m;
+}
+
+Boolean repeat(PVector n) {
+  //for (int i = demos.size()-1; i >= 0; i--) {
+  //    BasicShapeElement patient = demos.get(i);
+  //    float maxX = patient.centerX + radius;
+  //    float maxY = patient.centerY + radius;
+  //    if( n.x < maxX && n.x > (patient.centerX - radius)
+      
+  //  boolean b= 
+      
+  //}
+  
+  return b;
 }
 
 PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
-
-  BasicShapeElement tester = new BasicShapeElement(int(newbie.x), int(newbie.y), 7, radius); 
-
-  demos.add(0, tester);
-  all_locations.add(newbie);
+  for (int i = 0; i < 4; i++) {
+    float randX = random((-radius), (radius));
+    float randY = random((-radius), (radius));
+    BasicShapeElement tester = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
+    demos.add(0, tester);
+  }
+  //all_locations.add(newbie);
   println("new spot added");
   return newbie;
 }

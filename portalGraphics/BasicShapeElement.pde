@@ -20,9 +20,10 @@ class BasicShapeElement {
   int limit;
   color paint;
   int numColors;
+   color c;
 
 
-  BasicShapeElement(int x_, int y_, int pts, int radius) {
+  BasicShapeElement(float x_, float y_, int pts, int radius) {
     dead = false;
     limit = 400;
     birthTime = -limit;
@@ -30,7 +31,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 20;
+    opacity = 10;
     op_start= 0;
     stepSize = 3; // crazy at 5 very jiggly
     r = radius;
@@ -45,7 +46,8 @@ class BasicShapeElement {
     theta = random(PI);
     incrementer = random(0.02, 0.05);
     paint = color(rd, gn, blu, opacity);
-    numColors = 200; // <--- messing with this....
+    numColors = 100; // <--- messing with this....
+    c = color(100, 100, 100, 20);
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
     for (int i = 0; i < numPoints; i++) {
@@ -72,8 +74,8 @@ class BasicShapeElement {
   int ageOpacity() {
     // for a time: increase the opacity:
     if (birthTime <= 0  && frameCount % 10 == 0) {
-      println("opacity increase");
-      println();
+      //println("opacity increase");
+      // println();
       opacity+=2; // if 4 or more, variable rolls over into mess
     } else { // if birthTime > 0
 
@@ -88,8 +90,10 @@ class BasicShapeElement {
         float rand8 = random(0, 1);
         if (rand8 >= .5)opacity-=2;
       } else if (birthTime >= (limit * .375) && birthTime < (limit * .75)) {  //<--- 60 - 80
+
         float rand8 = random(0, 1);
-        if (rand8 > .35) opacity+=2; // bump/increase....makes fade slower
+        if (rand8 > .65) opacity+=2; // bump/increase....makes fade slower
+        println("GETTING BRIGHTER");
       }
       /* } else if (yrsOld > 60 ) {
        opacity = opacity - 0.025;
@@ -127,26 +131,36 @@ class BasicShapeElement {
   }
 
   void colorChanger() {
-    color c = (0);
+   
     float curTime = millis()/1000.0;
-    //c_rand = random(0.5, 0.6);
+    // c_rand = random(0.5, 0.6);
     // curTime = c_rand * curTime;
 
     //println(curTime);
     //if (frameCount % 10 == 0) {
-      for (int i=0; i< numColors; i++) {
-        c = color(
-          sin(curTime * 0.8f + i * 0.0011f), //R
-          sin(curTime * 0.7f + i * 0.0013f), //G * 0.5f + 0.5f
-          sin(curTime * 0.3f + i * 0.0017f), //B
-          opacity);
-        //theta += sin(curTime * 0.5f) * i * 0.00002;
-      }
+    for (int i=20; i< numColors; i++) {
+      c = color(
+        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R
+        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f
+        sin(curTime * 0.3f + i * 0.0017f) + 0.8f, //B
+        opacity);
+      /* print("color is:  ");
+       print(r); 
+       print(",");
+       print(g); 
+       print(",");
+       println(b);
+       println();
+       c = color(r, g, b, opacity);
+       */
 
-      //print("color is: ");
-      //println(c);
-      paint = c;
-   // }
+      //);
+      //theta += sin(curTime * 0.5f) * i * 0.00002;
+    }
+
+
+    paint = c;
+    // }
     //return c;
   }
 
