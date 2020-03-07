@@ -1,5 +1,6 @@
 import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
+import java.util.Map;
 int checker = 0;
 int loopChecker = 0;
 //OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
@@ -19,17 +20,12 @@ Integer[] screenLoc = {0, 0};
 //PVector[] locations;
 
 
-Cloud fish;
-ArrayList<Cloud> herd; // a bunch of shape groups to make one cloud
-//Cloud[] herd;
-
-ArrayList <BasicShapeElement> demos;
+ArrayList <Cloud> demos;
 //BasicShapeElement[] demos;
 
+HashMap<String, Cloud> storm = new HashMap<String, Cloud>();
+
 boolean trigger;
-//int lastRecMouseX = 0;
-//int lastRecMouseY = 0;
-//int lastMouseX, lastMouseY;
 int distDiff= 10; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
@@ -44,13 +40,14 @@ boolean firstLoc = true;
 //int portalPoints = 18;
 //int locations_indice = 0;
 PVector newLoc, currentLocation;
-int numColors = 300;
+int numColors = 300;    
 float c_rand;
 PVector previousMouse;
 
 void setup() {
-  //size(displayWidth, displayHeight); 
-  size(800, 800);
+  size(1280, 1024);
+  //size(displayWidth, 300 ); 
+  //  size(800, 800);
   //background(0);
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
@@ -60,7 +57,7 @@ void setup() {
   //all_locations = new PVector[1000];
   // all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
-  demos = new ArrayList<BasicShapeElement>(1000);
+  demos = new ArrayList<Cloud>(50);
   portalTrig = false;
   //entry = new ArrayList<Portal>(1000);
   /*
@@ -77,7 +74,7 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
+  //  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -86,10 +83,10 @@ void setup() {
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
-  currentLocation = new PVector(-100, -100);
-  PVector tester = new PVector(mouseX, mouseY);
-  newSpot(tester);
-  previousMouse = new PVector(-100, -200);
+  //  currentLocation = new PVector(-100, -100);
+  //  PVector tester = new PVector(mouseX, mouseY);
+  //  newSpot(tester);
+  //  previousMouse = new PVector(-100, -200);
 }
 
 void draw() {
@@ -109,61 +106,51 @@ void draw() {
 
   // run the demos if we have any:
   if (demos.size() > 0) {
-    //loopChecker++;
-    // print("loopChecker: ");
-    // println(loopChecker);
     // print("Demos is: ");
     // println(demos.size()-1);
     for (int i= demos.size()-1; i >= 0; i--) {
       // PVector loc = all_locations.get(i);
-      BasicShapeElement shape = demos.get(i);
-      shape.featureShifter();
-      //int rand_c = int(random(1, 300));
-      //color c_ = colorChanger();
-      shape.display();
-      //shape.shrink();
-      boolean dead = shape.update();
-      if (dead) {   // **** here with refactoring code with arrays
-        demos.remove(i);  // if we remove one, breaks out of loop and stops
-        // all_locations.remove(i);
-        println("removed one");  // displaying rest, until loop is restored
-      } else {  //continue;  // continue keeps the for-loop running
-        //print("middle point is:  "); println(shape.middle);
-        //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
-        //if(locations[i] == mouseLoc + 10/-10){ <<-------
-        /*
-        float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
-         if (d < shape.r ) {
-         //shape.expand();
-         
-         //println(" close so grow");
-         }
-         
-         */
-        //expandShrink();
-        /*
-        //if shape location is similar to newest/mouse/current
-         if(newLoc.x < shape.centerX + 5 || newLoc.x > shape.centerY - 5 ){
-         println("EXPAND");
-         }
-         */
-
-        /*
-        PVector middle = shape.centerLoc();  // <-- not sure if this is right
-         PVector m = new PVector(mouseX, mouseY);
-         PVector difference = PVector.sub(m, middle);
-         float d = difference.mag();
-         //print("distance is:   "); println(d);
-         //print("shape diameter is:  "); println(shape.r * 2);
-         
-         if (d < (shape.r * 2)) {  // <-- logic here is off
-         
-         shape.expand();
-         println("expand");
-         }
-         }
-         */
+      Cloud c = demos.get(i);
+      if (c.shapes.size() <= 0) {
+        demos.remove(i);
+      } else {
+        c.run();
       }
+      //print("middle point is:  "); println(shape.middle);
+      //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
+      //if(locations[i] == mouseLoc + 10/-10){ <<-------
+      /*
+        float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
+       if (d < shape.r ) {
+       //shape.expand();
+       
+       //println(" close so grow");
+       }
+       
+       */
+      //expandShrink();
+      /*
+        //if shape location is similar to newest/mouse/current
+       if(newLoc.x < shape.centerX + 5 || newLoc.x > shape.centerY - 5 ){
+       println("EXPAND");
+       }
+       */
+
+      /*
+        PVector middle = shape.centerLoc();  // <-- not sure if this is right
+       PVector m = new PVector(mouseX, mouseY);
+       PVector difference = PVector.sub(m, middle);
+       float d = difference.mag();
+       //print("distance is:   "); println(d);
+       //print("shape diameter is:  "); println(shape.r * 2);
+       
+       if (d < (shape.r * 2)) {  // <-- logic here is off
+       
+       shape.expand();
+       println("expand");
+       }
+       }
+       */
     }
   }
 } // draw loop
@@ -235,44 +222,43 @@ void keyPressed() {
 }
 
 void mouseMoved() {
-  PVector m = new PVector(mouseX, mouseY);
-  float d = m.dist(previousMouse);
-  print(" distance between is:  ");
-  println(d);
-  if (d < 3 && d >= 0.2) {
-    // if( d > 0.0){
-    float randX = random((-radius), (radius));
-    float randY = random((-radius), (radius));
-    PVector tester = new PVector(mouseX + randX, mouseY + randY);
-    currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
-  } else if (d < .2) {
-    //fill(255, 0, 0);
-    //ellipse(mouseX, mouseY, 20, 20);
-    // launch portal if a long time been here
-  } 
-  previousMouse = m;
+  //PVector m = new PVector(mouseX, mouseY);
+  //float d = m.dist(previousMouse);
+  //print(" distance between is:  ");
+  //println(d);
+  //if (d < 3 && d >= 0.2) {
+  //  // if( d > 0.0){
+  //  float randX = random((-radius), (radius));
+  //  float randY = random((-radius), (radius));
+  //  PVector tester = new PVector(mouseX + randX, mouseY + randY);
+  //  currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
+  //} else if (d < .2) {
+  //  //fill(255, 0, 0);
+  //  //ellipse(mouseX, mouseY, 20, 20);
+  //  // launch portal if a long time been here
+  //} 
+  //previousMouse = m;
+  //  newLoc = new PVector(mouseX, mouseY);
+  //  if (!checkLocations(newLoc)) { // <---- same spot?
+  //    newSpot(newLoc);
+  //  }
 }
 
-color colorChanger() {
-  color c = 127;
-  float curTime = millis()/1000.0;
-  c_rand = random(0.5, 0.6);
-  curTime = c_rand * curTime;
 
-  //println(curTime);
-  for (int i=0; i< numColors; i++) {
-    c = color(
-      sin(curTime * 0.8f + i * 0.0011f) * 0.5f + 0.5f, //R
-      sin(curTime * 0.7f + i * 0.0013f) * 0.5f + 0.5f, //G
-      sin(curTime * 0.3f + i * 0.0017f) * 0.5f + 0.5f //B
-      );
-    //theta += sin(curTime * 0.5f) * i * 0.00002;
+boolean checkLocations(PVector nLoc) {
+  boolean tooClose = false;
+  for (int i= demos.size()-1; i >= 0; i--) {
+    // PVector loc = all_locations.get(i);
+    Cloud c = demos.get(i);
+    if (nLoc.dist(c.loc) < 5) {
+      tooClose = true;
+      break;
+    } else {
+      tooClose = false;
+    }
   }
-  print("color is: ");
-  println(c);
-  return c;
+  return tooClose;
 }
-
 
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
@@ -294,14 +280,15 @@ void oscEvent(OscMessage theOscMessage) {
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
 
-  float randX = random((-radius), (radius));
-  float randY = random((-radius), (radius));
+  // float randX = random((-radius), (radius));
+  // float randY = random((-radius), (radius));
   //   PVector tester = new PVector(mouseX + randX, mouseY + randY);
-  newLoc = new PVector(tempX + randX, tempY + randY);
-  //newLoc = new PVector(tempX, tempY);
- // if (repeat(newLoc) != true) { // <---- same spot?
+  //newLoc = new PVector(tempX + randX, tempY + randY);
+  newLoc = new PVector(tempX, tempY);
+  if (!checkLocations(newLoc)) { // <---- same spot?
     newSpot(newLoc);
- // }
+  }
+  // }
   //Reference for a portals and alleviation of duplicates:
   //PVector m = new PVector(mouseX, mouseY);
   //float d = m.dist(previousMouse);
@@ -317,29 +304,22 @@ void oscEvent(OscMessage theOscMessage) {
   //previousMouse = m;
 }
 
-Boolean repeat(PVector n) {
-  //for (int i = demos.size()-1; i >= 0; i--) {
-  //    BasicShapeElement patient = demos.get(i);
-  //    float maxX = patient.centerX + radius;
-  //    float maxY = patient.centerY + radius;
-  //    if( n.x < maxX && n.x > (patient.centerX - radius)
-      
-  //  boolean b= 
-      
-  //}
-  
-  return b;
-}
 
 PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
   //println("   is how many locations we have");
-  for (int i = 0; i < 4; i++) {
-    float randX = random((-radius), (radius));
-    float randY = random((-radius), (radius));
-    BasicShapeElement tester = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
-    demos.add(0, tester);
-  }
+  //for (int i = 0; i < 4; i++) {
+  //float randX = random((-radius), (radius));
+  //float randY = random((-radius), (radius));
+  //BasicShapeElement tester = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
+
+  // must map values from 640, 480 interface to a 1280, 1024 sketch
+  newbie.x = map(newbie.x, 0, 640, 0, 1280);
+  newbie.y = map(newbie.y, 0, 480, 0, 1024);
+  Cloud tester = new Cloud(newbie);
+  //println(tester.birth);
+  demos.add(0, tester);
+  //}
   //all_locations.add(newbie);
   println("new spot added");
   return newbie;
