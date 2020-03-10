@@ -83,27 +83,28 @@ void setup() {
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
-  //  currentLocation = new PVector(-100, -100);
+   currentLocation = new PVector(-400, -400);
   //  PVector tester = new PVector(mouseX, mouseY);
-  //  newSpot(tester);
+  newSpot(currentLocation);
   //  previousMouse = new PVector(-100, -200);
 }
 
 void draw() {
   background(0);
-
-  /* // ************* old code (before refactor)
+/* not so noticible now bc more fog-like; 
+   // ************* old code (before refactor)
    
    // randomly kill off a few _shapes_ from within the cloud herd
    if (frameCount % 8 == 0) {
-   for (int i = 5; i < 0; i--) {
-   int rando = floor(random(0, herd.size()-1));
-   Cloud temp = herd.get(rando);
-   temp.plague(); 
+     for (int i = 5; i < 0; i--) {
+       int rando = floor(random(0, demos.size()-1));
+       Cloud temp = demos.get(rando);
+       temp.plague(); 
    //float whichOne = abs(random(1, herd.size()));
    // herd.remove(whichOne); 
-   */
-
+     }
+   }
+*/
   // run the demos if we have any:
   if (demos.size() > 0) {
     // print("Demos is: ");
@@ -250,7 +251,7 @@ boolean checkLocations(PVector nLoc) {
   for (int i= demos.size()-1; i >= 0; i--) {
     // PVector loc = all_locations.get(i);
     Cloud c = demos.get(i);
-    if (nLoc.dist(c.loc) < 5) {
+    if (nLoc.dist(c.loc) < 30) { // less space = more fog; yet balance cpu; ok w/30
       tooClose = true;
       break;
     } else {
@@ -287,6 +288,7 @@ void oscEvent(OscMessage theOscMessage) {
   newLoc = new PVector(tempX, tempY);
   if (!checkLocations(newLoc)) { // <---- same spot?
     newSpot(newLoc);
+    println("Made new cloud");
   }
   // }
   //Reference for a portals and alleviation of duplicates:
@@ -318,7 +320,7 @@ PVector newSpot(PVector newbie) {
   newbie.y = map(newbie.y, 0, 480, 0, 1024);
   Cloud tester = new Cloud(newbie);
   //println(tester.birth);
-  demos.add(0, tester);
+  demos.add(tester); // took out (0, tester)
   //}
   //all_locations.add(newbie);
   println("new spot added");

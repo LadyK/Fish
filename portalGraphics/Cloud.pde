@@ -2,29 +2,29 @@ class Cloud {
 
   //ArrayList<Shape> shapeCloud; //shapes to form one cloud
 
-  int limit;
+  int howMany;
   //int numPts;
   //int rad;
   PVector loc;
   long birth;
   ArrayList<BasicShapeElement>shapes;
-  int radius; // radius of shapes
+  int rando;
  
   Cloud(PVector newbie) {
     //shapeCloud = new ArrayList<Shape>();
     loc = newbie.copy();
-    limit = 20;
+    howMany = 15;  // the more the foggier. but need to mind cpu
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
     //rad = 25;
-    radius = 150;
+    rando = 100;
     birth = millis();
     println(shapes.size());
     // creating #limit shapes and push to cloud array:
-    for (int i = 0; i < limit; i++) {
+    for (int i = 0; i < howMany; i++) {
       // pick some points around the mouse for the shape
-      float randX = random((-radius), (radius));
-      float randY = random((-radius), (radius));
+      float randX = random((-rando), (rando));
+      float randY = random((-rando), (rando));
       BasicShapeElement temp = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
       shapes.add(0, temp);
  
@@ -54,8 +54,8 @@ class Cloud {
 
   //kills off a shape, not a cloud; part of a cloud
   void plague() {
-    // float whichOne = floor(random(0, shapeCloud.length-1));
-    //shapeCloud.remove(whichOne);
+     float whichOne = floor(random(0, shapes.size()-1));
+     shapes.remove(whichOne);
     //shapeCloud = shorten(shapeCloud);  //<-- stuck
     println("lost one");
   }

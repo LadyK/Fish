@@ -25,7 +25,7 @@ class BasicShapeElement {
 
   BasicShapeElement(float x_, float y_, int pts, int radius) {
     dead = false;
-    limit = 400;
+    limit = 400;  //max age
     birthTime = -limit;
     numPoints = pts;
     // x = new float[numPoints];
@@ -58,7 +58,7 @@ class BasicShapeElement {
   boolean update() {
     int op = ageOpacity(); // fade data
     //print("op is: "); println(op);
-    if (op < 10) {
+    if (op < 9) {
       dead = true;
       birthTime = 0;
     } else {
@@ -73,10 +73,12 @@ class BasicShapeElement {
 
   int ageOpacity() {
     // for a time: increase the opacity:
-    if (birthTime <= 0  && frameCount % 10 == 0) {
+    // higher modulo: more fog-like;
+    // lower modulo: increased opacity + circle visual/hardness
+    if (birthTime <= 0  && frameCount % 20 == 0) {
       //println("opacity increase");
       // println();
-      opacity+=2; // if 4 or more, variable rolls over into mess
+      opacity+=1; // if 4 or more, variable rolls over into mess; 1 = fog; 2 = circles
     } else { // if birthTime > 0
 
       // centerX--; 
@@ -253,7 +255,7 @@ class BasicShapeElement {
   void featureShifter() {
     // location of points, shift slightly for motion:
     float rand2 = random(0, 1);
-    if (rand2 > .5) { // fun to play with this value w/changing stepSize<-- 
+    if (rand2 > .8) { // fun to play with this value w/changing stepSize<-- 
       // new points for the shapes
       for (int i = 0; i < numPoints; i++) {
         PVector coor = coordinates[i];
