@@ -31,10 +31,11 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 10;
-    op_start= 0;
+    opacity = 10; // was 10  // 100 for testing
+    op_start= 0;  // was 0   // 60 for testing
     stepSize = 3; // crazy at 5 very jiggly
-    r = radius;
+    //r = radius;
+    r = radius * 2;
     line = false;
     smooth();
     rd = 0;
@@ -46,13 +47,14 @@ class BasicShapeElement {
     theta = random(PI);
     incrementer = random(0.02, 0.05);
     paint = color(rd, gn, blu, opacity);
-    numColors = 100; // <--- messing with this....
+    numColors = 500; // <--- messing with this....
     c = color(100, 100, 100, 20);
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
-    for (int i = 0; i < numPoints; i++) {
-      coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
-    }
+    
+    //for (int i = 0; i < numPoints; i++) {
+    //  coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
+    //}
   } // constructor
 
   boolean update() {
@@ -63,7 +65,7 @@ class BasicShapeElement {
       birthTime = 0;
     } else {
       dead = false;
-      featureShifter();  // move/squigle <-- do we want these to change location to?
+      //featureShifter();  // move/squigle <-- do we want these to change location to?
       //display(true, rd, gn, blu, op); //<-- use variables
     }
     // middle = centerLoc();
@@ -140,11 +142,11 @@ class BasicShapeElement {
 
     //println(curTime);
     //if (frameCount % 10 == 0) {
-    for (int i=20; i< numColors; i++) {
+    for (int i=0; i< numColors; i+=25) {
       c = color(
-        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R
-        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f
-        sin(curTime * 0.3f + i * 0.0017f) + 0.8f, //B
+        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
+        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
+        sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
         opacity);
       /* print("color is:  ");
        print(r); 
@@ -177,12 +179,12 @@ class BasicShapeElement {
     theta += incrementer;
     float r_local = r + r * (sin(theta) + 1);  //radius changes
 
-    // update locations:
-    for (int i = 0; i < numPoints; i++) {
-      PVector coor = coordinates[i];
-      coor.x += cos(angle*i) * r_local ;
-      coor.y += sin(angle*i) * r_local ;
-    }
+//    // update locations:
+//    for (int i = 0; i < numPoints; i++) {
+//      PVector coor = coordinates[i];
+//      coor.x += cos(angle*i) * r_local ;
+//      coor.y += sin(angle*i) * r_local ;
+//    }
   }
 
   void shrink() {
@@ -191,11 +193,13 @@ class BasicShapeElement {
       if (rand < 0.3) {  // and once in a while:
         r= r - random(0, .8); // shrink a bit
         // update locations:
+        /*
         for (int i = 0; i < numPoints; i++) {
           PVector coor = coordinates[i];
           coor.x = cos(angle*i) * r;
           coor.y = sin(angle*i) * r;
         }
+        */
       }
     }
   }
@@ -209,6 +213,8 @@ class BasicShapeElement {
       noStroke();
       fill(paint, opacity); // opacity was manually set at 25 -> ?
       // fill(_c);
+      
+      /*
       beginShape();
       //start controlpoint from the last point in the array
       curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
@@ -223,6 +229,8 @@ class BasicShapeElement {
 
       curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
       endShape();
+      */
+      ellipse(centerX, centerY, r, r);
     }
   }// display
 
@@ -245,23 +253,30 @@ class BasicShapeElement {
     centerY = cY;
     float angle = radians(360/float(numPoints));
     float radius = r * random(0.5, 1.0);
+    /*
     for (int i = 0; i < numPoints; i++) {
       PVector coor = coordinates[i];
       coor.x = cos(angle*i) * radius;
       coor.y = sin(angle*i) * radius;
     }
+    */
   } //newLoc
 
   void featureShifter() {
+   
     // location of points, shift slightly for motion:
     float rand2 = random(0, 1);
     if (rand2 > .8) { // fun to play with this value w/changing stepSize<-- 
+    r += random(-stepSize, stepSize);
       // new points for the shapes
+       /*
       for (int i = 0; i < numPoints; i++) {
         PVector coor = coordinates[i];
         coor.x += random(-stepSize, stepSize);
         coor.y += random(-stepSize, stepSize);
       }
+         */
     }
+ 
   }// feature shifter
 }
