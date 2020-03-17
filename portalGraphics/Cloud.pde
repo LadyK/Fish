@@ -17,7 +17,7 @@ class Cloud {
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
     //rad = 25;
-    rando = 100; // was 100
+    rando = 120; // was 100
     birth = millis();
     //println(shapes.size());
     // creating #limit shapes and push to cloud array:
@@ -43,7 +43,7 @@ class Cloud {
       if (dead) {  
         shapes.remove(temp);  
         // println("removed one");  // displaying rest, until loop is restored
-      } else {
+      } else { 
         temp.display();
       }// dead
     } // for

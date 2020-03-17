@@ -23,7 +23,9 @@ Integer[] screenLoc = {0, 0};
 ArrayList <Cloud> demos;
 //BasicShapeElement[] demos;
 
-HashMap<String, Cloud> storm = new HashMap<String, Cloud>();
+ArrayList<Shape> triggers;
+
+//HashMap<String, Cloud> storm = new HashMap<String, Cloud>();
 
 boolean trigger;
 int distDiff= 10; // how much of a difference in mouse location needed
@@ -58,6 +60,7 @@ void setup() {
   // all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
   demos = new ArrayList<Cloud>(50);
+  triggers = new ArrayList<Shape>(10);
   portalTrig = false;
   //entry = new ArrayList<Portal>(1000);
   /*
@@ -154,39 +157,22 @@ void draw() {
        */
     }
   }
+
+  print("triggers is: "); println(triggers.size());
+  for (int i = triggers.size()-1; i >= 0; i--) {
+    Shape s = triggers.get(i);
+    if (s.o <= 1) {
+      triggers.remove(i);
+     // println("Trigger removed");
+    } else{
+      s.update_();
+    }
+  }
+  
+  
 } // draw loop
 
 
-
-/* this isn't working correct
- desired: when close: shape expands
- when far: shape shrinks  */
-void expandShrink() {
-  /* all kinds of weird action happening here. fun. but not what I'm after
-   for(BasicShapeElement shapie: demos){
-   if (shapie.centerX > (mouseX + distDiff) || shapie.centerX < (mouseX - distDiff) ||
-   shapie.centerY  > (mouseY + distDiff)  || shapie.centerY  < (mouseX - distDiff) ) {
-   // shapie.expand();
-   } // if we are close
-   else {
-   shapie.shrink();
-   }
-   }
-   
-   
-   println("checking spot to grow");
-   for (PVector loc : all_locations) {
-   float d = dist(loc.x, mouseX, loc.y, mouseY);
-   BasicShapeElement shapie = demos.get(loc);
-   if (d < shapie.r) {
-   shapie.expand();
-   println("close so grow");
-   } else {
-   // shapie.shrink();
-   }
-   }
-   */
-}
 
 
 void triggerPortal() {
@@ -245,7 +231,7 @@ void mouseMoved() {
   //  }
 }
 
-// not working properly:
+
 boolean checkLocations(PVector nLoc) {
   print("demo size: "); 
   println(demos.size());
@@ -253,33 +239,13 @@ boolean checkLocations(PVector nLoc) {
   for (int i= demos.size()-1; i >= 0; i--) {
     // PVector loc = all_locations.get(i);
     Cloud c = demos.get(i);
-     if(c.tooclose(nLoc) == true){
-       tooClose = true;
-     }
-     else {
-       tooClose = false;
-     }
-    /*
-    PVector temp = c.loc;
-    // float d = PVector.dist(c.loc, nLoc);
-    float d = dist(temp.x, nLoc.x, temp.y, nLoc.y);
-    ///*
-    if (d < (radius * 2)) { // less space = more fog; yet balance cpu; ok w/30
+    if (c.tooclose(nLoc) == true) {
       tooClose = true;
-      println("too close, no");
-
-      print("pvect cloud : "); 
-      println(temp);
-      print("new loc is: "); 
-      println(nLoc);
       break;
     } else {
       tooClose = false;
     }
-    //*/
-    //println(d);
   }
-  
   return tooClose;
 }
 
@@ -311,6 +277,9 @@ void oscEvent(OscMessage theOscMessage) {
   //newLoc = new PVector(tempX + randX, tempY + randY);
   newLoc = new PVector(tempX, tempY);
   if (checkLocations(newLoc) == false) { // <---- same spot?
+    newLoc.x = map(newLoc.x, 0, 640, 0, 1280);
+    newLoc.y = map(newLoc.y, 0, 480, 0, 1024);
+    flash(newLoc);
     newSpot(newLoc);
     println("Made new cloud");
   } else {
@@ -332,6 +301,12 @@ void oscEvent(OscMessage theOscMessage) {
   //previousMouse = m;
 }
 
+void flash(PVector l_) {
+  Shape spot = new Shape(int(l_.x), int(l_.y), 7, radius);
+  triggers.add(spot);
+  println("New Trigger added");
+}
+
 
 PVector newSpot(PVector newbie) {
   //print(locations.size()-1);
@@ -342,8 +317,8 @@ PVector newSpot(PVector newbie) {
   //BasicShapeElement tester = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
 
   // must map values from 640, 480 interface to a 1280, 1024 sketch
-  newbie.x = map(newbie.x, 0, 640, 0, 1280);
-  newbie.y = map(newbie.y, 0, 480, 0, 1024);
+
+  //print("parameters are: "); println(newbie.y);
   Cloud tester = new Cloud(newbie);
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)

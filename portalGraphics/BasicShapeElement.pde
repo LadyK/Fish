@@ -12,7 +12,7 @@ class BasicShapeElement {
   int op_start;// = 50; // orignation of opacity
   int opChanger;  ///slow down death
   float angle;
-  int birthTime;
+  long birthTime;
   boolean dead, line;
   PVector middle;
   float theta, incrementer, op;
@@ -20,7 +20,8 @@ class BasicShapeElement {
   int limit;
   color paint;
   int numColors;
-   color c;
+  color c;
+
 
 
   BasicShapeElement(float x_, float y_, int pts, int radius) {
@@ -49,35 +50,54 @@ class BasicShapeElement {
     paint = color(rd, gn, blu, opacity);
     numColors = 500; // <--- messing with this....
     c = color(100, 100, 100, 20);
+   
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
-    
+
     //for (int i = 0; i < numPoints; i++) {
     //  coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
     //}
   } // constructor
 
   boolean update() {
-    int op = ageOpacity(); // fade data
-    //print("op is: "); println(op);
-    if (op < 9) {
-      dead = true;
-      birthTime = 0;
-    } else {
+    /*
+    //incubating:
+    if ((frameCount - incubate) < flashLimit) {
+      incubate();
       dead = false;
-      //featureShifter();  // move/squigle <-- do we want these to change location to?
-      //display(true, rd, gn, blu, op); //<-- use variables
-    }
-    // middle = centerLoc();
+      //println("incubating");
+    } else {
+      */
+      //maturing and fading:
+      int op = ageOpacity(); // fade data
+      //print("op is: "); println(op);
+      if (op < 9) {
+        dead = true;
+        birthTime = 0;
+      } else {
+        dead = false;
+        //featureShifter();  // move/squigle <-- do we want these to change location to?
+        //display(true, rd, gn, blu, op); //<-- use variables
+      }
+      // middle = centerLoc();
+   // }
 
     return dead;
   }
 
   int ageOpacity() {
+    /*
+    need to refine this: a noticeable amount but not a flash, nor flashing
+    a noticible amount initially-stronger, then looser fog... spread?
+    if (birthTime <= (-limit + 10)){
+      trigger();
+      
+    }
     // for a time: increase the opacity:
     // higher modulo: more fog-like;
     // lower modulo: increased opacity + circle visual/hardness
-    if (birthTime <= 0  && frameCount % 20 == 0) {
+    else */
+    if (birthTime <= 0 && frameCount % 20 == 0) {
       //println("opacity increase");
       // println();
       opacity+=1; // if 4 or more, variable rolls over into mess; 1 = fog; 2 = circles
@@ -95,8 +115,8 @@ class BasicShapeElement {
         if (rand8 >= .5)opacity-=2;
       } else if (birthTime >= (limit * .375) && birthTime < (limit * .75)) {  //<--- 60 - 80
 
-        float rand8 = random(0, 1);
-        if (rand8 > .65) opacity+=2; // bump/increase....makes fade slower
+        float rand9 = random(0, 1);
+        if (rand9 > .65) opacity+=2; // bump/increase....makes fade slower
         println("GETTING BRIGHTER");
       }
       /* } else if (yrsOld > 60 ) {
@@ -125,7 +145,7 @@ class BasicShapeElement {
     /*
     if (opacity < 3) { 
      opacity = 0;
-     }  // it's pretty much gone, but had to set a limit
+     }  // it's pretty much gone, but had to set a limit 
      */
     // print("birthTime is = ");
     // println(birthTime);
@@ -134,8 +154,16 @@ class BasicShapeElement {
     return opacity;
   }
 
+  void trigger() {
+    if (opacity > 10) {
+      opacity-=20;
+    } else {
+      opacity = 10;
+    }
+  }
+
   void colorChanger() {
-   
+
     float curTime = millis()/1000.0;
     // c_rand = random(0.5, 0.6);
     // curTime = c_rand * curTime;
@@ -179,12 +207,12 @@ class BasicShapeElement {
     theta += incrementer;
     float r_local = r + r * (sin(theta) + 1);  //radius changes
 
-//    // update locations:
-//    for (int i = 0; i < numPoints; i++) {
-//      PVector coor = coordinates[i];
-//      coor.x += cos(angle*i) * r_local ;
-//      coor.y += sin(angle*i) * r_local ;
-//    }
+    //    // update locations:
+    //    for (int i = 0; i < numPoints; i++) {
+    //      PVector coor = coordinates[i];
+    //      coor.x += cos(angle*i) * r_local ;
+    //      coor.y += sin(angle*i) * r_local ;
+    //    }
   }
 
   void shrink() {
@@ -195,11 +223,11 @@ class BasicShapeElement {
         // update locations:
         /*
         for (int i = 0; i < numPoints; i++) {
-          PVector coor = coordinates[i];
-          coor.x = cos(angle*i) * r;
-          coor.y = sin(angle*i) * r;
-        }
-        */
+         PVector coor = coordinates[i];
+         coor.x = cos(angle*i) * r;
+         coor.y = sin(angle*i) * r;
+         }
+         */
       }
     }
   }
@@ -213,23 +241,23 @@ class BasicShapeElement {
       noStroke();
       fill(paint, opacity); // opacity was manually set at 25 -> ?
       // fill(_c);
-      
+
       /*
       beginShape();
-      //start controlpoint from the last point in the array
-      curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
-
-      //only these points are drawn
-      for (int i = 0; i < numPoints; i++) {
-        curveVertex(coordinates[i].x+centerX, coordinates[i].y+centerY);
-      }
-      //
-      curveVertex(coordinates[0].x +centerX, coordinates[0].y+centerY);
-      //end control point
-
-      curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
-      endShape();
-      */
+       //start controlpoint from the last point in the array
+       curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
+       
+       //only these points are drawn
+       for (int i = 0; i < numPoints; i++) {
+       curveVertex(coordinates[i].x+centerX, coordinates[i].y+centerY);
+       }
+       //
+       curveVertex(coordinates[0].x +centerX, coordinates[0].y+centerY);
+       //end control point
+       
+       curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
+       endShape();
+       */
       ellipse(centerX, centerY, r, r);
     }
   }// display
@@ -255,28 +283,27 @@ class BasicShapeElement {
     float radius = r * random(0.5, 1.0);
     /*
     for (int i = 0; i < numPoints; i++) {
-      PVector coor = coordinates[i];
-      coor.x = cos(angle*i) * radius;
-      coor.y = sin(angle*i) * radius;
-    }
-    */
+     PVector coor = coordinates[i];
+     coor.x = cos(angle*i) * radius;
+     coor.y = sin(angle*i) * radius;
+     }
+     */
   } //newLoc
 
   void featureShifter() {
-   
+
     // location of points, shift slightly for motion:
     float rand2 = random(0, 1);
     if (rand2 > .8) { // fun to play with this value w/changing stepSize<-- 
-    r += random(-stepSize, stepSize);
+      r += random(-stepSize, stepSize);
       // new points for the shapes
-       /*
+      /*
       for (int i = 0; i < numPoints; i++) {
-        PVector coor = coordinates[i];
-        coor.x += random(-stepSize, stepSize);
-        coor.y += random(-stepSize, stepSize);
-      }
-         */
+       PVector coor = coordinates[i];
+       coor.x += random(-stepSize, stepSize);
+       coor.y += random(-stepSize, stepSize);
+       }
+       */
     }
- 
   }// feature shifter
 }
