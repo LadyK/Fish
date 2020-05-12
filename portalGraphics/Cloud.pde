@@ -7,13 +7,14 @@ class Cloud {
   //int rad;
   PVector loc;
   long birth;
-  ArrayList<BasicShapeElement>shapes;
+  ArrayList<BasicShapeElement>shapes; //how many shapes in cloud? How big/wide cloud?
   int rando;
 
   Cloud(PVector newbie) {
     //shapeCloud = new ArrayList<Shape>();
-    loc = newbie.copy();
-    howMany = 20;  // the more the foggier. but need to mind cpu; was 30
+    //loc = newbie.copy();
+    loc = new PVector(newbie.x, newbie.y);
+    howMany = 15;  // the more the foggier. but need to mind cpu; was 30
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
     //rad = 25;
@@ -41,23 +42,26 @@ class Cloud {
       //shape.shrink();
       boolean dead = temp.update();
       if (dead) {  
+        println("removed a basic shape");
         shapes.remove(temp);  
-        // println("removed one");  // displaying rest, until loop is restored
       } else { 
+        if (frameCount % 5 == 0) {
+        temp.featureShifter();
+        }
         temp.display();
       }// dead
     } // for
   } // run
 
   Boolean tooclose(PVector l) {
-    Boolean toClose = false;
-    float d = dist(loc.x, l.x, loc.y, l.y);
-    if ( d < radius ) {
-      toClose = true;
+    //Boolean toClose = false;
+    float d = dist(loc.x, loc.y, l.x, l.y);
+    if ( d < radius * 2) {
+      return true;
     } else {
-      toClose = false;
+      return false;
     }
-    return toClose;
+    //return toClose;
   }
 
 

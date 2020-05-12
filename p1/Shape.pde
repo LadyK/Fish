@@ -1,112 +1,174 @@
-class Shape extends BasicShapeElement {
-  int numPoints = 5; //10
+class Shape {
+  //int numPoints = 5; //10
   //float r = 25; //width of shape  future= relation to body re: w + h
   //int stepSize = 1;
   ////float distortionFactor = 1;
-
-  float yrsOld;
-  int opacity;
+  boolean incubate;
+  long flashLimit;
+  int o;
+  long birth;
+  int interval;
+  float centerX, centerY;
+  int numPoints;
+  int stepSize;
+  float angle;
+  float theta;
+  color paint;
+  float r;// 
+  PVector [] coordinates;
+  color c;
+  int numColors = 500; // <--- messing with this....
+  long presence;
+  long timeStill;
 
   Shape(int x_, int y_, int p_, int r) {
-    super(x_, y_, p_, r);  // <--- can't pass variables
+    // super(x_, y_, p_, r);  // <--- can't pass variables
     //birth = millis();  // get a birthday
-    opacity = 50;
-    yrsOld = 0;
-    rd = 0;
-    gn = int(random(128, 255));
-    blu = int(random(0, 192));
+    o = 50;
+    stepSize = 15; 
+    interval = 6000;
+    birth = frameCount;
+    numPoints = p_;
+    coordinates = new PVector[numPoints];
+    angle = radians(360/float(numPoints));
+    theta = random(PI);
+    centerX = x_;
+    centerY = y_;
+    timeStill = 200;  // how long until portal launch
+    // rd = 0;
+    // gn = int(random(128, 255));
+    // blu = int(random(0, 192));
+    for (int i = 0; i < numPoints; i++) {
+      coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
+    }
+  }
+
+  void update_() {
+    changeOp();
+    featureShifter();
+    shrink();
+    display();
+    portCheck();
   }
 
   void display() {
-    //super.display(true, rd, gn, blu, opacity); //50
-    super.display();
-    //opacity = op_;
+    colorChanger();
+    //noStroke();
+    stroke(paint, 200);
+    strokeWeight(3);
+    // fill(paint, o); // opacity was manually set at 25 -> ?
+    noFill();
+    beginShape();
+    //start controlpoint from the last point in the array
+    curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
 
-
-    // move points and color:
-    featureShifter();
-
-    // depending on how old we are, mess with how quickly/slowly we age:
-    if (yrsOld >=  10 && yrsOld < 40) {   //10 + 40
-      float randy = random(0, 1);
-      if (randy < 0.2) {   // 20% of the time,   .7
-        // age much more 
-        yrsOld = yrsOld + 2;
-      } else {  // 70% of time:
-        // yrsOld += 0.025;
-        yrsOld = yrsOld+1;
-        // println("slow down aging");
-      }
+    //only these points are drawn
+    for (int i = 0; i < numPoints; i++) {
+      curveVertex(coordinates[i].x+centerX, coordinates[i].y+centerY);
     }
-    if (yrsOld >= 40) {
-      float randy = random(0, 1);
-      if (randy > 0.3) {
-        yrsOld = yrsOld + 1;
-      } else {  // 30% of the time, slow down how fast we age
-        yrsOld -= 1;
-        //println("slow down aging");
-      }
-    } else {
-      float randy = random(0, 1);
-      if (randy > 0.3) {
-        yrsOld+=3;
-      } else {
-        yrsOld -=2;
-      }
+    //
+    curveVertex(coordinates[0].x +centerX, coordinates[0].y+centerY);
+    //end control point
+
+    curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
+    endShape();
+  }
+  
+  void portCheck(){
+    // if one is in the same place for awhile, make a portal:
+    if (presence >= timeStill){
+      Portal p = new Portal(centerX, centerY, 7, radius);
+      portals.add(p);
+   
     }
-    //print("we are: "); 
-    //println(yrsOld);
-    changeOp();
+    
   }
 
+  Boolean tooclose(PVector l) {
+   // Boolean toClose = false;
+    float d = dist(centerX, centerY, l.x, l.y);
+    // if the new location is close to us:
+    if ( d < 200 ) {
+      presence++;
+      return true;
+    } else {
+      return false;
+    }
+    //greturn toClose;
+  }
 
   /// functions internal to class for better organization:
 
   void featureShifter() {
-    super.featureShifter();
-    // shift the color
-    float rand3 = random(0, 1);
-    // likelihood to shift color
-    if (rand3 > 0.7) {
-      rd = 0;
-      gn = int(random(128, 255));
-      blu = int(random(0, 192));
+    // location of points, shift slightly for motion:
+    float rand2 = random(0, 1);
+    if (rand2 > .5) { // fun to play with this value w/changing stepSize<-- 
+      for (int i = 0; i < numPoints; i++) {
+        PVector coor = coordinates[i];
+        coor.x += random(-stepSize, stepSize);
+        coor.y += random(-stepSize, stepSize);
+      }
     }
   } //featureShifter
 
+  void shrink() {
+    float rand = random(0, 1);
+    if (r > 0) { // as long as we have a radius
+      if (rand < 0.3) {  // and once in a while:
+        // update locations:
+        // /*
+        for (int i = 0; i < numPoints; i++) {
+          PVector coor = coordinates[i];
+          coor.x = cos(angle*i) * r;
+          coor.y = sin(angle*i) * r;
+        }
+        //  */
+      }
+    }
+  }
 
   //  vary opacity as a result of age:
-  void changeOp() {
-    if (yrsOld < 20) {
-      opacity--;
-    } else if ((yrsOld >= 20) && (yrsOld < 50)) {  // 30, 60
-      float rand8 = random(0, 1);
-      if(rand8 >= .5)opacity-=2;
-    } else if (yrsOld >= 50 && yrsOld < 90 ) {  //<--- 60 - 80
-      float rand8 = random(0, 1);
-      if(rand8 > .95) opacity+=2;
-    }
-    /* } else if (yrsOld > 60 ) {
-     opacity = opacity - 0.025;
-     }
-     */
-    // /*
-    else if (yrsOld > 90 ) {  //was 80
-      float rand3 = random(0, 1);
-      if ( rand3 > .6) {
-        opacity = opacity + 1 ; //2
-      } else {
-        opacity = opacity - 2;  //-3
-        // println("still here");
-        // println();
-      }
-      // */
-      /*
-     else if ( yrsOld > 80) {
-       opacity = opacity - .05;
-       }
+  int changeOp() {
+    // if ( (frameCount - birth) < interval) {
+    o = o - 2;
+    // println("opacity decrease");
+    // } else {
+    //   o = 10;
+    // }
+    return o;
+  }
+
+  void colorChanger() {
+
+    float curTime = millis()/1000.0;
+    // c_rand = random(0.5, 0.6);
+    // curTime = c_rand * curTime;
+
+    //println(curTime);
+    //if (frameCount % 10 == 0) {
+    for (int i=0; i< numColors; i+=25) {
+      c = color(
+        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
+        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
+        sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
+        o);
+      /* print("color is:  ");
+       print(r); 
+       print(",");
+       print(g); 
+       print(",");
+       println(b);
+       println();
+       c = color(r, g, b, opacity);
        */
+
+      //);
+      //theta += sin(curTime * 0.5f) * i * 0.00002;
     }
-    if (opacity < 0) opacity = 0;
-  } // age
-} // end shape class
+
+
+    paint = c;
+    // }
+    //return c;
+  }
+}// end shape class

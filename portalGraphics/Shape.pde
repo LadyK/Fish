@@ -18,12 +18,14 @@ class Shape {
   PVector [] coordinates;
   color c;
   int numColors = 500; // <--- messing with this....
+  long presence;
+  long timeStill;
 
   Shape(int x_, int y_, int p_, int r) {
     // super(x_, y_, p_, r);  // <--- can't pass variables
     //birth = millis();  // get a birthday
     o = 50;
-    stepSize = 15; // crazy at 5 very jiggly
+    stepSize = 5; 
     interval = 6000;
     birth = frameCount;
     numPoints = p_;
@@ -32,6 +34,7 @@ class Shape {
     theta = random(PI);
     centerX = x_;
     centerY = y_;
+    timeStill = 200;  // how long until portal launch
     // rd = 0;
     // gn = int(random(128, 255));
     // blu = int(random(0, 192));
@@ -43,15 +46,18 @@ class Shape {
   void update_() {
     changeOp();
     featureShifter();
+    shrink();
     display();
+   // portCheck();
   }
 
   void display() {
     colorChanger();
     //noStroke();
-    stroke(paint, 127);
+    stroke(paint, 200);
     strokeWeight(3);
-   // fill(paint, o); // opacity was manually set at 25 -> ?
+    // fill(paint, o); // opacity was manually set at 25 -> ?
+    noFill();
     beginShape();
     //start controlpoint from the last point in the array
     curveVertex(coordinates[numPoints-1].x +centerX, coordinates[numPoints-1].y+centerY);
@@ -67,7 +73,29 @@ class Shape {
     curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
     endShape();
   }
+  
+  void portCheck(){
+    // if one is in the same place for awhile, make a portal:
+    if (presence >= timeStill){
+      Portal p = new Portal(centerX, centerY, 7, radius);
+      portals.add(p);
+   
+    }
+    
+  }
 
+  Boolean tooclose(PVector l) {
+   // Boolean toClose = false;
+    float d = dist(centerX, centerY, l.x, l.y);
+    // if the new location is close to us:
+    if ( d < 200 ) {
+      presence++;
+      return true;
+    } else {
+      return false;
+    }
+    //greturn toClose;
+  }
 
   /// functions internal to class for better organization:
 
@@ -101,12 +129,12 @@ class Shape {
 
   //  vary opacity as a result of age:
   int changeOp() {
-   // if ( (frameCount - birth) < interval) {
-      o = o - 2;
-      println("opacity decrease");
-   // } else {
-   //   o = 10;
-   // }
+    // if ( (frameCount - birth) < interval) {
+    o = o - 2;
+    // println("opacity decrease");
+    // } else {
+    //   o = 10;
+    // }
     return o;
   }
 

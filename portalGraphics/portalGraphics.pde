@@ -1,6 +1,10 @@
 import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
+import codeanticode.syphon.*;
+
+SyphonServer server;
+
 int checker = 0;
 int loopChecker = 0;
 //OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
@@ -9,7 +13,7 @@ NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
 
 OscP5 whereimlistening;
 
-int radius = 150; // radius of shapes
+int radius = 100; // radius of shapes
 
 /* a NetAddress contains the ip address and port number of a remote location in the network. */
 
@@ -22,6 +26,7 @@ Integer[] screenLoc = {0, 0};
 
 ArrayList <Cloud> demos;
 //BasicShapeElement[] demos;
+ArrayList <Portal> portals;
 
 ArrayList<Shape> triggers;
 
@@ -44,12 +49,14 @@ boolean firstLoc = true;
 PVector newLoc, currentLocation;
 int numColors = 300;    
 float c_rand;
-PVector previousMouse;
+PVector previousMouse; 
 
 void setup() {
-  size(1280, 1024);
+//  size(1280, 1024, P3D);
+  // Create syhpon server to send frames out.
+  //server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
-  //  size(800, 800);
+  size(800, 800, P3D);
   //background(0);
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
@@ -59,6 +66,7 @@ void setup() {
   //all_locations = new PVector[1000];
   // all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
+  portals = new ArrayList<Portal>();
   demos = new ArrayList<Cloud>(50);
   triggers = new ArrayList<Shape>(10);
   portalTrig = false;
@@ -82,7 +90,7 @@ void setup() {
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-  whereimlistening = new OscP5(this, 12000);
+//  whereimlistening = new OscP5(this, 12000);
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
@@ -115,8 +123,9 @@ void draw() {
     for (int i= demos.size()-1; i >= 0; i--) {
       // PVector loc = all_locations.get(i);
       Cloud c = demos.get(i);
-      if (c.shapes.size() <= 0) {
+      if (c.shapes.size() <= 0) { // if the size of the shapes array (ie, cloud elements)...
         demos.remove(i);
+        println("removed one");
       } else {
         c.run();
       }
@@ -157,19 +166,27 @@ void draw() {
        */
     }
   }
-
-  print("triggers is: "); println(triggers.size());
+  // run triggers/rings:
+  //print("triggers is: "); println(triggers.size());
   for (int i = triggers.size()-1; i >= 0; i--) {
     Shape s = triggers.get(i);
     if (s.o <= 1) {
       triggers.remove(i);
-     // println("Trigger removed");
-    } else{
+      // println("Trigger removed");
+    } else {
       s.update_();
     }
   }
-  
-  
+  // run portals:
+  /*
+  for (int i = portals.size()-1; i >=0; i--) {
+   Portal p_ = portals.get(i);
+   // where are we getting rid of old/bad portals?? <-- figure this out
+   p_.featureShifter();
+   p_.display();
+   }
+   */
+//  server.sendScreen();
 } // draw loop
 
 
@@ -200,12 +217,28 @@ void mousePressed() {
    currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
    // }
    */
+   
+     PVector newLoc = new PVector(mouseX, mouseY);
+  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+    //newLoc.x = map(newLoc.x, 0, 640, 0, width);
+    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+    flash(newLoc); // ring triggers
+    newSpot(newLoc); // new cloud
+    println("new cloud and ring");
+    //println("Made new cloud");
+  } else if (checkLocations(newLoc) == true) {
+    // println("none made");
+  }
 }
 
 void keyPressed() {
 
   print("Demos is: ");
-  println(demos.size()-1);
+  println(demos.size());
+  print("Triggers is: ");
+  println(triggers.size());
+  print("Portals is: ");
+  println(portals.size());
 }
 
 void mouseMoved() {
@@ -229,17 +262,20 @@ void mouseMoved() {
   //  if (!checkLocations(newLoc)) { // <---- same spot?
   //    newSpot(newLoc);
   //  }
+
+
 }
 
 
 boolean checkLocations(PVector nLoc) {
-  print("demo size: "); 
-  println(demos.size());
+  // print("demo size: "); 
+  //println(demos.size());
   boolean tooClose = false;
   for (int i= demos.size()-1; i >= 0; i--) {
     // PVector loc = all_locations.get(i);
     Cloud c = demos.get(i);
-    if (c.tooclose(nLoc) == true) {
+    //Shape s = triggers.get(i);
+    if (c.tooclose(nLoc) == true ) {
       tooClose = true;
       break;
     } else {
@@ -247,6 +283,20 @@ boolean checkLocations(PVector nLoc) {
     }
   }
   return tooClose;
+}
+
+boolean checkTriggers(PVector nLoc) {
+  boolean same = false;
+  for (int i = triggers.size()-1; i >=0; i--) {
+    Shape s = triggers.get(i);
+    if (s.tooclose(nLoc) == true) {
+      same = true;
+      break;
+    } else {
+      same = false;
+    }
+  }
+  return same;
 }
 
 /* incoming osc message are forwarded to the oscEvent method. */
@@ -276,35 +326,22 @@ void oscEvent(OscMessage theOscMessage) {
   //   PVector tester = new PVector(mouseX + randX, mouseY + randY);
   //newLoc = new PVector(tempX + randX, tempY + randY);
   newLoc = new PVector(tempX, tempY);
-  if (checkLocations(newLoc) == false) { // <---- same spot?
-    newLoc.x = map(newLoc.x, 0, 640, 0, 1280);
-    newLoc.y = map(newLoc.y, 0, 480, 0, 1024);
-    flash(newLoc);
-    newSpot(newLoc);
-    println("Made new cloud");
-  } else {
-    println("none made");
+  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+    newLoc.x = map(newLoc.x, 0, 640, 0, width);
+    newLoc.y = map(newLoc.y, 0, 480, 0, height);
+    flash(newLoc); // ring triggers
+    newSpot(newLoc); // new cloud
+    println("new cloud and ring");
+    //println("Made new cloud");
+  } else if (checkLocations(newLoc) == true) {
+    // println("none made");
   }
-  // }
-  //Reference for a portals and alleviation of duplicates:
-  //PVector m = new PVector(mouseX, mouseY);
-  //float d = m.dist(previousMouse);
-  //print(" distance between is:  ");
-  //println(d);
-  //if (d < 3 && d >= 0.2) {
-  //  // if( d > 0.0){
-  //  float randX = random((-radius), (radius));
-  //  float randY = random((-radius), (radius));
-  //  PVector tester = new PVector(mouseX + randX, mouseY + randY);
-  //  currentLocation = newSpot(tester);   //send location to be checked. then made a new one elsewhere
-  //} 
-  //previousMouse = m;
 }
 
 void flash(PVector l_) {
   Shape spot = new Shape(int(l_.x), int(l_.y), 7, radius);
   triggers.add(spot);
-  println("New Trigger added");
+  //println("New Trigger added");
 }
 
 
