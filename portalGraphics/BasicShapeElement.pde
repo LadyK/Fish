@@ -7,7 +7,7 @@ class BasicShapeElement {
   //float [] x; // = new float[numPoints];
   //float [] y; // = new float[numPoints];
   PVector [] coordinates;
-  float  rd, gn, blu;
+  int  rd, gn, blu;
   int opacity; //= 0; // 100
   int op_start;// = 50; // orignation of opacity
   int opChanger;  ///slow down death
@@ -20,11 +20,12 @@ class BasicShapeElement {
   long mature;
   long born;
   long increment;
-  color paint;
+  //color paint;
   int numColors;
   color c;
   byte mode;
-
+  float hu;
+  byte rdir, gdir, bdir;  
 
 
 
@@ -50,16 +51,19 @@ class BasicShapeElement {
     line = false;
     smooth();
     rd = 0;
-    gn = random(128, 255);
-    blu = random(0, 192);
+    gn = int(random(128, 255));
+    blu = int(random(0, 192));
     centerX = x_;
     centerY = y_;
     angle = radians(360/float(numPoints));
     theta = random(PI);
     incrementer = random(0.02, 0.05);
-    paint = color(rd, gn, blu, opacity);
-    numColors = 500; // <--- messing with this....
-    c = color(100, 100, 100, 20);
+    c = color(rd, gn, blu, opacity);
+    rdir = 1;
+    gdir = -1;
+    bdir = 1; 
+    //numColors = 500; // <--- messing with this....
+    //c = color(100, 100, 100, 20);
 
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
@@ -107,8 +111,8 @@ class BasicShapeElement {
         opacity = constrain(opacity, 4, 60);
         if (opacity == 60) {
           mode = 1;
-          increment = int(random(10, 60));
-           mature = millis();
+          increment = int(random(150, 200));
+          mature = millis();
         }
       } // %5
     } // mode 0
@@ -127,8 +131,8 @@ class BasicShapeElement {
         } // initial decrease
         else {
           mode = 2;
-          increment = int(random(10, 30));
-           mature = millis();
+          increment = int(random(500, 920));
+          mature = millis();
         }
       } // frameCount
     } // mode 1
@@ -142,30 +146,49 @@ class BasicShapeElement {
           } else {
             opacity -=2;
           }
-          opacity = constrain(opacity, 3, 60);
+          opacity = constrain(opacity, 4, 60);
         } // nxt increment
-        else mode = 3;
-        mature = millis();
-        increment = int(random(10, 30));
+        else {
+          mode = 3;
+          mature = millis();
+          increment = int(random(600, 1800));
+        }
       } //if frameCount
     } //mode 2
 
     if (mode == 3) {
-      println("mode3");
-      println();
-      println();
+
       if (frameCount % 5 == 0) {
         if (millis() - mature < increment) {
           float r_ = random(1);
           if (r_ > .7) {
-            opacity +=4;
+            opacity +=6;
           } else {
             opacity -=2;
           }
-          opacity = constrain(opacity, 3, 60);
+          opacity = constrain(opacity, 4, 60);
         } // nxt increment
+        else {
+          mode = 4;
+          mature = millis();
+          increment = int(random(1800, 3000));
+        } //else
       } //framecount
     }// mode 3
+
+    if (mode == 4) {
+      if (frameCount % 5 == 0) {
+        if (millis() - mature < increment) {
+          float r_ = random(1);
+          if (r_ > .5) {
+            opacity--;
+          } else opacity +=4;
+        } //increment
+        else {
+          opacity--;
+        }
+      } //framecount
+    } //mode 4
 
 
 
@@ -251,35 +274,74 @@ class BasicShapeElement {
 
 
   void colorChanger() {
+    //int rd, gn, blu;
+    //char rdir, gdir, bdir; 
+    
+    // code borrowed from my student, Steven Doan's first cc project :https://www.openprocessing.org/sketch/870183;  https://github.com/stephandoan
 
-    float curTime = millis()/1000.0;
-    // c_rand = random(0.5, 0.6);
-    // curTime = c_rand * curTime;
+    if (frameCount % 5 == 0) {
+      if (rd > 240) {
+        rdir = -1;
+      }
+      if (rd < 20) {
+        rdir = 1;
+      }
+      rd += rdir *3;
 
-    //println(curTime);
-    //if (frameCount % 10 == 0) {
-    for (int i=0; i< numColors; i+=25) {
-      c = color(
-        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
-        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
-        sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
-        opacity);
-      /* print("color is:  ");
-       print(r); 
-       print(",");
-       print(g); 
-       print(",");
-       println(b);
-       println();
-       c = color(r, g, b, opacity);
-       */
+      if (blu > 220) {
+        bdir = -1;
+      }
+      if (blu < 40) {
+        bdir = 1;
+      }
+      blu += bdir * 2;
 
-      //);
-      //theta += sin(curTime * 0.5f) * i * 0.00002;
+      if (gn > 230) {
+        gdir =-1;
+      }
+      if (gn < 20) {
+        gdir = 1;
+      }
+      gn += gdir * 5;
     }
 
+    c = color(rd, gn, blu, opacity);
 
-    paint = c;
+
+
+    /*  
+     //fill(hu%255, 255, 255, 10);
+     //hu += .1;
+     
+     float curTime = millis()/1000.0;
+     // c_rand = random(0.5, 0.6);
+     // curTime = c_rand * curTime;
+     
+     //println(curTime);
+     //if (frameCount % 10 == 0) {
+     for (int i=0; i< numColors; i+=25) {
+     c = color(
+     sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
+     sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
+     sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
+     opacity);
+        /* print("color is:  ");
+     print(r); 
+     print(",");
+     print(g); 
+     print(",");
+     println(b);
+     println();
+     c = color(r, g, b, opacity);
+     */
+
+    //);
+    //theta += sin(curTime * 0.5f) * i * 0.00002;
+    // }
+
+
+    //  paint = c;   
+
     // }
     //return c;
   }
@@ -327,7 +389,7 @@ class BasicShapeElement {
       strokeWeight(0.25);
     } else {
       noStroke();
-      fill(paint, opacity); // opacity was manually set at 25 -> ?
+      fill(c, opacity); // opacity was manually set at 25 -> ?
       // fill(_c);
 
       // /*

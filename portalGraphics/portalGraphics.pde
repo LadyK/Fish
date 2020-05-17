@@ -52,13 +52,15 @@ float c_rand;
 PVector previousMouse; 
 
 void setup() {
-//  size(1280, 1024, P3D);
+  size(1280, 1024, P3D);
   // Create syhpon server to send frames out.
-  //server = new SyphonServer(this, "Processing Syphon");
+  server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
-  size(800, 800, P3D);
+  //size(800, 800, P3D);
   //background(0);
-  colorMode(RGB, 1.0, 1.0, 1.0, 255);
+  //colorMode(RGB, 1.0, 1.0, 1.0, 255);
+  
+  //colorMode(HSB, 255);
 
   trigger = false;
   // herd = new ArrayList<Cloud>(1000); // <--- hmm
@@ -85,12 +87,12 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  //  whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
+    whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-//  whereimlistening = new OscP5(this, 12000);
+ whereimlistening = new OscP5(this, 12000);
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
@@ -186,7 +188,7 @@ void draw() {
    p_.display();
    }
    */
-//  server.sendScreen();
+  server.sendScreen();
 } // draw loop
 
 
