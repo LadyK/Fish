@@ -9,6 +9,7 @@ class Cloud {
   long birth;
   ArrayList<BasicShapeElement>shapes; //how many shapes in cloud? How big/wide cloud?
   int rando;
+  int radius = 100; // radius of shapes
 
   Cloud(PVector newbie) {
     //shapeCloud = new ArrayList<Shape>();
@@ -18,7 +19,7 @@ class Cloud {
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
     //rad = 25;
-    rando = 120; // was 100
+    rando = 110; // was 100
     birth = millis();
     //println(shapes.size());
     // creating #limit shapes and push to cloud array:
@@ -26,7 +27,7 @@ class Cloud {
       // pick some points around the mouse for the shape
       float randX = random((-rando), (rando));
       float randY = random((-rando), (rando));
-      BasicShapeElement temp = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
+      BasicShapeElement temp = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius, howMany); 
       shapes.add(0, temp);
     }
     //println("done");
@@ -42,21 +43,21 @@ class Cloud {
       //shape.shrink();
       boolean dead = temp.update();
       if (dead) {  
-        println("removed a basic shape");
+//        println("removed a basic shape");
         shapes.remove(temp);  
-      } else { 
-        if (frameCount % 5 == 0) {
-        temp.featureShifter();
-        }
+      } //else { 
+       // if (frameCount % 5 == 0) {
+        //temp.featureShifter();
+       // }
         temp.display();
-      }// dead
+      
     } // for
   } // run
 
   Boolean tooclose(PVector l) {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
-    if ( d < radius * 2) {
+    if ( d < radius * 3) {
       return true;
     } else {
       return false;

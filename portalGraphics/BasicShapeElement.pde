@@ -7,18 +7,18 @@ class BasicShapeElement {
   //float [] x; // = new float[numPoints];
   //float [] y; // = new float[numPoints];
   PVector [] coordinates;
-  int  rd, gn, blu;
+  float  rd, gn, blu;
   int opacity; //= 0; // 100
   int op_start;// = 50; // orignation of opacity
   int opChanger;  ///slow down death
   float angle;
-  long age;
+  //  long age;
   boolean dead, line;
   PVector middle;
   float theta, incrementer, op;
   int j = 0;
   long mature;
-  long born;
+  //  long born;
   long increment;
   //color paint;
   int numColors;
@@ -26,19 +26,20 @@ class BasicShapeElement {
   byte mode;
   float hu;
   byte rdir, gdir, bdir;  
+  int op_limit;
 
 
 
-  BasicShapeElement(float x_, float y_, int pts, int radius_) {
+  BasicShapeElement(float x_, float y_, int pts, int radius_, int howMany) {
     dead = false;
     mode = 0;
-    born = frameCount;
+    //born = frameCount;
     mature = frameCount + 600;
     numPoints = pts;
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 10; // was 10  // 100 for testing ***
+    opacity = 5; // was 10  // 100 for testing ***
     op_start = opacity;
     // probability for opacity starts
     //float randO = random(0); 
@@ -51,8 +52,8 @@ class BasicShapeElement {
     line = false;
     smooth();
     rd = 0;
-    gn = int(random(128, 255));
-    blu = int(random(0, 192));
+    gn = random(128, 255);
+    blu = random(0, 192);
     centerX = x_;
     centerY = y_;
     angle = radians(360/float(numPoints));
@@ -64,6 +65,7 @@ class BasicShapeElement {
     bdir = 1; 
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
+    op_limit = int(howMany * .3 * 1) ; // <-- hmmm
 
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
@@ -84,14 +86,17 @@ class BasicShapeElement {
      */
     //maturing and fading:
     int op = ageOpacity(); // fade data
-    print("op is: "); 
-    println(op);
+    //    print("op is: "); 
+    //    println(op);
     if (op <= 3) {
       dead = true;
-      age = 0;
+      //age = 0;
     } else {
       dead = false;
-      //featureShifter();  // move/squigle <-- do we want these to change location to?
+      if (frameCount % 5 == 0) {
+        featureShifter();
+      }
+
       //display(true, rd, gn, blu, op); //<-- use variables
     }
     // middle = centerLoc();
@@ -103,18 +108,21 @@ class BasicShapeElement {
   int ageOpacity() {
     print("mode is: ");
     println(mode);
-    println();
-    println();
+    //println();
+    //println();
     if (mode == 0) { // coming to maturity
-      if (frameCount % 5 == 0) {
-        opacity +=1;
-        opacity = constrain(opacity, 4, 60);
-        if (opacity == 60) {
-          mode = 1;
-          increment = int(random(150, 200));
-          mature = millis();
-        }
-      } // %5
+      if (frameCount % 15 == 0) {
+        float r_ = random(1);
+        if (r_ < .5) {
+          opacity +=1;
+          opacity = constrain(opacity, 4, op_limit);
+          if (opacity == op_limit) {
+            mode = 1;
+            increment = int(random(150, 200));
+            mature = millis();
+          } // if opp limit
+        } //random
+      } // %
     } // mode 0
 
     if (mode == 1) { // decreasing
@@ -127,7 +135,7 @@ class BasicShapeElement {
           } else {
             opacity--;
           }
-          opacity = constrain(opacity, 4, 60);
+          opacity = constrain(opacity, 4, op_limit);
         } // initial decrease
         else {
           mode = 2;
@@ -146,7 +154,7 @@ class BasicShapeElement {
           } else {
             opacity -=2;
           }
-          opacity = constrain(opacity, 4, 60);
+          opacity = constrain(opacity, 4, op_limit);
         } // nxt increment
         else {
           mode = 3;
@@ -166,7 +174,7 @@ class BasicShapeElement {
           } else {
             opacity -=2;
           }
-          opacity = constrain(opacity, 4, 60);
+          opacity = constrain(opacity, 4, op_limit);
         } // nxt increment
         else {
           mode = 4;
@@ -191,84 +199,6 @@ class BasicShapeElement {
     } //mode 4
 
 
-
-
-
-
-
-    //********** before reDesign of fade + gas:
-    ///*
-    //need to refine this: a noticeable amount but not a flash, nor flashing
-    // a noticible amount initially-stronger, then looser fog... spread?
-    // if (birthTime <= (-limit + 10)){
-    // trigger(); 
-
-    // }
-    // // for a time: increase the opacity:
-    // // higher modulo: more fog-like;
-    // // lower modulo: increased opacity + circle visual/hardness
-    // else */
-    //if (age <= 0 && frameCount % 10 == 0) { //gradually increase opacity
-    //  //println("opacity increase");
-    //  // println();
-    //  opacity+=1; // if 4 or more, variable rolls over into mess; 1 = fog; 2 = circles
-    //} else { // if birthTime > 0
-
-    //  // centerX--; 
-    //  // centerY--;   //shrink a bit <--- does this work?
-    //  shrink();
-    //  //shrinkExpand();
-
-    //  if (age > 0) {
-    //    if ( age <= (limit * .25) && frameCount % 8 == 0) {
-    //      opacity--;
-    //    }
-    //  } else if ((age >= limit * .25) && (age < (limit * .375)) ) {  // 30, 60
-    //    float rand8 = random(0, 1);
-    //    if (rand8 >= .5)opacity-=2;
-    //  } else if (age >= (limit * .375) && age < (limit * .75)) {  //<--- 60 - 80
-    //    println("we are old");
-    //    float rand9 = random(0, 1);
-    //    if (rand9 > .65) {
-    //      opacity+=2; // bump/increase....makes fade slower
-
-    //      println("GETTING BRIGHTER");
-    //    }
-    //    println("nope");
-    //  }
-    //  /* } else if (yrsOld > 60 ) {
-    //   opacity = opacity - 0.025;
-    //   }
-    //   */
-    //  // /*
-    //  else if (age > limit ) {  
-    //    float rand3 = random(0, 1);
-    //    if ( rand3 > .95) {
-    //      opacity = opacity + (limit/4) ; // jump in opacity for effect
-    //    } else if (rand3 < .5) {
-    //      opacity = opacity - 2;  //-3
-    //      // println("still here");
-    //      // println();
-    //    }
-    //    // */
-    //    /*
-    // else if ( yrsOld > 80) {
-    //     opacity = opacity - .05;
-    //     }
-    //     */
-    //  }
-    //} // else
-    //age++;   //age by one
-    ///*
-    //if (opacity < 3) { 
-    // opacity = 0;
-    // }  // it's pretty much gone, but had to set a limit 
-    // */
-    //// print("birthTime is = ");
-    //// println(birthTime);
-    ////  print("opacity is = ");
-    //// println(opacity);
-
     return opacity;
   }
 
@@ -276,68 +206,68 @@ class BasicShapeElement {
   void colorChanger() {
     //int rd, gn, blu;
     //char rdir, gdir, bdir; 
-    
+
     // code borrowed from my student, Steven Doan's first cc project :https://www.openprocessing.org/sketch/870183;  https://github.com/stephandoan
-
+    /*
     if (frameCount % 5 == 0) {
-      if (rd > 240) {
-        rdir = -1;
-      }
-      if (rd < 20) {
-        rdir = 1;
-      }
-      rd += rdir *3;
-
-      if (blu > 220) {
-        bdir = -1;
-      }
-      if (blu < 40) {
-        bdir = 1;
-      }
-      blu += bdir * 2;
-
-      if (gn > 230) {
-        gdir =-1;
-      }
-      if (gn < 20) {
-        gdir = 1;
-      }
-      gn += gdir * 5;
-    }
-
-    c = color(rd, gn, blu, opacity);
-
-
-
-    /*  
-     //fill(hu%255, 255, 255, 10);
-     //hu += .1;
+     if (rd > 240) {
+     rdir = -1;
+     }
+     if (rd < 20) {
+     rdir = 1;
+     }
+     rd += rdir *1;
      
-     float curTime = millis()/1000.0;
-     // c_rand = random(0.5, 0.6);
-     // curTime = c_rand * curTime;
+     if (blu > 220) {
+     bdir = -1;
+     }
+     if (blu < 40) {
+     bdir = 1;
+     }
+     blu += bdir * 1;
      
-     //println(curTime);
-     //if (frameCount % 10 == 0) {
-     for (int i=0; i< numColors; i+=25) {
-     c = color(
-     sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
-     sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
-     sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
-     opacity);
-        /* print("color is:  ");
-     print(r); 
-     print(",");
-     print(g); 
-     print(",");
-     println(b);
-     println();
-     c = color(r, g, b, opacity);
+     if (gn > 230) {
+     gdir =-1;
+     }
+     if (gn < 20) {
+     gdir = 1;
+     }
+     gn += gdir * 1;
+     }
+     
+     c = color(rd, gn, blu, opacity);
      */
 
-    //);
-    //theta += sin(curTime * 0.5f) * i * 0.00002;
-    // }
+
+    //  /*  
+    //fill(hu%255, 255, 255, 10);
+    //hu += .1;
+
+    float curTime = millis()/1000.0;
+    // c_rand = random(0.5, 0.6);
+    // curTime = c_rand * curTime;
+
+    //println(curTime);
+    //if (frameCount % 10 == 0) {
+    for (int i=0; i< numColors; i+=25) {
+      c = color(
+        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
+        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
+        sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
+        opacity);
+      theta += sin(curTime * 0.5f) * i * 0.00002;
+      /* print("color is:  ");
+       print(r); 
+       print(",");
+       print(g); 
+       print(",");
+       println(b);
+       println();
+       c = color(r, g, b, opacity);
+       //    */
+
+      //);
+    }
 
 
     //  paint = c;   
@@ -389,7 +319,7 @@ class BasicShapeElement {
       strokeWeight(0.25);
     } else {
       noStroke();
-      fill(c, opacity); // opacity was manually set at 25 -> ?
+      fill(c); // opacity was manually set at 25 -> ?
       // fill(_c);
 
       // /*
@@ -426,19 +356,19 @@ class BasicShapeElement {
    }
    */
 
-  void newLoc(int cX, int cY) {
-    centerX = cX;
-    centerY = cY;
-    float angle = radians(360/float(numPoints));
-    float radius = r * random(0.5, 1.0);
-    /*
-    for (int i = 0; i < numPoints; i++) {
-     PVector coor = coordinates[i];
-     coor.x = cos(angle*i) * radius;
-     coor.y = sin(angle*i) * radius;
-     }
-     */
-  } //newLoc
+  //void newLoc(int cX, int cY) {
+  //  centerX = cX;
+  //  centerY = cY;
+  //  float angle = radians(360/float(numPoints));
+  //  float radius = r * random(0.5, 1.0);
+  //  /*
+  //  for (int i = 0; i < numPoints; i++) {
+  //   PVector coor = coordinates[i];
+  //   coor.x = cos(angle*i) * radius;
+  //   coor.y = sin(angle*i) * radius;
+  //   }
+  //   */
+  //} //newLoc
 
   void featureShifter() {
 
@@ -455,5 +385,5 @@ class BasicShapeElement {
       }
       // */
     }
-  }// feature shifter
+  } // feature Shifter
 }

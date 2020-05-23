@@ -13,7 +13,7 @@ NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
 
 OscP5 whereimlistening;
 
-int radius = 100; // radius of shapes
+
 
 /* a NetAddress contains the ip address and port number of a remote location in the network. */
 
@@ -47,18 +47,19 @@ boolean firstLoc = true;
 //int portalPoints = 18;
 //int locations_indice = 0;
 PVector newLoc, currentLocation;
-int numColors = 300;    
+int numColors = 600;    
 float c_rand;
 PVector previousMouse; 
+int ius = 100;
 
 void setup() {
-  size(1280, 1024, P3D);
+//  size(1280, 1024, P3D);
   // Create syhpon server to send frames out.
-  server = new SyphonServer(this, "Processing Syphon");
+//  server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
-  //size(800, 800, P3D);
+  size(800, 800, P3D);
   //background(0);
-  //colorMode(RGB, 1.0, 1.0, 1.0, 255);
+  colorMode(RGB, 1.0, 1.0, 1.0, 255);
   
   //colorMode(HSB, 255);
 
@@ -87,12 +88,12 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-    whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
+//    whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
- whereimlistening = new OscP5(this, 12000);
+// whereimlistening = new OscP5(this, 12000);
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
@@ -188,7 +189,7 @@ void draw() {
    p_.display();
    }
    */
-  server.sendScreen();
+//  server.sendScreen();
 } // draw loop
 
 
@@ -328,20 +329,22 @@ void oscEvent(OscMessage theOscMessage) {
   //   PVector tester = new PVector(mouseX + randX, mouseY + randY);
   //newLoc = new PVector(tempX + randX, tempY + randY);
   newLoc = new PVector(tempX, tempY);
+  println(newLoc);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     newLoc.x = map(newLoc.x, 0, 640, 0, width);
     newLoc.y = map(newLoc.y, 0, 480, 0, height);
     flash(newLoc); // ring triggers
     newSpot(newLoc); // new cloud
     println("new cloud and ring");
+    
     //println("Made new cloud");
   } else if (checkLocations(newLoc) == true) {
-    // println("none made");
+     println("none made");
   }
 }
 
 void flash(PVector l_) {
-  Shape spot = new Shape(int(l_.x), int(l_.y), 7, radius);
+  Shape spot = new Shape(int(l_.x), int(l_.y), 7, ius);
   triggers.add(spot);
   //println("New Trigger added");
 }

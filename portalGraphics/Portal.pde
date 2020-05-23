@@ -8,7 +8,7 @@ class Portal extends BasicShapeElement {
   // 3. disappearance
 
   Portal(float x_, float y_, int p_, int r) {
-    super(x_, y_, p_, r);
+    super(x_, y_, p_, r, 1);
     rd = 0;
     gn = int(random(128, 255));
     blu = int(random(100, 200));

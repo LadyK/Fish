@@ -1,4 +1,5 @@
-class Shape {
+class Shape { ///rings upon new detection
+
   //int numPoints = 5; //10
   //float r = 25; //width of shape  future= relation to body re: w + h
   //int stepSize = 1;
@@ -15,6 +16,7 @@ class Shape {
   float theta;
   color paint;
   float r;// 
+  int rad;
   PVector [] coordinates;
   color c;
   int numColors = 500; // <--- messing with this....
@@ -23,7 +25,7 @@ class Shape {
   byte rdir, gdir, bdir;  
   int  rd, gn, blu;
 
-  Shape(int x_, int y_, int p_, int r) {
+  Shape(int x_, int y_, int p_, int radius) {
     // super(x_, y_, p_, r);  // <--- can't pass variables
     //birth = millis();  // get a birthday
     o = 50;
@@ -41,8 +43,9 @@ class Shape {
     gn = int(random(128, 255));
     blu = int(random(0, 192));
     c = color(rd, gn, blu, o);
+    rad = radius;
     for (int i = 0; i < numPoints; i++) {
-      coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
+      coordinates[i] = new PVector(cos(angle*i) * rad, sin(angle*i) * rad);
     }
   }
 
@@ -80,7 +83,7 @@ class Shape {
   void portCheck() {
     // if one is in the same place for awhile, make a portal:
     if (presence >= timeStill) {
-      Portal p = new Portal(centerX, centerY, 7, radius);
+      Portal p = new Portal(centerX, centerY, 7, rad);
       portals.add(p);
     }
   }
@@ -89,7 +92,7 @@ class Shape {
     // Boolean toClose = false;
     float d = dist(centerX, centerY, l.x, l.y);
     // if the new location is close to us:
-    if ( d < 200 ) {
+    if ( d < 400 ) {
       presence++;
       return true;
     } else {
@@ -114,14 +117,14 @@ class Shape {
 
   void shrink() {
     float rand = random(0, 1);
-    if (r > 0) { // as long as we have a radius
+    if (rad > 0) { // as long as we have a radius
       if (rand < 0.3) {  // and once in a while:
         // update locations:
         // /*
         for (int i = 0; i < numPoints; i++) {
           PVector coor = coordinates[i];
-          coor.x = cos(angle*i) * r;
-          coor.y = sin(angle*i) * r;
+          coor.x = cos(angle*i) * rad;
+          coor.y = sin(angle*i) * rad;
         }
         //  */
       }
