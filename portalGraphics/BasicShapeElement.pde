@@ -15,18 +15,19 @@ class BasicShapeElement {
   //  long age;
   boolean dead, line;
   PVector middle;
-  float theta, incrementer, op;
+  float theta, incrementer;
   int j = 0;
   long mature;
   //  long born;
   long increment;
   //color paint;
   int numColors;
-  color c;
+  color c, paint;
   byte mode;
   float hu;
   byte rdir, gdir, bdir;  
   int op_limit;
+  int howM, op;
 
 
 
@@ -39,7 +40,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 5; // was 10  // 100 for testing ***
+    opacity = 30; // was 10  // 100 for testing ***
     op_start = opacity;
     // probability for opacity starts
     //float randO = random(0); 
@@ -65,8 +66,8 @@ class BasicShapeElement {
     bdir = 1; 
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
-    op_limit = int(howMany * .3 * 1) ; // <-- hmmm
-
+    op_limit = int(howMany * 5) ; // <-- hmmm  multiplied by how many stages we have
+    howM = howMany;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
 
@@ -85,7 +86,7 @@ class BasicShapeElement {
      } else {
      */
     //maturing and fading:
-    int op = ageOpacity(); // fade data
+     op = ageOpacity(); // fade data
     //    print("op is: "); 
     //    println(op);
     if (op <= 3) {
@@ -111,15 +112,16 @@ class BasicShapeElement {
     //println();
     //println();
     if (mode == 0) { // coming to maturity
-      if (frameCount % 15 == 0) {
+      if (frameCount % 5 == 0) {
         float r_ = random(1);
-        if (r_ < .5) {
+        if (r_ < .9) {
           opacity +=1;
           opacity = constrain(opacity, 4, op_limit);
           if (opacity == op_limit) {
             mode = 1;
             increment = int(random(150, 200));
-            mature = millis();
+            mature = millis(); // reset
+            op_limit = op_limit - howM;  // take off a section from the limit, to lower the max; thus not as bright
           } // if opp limit
         } //random
       } // %
@@ -130,7 +132,7 @@ class BasicShapeElement {
         // initial decrease:
         if (millis() - mature < increment) {
           float r_ = random(1);
-          if (r_ > .9) {
+          if (r_ > .7) {
             opacity +=2;
           } else {
             opacity--;
@@ -141,6 +143,7 @@ class BasicShapeElement {
           mode = 2;
           increment = int(random(500, 920));
           mature = millis();
+          op_limit = op_limit - howM;
         }
       } // frameCount
     } // mode 1
@@ -160,6 +163,7 @@ class BasicShapeElement {
           mode = 3;
           mature = millis();
           increment = int(random(600, 1800));
+          op_limit = op_limit - howM;
         }
       } //if frameCount
     } //mode 2
@@ -180,6 +184,7 @@ class BasicShapeElement {
           mode = 4;
           mature = millis();
           increment = int(random(1800, 3000));
+          op_limit = op_limit - howM;
         } //else
       } //framecount
     }// mode 3
@@ -254,8 +259,10 @@ class BasicShapeElement {
         sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
         sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
         sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
-        opacity);
-      theta += sin(curTime * 0.5f) * i * 0.00002;
+        op);
+        theta += sin(curTime * 0.5f) * i * 0.00002;
+    }
+      
       /* print("color is:  ");
        print(r); 
        print(",");
@@ -267,14 +274,15 @@ class BasicShapeElement {
        //    */
 
       //);
+      paint = c; 
     }
 
 
-    //  paint = c;   
+        
 
     // }
     //return c;
-  }
+  
 
 
   void expand_() {  // if the mouse is close expand
@@ -319,7 +327,7 @@ class BasicShapeElement {
       strokeWeight(0.25);
     } else {
       noStroke();
-      fill(c); // opacity was manually set at 25 -> ?
+      fill(paint, op); // opacity was manually set at 25 -> ?
       // fill(_c);
 
       // /*

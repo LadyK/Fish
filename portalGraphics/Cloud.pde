@@ -15,7 +15,7 @@ class Cloud {
     //shapeCloud = new ArrayList<Shape>();
     //loc = newbie.copy();
     loc = new PVector(newbie.x, newbie.y);
-    howMany = 15;  // the more the foggier. but need to mind cpu; was 30
+    howMany = 20;  // the more the foggier. but need to mind cpu; was 30
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
     //rad = 25;
