@@ -119,7 +119,7 @@ class BasicShapeElement {
           opacity = constrain(opacity, 4, op_limit);
           if (opacity == op_limit) {
             mode = 1;
-            increment = int(random(150, 200));
+            increment = int(random(1000, 1800));
             mature = millis(); // reset
             op_limit = op_limit - howM;  // take off a section from the limit, to lower the max; thus not as bright
           } // if opp limit
@@ -141,7 +141,7 @@ class BasicShapeElement {
         } // initial decrease
         else {
           mode = 2;
-          increment = int(random(500, 920));
+          increment = int(random(1800, 3000));
           mature = millis();
           op_limit = op_limit - howM;
         }
@@ -162,7 +162,7 @@ class BasicShapeElement {
         else {
           mode = 3;
           mature = millis();
-          increment = int(random(600, 1800));
+          increment = int(random(1800, 3000));
           op_limit = op_limit - howM;
         }
       } //if frameCount
@@ -258,8 +258,8 @@ class BasicShapeElement {
       c = color(
         sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
         sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
-        sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
-        op);
+        sin(curTime * 0.3f + i * 0.0017f) + 0.5f //B    + 0.8f
+        );
         theta += sin(curTime * 0.5f) * i * 0.00002;
     }
       
@@ -323,11 +323,11 @@ class BasicShapeElement {
   void display() {
     colorChanger();
     if (line == true) {
-      stroke(0, opacity);
+      stroke(0, op);
       strokeWeight(0.25);
     } else {
       noStroke();
-      fill(paint, op); // opacity was manually set at 25 -> ?
+      fill(paint, op); // need to pass opacity again here
       // fill(_c);
 
       // /*
