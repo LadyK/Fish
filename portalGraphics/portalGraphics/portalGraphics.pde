@@ -80,8 +80,8 @@ void setup() {
   portalTrig = false;
   
     rd = 0;
-    gn = int(random(128, 255));
-    blu = int(random(0, 192));
+    gn = random(128, 255);
+    blu = random(0, 192);
     kuler = color(rd, gn, blu);
 
   //entry = new ArrayList<Portal>(1000);
@@ -130,7 +130,7 @@ void draw() {
    }
    }
    */
-   colorChange(); // not sure why opacity is so bright when controlling color here, versus within the class
+  colorChange(); // not sure why opacity is so bright when controlling color here, versus within the class
   // run the demos if we have any:
   if (demos.size() > 0) {
     // print("Demos is: ");

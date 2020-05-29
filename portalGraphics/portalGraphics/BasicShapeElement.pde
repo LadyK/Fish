@@ -53,21 +53,21 @@ class BasicShapeElement {
     r = radius_ * 2;
     line = false;
     smooth();
- //   rd = 0;
- //   gn = int(random(128, 255));
- //   blu = int(random(0, 192));
-  rd = 100;
-  gn = 200;
-  blu = 170;
+    //   rd = 0;
+    //   gn = int(random(128, 255));
+    //   blu = int(random(0, 192));
+    rd = 100;
+    gn = 200;
+    blu = 170;
     centerX = x_;
     centerY = y_;
     angle = radians(360/float(numPoints));
     theta = random(PI);
     incrementer = random(0.02, 0.05);
-   paint_ = color(rd, gn, blu, opacity);
-        rdir = 1;
-        gdir = -1;
-        bdir = 1; 
+    paint_ = color(rd, gn, blu, opacity);
+    rdir = 1;
+    gdir = -1;
+    bdir = 1; 
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
     op_limit = int(howMany * 5) ; // <-- hmmm  multiplied by how many stages we have
@@ -77,12 +77,11 @@ class BasicShapeElement {
 
     for (int i = 0; i < numPoints; i++) {
       coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
-      
     }
   } // constructor
 
   boolean update() {
-    println("updating");
+
     /*
     //incubating:
      if ((frameCount - incubate) < flashLimit) {
@@ -113,10 +112,9 @@ class BasicShapeElement {
   }
 
   int ageOpacity() {
-//    print("mode is: ");
-//    println(mode);
-    println("manipulating opacity");
-    //println();
+    print("mode is: ");
+    println(mode);
+
     if (mode == 0) { // coming to maturity
       if (frameCount % 5 == 0) {
         float r_ = random(1);
@@ -223,7 +221,7 @@ class BasicShapeElement {
     //char rdir, gdir, bdir; 
 
     // code borrowed from my student, Steven Doan's first cc project :https://www.openprocessing.org/sketch/870183;  https://github.com/stephandoan
-   // /*
+    /*
     if (frameCount % 5 == 0) {
      if (rd > 240) {
      rdir = -1;
@@ -251,41 +249,29 @@ class BasicShapeElement {
      }
      
      c = color(rd, gn, blu, opacity);
-    // */
+     */
 
 
     //  /*  
     //fill(hu%255, 255, 255, 10);
     //hu += .1;
+    float curTime = millis()/1000.0;
+    // c_rand = random(0.5, 0.6);
+    // curTime = c_rand * curTime;
 
-//    float curTime = millis()/1000.0;
-//    // c_rand = random(0.5, 0.6);
-//    // curTime = c_rand * curTime;
+    //println(curTime);
+    //if (frameCount % 10 == 0) {
+    for (int i=0; i< numColors; i++) {
 
-//    //println(curTime);
-//    //if (frameCount % 10 == 0) {
-//    for (int i=0; i< numColors; i+=25) {
-//      c = color(
-//        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
-//        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
-//        sin(curTime * 0.3f + i * 0.0017f) + 0.5f //B    + 0.8f
-//        );
-//      theta += sin(curTime * 0.5f) * i * 0.00002;
-//    }
+      rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
+      gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
+      blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
 
-    /* print("color is:  ");
-     print(r); 
-     print(",");
-     print(g); 
-     print(",");
-     println(b);
-     println();
-     c = color(r, g, b, opacity);
-     //    */
-
-    //);
+      kuler = color(rd, gn, blu);
+    }
+    paint = kuler;
     //paint_ = c;
-    return c;
+    return paint;
   }
 
 
@@ -327,23 +313,24 @@ class BasicShapeElement {
   }
 
   void display() {
-    println("displaying");
-    
-    //color c_ = colorChanger();
-//    print("op is: ");
-//    println(op);
+
+    //  color c_ = colorChanger(); // change opacity + color mode
+    //    print("op is: ");
+    //    println(op);
 
     //print("red is ");
     //println(red(paint));
-    
+       print("op is: "); 
+       println(op);
+
     if (line == true) {
       stroke(0, op);
       strokeWeight(0.25);
     } else {
       noStroke();
-      //fill(c_, op); // need to pass opacity again here
+//       fill(c_, op); // need to change color mode and initial opacity need to pass opacity again here
       fill(paint, op);
-      // fill(_c);
+      // fill(_c); // 
 
       // /*
       beginShape();
