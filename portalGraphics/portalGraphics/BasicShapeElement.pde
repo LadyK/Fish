@@ -41,7 +41,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 4; // was 10  // 100 for testing *** <<
+    opacity = 20; // was 10  // 100 for testing *** <<
     op_start = opacity;
     // probability for opacity starts
     //float randO = random(0); 
@@ -50,7 +50,7 @@ class BasicShapeElement {
     //else if (randO >= 0) {opacity = int(random(10, 15));}//op_start= 0;  // was 0   // 60 for testing ****
     stepSize = 3; // crazy at 5 very jiggly
     //r = radius;
-    r = radius_ * 2;
+    r = radius_;
     line = false;
     smooth();
     //   rd = 0;
@@ -70,7 +70,7 @@ class BasicShapeElement {
     bdir = 1; 
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
-    op_limit = int(howMany * 5) ; // <-- hmmm  multiplied by how many stages we have
+    op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
     howM = howMany;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
@@ -112,8 +112,8 @@ class BasicShapeElement {
   }
 
   int ageOpacity() {
-    print("mode is: ");
-    println(mode);
+//    print("mode is: ");
+//    println(mode);
 
     if (mode == 0) { // coming to maturity
       if (frameCount % 5 == 0) {
@@ -217,40 +217,8 @@ class BasicShapeElement {
 
 
   color colorChanger() {
-    //int rd, gn, blu;
-    //char rdir, gdir, bdir; 
-
-    // code borrowed from my student, Steven Doan's first cc project :https://www.openprocessing.org/sketch/870183;  https://github.com/stephandoan
-    /*
-    if (frameCount % 5 == 0) {
-     if (rd > 240) {
-     rdir = -1;
-     }
-     if (rd < 20) {
-     rdir = 1;
-     }
-     rd += rdir *1;
-     
-     if (blu > 220) {
-     bdir = -1;
-     }
-     if (blu < 40) {
-     bdir = 1;
-     }
-     blu += bdir * 1;
-     
-     if (gn > 230) {
-     gdir =-1;
-     }
-     if (gn < 20) {
-     gdir = 1;
-     }
-     gn += gdir * 1;
-     }
-     
-     c = color(rd, gn, blu, opacity);
-     */
-
+ 
+ 
 
     //  /*  
     //fill(hu%255, 255, 255, 10);
@@ -261,14 +229,17 @@ class BasicShapeElement {
 
     //println(curTime);
     //if (frameCount % 10 == 0) {
-    for (int i=0; i< numColors; i++) {
+   for (int i=0; i< numColors; i++) {
 
-      rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
-      gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
-      blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
-
-      kuler = color(rd, gn, blu);
-    }
+    rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
+    gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
+    blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
+    rd = abs(rd);
+    gn = abs(gn);
+    blu = abs(blu);
+    kuler = color(rd, gn, blu);
+  }
+   
     paint = kuler;
     //paint_ = c;
     return paint;
@@ -320,8 +291,8 @@ class BasicShapeElement {
 
     //print("red is ");
     //println(red(paint));
-       print("op is: "); 
-       println(op);
+//       print("op is: "); 
+//       println(op);
 
     if (line == true) {
       stroke(0, op);
@@ -395,5 +366,16 @@ class BasicShapeElement {
       }
       // */
     }
+    
+    //// shift the color
+    //float rand3 = random(0, 1);
+    //// likelihood to shift color
+    //if (rand3 > 0.9) {
+    //  rd = 0;
+    //  gn = int(random(128, 255));
+    //  blu = int(random(0, 192));
+      
+    //  paint = color(rd, gn, blu);
+    //}
   } // feature Shifter
 }

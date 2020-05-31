@@ -52,7 +52,6 @@ float c_rand;
 PVector previousMouse; 
 int ius = 100;
 
-byte rdir, gdir, bdir; 
 float  rd, gn, blu;
 color  kuler, paint;
 
@@ -78,11 +77,11 @@ void setup() {
   demos = new ArrayList<Cloud>(50);
   triggers = new ArrayList<Shape>(10);
   portalTrig = false;
-  
-    rd = 0;
-    gn = random(128, 255);
-    blu = random(0, 192);
-    kuler = color(rd, gn, blu);
+
+  rd = 0;
+  gn = random(128, 255);
+  blu = random(0, 192);
+  kuler = color(rd, gn, blu);
 
   //entry = new ArrayList<Portal>(1000);
   /*
@@ -130,9 +129,10 @@ void draw() {
    }
    }
    */
-  colorChange(); // not sure why opacity is so bright when controlling color here, versus within the class
+
   // run the demos if we have any:
   if (demos.size() > 0) {
+    colorChange(); // not sure why opacity is so bright when controlling color here, versus within the class
     // print("Demos is: ");
     // println(demos.size()-1);
     for (int i= demos.size()-1; i >= 0; i--) {
@@ -205,7 +205,7 @@ void draw() {
 } // draw loop
 
 void colorChange() {
-  
+
   float curTime = millis()/1000.0;
   // c_rand = random(0.5, 0.6);
   // curTime = c_rand * curTime;
@@ -214,12 +214,15 @@ void colorChange() {
   //if (frameCount % 10 == 0) {
   for (int i=0; i< numColors; i++) {
 
-      rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
-      gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
-      blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
-     
-      kuler = color(rd, gn, blu);
+    rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
+    gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
+    blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
+    rd = abs(rd);
+    gn = abs(gn);
+    blu = abs(blu);
+    kuler = color(rd, gn, blu);
   }
+
   paint = kuler;
 }
 
@@ -272,6 +275,13 @@ void keyPressed() {
   println(triggers.size());
   print("Portals is: ");
   println(portals.size());
+
+  if (key == 32) {
+    noLoop();
+  }
+  if (key == 'z') {
+    loop();
+  }
 }
 
 void mouseMoved() {
