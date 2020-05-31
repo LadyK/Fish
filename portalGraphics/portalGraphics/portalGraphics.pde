@@ -259,9 +259,9 @@ void mousePressed() {
     //newLoc.y = map(newLoc.y, 0, 480, 0, height);
     flash(newLoc); // ring triggers
     newSpot(newLoc); // new cloud
-    println();
-    println("new cloud and ring");
-    println("Made new cloud");
+    //println();
+    //println("new cloud and ring");
+    //println("Made new cloud");
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
@@ -305,6 +305,19 @@ void mouseMoved() {
   //  if (!checkLocations(newLoc)) { // <---- same spot?
   //    newSpot(newLoc);
   //  }
+  
+  PVector newLoc = new PVector(mouseX, mouseY);
+  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+    //newLoc.x = map(newLoc.x, 0, 640, 0, width);
+    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+    flash(newLoc); // ring triggers
+    newSpot(newLoc); // new cloud
+    //println();
+    //println("new cloud and ring");
+    //println("Made new cloud");
+  } else if (checkLocations(newLoc) == true) {
+    // println("none made");
+  }
 }
 
 

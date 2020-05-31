@@ -41,7 +41,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 20; // was 10  // 100 for testing *** <<
+    opacity = 25; // was 10  // 100 for testing *** <<
     op_start = opacity;
     // probability for opacity starts
     //float randO = random(0); 

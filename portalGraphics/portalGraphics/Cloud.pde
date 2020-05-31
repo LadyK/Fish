@@ -58,7 +58,7 @@ class Cloud {
   Boolean tooclose(PVector l) {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
-    if ( d < radius * 3) {
+    if ( d < radius * .5) {
       return true;
     } else {
       return false;
