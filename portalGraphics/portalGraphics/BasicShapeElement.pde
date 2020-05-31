@@ -65,9 +65,7 @@ class BasicShapeElement {
     theta = random(PI);
     incrementer = random(0.02, 0.05);
     paint_ = color(rd, gn, blu, opacity);
-    rdir = 1;
-    gdir = -1;
-    bdir = 1; 
+   
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
     op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
