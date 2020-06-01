@@ -46,12 +46,12 @@ class Cloud {
       if (dead) {  
 //        println("removed a basic shape");
         shapes.remove(temp);  
-      } //else { 
+      } else { 
        // if (frameCount % 5 == 0) {
         //temp.featureShifter();
        // }
-        temp.display();
-      
+      temp.display();
+      }
     } // for
   } // run
 

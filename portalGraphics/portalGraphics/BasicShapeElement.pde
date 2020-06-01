@@ -30,6 +30,7 @@ class BasicShapeElement {
   int howM, op;
 
   float  rd, gn, blu;
+  float age;
 
 
   BasicShapeElement(float x_, float y_, int pts, int radius_, int howMany) {
@@ -41,7 +42,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 25; // was 10  // 100 for testing *** <<
+    opacity = 10; // was 10  // 100 for testing *** <<
     op_start = opacity;
     // probability for opacity starts
     //float randO = random(0); 
@@ -65,7 +66,8 @@ class BasicShapeElement {
     theta = random(PI);
     incrementer = random(0.02, 0.05);
     paint_ = color(rd, gn, blu, opacity);
-   
+    //age = 0;
+
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
     op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
@@ -92,7 +94,7 @@ class BasicShapeElement {
     op = ageOpacity(); // fade data
     //    print("op is: "); 
     //    println(op);
-    if (op <= 3) {
+    if (op <= 0) {
       dead = true;
       //age = 0;
     } else {
@@ -110,9 +112,41 @@ class BasicShapeElement {
   }
 
   int ageOpacity() {
+
+    age();
+    if (age <= 30) {
+      //if (frameCount % 2 == 0) {
+      opacity +=1;  // increase, not decrease
+      //}
+    } else if ( (age > 30) && (age <= 45)) {
+      opacity -=1; //0.5; // not going to work. on a scale of 255
+    } else if ( age > 45 && age <=60) {
+      float randy = random(1);
+      if (randy <= .3) {
+        opacity +=2;
+      } else {
+        opacity -=1;
+      }
+    } else if ( age > 60 && age <= 80) {
+      float randy = random(1);
+      if (randy <= .1) {
+        opacity +=3;
+      } else {
+        //opacity -=1;
+      }
+    } else if (age > 80) {
+      if (frameCount % 5 == 0) {
+        opacity -=1;
+      }
+    }
+
+    if (opacity < 0) opacity = 0;
+    print("opacity  ");
+    println(opacity);
+    
+    /*    
 //    print("mode is: ");
 //    println(mode);
-
     if (mode == 0) { // coming to maturity
       if (frameCount % 5 == 0) {
         float r_ = random(1);
@@ -207,16 +241,42 @@ class BasicShapeElement {
         }
       } //framecount
     } //mode 4
+*/
+
 
 
     return opacity;
   }
 
+  void age() {
+    if (age >= 30 && age < 80) {
+      float randy = random(0, 1);
+      if (randy > 0.7) {
+        age += 2;  // speed up age
+      } else {
+        age -= 1; // slow down aging/reverse
+      }
+      print("age is: "); 
+      println(age);
+    } else if (age >= 80) {
+      float randy = random(0, 1);
+      if (randy > 0.3) {
+        // do nothing
+      } else {
+        age +=1;  //age slowly
+      }
+    } else {
+      float randy = random(1);
+      if (randy < 0.7) {
+        age++;   //70% of time- age
+      }
+    }
+  }
 
 
   color colorChanger() {
- 
- 
+
+
 
     //  /*  
     //fill(hu%255, 255, 255, 10);
@@ -227,17 +287,17 @@ class BasicShapeElement {
 
     //println(curTime);
     //if (frameCount % 10 == 0) {
-   for (int i=0; i< numColors; i++) {
+    for (int i=0; i< numColors; i++) {
 
-    rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
-    gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
-    blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
-    rd = abs(rd);
-    gn = abs(gn);
-    blu = abs(blu);
-    kuler = color(rd, gn, blu);
-  }
-   
+      rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
+      gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
+      blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
+      rd = abs(rd);
+      gn = abs(gn);
+      blu = abs(blu);
+      kuler = color(rd, gn, blu);
+    }
+
     paint = kuler;
     //paint_ = c;
     return paint;
@@ -283,21 +343,21 @@ class BasicShapeElement {
 
   void display() {
 
-    //  color c_ = colorChanger(); // change opacity + color mode
+    //  color c_ = colorChanger(); // change opacity + color mode; this calls within class; individual colors for cloud
     //    print("op is: ");
     //    println(op);
 
     //print("red is ");
     //println(red(paint));
-//       print("op is: "); 
-//       println(op);
+    //       print("op is: "); 
+    //       println(op);
 
     if (line == true) {
       stroke(0, op);
       strokeWeight(0.25);
     } else {
       noStroke();
-//       fill(c_, op); // need to change color mode and initial opacity need to pass opacity again here
+      //       fill(c_, op); // need to change color mode and initial opacity need to pass opacity again here
       fill(paint, op);
       // fill(_c); // 
 
@@ -364,7 +424,7 @@ class BasicShapeElement {
       }
       // */
     }
-    
+
     //// shift the color
     //float rand3 = random(0, 1);
     //// likelihood to shift color
@@ -372,7 +432,7 @@ class BasicShapeElement {
     //  rd = 0;
     //  gn = int(random(128, 255));
     //  blu = int(random(0, 192));
-      
+
     //  paint = color(rd, gn, blu);
     //}
   } // feature Shifter

@@ -61,7 +61,7 @@ void setup() {
   //  server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
   size(800, 800, P3D);
-  frameRate(20);
+  //frameRate(20);
   //background(0);
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
@@ -79,8 +79,8 @@ void setup() {
   portalTrig = false;
 
   rd = 0;
-  gn = random(128, 255);
-  blu = random(0, 192);
+  gn = random(1);  // 128, 255
+  blu = random(1); // 0, 192
   kuler = color(rd, gn, blu);
 
   //entry = new ArrayList<Portal>(1000);
@@ -306,6 +306,7 @@ void mouseMoved() {
   //    newSpot(newLoc);
   //  }
   
+  /*
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     //newLoc.x = map(newLoc.x, 0, 640, 0, width);
@@ -318,6 +319,7 @@ void mouseMoved() {
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
+  */
 }
 
 
