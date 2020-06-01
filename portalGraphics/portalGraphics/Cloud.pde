@@ -9,7 +9,9 @@ class Cloud {
   long birth;
   ArrayList<BasicShapeElement>shapes; //how many shapes in cloud? How big/wide cloud?
   int rando;
-  int radius = 25; // radius of shapes
+  int radius = 75; // radius of shapes
+  
+  // how many, radius + rando are difference btwn spots, portals, gas
 
   Cloud(PVector newbie) {
     //shapeCloud = new ArrayList<Shape>();
@@ -19,7 +21,7 @@ class Cloud {
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
     //rad = 25;
-    rando = 100; // was 100
+    rando = 50; // was 100
     birth = millis();
     //println(shapes.size());
     // creating #limit shapes and push to cloud array:

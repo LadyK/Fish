@@ -70,7 +70,7 @@ class BasicShapeElement {
 
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
-    op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
+//    op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
     howM = howMany;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
