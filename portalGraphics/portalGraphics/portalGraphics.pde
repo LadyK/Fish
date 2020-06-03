@@ -306,7 +306,7 @@ void mouseMoved() {
   //    newSpot(newLoc);
   //  }
   
-  /*
+
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     //newLoc.x = map(newLoc.x, 0, 640, 0, width);
@@ -319,7 +319,7 @@ void mouseMoved() {
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
-  */
+ 
 }
 
 
@@ -416,7 +416,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie);
+  Cloud tester = new Cloud(newbie, 130, 30, 30, 10);  // loc,     prox, radius, #, o
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}

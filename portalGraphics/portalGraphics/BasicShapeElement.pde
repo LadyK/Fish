@@ -31,9 +31,10 @@ class BasicShapeElement {
 
   float  rd, gn, blu;
   float age;
+  char controlO;
 
 
-  BasicShapeElement(float x_, float y_, int pts, int radius_, int howMany) {
+  BasicShapeElement(float x_, float y_, int pts, int radius_, int howMany, int o, int prox) {
     dead = false;
     mode = 0;
     //born = frameCount;
@@ -42,7 +43,7 @@ class BasicShapeElement {
     // x = new float[numPoints];
     //y = new float[numPoints];
     coordinates = new PVector[numPoints];
-    opacity = 10; // was 10  // 100 for testing *** <<
+    opacity = o; // was 10  // 100 for testing *** <<
     op_start = opacity;
     // probability for opacity starts
     //float randO = random(0); 
@@ -70,10 +71,12 @@ class BasicShapeElement {
 
     //numColors = 500; // <--- messing with this....
     //c = color(100, 100, 100, 20);
-//    op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
+    //    op_limit = ceil(howMany * 3) + 5 ; // <-- hmmm  multiplied by how many stages we have
     howM = howMany;
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
+
+    controlOpacity(radius_, howMany, o, prox);
 
     for (int i = 0; i < numPoints; i++) {
       coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
@@ -129,7 +132,7 @@ class BasicShapeElement {
       }
     } else if ( age > 60 && age <= 80) {
       float randy = random(1);
-      if (randy <= .1) {
+      if (randy <= .05) {
         opacity +=3;
       } else {
         //opacity -=1;
@@ -143,107 +146,118 @@ class BasicShapeElement {
     if (opacity < 0) opacity = 0;
     print("opacity  ");
     println(opacity);
-    
+
     /*    
-//    print("mode is: ");
-//    println(mode);
-    if (mode == 0) { // coming to maturity
-      if (frameCount % 5 == 0) {
-        float r_ = random(1);
-        if (r_ < .9) {
-          opacity +=1;
-          opacity = constrain(opacity, 4, op_limit);
-          if (opacity == op_limit) {
-            mode = 1;
-            increment = int(random(1000, 1800));
-            mature = millis(); // reset
-            op_limit = op_limit - howM;  // take off a section from the limit, to lower the max; thus not as bright
-          } // if opp limit
-        } //random
-      } // %
-    } // mode 0
+     //    print("mode is: ");
+     //    println(mode);
+     if (mode == 0) { // coming to maturity
+     if (frameCount % 5 == 0) {
+     float r_ = random(1);
+     if (r_ < .9) {
+     opacity +=1;
+     opacity = constrain(opacity, 4, op_limit);
+     if (opacity == op_limit) {
+     mode = 1;
+     increment = int(random(1000, 1800));
+     mature = millis(); // reset
+     op_limit = op_limit - howM;  // take off a section from the limit, to lower the max; thus not as bright
+     } // if opp limit
+     } //random
+     } // %
+     } // mode 0
+     
+     if (mode == 1) { // decreasing
+     if (frameCount % 5 == 0) {
+     // initial decrease:
+     if (millis() - mature < increment) {
+     float r_ = random(1);
+     if (r_ > .7) {
+     opacity +=2;
+     } else {
+     opacity--;
+     }
+     opacity = constrain(opacity, 4, op_limit);
+     } // initial decrease
+     else {
+     mode = 2;
+     increment = int(random(1800, 3000));
+     mature = millis();
+     op_limit = op_limit - howM;
+     }
+     } // frameCount
+     } // mode 1
+     
+     if (mode == 2) {
+     if (frameCount % 5 == 0) {
+     if (millis() - mature < increment) {
+     float r_ = random(1);
+     if (r_ > .8) {
+     opacity +=4;
+     } else {
+     opacity -=2;
+     }
+     opacity = constrain(opacity, 4, op_limit);
+     } // nxt increment
+     else {
+     mode = 3;
+     mature = millis();
+     increment = int(random(1800, 3000));
+     op_limit = op_limit - howM;
+     }
+     } //if frameCount
+     } //mode 2
+     
+     if (mode == 3) {
+     
+     if (frameCount % 5 == 0) {
+     if (millis() - mature < increment) {
+     float r_ = random(1);
+     if (r_ > .7) {
+     opacity +=6;
+     } else {
+     opacity -=2;
+     }
+     opacity = constrain(opacity, 4, op_limit);
+     } // nxt increment
+     else {
+     mode = 4;
+     mature = millis();
+     increment = int(random(1800, 3000));
+     op_limit = op_limit - howM;
+     } //else
+     } //framecount
+     }// mode 3
+     
+     if (mode == 4) {
+     if (frameCount % 5 == 0) {
+     if (millis() - mature < increment) {
+     float r_ = random(1);
+     if (r_ > .5) {
+     opacity--;
+     } else {
+     opacity +=4;
+     }
+     //           opacity = constrain(opacity, 4, op_limit);
+     } //increment
+     else {
+     opacity--;
+     }
+     } //framecount
+     } //mode 4
+     */
 
-    if (mode == 1) { // decreasing
-      if (frameCount % 5 == 0) {
-        // initial decrease:
-        if (millis() - mature < increment) {
-          float r_ = random(1);
-          if (r_ > .7) {
-            opacity +=2;
-          } else {
-            opacity--;
-          }
-          opacity = constrain(opacity, 4, op_limit);
-        } // initial decrease
-        else {
-          mode = 2;
-          increment = int(random(1800, 3000));
-          mature = millis();
-          op_limit = op_limit - howM;
-        }
-      } // frameCount
-    } // mode 1
-
-    if (mode == 2) {
-      if (frameCount % 5 == 0) {
-        if (millis() - mature < increment) {
-          float r_ = random(1);
-          if (r_ > .8) {
-            opacity +=4;
-          } else {
-            opacity -=2;
-          }
-          opacity = constrain(opacity, 4, op_limit);
-        } // nxt increment
-        else {
-          mode = 3;
-          mature = millis();
-          increment = int(random(1800, 3000));
-          op_limit = op_limit - howM;
-        }
-      } //if frameCount
-    } //mode 2
-
-    if (mode == 3) {
-
-      if (frameCount % 5 == 0) {
-        if (millis() - mature < increment) {
-          float r_ = random(1);
-          if (r_ > .7) {
-            opacity +=6;
-          } else {
-            opacity -=2;
-          }
-          opacity = constrain(opacity, 4, op_limit);
-        } // nxt increment
-        else {
-          mode = 4;
-          mature = millis();
-          increment = int(random(1800, 3000));
-          op_limit = op_limit - howM;
-        } //else
-      } //framecount
-    }// mode 3
-
-    if (mode == 4) {
-      if (frameCount % 5 == 0) {
-        if (millis() - mature < increment) {
-          float r_ = random(1);
-          if (r_ > .5) {
-            opacity--;
-          } else {
-            opacity +=4;
-          }
-          //           opacity = constrain(opacity, 4, op_limit);
-        } //increment
-        else {
-          opacity--;
-        }
-      } //framecount
-    } //mode 4
-*/
-
-
+    if (controlO == 1) {
+      opacity = constrain(opacity, 0, 20);
+    } else if (controlO == 2) {
+      opacity = constrain(opacity, 0, 40);
+    } else if (controlO == 3) {
+      opacity = constrain(opacity, 0, 60);
+    } else if( controlO == 4){
+     //opacity = constrain(opacity, 0 
+    } else if (controlO == 5){
+     opacity = constrain(opacity, 0, 80); 
+    }
+    println(controlO);
 
     return opacity;
   }
@@ -256,8 +270,6 @@ class BasicShapeElement {
       } else {
         age -= 1; // slow down aging/reverse
       }
-      print("age is: "); 
-      println(age);
     } else if (age >= 80) {
       float randy = random(0, 1);
       if (randy > 0.3) {
@@ -271,6 +283,8 @@ class BasicShapeElement {
         age++;   //70% of time- age
       }
     }
+    // print("age is: "); 
+    // println(age);
   }
 
 
@@ -301,6 +315,20 @@ class BasicShapeElement {
     paint = kuler;
     //paint_ = c;
     return paint;
+  }
+
+  //100, 30, 30, 10);  // loc,     prox, radius, #, o
+  void controlOpacity(int r_, int howM_, int o_, int prox_) { // add more as needed
+    
+    if ( r_ >= 30 && howM_ >= 10 && prox_ <= 30) {
+      controlO = 1; // opacity is lowest
+    } else if (prox_ >= 30 && r_ <= 30 && howM_ >= 30) {  //30, 10, 60, 10)  prox, radius, #, o
+      controlO = 5; // 
+    } else if ( prox_ < 30 && howM <= 10 && r_ <= 30) {
+      controlO = 5;
+    } else if (prox_ >= 30 && r_ > 50 && howM_ < 20){
+     controlO = 3; 
+    }
   }
 
 

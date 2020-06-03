@@ -9,19 +9,19 @@ class Cloud {
   long birth;
   ArrayList<BasicShapeElement>shapes; //how many shapes in cloud? How big/wide cloud?
   int rando;
-  int radius = 75; // radius of shapes
+  int radius; //= 30; // radius of shapes *********
   
   // how many, radius + rando are difference btwn spots, portals, gas
 
-  Cloud(PVector newbie) {
+  Cloud(PVector newbie, int proximity, int rad, int howM_, int o) {
     //shapeCloud = new ArrayList<Shape>();
     //loc = newbie.copy();
     loc = new PVector(newbie.x, newbie.y);
-    howMany = 30;  // the more the foggier. but need to mind cpu; was 30
+    howMany = howM_; //10;  // the more the foggier. but need to mind cpu; was 30 ********
     shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
     //numPts = 5; //10
-    //rad = 25;
-    rando = 50; // was 100
+    radius = rad;
+    rando = proximity;//30; // was 100  ********
     birth = millis();
     //println(shapes.size());
     // creating #limit shapes and push to cloud array:
@@ -30,7 +30,7 @@ class Cloud {
       int randX = int(random(-rando, rando)) + int(newbie.x);
       //println(randX);
       int randY = int(random(-rando, rando)) + int(newbie.y);
-      BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany); 
+      BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando); 
       shapes.add(0, temp);
     }
     //println("done");
