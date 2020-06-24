@@ -144,8 +144,8 @@ class BasicShapeElement {
     }
 
     if (opacity < 0) opacity = 0;
-    print("opacity  ");
-    println(opacity);
+   // print("opacity  ");
+   // println(opacity);
 
     /*    
      //    print("mode is: ");
@@ -257,7 +257,7 @@ class BasicShapeElement {
     } else if (controlO == 5){
      opacity = constrain(opacity, 0, 80); 
     }
-    println(controlO);
+   // println(controlO);
 
     return opacity;
   }

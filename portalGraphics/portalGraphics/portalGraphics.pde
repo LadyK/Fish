@@ -3,6 +3,7 @@ import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*;
 
+PGraphics canvas; // need this for projection mapping thru syphon via madmapper
 SyphonServer server;
 
 int checker = 0;
@@ -50,17 +51,18 @@ PVector newLoc, currentLocation;
 int numColors = 600;    
 float c_rand;
 PVector previousMouse; 
-int ius = 100;
-
+int ius = 30;
+ 
 float  rd, gn, blu;
 color  kuler, paint;
 
 void setup() {
-  //  size(1280, 1024, P3D);
+ size(640, 480, P3D);  // need to send less to max to send out? 800?
+ //canvas = createGraphics(1280, 1024, P3D); // out to syphon
   // Create syhpon server to send frames out.
-  //  server = new SyphonServer(this, "Processing Syphon");
+ server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
-  size(800, 800, P3D);
+//  size(800, 800, P3D);
   //frameRate(20);
   //background(0);
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
@@ -98,12 +100,12 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  //    whereimsending = new NetAddress("127.0.0.1", 12000); // hostname, port
+     whereimsending = new NetAddress("127.0.0.1", 12001); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-  // whereimlistening = new OscP5(this, 12000);
+  whereimlistening = new OscP5(this, 12000);
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
@@ -114,6 +116,8 @@ void setup() {
 }
 
 void draw() {
+  //canvas.beginDraw();
+  //canvas.background(0);
   background(0);
   /* not so noticible now bc more fog-like; 
    // ************* old code (before refactor)
@@ -140,7 +144,7 @@ void draw() {
       Cloud c = demos.get(i);
       if (c.shapes.size() <= 0) { // if the size of the shapes array (ie, cloud elements) in the cloud object is (nearly) empty
         demos.remove(i);
-        println("removed one");
+     //   println("removed one");
       } else {
         c.run();
       }
@@ -201,7 +205,8 @@ void draw() {
    p_.display();
    }
    */
-  //  server.sendScreen();
+   server.sendScreen();
+  
 } // draw loop
 
 void colorChange() {
@@ -253,18 +258,18 @@ void mousePressed() {
    // }
    */
 
-  PVector newLoc = new PVector(mouseX, mouseY);
-  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-    //newLoc.x = map(newLoc.x, 0, 640, 0, width);
-    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
-    flash(newLoc); // ring triggers
-    newSpot(newLoc); // new cloud
-    //println();
-    //println("new cloud and ring");
-    //println("Made new cloud");
-  } else if (checkLocations(newLoc) == true) {
-    // println("none made");
-  }
+  //PVector newLoc = new PVector(mouseX, mouseY);
+  //if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+  //  //newLoc.x = map(newLoc.x, 0, 640, 0, width);
+  //  //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+  //  flash(newLoc); // ring triggers
+  //  newSpot(newLoc); // new cloud
+  //  //println();
+  //  //println("new cloud and ring");
+  //  //println("Made new cloud");
+  //} else if (checkLocations(newLoc) == true) {
+  //  // println("none made");
+  //}
 }
 
 void keyPressed() {
@@ -311,6 +316,9 @@ void mouseMoved() {
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     //newLoc.x = map(newLoc.x, 0, 640, 0, width);
     //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+     newLoc.x = map(newLoc.x, 0, width, 0, 450);
+    newLoc.y = map(newLoc.y, 0, 480, 0, height);
+    
     flash(newLoc); // ring triggers
     newSpot(newLoc); // new cloud
     //println();
@@ -382,17 +390,18 @@ void oscEvent(OscMessage theOscMessage) {
   //   PVector tester = new PVector(mouseX + randX, mouseY + randY);
   //newLoc = new PVector(tempX + randX, tempY + randY);
   newLoc = new PVector(tempX, tempY);
-  println(newLoc);
+  //println(newLoc);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-    newLoc.x = map(newLoc.x, 0, 640, 0, width);
+    //newLoc.x = map(newLoc.x, 0, 640, 0, width);
+    newLoc.x = map(newLoc.x, 0, width, 0, 450); // strained because of masking in madmapper
     newLoc.y = map(newLoc.y, 0, 480, 0, height);
     flash(newLoc); // ring triggers
     newSpot(newLoc); // new cloud
-    println("new cloud and ring");
+    //println("new cloud and ring");
 
     //println("Made new cloud");
   } else if (checkLocations(newLoc) == true) {
-    println("none made");
+    //println("none made");
   }
 }
 
@@ -416,7 +425,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 130, 30, 30, 10);  // loc,     prox, radius, #, o
+  Cloud tester = new Cloud(newbie, 50, 15, 30, 10);  // loc,     prox, radius, #, o
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}
