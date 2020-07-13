@@ -32,8 +32,8 @@ class Cloud {
     
     birth = millis();
     
-    randX = int(random(-randoX, randoX)) + int(newbie.x);
-    randY = int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
+    randX = int(newbie.x); //int(random(-randoX, randoX)) + int(newbie.x);
+    randY = int(newbie.y); //int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
     BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando);
     shapes.add(0, temp);
     

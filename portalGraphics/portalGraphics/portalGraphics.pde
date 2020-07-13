@@ -62,6 +62,7 @@ long intervalPort;
 void setup() {
   size(640, 480, P3D);  // need to send less to max to send out? 800?
   //canvas = createGraphics(1280, 1024, P3D); // out to syphon
+  
   // Create syhpon server to send frames out.
   server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
