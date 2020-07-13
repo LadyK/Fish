@@ -8,8 +8,12 @@ class Cloud {
   PVector loc;
   long birth;
   ArrayList<BasicShapeElement>shapes; //how many shapes in cloud? How big/wide cloud?
-  int rando;
+  int rando, randoX, randoY, randY, randX;
+  //int rando;
   int radius; //= 30; // radius of shapes *********
+  long stillThere;
+  int siblings;
+  int alpha;
   
   // how many, radius + rando are difference btwn spots, portals, gas
 
@@ -22,17 +26,29 @@ class Cloud {
     //numPts = 5; //10
     radius = rad;
     rando = proximity;//30; // was 100  ********
+    alpha = o;
+    randoX = int(proximity * .2); // not so much on the x axis
+    randoY = int(proximity * 1); //rando; // more spread on the y axis
+    
     birth = millis();
-    //println(shapes.size());
-    // creating #limit shapes and push to cloud array:
-    for (int i = 0; i < howMany; i++) {
-      // pick some points around the mouse for the shape
-      int randX = int(random(-rando, rando)) + int(newbie.x);
-      //println(randX);
-      int randY = int(random(-rando, rando)) + int(newbie.y);
-      BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando); 
-      shapes.add(0, temp);
-    }
+    
+    randX = int(random(-randoX, randoX)) + int(newbie.x);
+    randY = int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
+    BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando);
+    shapes.add(0, temp);
+    
+    siblings++;
+ 
+    //// creating #limit shapes and push to cloud array:
+    //for (int i = 0; i < howMany; i++) {
+      
+    //  // pick some points around the mouse for the shape
+    //  randX = int(random(-randoX, randoX)) + int(newbie.x);
+    //  randY = int(random(-randoY * 4, (randoY * .2))) + int(newbie.y); // increase this along the y-axis via for-loop ?
+      
+    //  BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando); 
+    //  shapes.add(0, temp);
+    //}
     //println("done");
   } 
 
@@ -52,6 +68,8 @@ class Cloud {
        // if (frameCount % 5 == 0) {
         //temp.featureShifter();
        // }
+       //temp.centerY= temp.centerY - 1;
+       //constrain(temp.centerY,temp.centerY, temp.centerY-10);
       temp.display();
       }
     } // for
@@ -61,6 +79,7 @@ class Cloud {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
     if ( d < radius * .5) {
+      stillThere = millis();   // this was start of portal development
       return true;
     } else {
       return false;

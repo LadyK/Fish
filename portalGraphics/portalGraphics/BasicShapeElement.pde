@@ -52,7 +52,7 @@ class BasicShapeElement {
     //else if (randO >= 0) {opacity = int(random(10, 15));}//op_start= 0;  // was 0   // 60 for testing ****
     stepSize = 3; // crazy at 5 very jiggly
     //r = radius;
-    r = radius_;
+    r = radius_;  //used to set initial coordinates; also used in shrink/expand
     line = false;
     smooth();
     //   rd = 0;
@@ -288,7 +288,7 @@ class BasicShapeElement {
   }
 
 
-  color colorChanger() {
+  color colorChanger() {  // not using this here. calling it in main tab for universal color
 
 
 
@@ -316,6 +316,13 @@ class BasicShapeElement {
     //paint_ = c;
     return paint;
   }
+
+/*
+Depending on how wide the shapes are, as well as how many of them there are, and how close 
+they are to each other, we want to factor in how bright the initial opacity is, so that
+taken all together: they are not too bright
+that's why it's only called in the set up.
+*/
 
   //100, 30, 30, 10);  // loc,     prox, radius, #, o
   void controlOpacity(int r_, int howM_, int o_, int prox_) { // add more as needed
