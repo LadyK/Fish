@@ -311,6 +311,7 @@ void keyPressed() {
   }
   if (key == 'z') {
     loop();
+    print(mouseX, mouseY);
   }
 }
 
@@ -334,14 +335,13 @@ void mouseMoved() {
   //  newLoc = new PVector(mouseX, mouseY);
   //  if (!checkLocations(newLoc)) { // <---- same spot?
   //    newSpot(newLoc);
-  //  }
+
 
 
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-    //newLoc.x = map(newLoc.x, 0, 640, 0, width);
-    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
-    // newLoc.x = map(newLoc.x, 0, width, 0, 450);
+     // strained because of masking in madmapper re:studio prototype
+    newLoc.x = map(newLoc.x, 0, 640, 104, 450);
     newLoc.y = map(newLoc.y, 0, 480, 0, height);
 
     flash(newLoc); // ring triggers
@@ -417,7 +417,8 @@ void oscEvent(OscMessage theOscMessage) {
   //println(newLoc);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     //newLoc.x = map(newLoc.x, 0, 640, 0, width);
-    newLoc.x = map(newLoc.x, 0, width, 0, 450); // strained because of masking in madmapper
+    newLoc.x = map(newLoc.x, 0, 640, 124, 500);  // strained because of masking in madmapper
+    //newLoc.x = constrain(newLoc.x, 104, 376);
     newLoc.y = map(newLoc.y, 0, 480, 0, height);
     flash(newLoc); // ring triggers
     newSpot(newLoc); // new cloud
