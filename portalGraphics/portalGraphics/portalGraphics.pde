@@ -40,7 +40,7 @@ int distDiff= 10; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
 //Portal entry;
-ArrayList<Portal> entry;
+//ArrayList<Portal> entry;
 long portBirth;
 PVector lastLoc, currentLoc;
 boolean newSpot = false;
@@ -55,9 +55,10 @@ float c_rand;
 PVector previousMouse; 
 int ius = 30;
 
-float  rd, gn, blu;
-color  kuler, paint;
+float  rd, gn, blu, rdshift, gnshift, blushift;
+color  kuler, paint, previousKuler, lerpKuler;
 long intervalPort;
+
 
 void setup() {
   size(640, 480, P3D);  // need to send less to max to send out? 800?
@@ -79,7 +80,7 @@ void setup() {
   //all_locations = new PVector[1000];
   // all_locations = new ArrayList<PVector>(1000);
   //BasicShapeElement[] demo = new BasicShapeElement[2000];
-  portals = new ArrayList<Portal>();
+  portals = new ArrayList<Portal>(1);
   demos = new ArrayList<Cloud>(50);
   triggers = new ArrayList<Shape>(10);
   portalTrig = false;
@@ -88,8 +89,9 @@ void setup() {
   gn = random(1);  // 128, 255
   blu = random(1); // 0, 192
   kuler = color(rd, gn, blu);
+  intervalPort = 8000;   // 10 seconds
 
-  //entry = new ArrayList<Portal>(1000);
+
   /*
   Cloud[] herd = new Cloud[2000];
    //clouds = new ArrayList<Cloud>();
@@ -150,51 +152,13 @@ void draw() {
         demos.remove(i);
         //   println("removed one");
       } else {
-        // spreadNorth();  // if do this here, nxt line c.run() is already into shapes array of cloud
-        //c.randY = c.randY - 10;
-        c.run();
-        if (c.stillThere >= intervalPort) {   //portal work***
-        }
-      }
-      //print("middle point is:  "); println(shape.middle);
-      //float d = dist(shape.centerX, mouseX, shape.centerY, mouseY);
-      //if(locations[i] == mouseLoc + 10/-10){ <<-------
-      /*
-        float d = dist(loc.x, currentLocation.x, loc.y, currentLocation.y);
-       if (d < shape.r ) {
-       //shape.expand();
-       
-       //println(" close so grow");
-       }
-       
-       */
-      //expandShrink();
-      /*
-        //if shape location is similar to newest/mouse/current
-       if(newLoc.x < shape.centerX + 5 || newLoc.x > shape.centerY - 5 ){
-       println("EXPAND");
-       }
-       */
 
-      /*
-        PVector middle = shape.centerLoc();  // <-- not sure if this is right
-       PVector m = new PVector(mouseX, mouseY);
-       PVector difference = PVector.sub(m, middle);
-       float d = difference.mag();
-       //print("distance is:   "); println(d);
-       //print("shape diameter is:  "); println(shape.r * 2);
-       
-       if (d < (shape.r * 2)) {  // <-- logic here is off
-       
-       shape.expand();
-       println("expand");
-       }
-       }
-       */
+        c.run();
+      }
     }
   }
-  // run triggers/rings:
-  //print("triggers is: "); println(triggers.size());
+  // run triggers/rings feedback on user presence:
+
   for (int i = triggers.size()-1; i >= 0; i--) {
     Shape s = triggers.get(i);
     if (s.o <= 1) {
@@ -205,25 +169,40 @@ void draw() {
     }
   }
   // run portals:
-  /*
+  // /*
   for (int i = portals.size()-1; i >=0; i--) {
-   Portal p_ = portals.get(i);
-   // where are we getting rid of old/bad portals?? <-- figure this out
-   p_.featureShifter();
-   p_.display();
-   }
-   */
+    Portal p_ = portals.get(i);
+    // where are we getting rid of old/bad portals?? <-- figure this out
+    //p_.featureShifter();
+    if (millis() - p_.birth < 15000) { // the portals can only last so long. make sure they are young
+
+
+      p_.display(true);
+      p_.expand_();
+      //p_.shrink();
+      //println(p_.r_local);
+    } else if(p_.r > 100 && millis() - p_.birth > 20000){
+      println("here");
+      p_.shrink();
+    } else {
+      //portals.remove(p_);
+    
+    }
+   
+  }
+  //  */
   server.sendScreen();
 } // draw loop
 
-void siblingsCheck() {
+
+void siblingsCheck() {  // change clouds so first one appears at source, then the rest appear N/S of source
   if (frameCount % 3 == 0) {
     for (int i= demos.size()-1; i >= 0; i--) {  // since new ones are added to the end, start there
       // PVector loc = all_locations.get(i);
       Cloud c = demos.get(i);
-      if (c.siblings == c.howMany) {
+      if (c.siblings == c.howMany) { // if we've reached our siblings max, skip
         continue;
-      } else {
+      } else { // otherwise, create a new one:
         c.randX = int(random(-c.randoX, c.randoX)) + int(c.loc.x);
         c.randY = int(random(-c.randoY * 4, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
         BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando); 
@@ -236,6 +215,8 @@ void siblingsCheck() {
 
 void colorChange() {
 
+  //previousKuler = color(abs(rd * .3), abs(gn * .2), abs(blu * .3));
+
   float curTime = millis()/1000.0;
   // c_rand = random(0.5, 0.6);
   // curTime = c_rand * curTime;
@@ -247,33 +228,44 @@ void colorChange() {
     rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
     gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
     blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
+    rdshift = abs(rd - .5);
+    gnshift = abs(gn - .5);
+    blushift = abs(blu - .5);
     rd = abs(rd);
     gn = abs(gn);
     blu = abs(blu);
     kuler = color(rd, gn, blu);
+
+    previousKuler = color(rdshift, gnshift, blushift);
   }
+
+
+
 
   paint = kuler;
+  lerpKuler = lerpColor(paint, previousKuler, 0.5);
 }
 
 
-void triggerPortal() {
-  //print("num of portals: ");
-  //println(entry.size());
-  // if we dont have portals, create some:
-  if (entry.size() < 1 && portBirth <= 0) {
-    for (int i = 0; i < 5; i++) {
-      int randX = 0; //int(random(-5, 5));
-      int randY = 0; //int(random(-5, 5));
-      Portal temp = new Portal(screenLoc[0] + randX, screenLoc[1]  + randY, 10, 15);
-      entry.add(temp);
-      //  portalTrig = false;
-    }
-    portBirth = millis();
-  }
-}
+//void triggerPortal(PVector l) {
+//  //print("num of portals: ");
+//  //println(entry.size());
+//  // if we dont have portals, create some:
+//  //if (portals.size() < 0 && portBirth <= 0) {
+//  //for (int i = 0; i < 5; i++) {
+//  //int randX = 0; //int(random(-5, 5));
+//  // int randY = 0; //int(random(-5, 5));
+//  //Portal temp = new Portal(screenLoc[0] + randX, screenLoc[1]  + randY, 10, 15);
+//  Portal temp = new Portal(l.x, l.y, 5, 60);
+//  portals.add(temp);
+//  //  portalTrig = false;
+//  //}
+//  // portBirth = millis();
+//  //}
+//}
 
 void mousePressed() {
+
   /*
 // if (frameCount % 2 == 0) {
    float randX = random((-radius), (radius));
@@ -340,9 +332,9 @@ void mouseMoved() {
 
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-     // strained because of masking in madmapper re:studio prototype
-    newLoc.x = map(newLoc.x, 0, 640, 104, 450);
-    newLoc.y = map(newLoc.y, 0, 480, 0, height);
+    // strained because of masking in madmapper re:studio prototype
+    //newLoc.x = map(newLoc.x, 0, 640, 104, 450);
+    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
 
     flash(newLoc); // ring triggers
     newSpot(newLoc); // new cloud
@@ -363,8 +355,21 @@ boolean checkLocations(PVector nLoc) {
     // PVector loc = all_locations.get(i);
     Cloud c = demos.get(i);
     //Shape s = triggers.get(i);
-    if (c.tooclose(nLoc) == true ) {
+    if (c.tooclose(nLoc) == true ) { // if we are too close as a previous spot:
       tooClose = true;
+
+      // currently: cloud life is shorter, than portal. should be independent? Or portal launch clouds around if still there?
+      if (c.portalTrigger == false) {  
+        //launch a portal if we've been there awhile:
+        if (millis() - c.birth > intervalPort) {   //portal work***
+          Portal temp = new Portal(nLoc.x, nLoc.y, 5, 10); // make a new portal
+          portals.add(temp); // add it to the array
+          c.portalTrigger = true;
+        }
+      }
+
+
+
       break;
     } else {
       tooClose = false;
@@ -373,7 +378,7 @@ boolean checkLocations(PVector nLoc) {
   return tooClose;
 }
 
-boolean checkTriggers(PVector nLoc) {
+boolean checkTriggers(PVector nLoc) { // rings that communicate feedback
   boolean same = false;
   for (int i = triggers.size()-1; i >=0; i--) {
     Shape s = triggers.get(i);

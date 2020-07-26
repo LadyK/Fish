@@ -2,26 +2,40 @@ class Portal extends BasicShapeElement {
 
   PVector spread;
   float origX, origY;
-
+  float xie, yie;
   // 1. opacity
   // 2. shrinking
   // 3. disappearance
+  //color mypaint;
+  long birth;
+  long life;
 
   Portal(float x_, float y_, int p_, int r) {
-    super(x_, y_, p_, r, 1, 10, 0);
+    super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
+    xie = x_;
+    yie = y_;
     rd = 0;
     gn = int(random(128, 255));
     blu = int(random(100, 200));
-    spread = PVector.random2D();
-    origX = x_;
-    origY = y_;
+    paint_ = color(rd, gn, blu, 200);
+    birth = millis();
+    life = 10000;
+
+    // spread = PVector.random2D();
+    //origX = x_;
+    //origY = y_;
   }
 
-  void display() {
-    //super.display(false, rd, gn, blu, 200); // last is opacity
-    super.display();
-    //featureShifter();
-  }
+  //void display() {
+  //  //if (millis() - birth < life) {
+  //    //fill(paint_, 200);
+  //   // grow();
+  //    //ellipse(xie, yie, 40, 40);
+  //    //super.display(false, rd, gn, blu, 200); // last is opacity
+  //    super.display(true);
+  // // }
+  //  //featureShifter();
+  //}
 
   void shift() {
     /*

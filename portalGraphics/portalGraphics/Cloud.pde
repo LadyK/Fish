@@ -14,7 +14,9 @@ class Cloud {
   long stillThere;
   int siblings;
   int alpha;
+  boolean portalTrigger;
   
+
   // how many, radius + rando are difference btwn spots, portals, gas
 
   Cloud(PVector newbie, int proximity, int rad, int howM_, int o) {
@@ -29,23 +31,24 @@ class Cloud {
     alpha = o;
     randoX = int(proximity * .2); // not so much on the x axis
     randoY = int(proximity * 1); //rando; // more spread on the y axis
-    
+
     birth = millis();
-    
+
     randX = int(newbie.x); //int(random(-randoX, randoX)) + int(newbie.x);
     randY = int(newbie.y); //int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
     BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando);
     shapes.add(0, temp);
-    
+
     siblings++;
- 
+    portalTrigger = false;
+
     //// creating #limit shapes and push to cloud array:
     //for (int i = 0; i < howMany; i++) {
-      
+
     //  // pick some points around the mouse for the shape
     //  randX = int(random(-randoX, randoX)) + int(newbie.x);
     //  randY = int(random(-randoY * 4, (randoY * .2))) + int(newbie.y); // increase this along the y-axis via for-loop ?
-      
+
     //  BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando); 
     //  shapes.add(0, temp);
     //}
@@ -62,15 +65,15 @@ class Cloud {
       //shape.shrink();
       boolean dead = temp.update();
       if (dead) {  
-//        println("removed a basic shape");
-        shapes.remove(temp);  
+        //        println("removed a basic shape");
+        shapes.remove(temp);
       } else { 
-       // if (frameCount % 5 == 0) {
+        // if (frameCount % 5 == 0) {
         //temp.featureShifter();
-       // }
-       //temp.centerY= temp.centerY - 1;
-       //constrain(temp.centerY,temp.centerY, temp.centerY-10);
-      temp.display();
+        // }
+        //temp.centerY= temp.centerY - 1;
+        //constrain(temp.centerY,temp.centerY, temp.centerY-10);
+        temp.display(false);
       }
     } // for
   } // run
@@ -79,7 +82,7 @@ class Cloud {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
     if ( d < radius * .5) {
-      stillThere = millis();   // this was start of portal development
+      //stillThere = millis();   // this was start of portal development
       return true;
     } else {
       return false;

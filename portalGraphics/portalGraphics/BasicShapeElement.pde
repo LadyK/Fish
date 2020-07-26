@@ -32,6 +32,7 @@ class BasicShapeElement {
   float  rd, gn, blu;
   float age;
   char controlO;
+  float r_local;
 
 
   BasicShapeElement(float x_, float y_, int pts, int radius_, int howMany, int o, int prox) {
@@ -65,7 +66,7 @@ class BasicShapeElement {
     centerY = y_;
     angle = radians(360/float(numPoints));
     theta = random(PI);
-    incrementer = random(0.02, 0.05);
+    incrementer = random(0.2, 0.5);
     paint_ = color(rd, gn, blu, opacity);
     //age = 0;
 
@@ -76,7 +77,9 @@ class BasicShapeElement {
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
 
-    controlOpacity(radius_, howMany, o, prox);
+    if (howMany > 3) { // trying to get portals to show
+      controlOpacity(radius_, howMany, o, prox);
+    }
 
     for (int i = 0; i < numPoints; i++) {
       coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
@@ -144,107 +147,8 @@ class BasicShapeElement {
     }
 
     if (opacity < 0) opacity = 0;
-   // print("opacity  ");
-   // println(opacity);
-
-    /*    
-     //    print("mode is: ");
-     //    println(mode);
-     if (mode == 0) { // coming to maturity
-     if (frameCount % 5 == 0) {
-     float r_ = random(1);
-     if (r_ < .9) {
-     opacity +=1;
-     opacity = constrain(opacity, 4, op_limit);
-     if (opacity == op_limit) {
-     mode = 1;
-     increment = int(random(1000, 1800));
-     mature = millis(); // reset
-     op_limit = op_limit - howM;  // take off a section from the limit, to lower the max; thus not as bright
-     } // if opp limit
-     } //random
-     } // %
-     } // mode 0
-     
-     if (mode == 1) { // decreasing
-     if (frameCount % 5 == 0) {
-     // initial decrease:
-     if (millis() - mature < increment) {
-     float r_ = random(1);
-     if (r_ > .7) {
-     opacity +=2;
-     } else {
-     opacity--;
-     }
-     opacity = constrain(opacity, 4, op_limit);
-     } // initial decrease
-     else {
-     mode = 2;
-     increment = int(random(1800, 3000));
-     mature = millis();
-     op_limit = op_limit - howM;
-     }
-     } // frameCount
-     } // mode 1
-     
-     if (mode == 2) {
-     if (frameCount % 5 == 0) {
-     if (millis() - mature < increment) {
-     float r_ = random(1);
-     if (r_ > .8) {
-     opacity +=4;
-     } else {
-     opacity -=2;
-     }
-     opacity = constrain(opacity, 4, op_limit);
-     } // nxt increment
-     else {
-     mode = 3;
-     mature = millis();
-     increment = int(random(1800, 3000));
-     op_limit = op_limit - howM;
-     }
-     } //if frameCount
-     } //mode 2
-     
-     if (mode == 3) {
-     
-     if (frameCount % 5 == 0) {
-     if (millis() - mature < increment) {
-     float r_ = random(1);
-     if (r_ > .7) {
-     opacity +=6;
-     } else {
-     opacity -=2;
-     }
-     opacity = constrain(opacity, 4, op_limit);
-     } // nxt increment
-     else {
-     mode = 4;
-     mature = millis();
-     increment = int(random(1800, 3000));
-     op_limit = op_limit - howM;
-     } //else
-     } //framecount
-     }// mode 3
-     
-     if (mode == 4) {
-     if (frameCount % 5 == 0) {
-     if (millis() - mature < increment) {
-     float r_ = random(1);
-     if (r_ > .5) {
-     opacity--;
-     } else {
-     opacity +=4;
-     }
-     //           opacity = constrain(opacity, 4, op_limit);
-     } //increment
-     else {
-     opacity--;
-     }
-     } //framecount
-     } //mode 4
-     */
+    // print("opacity  ");
+    // println(opacity);
 
     if (controlO == 1) {
       opacity = constrain(opacity, 0, 20);
@@ -252,17 +156,17 @@ class BasicShapeElement {
       opacity = constrain(opacity, 0, 40);
     } else if (controlO == 3) {
       opacity = constrain(opacity, 0, 60);
-    } else if( controlO == 4){
-     //opacity = constrain(opacity, 0 
-    } else if (controlO == 5){
-     opacity = constrain(opacity, 0, 80); 
+    } else if ( controlO == 4) {
+      //opacity = constrain(opacity, 0
+    } else if (controlO == 5) {
+      opacity = constrain(opacity, 0, 80);
     }
-   // println(controlO);
+    // println(controlO);
 
     return opacity;
   }
 
-  void age() {
+  void age() { // fine tuning how long they last here with probability
     if (age >= 30 && age < 80) {
       float randy = random(0, 1);
       if (randy > 0.7) {
@@ -272,7 +176,7 @@ class BasicShapeElement {
       }
     } else if (age >= 80) {
       float randy = random(0, 1);
-      if (randy > 0.3) {
+      if (randy > 0.4) {
         // do nothing
       } else {
         age +=1;  //age slowly
@@ -288,80 +192,51 @@ class BasicShapeElement {
   }
 
 
-  color colorChanger() {  // not using this here. calling it in main tab for universal color
-
-
-
-    //  /*  
-    //fill(hu%255, 255, 255, 10);
-    //hu += .1;
-    float curTime = millis()/1000.0;
-    // c_rand = random(0.5, 0.6);
-    // curTime = c_rand * curTime;
-
-    //println(curTime);
-    //if (frameCount % 10 == 0) {
-    for (int i=0; i< numColors; i++) {
-
-      rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
-      gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
-      blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
-      rd = abs(rd);
-      gn = abs(gn);
-      blu = abs(blu);
-      kuler = color(rd, gn, blu);
-    }
-
-    paint = kuler;
-    //paint_ = c;
-    return paint;
-  }
-
-/*
+  /*
 Depending on how wide the shapes are, as well as how many of them there are, and how close 
-they are to each other, we want to factor in how bright the initial opacity is, so that
-taken all together: they are not too bright
-that's why it's only called in the set up.
-*/
+   they are to each other, we want to factor in how bright the initial opacity is, so that
+   taken all together: they are not too bright
+   that's why it's only called in the set up.
+   */
 
   //100, 30, 30, 10);  // loc,     prox, radius, #, o
   void controlOpacity(int r_, int howM_, int o_, int prox_) { // add more as needed
-    
+
     if ( r_ >= 30 && howM_ >= 10 && prox_ <= 30) {
       controlO = 1; // opacity is lowest
     } else if (prox_ >= 30 && r_ <= 30 && howM_ >= 30) {  //30, 10, 60, 10)  prox, radius, #, o
-      controlO = 5; // 
+      controlO = 5; //
     } else if ( prox_ < 30 && howM <= 10 && r_ <= 30) {
       controlO = 5;
-    } else if (prox_ >= 30 && r_ > 50 && howM_ < 20){
-     controlO = 3; 
+    } else if (prox_ >= 30 && r_ > 50 && howM_ < 20) {
+      controlO = 3;
     }
   }
 
 
 
 
-  void expand_() {  // if the mouse is close expand
+  void expand_() {  // 
 
-    // if (r < 150) { // as long as we have a radius
-    //if (rand < 0.1) {  // and once in a (fast) while:
-    //r= r + 1; // expand a bit
-    //}
-    // }
-    theta += incrementer;
-    float r_local = r + r * (sin(theta) + 1);  //radius changes
+    float rand = random(0, 1);
+    if (r < 100) { // as long as we have a radius
+      if (rand < 0.3) {  // and once in a while:
+        r += random(0, .8); //
 
-    //    // update locations:
-    //    for (int i = 0; i < numPoints; i++) {
-    //      PVector coor = coordinates[i];
-    //      coor.x += cos(angle*i) * r_local ;
-    //      coor.y += sin(angle*i) * r_local ;
-    //    }
+        // update locations:
+        for (int i = 0; i < numPoints; i++) {
+          PVector coor = coordinates[i];
+          coor.x = cos(angle*i) * r;
+          coor.y = sin(angle*i) * r;
+        }
+      }
+    }
+    println(r);
   }
 
   void shrink() {
     float rand = random(0, 1);
-    if (r > 0) { // as long as we have a radius
+    if (r > 2) { // as long as we have a radius
       if (rand < 0.3) {  // and once in a while:
         r= r - random(0, .8); // shrink a bit
         // update locations:
@@ -376,7 +251,7 @@ that's why it's only called in the set up.
     }
   }
 
-  void display() {
+  void display(boolean p) {
 
     //  color c_ = colorChanger(); // change opacity + color mode; this calls within class; individual colors for cloud
     //    print("op is: ");
@@ -390,10 +265,14 @@ that's why it's only called in the set up.
     if (line == true) {
       stroke(0, op);
       strokeWeight(0.25);
-    } else {
+    } else {  // if no stroke:
       noStroke();
       //       fill(c_, op); // need to change color mode and initial opacity need to pass opacity again here
-      fill(paint, op);
+      if (p == false) {  // if we are not a portal...
+        fill(paint, op); // paint changed in main code
+      } else if (p == true) { // if we are a portal
+        fill(lerpKuler, 150);
+      }
       // fill(_c); // 
 
       // /*
