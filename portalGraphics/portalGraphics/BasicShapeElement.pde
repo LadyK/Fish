@@ -1,7 +1,7 @@
 class BasicShapeElement {
   int numPoints;
   float r;//  = 25; //width of shape  future= relation to body re: w + h
-  int stepSize; // = 1;
+  //int stepSize; // = 1;
   //float distortionFactor = 1;
   float centerX, centerY;
   //float [] x; // = new float[numPoints];
@@ -51,7 +51,7 @@ class BasicShapeElement {
     //if(randO > .7){ opacity = int(random(25, 35));}
     //else if(randO > .5 ) {opacity = int(random(15, 25));}
     //else if (randO >= 0) {opacity = int(random(10, 15));}//op_start= 0;  // was 0   // 60 for testing ****
-    stepSize = 3; // crazy at 5 very jiggly
+    //stepSize = 3; // crazy at 5 very jiggly
     //r = radius;
     r = radius_;  //used to set initial coordinates; also used in shrink/expand
     line = false;
@@ -106,7 +106,7 @@ class BasicShapeElement {
     } else {
       dead = false;
       if (frameCount % 5 == 0) {
-        featureShifter();
+        featureShifter(3);
       }
 
       //display(true, rd, gn, blu, op); //<-- use variables
@@ -220,35 +220,42 @@ Depending on how wide the shapes are, as well as how many of them there are, and
 
     float rand = random(0, 1);
     if (r < 100) { // as long as we have a radius
-      if (rand < 0.3) {  // and once in a while:
+      //if (rand < 0.3) {  // and once in a while:
+      /*
         r += random(0, .8); //
-
-        // update locations:
-        for (int i = 0; i < numPoints; i++) {
-          PVector coor = coordinates[i];
-          coor.x = cos(angle*i) * r;
-          coor.y = sin(angle*i) * r;
-        }
+       // update locations:
+       for (int i = 0; i < numPoints; i++) {
+       PVector coor = coordinates[i];
+       coor.x = cos(angle*i) * r;
+       coor.y = sin(angle*i) * r;
+       }
+       */
+      for (int i = 0; i < numPoints; i++) {
+        PVector coor = coordinates[i];
+        coor.x += cos(angle*i) * 0.08;  // decimal helps grow slow
+        coor.y += sin(angle*i) * 0.08;
+        //}
       }
     }
-    println(r);
+    // println(r);
   }
 
   void shrink() {
     float rand = random(0, 1);
-    if (r > 2) { // as long as we have a radius
-      if (rand < 0.3) {  // and once in a while:
-        r= r - random(0, .8); // shrink a bit
-        // update locations:
-        //  /*
-        for (int i = 0; i < numPoints; i++) {
-          PVector coor = coordinates[i];
-          coor.x = cos(angle*i) * r;
-          coor.y = sin(angle*i) * r;
-        }
-        //  */
+    //if (r > 2) { // as long as we have a radius
+    if (rand < 0.3) {  // and once in a while:
+      float q= random(.04, .02); // shrink a bit
+      // update locations:
+      //  /*
+      for (int i = 0; i < numPoints; i++) {
+        PVector coor = coordinates[i];
+        coor.x -= cos(angle*i) * 0.5;  
+        coor.y -= sin(angle*i) * 0.5;
+        
       }
+      //  */
     }
+    //}
   }
 
   void display(boolean p) {
@@ -323,7 +330,7 @@ Depending on how wide the shapes are, as well as how many of them there are, and
   //   */
   //} //newLoc
 
-  void featureShifter() {
+  void featureShifter(int stepSize) {
 
     // location of points, shift slightly for motion:
     float rand2 = random(0, 1);

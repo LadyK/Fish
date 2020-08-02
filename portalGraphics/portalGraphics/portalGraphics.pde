@@ -174,28 +174,38 @@ void draw() {
     Portal p_ = portals.get(i);
     // where are we getting rid of old/bad portals?? <-- figure this out
     //p_.featureShifter();
-    if (millis() - p_.birth < 15000) { // the portals can only last so long. make sure they are young
-
-
+    long b = p_.birth;
+    print("birth is: ");
+    println(b);
+    long stamp = millis() - b;
+    println(stamp);
+    if (stamp < 15000) { // the portals can only last so long. make sure they are young
+      if (stamp > 3000 && frameCount % 2 == 0) {
+        p_.featureShifter(1);
+      }
       p_.display(true);
-      p_.expand_();
+      p_.expand_(); //grow();
       //p_.shrink();
       //println(p_.r_local);
-    } else if(p_.r > 100 && millis() - p_.birth > 20000){
-      println("here");
+    } else if ( stamp > 15000 && stamp < 25000) {
+      p_.featureShifter(1);
+      p_.display(true);
+    } else if (stamp >= 25000 && stamp < 35000) {
+      if (frameCount % 2 == 0) {
+        p_.featureShifter(1);
+      }
+      p_.display(true);
       p_.shrink();
     } else {
-      //portals.remove(p_);
-    
+      portals.remove(p_);
     }
-   
   }
   //  */
   server.sendScreen();
 } // draw loop
 
 
-void siblingsCheck() {  // change clouds so first one appears at source, then the rest appear N/S of source
+void siblingsCheck() {  // change clouds so first one appears at source, then the rest appear N/S of source on fibers
   if (frameCount % 3 == 0) {
     for (int i= demos.size()-1; i >= 0; i--) {  // since new ones are added to the end, start there
       // PVector loc = all_locations.get(i);

@@ -19,7 +19,7 @@ class Portal extends BasicShapeElement {
     blu = int(random(100, 200));
     paint_ = color(rd, gn, blu, 200);
     birth = millis();
-    life = 10000;
+   // life = 10000;
 
     // spread = PVector.random2D();
     //origX = x_;
@@ -80,7 +80,7 @@ class Portal extends BasicShapeElement {
    */
 
   void featureShifter() {
-    super.featureShifter();
+   // super.featureShifter(1);
   }
 
   void move() {
