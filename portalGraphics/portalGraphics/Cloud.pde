@@ -15,6 +15,7 @@ class Cloud {
   int siblings;
   int alpha;
   boolean portalTrigger;
+
   
 
   // how many, radius + rando are difference btwn spots, portals, gas

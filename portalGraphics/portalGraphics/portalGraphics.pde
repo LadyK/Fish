@@ -172,6 +172,7 @@ void draw() {
   // /*
   for (int i = portals.size()-1; i >=0; i--) {
     Portal p_ = portals.get(i);
+    p_.run();
     // where are we getting rid of old/bad portals?? <-- figure this out
     //p_.featureShifter();
     long b = p_.birth;
@@ -188,6 +189,11 @@ void draw() {
       //p_.shrink();
       //println(p_.r_local);
     } else if ( stamp > 15000 && stamp < 25000) {
+      PVector spot = new PVector(p_.xie, p_.yie);
+      Cloud tester = new Cloud(spot, 50, 15, 30, 10);
+      p_.portalClouds.add(0,tester);
+      
+      
       p_.featureShifter(1);
       p_.display(true);
     } else if (stamp >= 25000 && stamp < 35000) {
@@ -465,7 +471,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 50, 15, 30, 10);  // loc, prox, radius, #, o
+  Cloud tester = new Cloud(newbie, 50, 15, 30, 10);  // loc, prox, radius, #, o   ***** <----- new cloud here
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}

@@ -9,6 +9,7 @@ class Portal extends BasicShapeElement {
   //color mypaint;
   long birth;
   long life;
+  ArrayList<Cloud> portalClouds;
 
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
@@ -24,8 +25,21 @@ class Portal extends BasicShapeElement {
     // spread = PVector.random2D();
     //origX = x_;
     //origY = y_;
+    portalClouds = new ArrayList<Cloud>();
   }
 
+  void run(){
+   if(portalClouds.size() > 0){
+     for(int i = portalClouds.size()-1; i >= 0; i--){
+       Cloud c = portalClouds.get(i);
+       c.run();
+     } 
+   }
+    
+    
+    
+    
+  }
   //void display() {
   //  //if (millis() - birth < life) {
   //    //fill(paint_, 200);
