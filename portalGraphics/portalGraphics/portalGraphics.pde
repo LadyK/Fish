@@ -190,7 +190,7 @@ void draw() {
       //println(p_.r_local);
     } else if ( stamp > 15000 && stamp < 25000) {
       PVector spot = new PVector(p_.xie, p_.yie);
-      Cloud tester = new Cloud(spot, 50, 15, 30, 10);
+      Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_,  o
       p_.portalClouds.add(0,tester);
       
       
@@ -471,7 +471,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 50, 15, 30, 10);  // loc, prox, radius, #, o   ***** <----- new cloud here
+  Cloud tester = new Cloud(newbie, 50, 15, 30, 10, false);  // loc, prox, radius, #, o, portalRelated?  ***** <----- new cloud here
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}

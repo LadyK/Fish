@@ -16,11 +16,11 @@ class Cloud {
   int alpha;
   boolean portalTrigger;
 
-  
+
 
   // how many, radius + rando are difference btwn spots, portals, gas
 
-  Cloud(PVector newbie, int proximity, int rad, int howM_, int o) {
+  Cloud(PVector newbie, int proximity, int rad, int howM_, int o, boolean p) {
     //shapeCloud = new ArrayList<Shape>();
     //loc = newbie.copy();
     loc = new PVector(newbie.x, newbie.y);
@@ -34,9 +34,13 @@ class Cloud {
     randoY = int(proximity * 1); //rando; // more spread on the y axis
 
     birth = millis();
-
-    randX = int(newbie.x); //int(random(-randoX, randoX)) + int(newbie.x);
-    randY = int(newbie.y); //int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
+    if ( p == true) {
+      randX = int(random(-20, 30)) + int(newbie.x);
+      randY = int(random(-30, 40)) + int(newbie.x);
+    } else {
+      randX = int(newbie.x); //int(random(-randoX, randoX)) + int(newbie.x);
+      randY = int(newbie.y); //int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
+    }
     BasicShapeElement temp = new BasicShapeElement(randX, randY, 7, radius, howMany, o, rando);
     shapes.add(0, temp);
 
