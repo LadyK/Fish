@@ -10,6 +10,7 @@ class Portal extends BasicShapeElement {
   long birth;
   long life;
   ArrayList<Cloud> portalClouds;
+  Cloud cp;
 
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
@@ -20,36 +21,51 @@ class Portal extends BasicShapeElement {
     blu = int(random(100, 200));
     paint_ = color(rd, gn, blu, 200);
     birth = millis();
-   // life = 10000;
+    // life = 10000;
 
     // spread = PVector.random2D();
     //origX = x_;
     //origY = y_;
-    portalClouds = new ArrayList<Cloud>();
+    portalClouds = new ArrayList<Cloud>(); // this holds the fields of clouds for each
+
+    // create a bunch of clouds and add them:
+    for (int i = 0; i < 10; i++) {
+      PVector spot = new PVector(xie, yie);
+      Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_, o, portal?
+      portalClouds.add(0, tester);
+    }
   }
 
-  void run(){
-   if(portalClouds.size() > 0){
-     for(int i = portalClouds.size()-1; i >= 0; i--){
-       Cloud c = portalClouds.get(i);
-       c.run();
-     } 
-   }
-    
-    
-    
-    
+  void runClouds() {
+
+    if (portalClouds.size() > 0) {
+
+      for (int i = portalClouds.size()-1; i >= 0; i--) {
+        cp = portalClouds.get(i);
+        if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
+          continue;
+        } else { // otherwise, create a new one:
+          cp.randX = int(random(-cp.randoX, cp.randoX)) + int(cp.loc.x);
+          cp.randY = int(random(-cp.randoY * 4, (cp.randoY * .2))) + int(cp.loc.y); // increase this along the y-axis via for-loop ?
+          BasicShapeElement temp = new BasicShapeElement(cp.randX, cp.randY, 7, cp.radius, cp.howMany, cp.alpha, cp.rando); 
+          cp.shapes.add(0, temp);
+          cp.siblings++;
+        }
+        cp.run();
+      } //for loop
+    } // if we have clouds
+  } // run
+
+  void display(boolean p) {
+    runClouds();
+    super.display(p);
+
+    if (frameCount % 2 == 0) {
+      PVector spot = new PVector(xie, yie);
+      Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_, o, portal?
+      portalClouds.add(0, tester);
+    }
   }
-  //void display() {
-  //  //if (millis() - birth < life) {
-  //    //fill(paint_, 200);
-  //   // grow();
-  //    //ellipse(xie, yie, 40, 40);
-  //    //super.display(false, rd, gn, blu, 200); // last is opacity
-  //    super.display(true);
-  // // }
-  //  //featureShifter();
-  //}
 
   void shift() {
     /*
@@ -94,7 +110,7 @@ class Portal extends BasicShapeElement {
    */
 
   void featureShifter() {
-   // super.featureShifter(1);
+    // super.featureShifter(1);
   }
 
   void move() {

@@ -31,6 +31,7 @@ ArrayList <Cloud> demos;
 //BasicShapeElement[] demos;
 ArrayList <Portal> portals;
 
+
 ArrayList<Shape> triggers;
 
 //HashMap<String, Cloud> storm = new HashMap<String, Cloud>();
@@ -168,11 +169,17 @@ void draw() {
       s.update_();
     }
   }
+
+  //for (int i = portals.size()-1; i >=0; i--) {
+  // Portal p_ = portals.get(i);
+  //  p_.runClouds(); // including it's clouds
+  //}
+
   // run portals:
   // /*
   for (int i = portals.size()-1; i >=0; i--) {
     Portal p_ = portals.get(i);
-    p_.run();
+    // p_.runClouds(); // including it's clouds
     // where are we getting rid of old/bad portals?? <-- figure this out
     //p_.featureShifter();
     long b = p_.birth;
@@ -180,29 +187,46 @@ void draw() {
     println(b);
     long stamp = millis() - b;
     println(stamp);
+    // when the portal is young, have it expand
     if (stamp < 15000) { // the portals can only last so long. make sure they are young
+      // if it's a bit older, shift it a bit:
       if (stamp > 3000 && frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
-      p_.display(true);
       p_.expand_(); //grow();
-      //p_.shrink();
-      //println(p_.r_local);
-    } else if ( stamp > 15000 && stamp < 25000) {
-      PVector spot = new PVector(p_.xie, p_.yie);
-      Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_,  o
-      p_.portalClouds.add(0,tester);
-      
-      
+      p_.display(true);
+    }
+    // if we are even older, start the clouds behind it:
+    else if ( stamp > 15000 && stamp < 25000) {
+
+
+
+
+      // p_.runClouds();
       p_.featureShifter(1);
       p_.display(true);
-    } else if (stamp >= 25000 && stamp < 35000) {
+    } // if we are old, start shrinking:
+    else if (stamp >= 25000 && stamp < 36000) {
+      // p_.runClouds();
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
-      p_.display(true);
       p_.shrink();
+      p_.display(true);
     } else {
+      // p_.runClouds();
+      p_.shrink();
+      //p_.display(true);    
+
+      // trying to finish running the portal's clouds here. need to dim/take opacity down
+     if (p_.portalClouds.size() > 0) {
+        for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
+          Cloud c = p_.portalClouds.get(i);
+          c.run();
+        }
+      }
+
+      // why does still expand a touch before being removed?
       portals.remove(p_);
     }
   }
@@ -226,7 +250,7 @@ void siblingsCheck() {  // change clouds so first one appears at source, then th
         c.siblings++;
       }
     }
-  }
+  } // frameCount
 }
 
 void colorChange() {
