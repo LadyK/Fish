@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*;
@@ -59,6 +59,7 @@ int ius = 30;
 float  rd, gn, blu, rdshift, gnshift, blushift;
 color  kuler, paint, previousKuler, lerpKuler;
 long intervalPort;
+boolean pcloudsAppear = false;
 
 
 void setup() {
@@ -179,7 +180,9 @@ void draw() {
   // /*
   for (int i = portals.size()-1; i >=0; i--) {
     Portal p_ = portals.get(i);
-    // p_.runClouds(); // including it's clouds
+    if (pcloudsAppear == true) {
+      p_.runClouds(); // including it's clouds
+    }
     // where are we getting rid of old/bad portals?? <-- figure this out
     //p_.featureShifter();
     long b = p_.birth;
@@ -192,9 +195,10 @@ void draw() {
       // if it's a bit older, shift it a bit:
       if (stamp > 3000 && frameCount % 2 == 0) {
         p_.featureShifter(1);
+        pcloudsAppear = true;  // clouds appear
       }
       p_.expand_(); //grow();
-      p_.display(true);
+      p_.display(true, stamp);
     }
     // if we are even older, start the clouds behind it:
     else if ( stamp > 15000 && stamp < 25000) {
@@ -204,7 +208,7 @@ void draw() {
 
       // p_.runClouds();
       p_.featureShifter(1);
-      p_.display(true);
+      p_.display(true, stamp);
     } // if we are old, start shrinking:
     else if (stamp >= 25000 && stamp < 36000) {
       // p_.runClouds();
@@ -212,22 +216,26 @@ void draw() {
         p_.featureShifter(1);
       }
       p_.shrink();
-      p_.display(true);
+      p_.display(true, stamp);
     } else {
       // p_.runClouds();
       p_.shrink();
       //p_.display(true);    
 
       // trying to finish running the portal's clouds here. need to dim/take opacity down
-     if (p_.portalClouds.size() > 0) {
+      if (p_.portalClouds.size() > 0) {
         for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
           Cloud c = p_.portalClouds.get(i);
-          c.run();
+          for (int k = c.shapes.size()-1; k > 0; k--) {
+            c.run(); // must be getting stuck here, because it's never being removed
+          }
         }
+      } else if (p_.portalClouds.size() == 0) {
+        delay(500);
+        // why does still expand a touch before being removed?
+        portals.remove(p_);
+        println("portal removed");
       }
-
-      // why does still expand a touch before being removed?
-      portals.remove(p_);
     }
   }
   //  */
@@ -337,6 +345,12 @@ void keyPressed() {
   println(triggers.size());
   print("Portals is: ");
   println(portals.size());
+
+  for (int i = portals.size()-1; i >=0; i--) {
+    Portal p_ = portals.get(i);
+    print("portalClouds is: ");
+    println(p_.portalClouds.size());
+  }
 
   if (key == 32) {
     noLoop();

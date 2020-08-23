@@ -52,15 +52,18 @@ class Portal extends BasicShapeElement {
           cp.siblings++;
         }
         cp.run();
+        if(cp.shapes.size()-1 <= 0){ // if we no longer have shapes in this could, get rid of it
+          portalClouds.remove(cp);
+        }
       } //for loop
     } // if we have clouds
   } // run
 
-  void display(boolean p) {
+  void display(boolean p, long s) {
     runClouds();
     super.display(p);
 
-    if (frameCount % 2 == 0) {
+    if (frameCount % 2 == 0 && s < 36000) {
       PVector spot = new PVector(xie, yie);
       Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);

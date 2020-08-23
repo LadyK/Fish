@@ -77,7 +77,7 @@ class BasicShapeElement {
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
 
-    if (howMany > 3) { // trying to get portals to show
+    if (howMany > 3) { // trying to get portals to show; portal is just one
       controlOpacity(radius_, howMany, o, prox);
     }
 

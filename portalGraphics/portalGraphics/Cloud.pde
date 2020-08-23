@@ -70,7 +70,7 @@ class Cloud {
       //shape.shrink();
       boolean dead = temp.update();
       if (dead) {  
-        //        println("removed a basic shape");
+        println("removed a basic shape");
         shapes.remove(temp);
       } else { 
         // if (frameCount % 5 == 0) {
