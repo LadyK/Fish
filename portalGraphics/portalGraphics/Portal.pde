@@ -11,6 +11,7 @@ class Portal extends BasicShapeElement {
   long life;
   ArrayList<Cloud> portalClouds;
   Cloud cp;
+  boolean pcloudsAppear;
 
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
@@ -27,11 +28,12 @@ class Portal extends BasicShapeElement {
     //origX = x_;
     //origY = y_;
     portalClouds = new ArrayList<Cloud>(); // this holds the fields of clouds for each
-
+    pcloudsAppear = false;
+    
     // create a bunch of clouds and add them:
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 3; i++) {
       PVector spot = new PVector(xie, yie);
-      Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_, o, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 5, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
     }
   }
@@ -41,33 +43,52 @@ class Portal extends BasicShapeElement {
     if (portalClouds.size() > 0) {
 
       for (int i = portalClouds.size()-1; i >= 0; i--) {
-        cp = portalClouds.get(i);
+        cp = portalClouds.get(i); // pull out a cloud
+        // because of how clouds work (appear), need to add additional SHAPES to the cloud after initial:
         if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
           continue;
-        } else { // otherwise, create a new one:
-          cp.randX = int(random(-cp.randoX, cp.randoX)) + int(cp.loc.x);
-          cp.randY = int(random(-cp.randoY * 4, (cp.randoY * .2))) + int(cp.loc.y); // increase this along the y-axis via for-loop ?
-          BasicShapeElement temp = new BasicShapeElement(cp.randX, cp.randY, 7, cp.radius, cp.howMany, cp.alpha, cp.rando); 
-          cp.shapes.add(0, temp);
-          cp.siblings++;
+        } else { // otherwise, create a new sibling:
+          addSiblings(cp);
         }
+
+        // run the individual cloud: mind the shapes, remove if necessary, display
         cp.run();
-        if(cp.shapes.size()-1 <= 0){ // if we no longer have shapes in this could, get rid of it
+
+        // print("shapes array is:  ");
+        // println(cp.shapes.size());
+
+        // if we no longer have shapes in this cloud, get rid of the cloud from the array:
+        // vv: with <=1, no clouds. with 0, never disappears
+        if (cp.shapes.size()-1 <= 0) { 
           portalClouds.remove(cp);
+          println("removed cloud");
         }
       } //for loop
     } // if we have clouds
+
+    // if(
   } // run
 
   void display(boolean p, long s) {
-    runClouds();
+    //runClouds();
     super.display(p);
 
-    if (frameCount % 2 == 0 && s < 36000) {
+    if (frameCount % 2 == 0 && s < 30000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       PVector spot = new PVector(xie, yie);
-      Cloud tester = new Cloud(spot, 100, 15, 30, 10, true);  //proximity, rad, howM_, o, portal?
+      // these add the sparkle (10), but not crazy full ones before disappearing
+      Cloud tester = new Cloud(spot, 100, 15, 20, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
+
+      // also need to add siblings
     }
+  }
+
+  void addSiblings(Cloud cp_) {
+    cp_.randX = int(random(-cp_.randoX, cp.randoX)) + int(cp_.loc.x);
+    cp_.randY = int(random(-cp_.randoY * 4, (cp_.randoY * .2))) + int(cp_.loc.y); // increase this along the y-axis via for-loop ?
+    BasicShapeElement temp = new BasicShapeElement(cp_.randX, cp_.randY, 7, cp_.radius, cp_.howMany, cp_.alpha, cp_.rando); 
+    cp_.shapes.add(0, temp);
+    cp_.siblings++;
   }
 
   void shift() {

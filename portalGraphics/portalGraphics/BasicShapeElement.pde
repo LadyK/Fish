@@ -77,6 +77,7 @@ class BasicShapeElement {
     //op = random(.2, .8);
     //print("numPoints is: "); println(numPoints);
 
+    // howMany is in here, just to moderate opacity. not to make multiples
     if (howMany > 3) { // trying to get portals to show; portal is just one
       controlOpacity(radius_, howMany, o, prox);
     }
@@ -237,26 +238,25 @@ Depending on how wide the shapes are, as well as how many of them there are, and
         //}
       }
     }
-    // println(r);
+    println("expanding");
   }
 
   void shrink() {
     float rand = random(0, 1);
     //if (r > 2) { // as long as we have a radius
-    if (rand < 0.3) {  // and once in a while:
-      float q= random(.04, .02); // shrink a bit
+    if (rand < 0.15) {  // and once in a while:
+      //float q= random(.04, .02); // shrink a bit
       // update locations:
       //  /*
       for (int i = 0; i < numPoints; i++) {
         PVector coor = coordinates[i];
         coor.x -= cos(angle*i) * 0.5;  
         coor.y -= sin(angle*i) * 0.5;
-        
       }
       //  */
     }
     //}
-  }
+  } //shrink
 
   void display(boolean p) {
 

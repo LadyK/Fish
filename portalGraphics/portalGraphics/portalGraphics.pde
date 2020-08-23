@@ -59,7 +59,7 @@ int ius = 30;
 float  rd, gn, blu, rdshift, gnshift, blushift;
 color  kuler, paint, previousKuler, lerpKuler;
 long intervalPort;
-boolean pcloudsAppear = false;
+
 
 
 void setup() {
@@ -180,14 +180,14 @@ void draw() {
   // /*
   for (int i = portals.size()-1; i >=0; i--) {
     Portal p_ = portals.get(i);
-    if (pcloudsAppear == true) {
+    if (p_.pcloudsAppear == true) { // maybe when flip this to false, drain out shapes and clean up array?
       p_.runClouds(); // including it's clouds
     }
     // where are we getting rid of old/bad portals?? <-- figure this out
     //p_.featureShifter();
     long b = p_.birth;
-    print("birth is: ");
-    println(b);
+ //   print("birth is: ");
+//    println(b);
     long stamp = millis() - b;
     println(stamp);
     // when the portal is young, have it expand
@@ -195,43 +195,44 @@ void draw() {
       // if it's a bit older, shift it a bit:
       if (stamp > 3000 && frameCount % 2 == 0) {
         p_.featureShifter(1);
-        pcloudsAppear = true;  // clouds appear
+        p_.pcloudsAppear = true;  // clouds appear
       }
       p_.expand_(); //grow();
-      p_.display(true, stamp);
+      p_.display(true, stamp);  //also runs portal clouds
     }
     // if we are even older, start the clouds behind it:
     else if ( stamp > 15000 && stamp < 25000) {
-
-
-
-
+     // p_.runClouds();
       // p_.runClouds();
       p_.featureShifter(1);
-      p_.display(true, stamp);
+      p_.display(true, stamp);  //also runs portal clouds
     } // if we are old, start shrinking:
     else if (stamp >= 25000 && stamp < 36000) {
-      // p_.runClouds();
+     //  p_.runClouds();
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
       p_.shrink();
-      p_.display(true, stamp);
+      p_.display(true, stamp);  //also runs portal clouds
     } else {
-      // p_.runClouds();
+      p_.runClouds();
       p_.shrink();
-      //p_.display(true);    
-
+     
       // trying to finish running the portal's clouds here. need to dim/take opacity down
-      if (p_.portalClouds.size() > 0) {
-        for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
-          Cloud c = p_.portalClouds.get(i);
-          for (int k = c.shapes.size()-1; k > 0; k--) {
-            c.run(); // must be getting stuck here, because it's never being removed
-          }
-        }
-      } else if (p_.portalClouds.size() == 0) {
-        delay(500);
+      //if (p_.portalClouds.size() > 0) {
+      //  for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
+      //    Cloud c = p_.portalClouds.get(i);
+      //    //for (int k = c.shapes.size()-1; k > 0; k--) {
+      //    //  c.run(); // must be getting stuck here, because it's never being removed
+      //    //}
+      //    // c.run(); // weird solid shapes before disappearing
+      //  }
+
+      ////  p_.runClouds();
+      //} 
+
+      if (p_.portalClouds.size() == 0) {
+        //delay(500);
         // why does still expand a touch before being removed?
         portals.remove(p_);
         println("portal removed");
@@ -286,9 +287,6 @@ void colorChange() {
 
     previousKuler = color(rdshift, gnshift, blushift);
   }
-
-
-
 
   paint = kuler;
   lerpKuler = lerpColor(paint, previousKuler, 0.5);
