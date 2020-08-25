@@ -15,6 +15,7 @@ class Cloud {
   int siblings;
   int alpha;
   boolean portalTrigger;
+  boolean deadShapes = false;
 
 
 
@@ -69,6 +70,7 @@ class Cloud {
       //color c_ = colorChanger();
       //shape.shrink();
       boolean dead = temp.update();
+      // if the shape is dead/dim:
       if (dead) {  
        // println("removed a basic shape");
         shapes.remove(temp);
@@ -81,6 +83,10 @@ class Cloud {
         temp.display(false);
       }
     } // for
+    if(shapes.size() <= 1){
+      deadShapes = true;
+      println("dead shapes array");
+    }
   } // run
 
   Boolean tooclose(PVector l) {

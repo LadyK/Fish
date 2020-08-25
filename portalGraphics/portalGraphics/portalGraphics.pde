@@ -186,8 +186,8 @@ void draw() {
     // where are we getting rid of old/bad portals?? <-- figure this out
     //p_.featureShifter();
     long b = p_.birth;
- //   print("birth is: ");
-//    println(b);
+    //   print("birth is: ");
+    //    println(b);
     long stamp = millis() - b;
     println(stamp);
     // when the portal is young, have it expand
@@ -202,37 +202,42 @@ void draw() {
     }
     // if we are even older, start the clouds behind it:
     else if ( stamp > 15000 && stamp < 25000) {
-     // p_.runClouds();
+      // p_.runClouds();
       // p_.runClouds();
       p_.featureShifter(1);
       p_.display(true, stamp);  //also runs portal clouds
     } // if we are old, start shrinking:
     else if (stamp >= 25000 && stamp < 36000) {
-     //  p_.runClouds();
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
+      //for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
+      //  p_.runClouds();
+      //}
+      
       p_.shrink();
       p_.display(true, stamp);  //also runs portal clouds
     } else {
-      p_.runClouds();
+      // p_.runClouds();
       p_.shrink();
-     
-      // trying to finish running the portal's clouds here. need to dim/take opacity down
-      //if (p_.portalClouds.size() > 0) {
-      //  for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
-      //    Cloud c = p_.portalClouds.get(i);
-      //    //for (int k = c.shapes.size()-1; k > 0; k--) {
-      //    //  c.run(); // must be getting stuck here, because it's never being removed
-      //    //}
-      //    // c.run(); // weird solid shapes before disappearing
-      //  }
 
-      ////  p_.runClouds();
+
+      //// trying to finish running the portal's clouds here. need to dim/take opacity down
+      ////while (p_.portalClouds.size() > 1) {
+      //for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
+      //  //  Cloud c = p_.portalClouds.get(i);
+      //  //  for (int k = c.shapes.size()-1; k > 0; k--) {
+      //  //    c.run(); // must be getting stuck here, because it's never being removed
+      //  //  }
+      //  //  // c.run(); // weird solid shapes before disappearing
+      //  //}
+      //  println("else running");
+      //  p_.runClouds();
       //} 
 
-      if (p_.portalClouds.size() == 0) {
+      if (p_.portalClouds.size() <= 1) {
         //delay(500);
+        stamp = 0;
         // why does still expand a touch before being removed?
         portals.remove(p_);
         println("portal removed");

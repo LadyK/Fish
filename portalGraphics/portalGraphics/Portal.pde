@@ -29,7 +29,7 @@ class Portal extends BasicShapeElement {
     //origY = y_;
     portalClouds = new ArrayList<Cloud>(); // this holds the fields of clouds for each
     pcloudsAppear = false;
-    
+
     // create a bunch of clouds and add them:
     for (int i = 0; i < 3; i++) {
       PVector spot = new PVector(xie, yie);
@@ -40,10 +40,11 @@ class Portal extends BasicShapeElement {
 
   void runClouds() {
 
-    if (portalClouds.size() > 0) {
+    if (portalClouds.size() >= 1) {
 
       for (int i = portalClouds.size()-1; i >= 0; i--) {
         cp = portalClouds.get(i); // pull out a cloud
+        
         // because of how clouds work (appear), need to add additional SHAPES to the cloud after initial:
         if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
           continue;
@@ -51,17 +52,19 @@ class Portal extends BasicShapeElement {
           addSiblings(cp);
         }
 
-        // run the individual cloud: mind the shapes, remove if necessary, display
-        cp.run();
-
-        // print("shapes array is:  ");
-        // println(cp.shapes.size());
+        print("shapes array for this portalCloud:  ");
+        println(cp.shapes.size());
 
         // if we no longer have shapes in this cloud, get rid of the cloud from the array:
         // vv: with <=1, no clouds. with 0, never disappears
-        if (cp.shapes.size()-1 <= 0) { 
+        if (cp.deadShapes == true) { 
           portalClouds.remove(cp);
           println("removed cloud");
+        } else {
+          
+            // run the individual cloud: mind the shapes, remove if necessary, display
+            cp.run();
+          
         }
       } //for loop
     } // if we have clouds
@@ -73,7 +76,7 @@ class Portal extends BasicShapeElement {
     //runClouds();
     super.display(p);
 
-    if (frameCount % 2 == 0 && s < 30000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
+    if (frameCount % 2 == 0 && s < 36000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       PVector spot = new PVector(xie, yie);
       // these add the sparkle (10), but not crazy full ones before disappearing
       Cloud tester = new Cloud(spot, 100, 15, 20, 10, true);  //proximity, rad, howM_, o, portal?
