@@ -83,10 +83,10 @@ class Cloud {
         temp.display(false);
       }
     } // for
-    if(shapes.size() <= 1){
-      deadShapes = true;
-      println("dead shapes array");
-    }
+    //if(shapes.size() <= 1){
+    //  deadShapes = true;
+    //  println("dead shapes array");
+    //}
   } // run
 
   Boolean tooclose(PVector l) {

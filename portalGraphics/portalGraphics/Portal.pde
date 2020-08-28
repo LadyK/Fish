@@ -1,4 +1,4 @@
-class Portal extends BasicShapeElement {
+class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
   PVector spread;
   float origX, origY;
@@ -31,45 +31,65 @@ class Portal extends BasicShapeElement {
     pcloudsAppear = false;
 
     // create a bunch of clouds and add them:
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i <= 0; i++) {
       PVector spot = new PVector(xie, yie);
-      Cloud tester = new Cloud(spot, 100, 15, 5, 10, true);  //proximity, rad, howM_, o, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
     }
+
+    //for (int i = portalClouds.size()-1; i >= 0; i--) {
+    //   cp = portalClouds.get(i); // pull out a cloud
+
+    //   // something with lines 51-55. they add the flutter, but negate the rest:
+
+    //   // because of how clouds work (appear), need to add additional SHAPES to the cloud after initial:
+    //   if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
+    //     continue; // this skips everything until the next iteration
+    //   } else { // otherwise, create a new sibling:
+    //     addSiblings(cp);
+    //   }
+    //}
   }
 
   void runClouds() {
 
     if (portalClouds.size() >= 1) {
+      print("we have ");
+      print(portalClouds.size()-1);
+      println("  clouds");
 
       for (int i = portalClouds.size()-1; i >= 0; i--) {
         cp = portalClouds.get(i); // pull out a cloud
-        
+
+        print("cloud siblings is  ");
+        println(cp.siblings);
+        print("cloud number is  ");
+        println(cp.howMany);
+
+        // something with lines 51-55. they add the flutter, but ne gate the rest:
+
         // because of how clouds work (appear), need to add additional SHAPES to the cloud after initial:
         if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
-          continue;
+          continue; // this skips everything until the next iteration
         } else { // otherwise, create a new sibling:
           addSiblings(cp);
         }
 
-        print("shapes array for this portalCloud:  ");
+        print("shapes array for this Cloud:  ");
         println(cp.shapes.size());
 
         // if we no longer have shapes in this cloud, get rid of the cloud from the array:
         // vv: with <=1, no clouds. with 0, never disappears
-        if (cp.deadShapes == true) { 
-          portalClouds.remove(cp);
+        if (cp.shapes.size() <= 1) { 
+          portalClouds.remove(i);  // was cp
           println("removed cloud");
         } else {
-          
-            // run the individual cloud: mind the shapes, remove if necessary, display
-            cp.run();
-          
+
+          // run the individual cloud: mind the shapes, remove if necessary, display
+          cp.run();
         }
       } //for loop
     } // if we have clouds
-
-    // if(
   } // run
 
   void display(boolean p, long s) {
