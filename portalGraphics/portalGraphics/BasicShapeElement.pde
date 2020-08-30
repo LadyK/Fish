@@ -238,7 +238,7 @@ Depending on how wide the shapes are, as well as how many of them there are, and
         //}
       }
     }
-    println("expanding");
+    //println("expanding");
   }
 
   void shrink() {

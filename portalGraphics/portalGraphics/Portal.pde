@@ -8,6 +8,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   // 3. disappearance
   //color mypaint;
   long birth;
+  long mature;
   long life;
   ArrayList<Cloud> portalClouds;
   Cloud cp;
@@ -23,6 +24,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     paint_ = color(rd, gn, blu, 200);
     birth = millis();
     // life = 10000;
+    mature = 18000;
 
     // spread = PVector.random2D();
     //origX = x_;
@@ -36,19 +38,6 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
     }
-
-    //for (int i = portalClouds.size()-1; i >= 0; i--) {
-    //   cp = portalClouds.get(i); // pull out a cloud
-
-    //   // something with lines 51-55. they add the flutter, but negate the rest:
-
-    //   // because of how clouds work (appear), need to add additional SHAPES to the cloud after initial:
-    //   if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
-    //     continue; // this skips everything until the next iteration
-    //   } else { // otherwise, create a new sibling:
-    //     addSiblings(cp);
-    //   }
-    //}
   }
 
   void runClouds() {
@@ -61,33 +50,18 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       for (int i = portalClouds.size()-1; i >= 0; i--) {
         cp = portalClouds.get(i); // pull out a cloud
 
-        print("cloud siblings is  ");
-        println(cp.siblings);
-        print("cloud number is  ");
-        println(cp.howMany);
-
-        // something with lines 51-55. they add the flutter, but ne gate the rest:
-
+        // code below, in conjunction with 77-80, creates lovely sparkle/glitter effect
+        // yet, at the same time, cannot remove cloud from portalclouds as a result of this being here:
+        // BECAUSE we are adding to each cloud as we run each cloud AND the "continue"
         // because of how clouds work (appear), need to add additional SHAPES to the cloud after initial:
         if (cp.siblings == cp.howMany) { // if we've reached our siblings max, skip
           continue; // this skips everything until the next iteration
         } else { // otherwise, create a new sibling:
           addSiblings(cp);
         }
-
-        print("shapes array for this Cloud:  ");
-        println(cp.shapes.size());
-
-        // if we no longer have shapes in this cloud, get rid of the cloud from the array:
-        // vv: with <=1, no clouds. with 0, never disappears
-        if (cp.shapes.size() <= 1) { 
-          portalClouds.remove(i);  // was cp
-          println("removed cloud");
-        } else {
-
-          // run the individual cloud: mind the shapes, remove if necessary, display
-          cp.run();
-        }
+        //  // run the individual cloud: mind the shapes, remove if necessary, display
+        cp.run();
+        
       } //for loop
     } // if we have clouds
   } // run
@@ -97,9 +71,12 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     super.display(p);
 
     if (frameCount % 2 == 0 && s < 36000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
-      PVector spot = new PVector(xie, yie);
+      float randX = random(-20, 20) + xie;
+      float randY = random(-15, 15) + yie;
+      
+      PVector spot = new PVector(randX, randY);
       // these add the sparkle (10), but not crazy full ones before disappearing
-      Cloud tester = new Cloud(spot, 100, 15, 20, 10, true);  //proximity, rad, howM_, o, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 20, 10, true);  //proximity, rad, howM_ 20, o 10, portal?
       portalClouds.add(0, tester);
 
       // also need to add siblings
@@ -110,8 +87,10 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     cp_.randX = int(random(-cp_.randoX, cp.randoX)) + int(cp_.loc.x);
     cp_.randY = int(random(-cp_.randoY * 4, (cp_.randoY * .2))) + int(cp_.loc.y); // increase this along the y-axis via for-loop ?
     BasicShapeElement temp = new BasicShapeElement(cp_.randX, cp_.randY, 7, cp_.radius, cp_.howMany, cp_.alpha, cp_.rando); 
+    // (float x_, float y_, int pts, int radius_, int howMany, int o, int prox) 
     cp_.shapes.add(0, temp);
     cp_.siblings++;
+   // println("adding");
   }
 
   void shift() {

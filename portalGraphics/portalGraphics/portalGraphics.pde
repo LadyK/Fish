@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*;
@@ -198,27 +198,27 @@ void draw() {
         p_.pcloudsAppear = true;  // clouds appear
       }
       p_.expand_(); //grow();
-      p_.display(true, stamp);  //also runs portal clouds
+      p_.display(true, stamp);  
     }
     // if we are even older, start the clouds behind it:
     else if ( stamp > 15000 && stamp < 25000) {
-      // p_.runClouds();
-      // p_.runClouds();
+      //p_.runClouds();
+      
       p_.featureShifter(1);
-      p_.display(true, stamp);  //also runs portal clouds
+      p_.display(true, stamp);  
     } // if we are old, start shrinking:
     else if (stamp >= 25000 && stamp < 36000) {
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
-      //for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
-      //  p_.runClouds();
-      //}
-      
       p_.shrink();
-      p_.display(true, stamp);  //also runs portal clouds
+      p_.display(true, stamp);  
     } else {
-      // p_.runClouds();
+      if (frameCount % 2 == 0) {
+        p_.featureShifter(1);
+      }
+     // p_.runClouds();
+      //p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
 
 
@@ -235,12 +235,13 @@ void draw() {
       //  p_.runClouds();
       //} 
 
-      if (p_.portalClouds.size() <= 1) {
+      if (stamp > 40000) {
         //delay(500);
         stamp = 0;
         // why does still expand a touch before being removed?
-        portals.remove(p_);
+        portals.remove(i);
         println("portal removed");
+        println(p_.portalClouds.size());
       }
     }
   }
