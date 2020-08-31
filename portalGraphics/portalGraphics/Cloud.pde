@@ -19,6 +19,7 @@ class Cloud {
 
 
 
+
   // how many, radius + rando are difference btwn spots, portals, gas
 
   Cloud(PVector newbie, int proximity, int rad, int howM_, int o, boolean p) {
@@ -38,6 +39,7 @@ class Cloud {
     if ( p == true) {
       randX = int(random(-20, 30)) + int(newbie.x);
       randY = int(random(-30, 40)) + int(newbie.x);
+
     } else {
       randX = int(newbie.x); //int(random(-randoX, randoX)) + int(newbie.x);
       randY = int(newbie.y); //int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
@@ -48,6 +50,7 @@ class Cloud {
     siblings++;
     portalTrigger = false;
 
+   
     //// creating #limit shapes and push to cloud array:
     //for (int i = 0; i < howMany; i++) {
 
@@ -72,7 +75,7 @@ class Cloud {
       boolean dead = temp.update();
       // if the shape is dead/dim:
       if (dead) {  
-       // println("removed a basic shape");
+        // println("removed a basic shape");
         shapes.remove(temp);
       } else { 
         // if (frameCount % 5 == 0) {
@@ -81,6 +84,7 @@ class Cloud {
         //temp.centerY= temp.centerY - 1;
         //constrain(temp.centerY,temp.centerY, temp.centerY-10);
         temp.display(false);
+        
       }
     } // for
     //if(shapes.size() <= 1){
@@ -109,4 +113,6 @@ class Cloud {
     //shapeCloud = shorten(shapeCloud);  //<-- stuck
     println("lost one");
   }
+
+
 } // end class

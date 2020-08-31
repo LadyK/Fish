@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*;
@@ -211,31 +211,18 @@ void draw() {
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
+      //p_.runClouds(); more vibrant glitter
       p_.shrink();
       p_.display(true, stamp);  
     } else {
-      if (frameCount % 2 == 0) {
-        p_.featureShifter(1);
-      }
+      //if (frameCount % 2 == 0) {
+      //  p_.featureShifter(1);
+      //}
      // p_.runClouds();
       //p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
 
-
-      //// trying to finish running the portal's clouds here. need to dim/take opacity down
-      ////while (p_.portalClouds.size() > 1) {
-      //for (int j = p_.portalClouds.size()-1; j >= 0; j--) {
-      //  //  Cloud c = p_.portalClouds.get(i);
-      //  //  for (int k = c.shapes.size()-1; k > 0; k--) {
-      //  //    c.run(); // must be getting stuck here, because it's never being removed
-      //  //  }
-      //  //  // c.run(); // weird solid shapes before disappearing
-      //  //}
-      //  println("else running");
-      //  p_.runClouds();
-      //} 
-
-      if (stamp > 40000) {
+      if (stamp > 39000) {
         //delay(500);
         stamp = 0;
         // why does still expand a touch before being removed?

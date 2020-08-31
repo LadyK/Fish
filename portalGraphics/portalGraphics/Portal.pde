@@ -13,6 +13,10 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   ArrayList<Cloud> portalClouds;
   Cloud cp;
   boolean pcloudsAppear;
+  boolean text;
+  PFont f;
+  int rad;
+  int p_width;
 
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
@@ -25,6 +29,9 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     birth = millis();
     // life = 10000;
     mature = 18000;
+    f = createFont("Courier", 12);
+    rad = r;
+    p_width = rad * 2;
 
     // spread = PVector.random2D();
     //origX = x_;
@@ -43,9 +50,9 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   void runClouds() {
 
     if (portalClouds.size() >= 1) {
-      print("we have ");
-      print(portalClouds.size()-1);
-      println("  clouds");
+      //print("we have ");
+      //print(portalClouds.size()-1);
+      //println("  clouds");
 
       for (int i = portalClouds.size()-1; i >= 0; i--) {
         cp = portalClouds.get(i); // pull out a cloud
@@ -61,7 +68,6 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
         }
         //  // run the individual cloud: mind the shapes, remove if necessary, display
         cp.run();
-        
       } //for loop
     } // if we have clouds
   } // run
@@ -69,17 +75,18 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   void display(boolean p, long s) {
     //runClouds();
     super.display(p);
-
-    if (frameCount % 2 == 0 && s < 36000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
+    if (s > 3000 && s < 40000) {
+      showText(xie, yie);
+    }
+    PVector spot = new PVector();
+    if (frameCount % 2 == 0 && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       float randX = random(-20, 20) + xie;
       float randY = random(-15, 15) + yie;
-      
-      PVector spot = new PVector(randX, randY);
-      // these add the sparkle (10), but not crazy full ones before disappearing
-      Cloud tester = new Cloud(spot, 100, 15, 20, 10, true);  //proximity, rad, howM_ 20, o 10, portal?
-      portalClouds.add(0, tester);
 
-      // also need to add siblings
+      spot = new PVector(randX, randY);
+      // these add the sparkle (10), but not crazy full ones before disappearing
+      Cloud tester = new Cloud(spot, 100, 15, 20, 15, true);  //proximity, rad, howM_ 20, o 10, portal?
+      portalClouds.add(0, tester);
     }
   }
 
@@ -90,8 +97,42 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // (float x_, float y_, int pts, int radius_, int howMany, int o, int prox) 
     cp_.shapes.add(0, temp);
     cp_.siblings++;
-   // println("adding");
+    // println("adding");
   }
+
+  void showText(float xLoc, float yLoc) {  // flip on or fade up once portal expands enough
+
+    textAlign(CENTER);
+    noStroke();
+    fill(0);
+    textFont(f, 10);
+    String t = "this is a test of the broadcasting system";
+    // riff off Dan Shiffman's Learning Processing example 17-4:
+    pushMatrix();
+    translate(xLoc-(rad +5), yLoc-(rad +5));
+    int scale = 3; // unit scale. this will change
+    int cols = p_width/scale;
+    int rows = p_width/scale;
+    int charCount = 0;
+    //ellipse(0, 0, 10, 10);
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        //where are we, pixel-wise:
+        int x = i * scale;
+        int y = j * scale;
+        text(t.charAt(charCount), x, y);
+        //text(t, xLoc, yLoc); // starter code
+        //move to next character
+        charCount = (charCount + 1) % t.length();
+      }
+    } // for-loops
+    popMatrix();
+    
+    //textFont(f, 16);
+    //String q = "test";
+   // text(q, xLoc, yLoc);// starter code
+  }// showText
+
 
   void shift() {
     /*
