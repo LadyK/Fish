@@ -1,14 +1,14 @@
 class Portal extends BasicShapeElement {
 
   PVector spread;
-  int origX, origY;
+  float origX, origY;
 
   // 1. opacity
   // 2. shrinking
   // 3. disappearance
 
-  Portal(int x_, int y_, int p_, int r) {
-    super(x_, y_, p_, r);
+  Portal(float x_, float y_, int p_, int r) {
+    super(x_, y_, p_, r, 1);
     rd = 0;
     gn = int(random(128, 255));
     blu = int(random(100, 200));

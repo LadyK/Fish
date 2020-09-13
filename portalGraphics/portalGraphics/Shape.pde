@@ -1,4 +1,5 @@
-class Shape {
+class Shape { ///rings upon new detection
+
   //int numPoints = 5; //10
   //float r = 25; //width of shape  future= relation to body re: w + h
   //int stepSize = 1;
@@ -13,19 +14,21 @@ class Shape {
   int stepSize;
   float angle;
   float theta;
-  color paint;
+ 
   float r;// 
+  int rad;
   PVector [] coordinates;
   color c;
   int numColors = 500; // <--- messing with this....
   long presence;
   long timeStill;
+ 
 
-  Shape(int x_, int y_, int p_, int r) {
+  Shape(int x_, int y_, int p_, int radius) {
     // super(x_, y_, p_, r);  // <--- can't pass variables
     //birth = millis();  // get a birthday
     o = 50;
-    stepSize = 15; 
+    stepSize = 5; 
     interval = 6000;
     birth = frameCount;
     numPoints = p_;
@@ -35,11 +38,15 @@ class Shape {
     centerX = x_;
     centerY = y_;
     timeStill = 200;  // how long until portal launch
-    // rd = 0;
-    // gn = int(random(128, 255));
-    // blu = int(random(0, 192));
+    
+    rd = 0;
+    gn = int(random(128, 255));
+    blu = int(random(0, 192));
+    c = color(rd, gn, blu, o);
+    
+    rad = radius;
     for (int i = 0; i < numPoints; i++) {
-      coordinates[i] = new PVector(cos(angle*i) * r, sin(angle*i) * r);
+      coordinates[i] = new PVector(cos(angle*i) * rad, sin(angle*i) * rad);
     }
   }
 
@@ -48,13 +55,13 @@ class Shape {
     featureShifter();
     shrink();
     display();
-    portCheck();
+    // portCheck();
   }
 
   void display() {
-    colorChanger();
+    //colorChanger();
     //noStroke();
-    stroke(paint, 200);
+    stroke(c, 200);
     strokeWeight(3);
     // fill(paint, o); // opacity was manually set at 25 -> ?
     noFill();
@@ -73,22 +80,20 @@ class Shape {
     curveVertex(coordinates[1].x+centerX, coordinates[1].y+centerY);
     endShape();
   }
-  
-  void portCheck(){
+
+  void portCheck() {
     // if one is in the same place for awhile, make a portal:
-    if (presence >= timeStill){
-      Portal p = new Portal(centerX, centerY, 7, radius);
+    if (presence >= timeStill) {
+      Portal p = new Portal(centerX, centerY, 7, rad);
       portals.add(p);
-   
     }
-    
   }
 
   Boolean tooclose(PVector l) {
-   // Boolean toClose = false;
+    // Boolean toClose = false;
     float d = dist(centerX, centerY, l.x, l.y);
     // if the new location is close to us:
-    if ( d < 200 ) {
+    if ( d < 400 ) {
       presence++;
       return true;
     } else {
@@ -113,14 +118,14 @@ class Shape {
 
   void shrink() {
     float rand = random(0, 1);
-    if (r > 0) { // as long as we have a radius
+    if (rad > 0) { // as long as we have a radius
       if (rand < 0.3) {  // and once in a while:
         // update locations:
         // /*
         for (int i = 0; i < numPoints; i++) {
           PVector coor = coordinates[i];
-          coor.x = cos(angle*i) * r;
-          coor.y = sin(angle*i) * r;
+          coor.x = cos(angle*i) * rad;
+          coor.y = sin(angle*i) * rad;
         }
         //  */
       }
@@ -138,37 +143,69 @@ class Shape {
     return o;
   }
 
-  void colorChanger() {
+//  void colorChanger() {
 
-    float curTime = millis()/1000.0;
-    // c_rand = random(0.5, 0.6);
-    // curTime = c_rand * curTime;
+//    //int rd, gn, blu;
+//    //char rdir, gdir, bdir; 
+//    if (rd > 240) {
+//      rdir = -1;
+//    }
+//    if (rd < 20) {
+//      rdir = 1;
+//    }
+//    rd += rdir *3;
 
-    //println(curTime);
-    //if (frameCount % 10 == 0) {
-    for (int i=0; i< numColors; i+=25) {
-      c = color(
-        sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
-        sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
-        sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
-        o);
-      /* print("color is:  ");
-       print(r); 
-       print(",");
-       print(g); 
-       print(",");
-       println(b);
-       println();
-       c = color(r, g, b, opacity);
-       */
+//    if (blu > 220) {
+//      bdir = -1;
+//    }
+//    if (blu < 40) {
+//      bdir = 1;
+//    }
+//    blu += bdir * 2;
 
-      //);
-      //theta += sin(curTime * 0.5f) * i * 0.00002;
-    }
+//    if (gn > 230) {
+//      gdir =-1;
+//    }
+//    if (gn < 20) {
+//      gdir = 1;
+//    }
+//    gn += gdir * 5;
+
+//    c = color(rd, gn, blu, o);
 
 
-    paint = c;
-    // }
-    //return c;
-  }
+//    /*
+//    float curTime = millis()/1000.0;
+//     // c_rand = random(0.5, 0.6);
+//     // curTime = c_rand * curTime;
+     
+//     //println(curTime);
+//     //if (frameCount % 10 == 0) {
+//     for (int i=0; i< numColors; i+=25) {
+//     c = color(
+//     sin(curTime * 0.8f + i * 0.0011f) + 0.8f, //R  + 0.8f
+//     sin(curTime * 0.7f + i * 0.0013f) + 0.5f, //G * 0.5f + 0.5f   + 0.5f
+//     sin(curTime * 0.3f + i * 0.0017f) + 0.5f, //B    + 0.8f
+//     o);
+//              /* print("color is:  ");
+//     print(r); 
+//     print(",");
+//     print(g); 
+//     print(",");
+//     println(b);
+//     println();
+//     c = color(r, g, b, opacity);
+//     */
+
+//    //);
+//    //theta += sin(curTime * 0.5f) * i * 0.00002;
+//    //   }
+
+
+//    //    paint = c;
+
+//    // }
+//    //return c;
+ // }
+
 }// end shape class

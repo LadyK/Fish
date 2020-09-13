@@ -1,75 +1,75 @@
 class Cloud {
 
   //ArrayList<Shape> shapeCloud; //shapes to form one cloud
-  
-  int limit;
-  int numPts;
-  int rad;
-  Shape[] shapeCloud;
 
-  Cloud(int mX, int mY) {
+  int howMany;
+  //int numPts;
+  //int rad;
+  PVector loc;
+  long birth;
+  ArrayList<BasicShapeElement>shapes; //how many shapes in cloud? How big/wide cloud?
+  int rando;
+  int radius = 100; // radius of shapes
+
+  Cloud(PVector newbie) {
     //shapeCloud = new ArrayList<Shape>();
-    
-    limit = 2;
-    Shape[] shapeCloud = new Shape[2];
-    numPts = 5; //10
-    rad = 25;
-    
+    //loc = newbie.copy();
+    loc = new PVector(newbie.x, newbie.y);
+    howMany = 20;  // the more the foggier. but need to mind cpu; was 30
+    shapes = new ArrayList<BasicShapeElement>(); // not predetermining length
+    //numPts = 5; //10
+    //rad = 25;
+    rando = 110; // was 100
+    birth = millis();
+    //println(shapes.size());
     // creating #limit shapes and push to cloud array:
-    for (int i = 0; i < shapeCloud.length; i++) {
+    for (int i = 0; i < howMany; i++) {
       // pick some points around the mouse for the shape
-      int randX = int(random(-20, 20)) + mX; 
-      int randY = int(random(-20, 20)) + mY;
-
-      shapeCloud[i]= new Shape(randX, randY, numPts, rad);
-      //shapeCloud.add(temp);
-    
+      float randX = random((-rando), (rando));
+      float randY = random((-rando), (rando));
+      BasicShapeElement temp = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius, howMany); 
+      shapes.add(0, temp);
     }
+    //println("done");
   } 
 
   void run() {
-    //for (int i = 0; i < shapeCloud.size()-1; i++) {
-      for (Shape temp: shapeCloud) { 
-      //Shape temp = shapeCloud.get(i);
-   //   float op__ = temp.changeOp(); // aging again
-      temp.display();
-    }
+    for (int i = shapes.size()-1; i >= 0; i--) {
+      //for (BasicShapeElement temp : shapes) { 
+      BasicShapeElement temp = shapes.get(i);
+      //temp.featureShifter(); // might save processor to not call so often
+      //int rand_c = int(random(1, 300));
+      //color c_ = colorChanger();
+      //shape.shrink();
+      boolean dead = temp.update();
+      if (dead) {  
+//        println("removed a basic shape");
+        shapes.remove(temp);  
+      } //else { 
+       // if (frameCount % 5 == 0) {
+        //temp.featureShifter();
+       // }
+        temp.display();
+      
+    } // for
   } // run
 
-  boolean tooOld() {
-    boolean dead = false;
-    float aveOp = 0;
-    for (int i = shapeCloud.length-1; i >= 0; i--) {
-      //Shape temp = shapeCloud.get(i);
-      Shape temp = shapeCloud[i];
-      float op = temp.opacity;
-      // let's get the average opacity for the cloud, incl all shapes
-      aveOp += op;
-       // removing a *shape* from memory since can't see it
-       if (aveOp <= limit) {
-       //shapeCloud.remove(i);  
-       }
-    }
-    // double check how many shapes we have currently:
-    //int currentSize = shapeCloud.size();
-    // what's our average opacity, considering how many there were of us:
-    float total = aveOp / limit;
-    //print("total op for 1 cloud:  ");
-    //println(total);
-    if (total <= limit) { 
-      dead = true; // if alpha of shapes is less than starting #
+  Boolean tooclose(PVector l) {
+    //Boolean toClose = false;
+    float d = dist(loc.x, loc.y, l.x, l.y);
+    if ( d < radius * 3) {
+      return true;
     } else {
-      dead = false;
+      return false;
     }
-    total = 0;
-    aveOp = 0;
-    return dead;
+    //return toClose;
   }
+
 
   //kills off a shape, not a cloud; part of a cloud
   void plague() {
-   // float whichOne = floor(random(0, shapeCloud.length-1));
-    //shapeCloud.remove(whichOne);
+    float whichOne = floor(random(0, shapes.size()-1));
+    shapes.remove(whichOne);
     //shapeCloud = shorten(shapeCloud);  //<-- stuck
     println("lost one");
   }
