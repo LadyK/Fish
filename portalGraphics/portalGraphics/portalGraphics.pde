@@ -1,18 +1,17 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
-import codeanticode.syphon.*;
+import codeanticode.syphon.*; // send back to max, which funnels it to machine running projection mapping
 
 PGraphics canvas; // need this for projection mapping thru syphon via madmapper
 SyphonServer server;
 
 int checker = 0;
 int loopChecker = 0;
-//OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
+OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
 NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
-//String messageselector;
+String messageselector;
 
-OscP5 whereimlistening;
 
 
 
@@ -20,7 +19,7 @@ OscP5 whereimlistening;
 
 // need graphics to be more responsive to max values. spread north + south?
 
-String messageselector;
+
 
 Integer[] screenLoc = {0, 0};
 //ArrayList <PVector> all_locations;
@@ -70,7 +69,7 @@ void setup() {
   server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
   //  size(800, 800, P3D);
-  //frameRate(20);
+  //frameRate(50);
   //background(0);
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
@@ -108,12 +107,12 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  whereimsending = new NetAddress("127.0.0.1", 12001); // hostname, port
+//  whereimsending = new NetAddress("192.168.1.4", 12001); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-  whereimlistening = new OscP5(this, 12000);
+  whereimlistening = new OscP5(this, 12000); // takes tracking values from Max
 
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
@@ -189,7 +188,7 @@ void draw() {
     //   print("birth is: ");
     //    println(b);
     long stamp = millis() - b;
-    println(stamp);
+ //   println(stamp);
     // when the portal is young, have it expand
     if (stamp < 15000) { // the portals can only last so long. make sure they are young
       // if it's a bit older, shift it a bit:
@@ -233,7 +232,7 @@ void draw() {
     }
   }
   //  */
-  server.sendScreen();
+  server.sendScreen(); // sends screen to max to send out
 } // draw loop
 
 
@@ -246,7 +245,7 @@ void siblingsCheck() {  // change clouds so first one appears at source, then th
         continue;
       } else { // otherwise, create a new one:
         c.randX = int(random(-c.randoX, c.randoX)) + int(c.loc.x);
-        c.randY = int(random(-c.randoY * 4, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
+        c.randY = int(random(-c.randoY * 8, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
         BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando); 
         c.shapes.add(0, temp);
         c.siblings++;

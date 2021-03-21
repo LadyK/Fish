@@ -2,7 +2,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
   PVector spread;
   float origX, origY;
-  float xie, yie;
+  float xie, yie, o_x, o_y;
   // 1. opacity
   // 2. shrinking
   // 3. disappearance
@@ -17,11 +17,18 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   PFont f;
   int rad;
   int p_width;
+  float scale ;
+  PVector change;
+  PVector loc, acceleration, velocity, loc_original;
 
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
-    xie = x_;
-    yie = y_;
+    loc = new PVector(x_, y_);
+    acceleration = new PVector(0, 0);
+    velocity = new PVector(0, 0);
+    loc_original= new PVector(x_, y_); // need to see how much location changes
+
+
     rd = 0;
     gn = int(random(128, 255));
     blu = int(random(100, 200));
@@ -32,6 +39,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     f = createFont("Courier", 12);
     rad = r;
     p_width = rad * 2;
+    change = new PVector(0, 0);
 
     // spread = PVector.random2D();
     //origX = x_;
@@ -76,18 +84,41 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //runClouds();
     super.display(p);
     if (s > 3000 && s < 40000) {
-      showText(xie, yie);
+
+      // apply change to location
+      // limit location so not beyond boundaries
+
+      PVector move = new PVector(-0.10, -0.10);  //slowly move
+      if (frameCount % 10 == 8) { //update not so often so as to move more slowly
+        if ((loc.x > loc_original.x - 25) && (loc.y > loc_original.y - 25)) {
+          applyForce(move);
+          updateVectors();
+        }
+        
+      }
+      showText(loc, 5); // then change second parameter to less
     }
     PVector spot = new PVector();
     if (frameCount % 2 == 0 && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
-      float randX = random(-20, 20) + xie;
-      float randY = random(-15, 15) + yie;
+      float randX = random(-20, 20) + loc.x;
+      float randY = random(-15, 15) + loc.y;
 
       spot = new PVector(randX, randY);
       // these add the sparkle (10), but not crazy full ones before disappearing
       Cloud tester = new Cloud(spot, 100, 15, 20, 15, true);  //proximity, rad, howM_ 20, o 10, portal?
       portalClouds.add(0, tester);
     }
+  }
+
+  void applyForce(PVector f) {
+    acceleration.add(f);
+  }
+
+
+  void updateVectors() {
+    velocity.add(acceleration);
+    loc.add(velocity);
+    acceleration.mult(0);
   }
 
   void addSiblings(Cloud cp_) {
@@ -100,26 +131,30 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // println("adding");
   }
 
-  void showText(float xLoc, float yLoc) {  // flip on or fade up once portal expands enough
-
+  void showText(PVector l, int s) {  // flip on or fade up once portal expands enough
+    //if (frameCount % 2 == 0) {
+    //  change *= .5; //working to get the text to move as shape expands
+    //}
     textAlign(CENTER);
     noStroke();
     fill(0);
     textFont(f, 10);
-    String t = "this is a test of the broadcasting system";
+    String t = "this is a test of the LadyK broadcasting system";
     // riff off Dan Shiffman's Learning Processing example 17-4:
     pushMatrix();
-    translate(xLoc-(rad +5), yLoc-(rad +5));
-    int scale = 3; // unit scale. this will change
-    int cols = p_width/scale;
-    int rows = p_width/scale;
+
+    translate(l.x, l.y);
+    scale = s;
+    //float scale = 5; // unit scale. this will change
+    float cols = p_width/scale;  // <-- need to work on this so all text can be seen
+    float rows = p_width/scale;
     int charCount = 0;
-    //ellipse(0, 0, 10, 10);
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
+
+    for (int j = 0; j < rows; j++) {
+      for (int i = 0; i < cols; i++) {
         //where are we, pixel-wise:
-        int x = i * scale;
-        int y = j * scale;
+        float x = i * scale;
+        float y = j * scale;
         text(t.charAt(charCount), x, y);
         //text(t, xLoc, yLoc); // starter code
         //move to next character
@@ -127,10 +162,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       }
     } // for-loops
     popMatrix();
-    
-    //textFont(f, 16);
-    //String q = "test";
-   // text(q, xLoc, yLoc);// starter code
+
   }// showText
 
 

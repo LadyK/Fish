@@ -235,6 +235,10 @@ Depending on how wide the shapes are, as well as how many of them there are, and
         PVector coor = coordinates[i];
         coor.x += cos(angle*i) * 0.08;  // decimal helps grow slow
         coor.y += sin(angle*i) * 0.08;
+        //print("coor.x is:  ");
+        //println(coor.x);
+        //print("coor.y is:  ");
+        //println(coor.y);
         //}
       }
     }
