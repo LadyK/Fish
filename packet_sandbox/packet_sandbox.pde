@@ -57,8 +57,8 @@ void setup() {
 
 
 void draw() {
-  // background(0);
-   //textBuffers[0].run(); // needs opacity to feed in
+   background(0);
+   textBuffers[0].run(); // needs opacity to feed in
    //textBuffers[0].scrollUp();
  
   //text("hello", 20, 20);

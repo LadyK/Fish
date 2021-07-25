@@ -1,31 +1,37 @@
 class Screen {
 
-  //PFont f;
-  PVector location;
+  PFont f;
+  PVector screen_location, text_location;
   color t;
 
-  Line[] screen;
+  String[] line;
   int topacity;
   int start;
   int yStart;
 
   Screen(PVector l, int s) {
     start = s; //location in text file
-    location = l.copy();
-    yStart = int(location.y) + 200; //complaining about location.y being a float; OFF screen for y
-    // topacity = 100;
+    screen_location = l.copy();
+    //text_location = l.copy();
+    //text_location.add(10, 10); // in and down a smidge
+    text_location = new PVector(10, 30);
+    // not sure what to do with this line here with reference to line vvvvv
+    yStart = int(screen_location.y) + 200; //complaining about location.y being a float; OFF screen for y
+    
+    topacity = 100;
     t = color(75, 255, 85, topacity);
-    //f = createFont("Arial", 16);
-    //textFont(f, 24);
-    //textAlign(LEFT);
-    //fill(t);
-    //inputText = loadStrings("packets2_test.txt"); //leave to be global in the sketch
+    f = createFont("Arial", 16);
+    textFont(f, 24);
+    textAlign(LEFT);
+    fill(t);
+    inputText = loadStrings("packets2_test.txt"); //leave to be global in the sketch
     linesPerScreen = 9;
-    screen = new Line[10];
+    line = new String[10];
     //line = 0;
+    //initalize();
   }
 
-  int initalize() {
+  int initalize() { // load the array (for screen) up with text
     //currentLineNum = s;
     //print("s is: ");
     //println(s);
@@ -35,16 +41,19 @@ class Screen {
     int limit = start + linesPerScreen; // current lineNum + 9
     int l_num = 0; // increment marker for which line on this screen we are on
     for (int i = start; i < limit; i++) { // i used for inputText line number
-      //String temp = inputText[i];
-      screen[l_num] = new Line(i, location); //location for inputText gets passed in
-      location.y += 25;
-      fill(t);
-      screen[l_num].display();
+      String temp = inputText[i];
+      line[l_num] = temp; //new Line(i, location); //location for inputText gets passed in
+      // make them visual vvvv
+      text(line[i], text_location.x, text_location.y);
+      text_location.y += 25;
+
+      //screen[l_num].display();
       l_num++;
       //print("s is: ");
       //println(s);
     }
     //displayScreen();
+   
     return limit;
   }
 
@@ -57,10 +66,10 @@ class Screen {
 
   void run() {
     //scrollUp();
-    for (int i = 0; i < linesPerScreen; i++) {
+   // for (int i = 0; i < linesPerScreen; i++) {
       //screen[i].scrollUp();
-      //displayScreen(topacity);
-    }
+      displayScreen(topacity);
+   // }
   }
 
   void scrollUp() {
@@ -73,7 +82,7 @@ class Screen {
     // move up and then show the next lines that are hidden (scrolling)
     int maxPortHeight = linesPerScreen * 25 + 10;
     for (int y_ = yStart; y_ < maxPortHeight; y_+= 25) {
-      location.y = y_;
+      screen_location.y = y_;
       /*******
        for this for-loop to work, we must draw the text inside the loop.
        Or, we do the manipulation of the y, elsewhere
@@ -103,16 +112,22 @@ class Screen {
   void displayScreen(int top_) {
     fill(t, top_);
     //x = 0;
-    for (int i = 0; i < screen.length; i++) {
-      screen[i].scrollUp();
-      screen[i].display();
-      //text(screen[i], location.x, location.y);
+    pushMatrix();
+    translate(screen_location.x,screen_location.y);
+    //println(line[8]);
+    for (int i = 0; i < line.length-1; i++) { //last spot in array is empty due to initalize()'s for-loop structure
+      //screen[i].scrollUp();
+      //screen[i].display();
+      text(line[i], text_location.x, text_location.y);
       //x += textWidth(screen[y]);
       //x++;
-      //    location.y+= 25; //***** issue here, no? just want the text scrolling up, once it's appeared
+       text_location.y+= 25; //***** issue here, no? just want the text scrolling up, once it's appeared
     }
     //if (frameCount %28 == 0) {
     //  y--;
     //}
-  }
-}
+    popMatrix();
+  } // displayScreen
+  
+  
+} //class
