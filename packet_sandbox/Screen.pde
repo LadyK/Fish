@@ -1,7 +1,7 @@
 class Screen { //<>// //<>//
 
   PFont f;
-  PVector screen_location, text_location;
+  PVector screen_location, text_location, velocity;
   color t;
 
   String[] line;
@@ -13,6 +13,7 @@ class Screen { //<>// //<>//
     start = s; //location in text file
     // print("start of this screen is: ");
     // println(start);
+    velocity = new PVector(0, -35);
     screen_location = l.copy();
     //text_location = l.copy();
     //text_location.add(10, 10); // in and down a smidge
@@ -26,7 +27,7 @@ class Screen { //<>// //<>//
     textFont(f, 24);
     textAlign(LEFT);
     fill(t);
-    inputText = loadStrings("packets2_test.txt"); //leave to be global in the sketch
+    //inputText = loadStrings("packets.txt"); //leave to be global in the sketch
 
     linesPerScreen = 9;
     line = new String[10];
@@ -46,7 +47,7 @@ class Screen { //<>// //<>//
     pushMatrix();
     translate(screen_location.x, (screen_location.y+250));
     for (int i = start; i < limit; i++) { // i used for inputText line number
-      String temp = inputText[i];
+      String temp = inputText[i]; //<<<<----- stuck
       line[l_num] = temp; //new Line(i, location); //location for inputText gets passed in
       //println(line[l_num]);
       // make them visual vvvv
@@ -93,7 +94,11 @@ class Screen { //<>// //<>//
     // move up and then show the next lines that are hidden (scrolling)
     //int maxPortHeight = linesPerScreen * 25 + 10;
     //for (int y_ = yStart; y_ < height; y_+= 25) {
-    screen_location.y-=35; //speed of scroll
+    //println(velocity);
+    screen_location.add(velocity);
+    //screen_location.y-=35; //speed of scroll
+    //print("screen_location is: "); 
+    //println(screen_location.y);
     /*******
      for this for-loop to work, we must draw the text inside the loop.
      Or, we do the manipulation of the y, elsewhere

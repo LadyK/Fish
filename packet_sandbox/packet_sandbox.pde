@@ -29,25 +29,26 @@ void setup() {
   //textFont(f, 24);
   //textAlign(LEFT);
   //fill(t);
-  inputText = loadStrings("packets2_test.txt");
+  inputText = loadStrings("packets.txt");
   //x = 20;
   //y = 20;
-  background(0, 127);
+  background(0);
   howManyLines = inputText.length;
   //println(howManyLines);
   numScreens = ceil(howManyLines/10);
   //println(howManyLines);
   textBuffers = new ArrayList<Screen>();
   currentLineNum = 0;
-  yScreen = 420;
-  PVector offScreen = new PVector(20, yScreen); //location of portal
+  yScreen = 420; // will need to be modified ****
+  PVector offScreen = new PVector(20, yScreen); //location of portal ****
   linesPerScreen = 9;
-  for (int i = 0; i < numScreens; i++) {
-    Screen s = new Screen(offScreen, currentLineNum); //this is going to need the portal location + some to y //<>//
-    s.initalize();  //<>//
+  int nextStart = 0;
+  for (int i = 0; i < numScreens; i++) { //<>//
+    Screen s = new Screen(offScreen, nextStart); //this is going to need the portal location + some to y //<>//
+    nextStart = s.initalize();  //<>//
     //println(currentLineNum);
-    currentLineNum += 9; // *** think about this //<>//
-    offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space //<>//
+    //currentLineNum += 9; // *** think about this
+    offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space
     textBuffers.add(s);
 
     //textBuffers[i] = s;
@@ -84,6 +85,7 @@ void draw() {
 
   // every X seconds: 
   //scrollUp();
+ 
 }
 
 //int initalize(int s) {

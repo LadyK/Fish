@@ -1,0 +1,2569 @@
+Frame 1: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.407146000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.407146000 seconds
+    [Time delta from previous captured frame: 0.000000000 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 0.000000000 seconds]
+    Frame Number: 1
+    Frame Length: 87 bytes (696 bits)
+    Capture Length: 87 bytes (696 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:data]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4023:1004::bd, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 33
+    Next Header: UDP (17)
+    Hop Limit: 56
+    Source Address: 2607:f8b0:4023:1004::bd
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 60097
+    Source Port: 443
+    Destination Port: 60097
+    Length: 33
+    Checksum: 0x7ddf [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 0]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (25 bytes)
+Data (25 bytes)
+
+0000  4f 13 33 fb 6f 25 19 f6 e4 b0 cf 63 7d c8 5e e4   O.3.o%.....c}.^.
+0010  0a a7 ef 44 b5 ca aa 97 bb                        ...D.....
+    Data: 4f1333fb6f2519f6e4b0cf637dc85ee40aa7ef44b5caaa97bb
+    [Length: 25]
+
+Frame 2: 230 bytes on wire (1840 bits), 230 bytes captured (1840 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.489703000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.489703000 seconds
+    [Time delta from previous captured frame: 0.082557000 seconds]
+    [Time delta from previous displayed frame: 0.082557000 seconds]
+    [Time since reference or first frame: 0.082557000 seconds]
+    Frame Number: 2
+    Frame Length: 230 bytes (1840 bits)
+    Capture Length: 230 bytes (1840 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:udp:data]
+Ethernet II, Src: Espressi_18:f2:13 (c4:dd:57:18:f2:13), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+    Destination: Broadcast (ff:ff:ff:ff:ff:ff)
+        Address: Broadcast (ff:ff:ff:ff:ff:ff)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+    Source: Espressi_18:f2:13 (c4:dd:57:18:f2:13)
+        Address: Espressi_18:f2:13 (c4:dd:57:18:f2:13)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 192.168.0.57, Dst: 255.255.255.255
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 216
+    Identification: 0x9e2e (40494)
+    Flags: 0x00
+        0... .... = Reserved bit: Not set
+        .0.. .... = Don't fragment: Not set
+        ..0. .... = More fragments: Not set
+    Fragment Offset: 0
+    Time to Live: 255
+    Protocol: UDP (17)
+    Header Checksum: 0x5c05 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 192.168.0.57
+    Destination Address: 255.255.255.255
+User Datagram Protocol, Src Port: 49154, Dst Port: 6667
+    Source Port: 49154
+    Destination Port: 6667
+    Length: 196
+    Checksum: 0x3a79 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 1]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (188 bytes)
+Data (188 bytes)
+
+0000  00 00 55 aa 00 00 00 00 00 00 00 13 00 00 00 ac   ..U.............
+0010  00 00 00 00 23 d0 1e 5f ef 56 83 33 14 ce f6 0f   ....#.._.V.3....
+0020  b0 86 ed 33 8d b2 88 c3 ae 16 9c ef 03 88 71 7a   ...3..........qz
+0030  da 42 45 ae 75 5a a8 ec 6b 49 0d 43 dd fb de 62   .BE.uZ..kI.C...b
+0040  bf 4e c0 35 e8 39 11 b7 f2 10 22 d7 80 d2 0d ad   .N.5.9....".....
+0050  53 2a 00 ed cb 59 24 bb 87 92 fe 5e ae 7c 90 40   S*...Y$....^.|.@
+0060  e5 92 1a 98 01 7f 21 70 86 04 21 e6 fc 66 f0 a1   ......!p..!..f..
+0070  ad e1 38 91 5f de 85 0c d1 57 27 0c 5f 3d 1a b5   ..8._....W'._=..
+0080  ae 90 b3 00 29 01 0d 91 a3 d5 d6 b1 d8 f5 f7 e3   ....)...........
+0090  d7 d8 70 d8 1c 83 43 bc 25 f3 40 3c 0c 4c 3d b5   ..p...C.%.@<.L=.
+00a0  93 50 d3 4a e0 bd 1f 2c ba d7 05 88 6d 4e d8 ee   .P.J...,....mN..
+00b0  d5 ab 9e b9 49 86 fe 1b 00 00 aa 55               ....I......U
+    Data: 000055aa0000000000000013000000ac0000000023d01e5fef56833314cef60fb086ed33…
+    [Length: 188]
+
+Frame 3: 216 bytes on wire (1728 bits), 216 bytes captured (1728 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.490229000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.490229000 seconds
+    [Time delta from previous captured frame: 0.000526000 seconds]
+    [Time delta from previous displayed frame: 0.000526000 seconds]
+    [Time since reference or first frame: 0.083083000 seconds]
+    Frame Number: 3
+    Frame Length: 216 bytes (1728 bits)
+    Capture Length: 216 bytes (1728 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:udp:data]
+Ethernet II, Src: Espressi_e2:d7:f6 (68:c6:3a:e2:d7:f6), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+    Destination: Broadcast (ff:ff:ff:ff:ff:ff)
+        Address: Broadcast (ff:ff:ff:ff:ff:ff)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+    Source: Espressi_e2:d7:f6 (68:c6:3a:e2:d7:f6)
+        Address: Espressi_e2:d7:f6 (68:c6:3a:e2:d7:f6)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 192.168.0.83, Dst: 255.255.255.255
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 202
+    Identification: 0x4681 (18049)
+    Flags: 0x00
+        0... .... = Reserved bit: Not set
+        .0.. .... = Don't fragment: Not set
+        ..0. .... = More fragments: Not set
+    Fragment Offset: 0
+    Time to Live: 255
+    Protocol: UDP (17)
+    Header Checksum: 0xb3a6 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 192.168.0.83
+    Destination Address: 255.255.255.255
+User Datagram Protocol, Src Port: 49154, Dst Port: 6666
+    Source Port: 49154
+    Destination Port: 6666
+    Length: 182
+    Checksum: 0x14d7 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 2]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (174 bytes)
+Data (174 bytes)
+
+0000  00 00 55 aa 00 00 00 00 00 00 00 00 00 00 00 9e   ..U.............
+0010  00 00 00 00 7b 22 69 70 22 3a 22 31 39 32 2e 31   ....{"ip":"192.1
+0020  36 38 2e 30 2e 38 33 22 2c 22 67 77 49 64 22 3a   68.0.83","gwId":
+0030  22 32 35 32 30 30 33 31 30 36 38 63 36 33 61 65   "2520031068c63ae
+0040  32 64 37 66 36 22 2c 22 61 63 74 69 76 65 22 3a   2d7f6","active":
+0050  32 2c 22 61 62 69 6c 69 74 79 22 3a 30 2c 22 6d   2,"ability":0,"m
+0060  6f 64 65 22 3a 30 2c 22 65 6e 63 72 79 70 74 22   ode":0,"encrypt"
+0070  3a 74 72 75 65 2c 22 70 72 6f 64 75 63 74 4b 65   :true,"productKe
+0080  79 22 3a 22 6b 65 79 33 34 6e 39 79 6d 75 33 79   y":"key34n9ymu3y
+0090  6d 63 78 33 22 2c 22 76 65 72 73 69 6f 6e 22 3a   mcx3","version":
+00a0  22 33 2e 31 22 7d 85 fe 16 a6 00 00 aa 55         "3.1"}.......U
+    Data: 000055aa00000000000000000000009e000000007b226970223a223139322e3136382e30…
+    [Length: 174]
+
+Frame 4: 95 bytes on wire (760 bits), 95 bytes captured (760 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.496324000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.496324000 seconds
+    [Time delta from previous captured frame: 0.006095000 seconds]
+    [Time delta from previous displayed frame: 0.006095000 seconds]
+    [Time since reference or first frame: 0.089178000 seconds]
+    Frame Number: 4
+    Frame Length: 95 bytes (760 bits)
+    Capture Length: 95 bytes (760 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:data]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c08::bd
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0111 1010 0111 0001 = Flow Label: 0x07a71
+    Payload Length: 41
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c08::bd
+User Datagram Protocol, Src Port: 57253, Dst Port: 443
+    Source Port: 57253
+    Destination Port: 443
+    Length: 41
+    Checksum: 0x94c1 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 3]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (33 bytes)
+Data (33 bytes)
+
+0000  49 dd bf a1 0e b2 03 21 a2 c9 1b b4 a3 fe 73 82   I......!......s.
+0010  2e cf 89 51 ff d7 d7 6d ee 9b 16 6b 9c aa 59 18   ...Q...m...k..Y.
+0020  2f                                                /
+    Data: 49ddbfa10eb20321a2c91bb4a3fe73822ecf8951ffd7d76dee9b166b9caa59182f
+    [Length: 33]
+
+Frame 5: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.562842000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.562842000 seconds
+    [Time delta from previous captured frame: 0.066518000 seconds]
+    [Time delta from previous displayed frame: 0.066518000 seconds]
+    [Time since reference or first frame: 0.155696000 seconds]
+    Frame Number: 5
+    Frame Length: 87 bytes (696 bits)
+    Capture Length: 87 bytes (696 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:data]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4002:c08::bd, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 33
+    Next Header: UDP (17)
+    Hop Limit: 58
+    Source Address: 2607:f8b0:4002:c08::bd
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 57253
+    Source Port: 443
+    Destination Port: 57253
+    Length: 33
+    Checksum: 0x257c [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 3]
+    [Timestamps]
+        [Time since first frame: 0.066518000 seconds]
+        [Time since previous frame: 0.066518000 seconds]
+    UDP payload (25 bytes)
+Data (25 bytes)
+
+0000  48 15 7d f4 6a d2 75 3e 81 ae f7 56 95 08 95 d0   H.}.j.u>...V....
+0010  f0 30 3c ae da 3d 90 c0 38                        .0<..=..8
+    Data: 48157df46ad2753e81aef756950895d0f0303caeda3d90c038
+    [Length: 25]
+
+Frame 6: 230 bytes on wire (1840 bits), 230 bytes captured (1840 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.694452000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.694452000 seconds
+    [Time delta from previous captured frame: 0.131610000 seconds]
+    [Time delta from previous displayed frame: 0.131610000 seconds]
+    [Time since reference or first frame: 0.287306000 seconds]
+    Frame Number: 6
+    Frame Length: 230 bytes (1840 bits)
+    Capture Length: 230 bytes (1840 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:udp:data]
+Ethernet II, Src: Espressi_8a:24:68 (c4:4f:33:8a:24:68), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+    Destination: Broadcast (ff:ff:ff:ff:ff:ff)
+        Address: Broadcast (ff:ff:ff:ff:ff:ff)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+    Source: Espressi_8a:24:68 (c4:4f:33:8a:24:68)
+        Address: Espressi_8a:24:68 (c4:4f:33:8a:24:68)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 192.168.0.37, Dst: 255.255.255.255
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 216
+    Identification: 0xf7a1 (63393)
+    Flags: 0x00
+        0... .... = Reserved bit: Not set
+        .0.. .... = Don't fragment: Not set
+        ..0. .... = More fragments: Not set
+    Fragment Offset: 0
+    Time to Live: 255
+    Protocol: UDP (17)
+    Header Checksum: 0x02a6 [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 192.168.0.37
+    Destination Address: 255.255.255.255
+User Datagram Protocol, Src Port: 49154, Dst Port: 6667
+    Source Port: 49154
+    Destination Port: 6667
+    Length: 196
+    Checksum: 0x685a [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 4]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (188 bytes)
+Data (188 bytes)
+
+0000  00 00 55 aa 00 00 00 00 00 00 00 13 00 00 00 ac   ..U.............
+0010  00 00 00 00 23 d0 1e 5f ef 56 83 33 14 ce f6 0f   ....#.._.V.3....
+0020  b0 86 ed 33 f5 2b 32 60 d1 c1 d5 c2 b9 42 d3 b8   ...3.+2`.....B..
+0030  29 48 1a 27 fa e3 61 cb 8f 69 a6 cb 34 8b 7d b9   )H.'..a..i..4.}.
+0040  3a 78 9e 7a 9e 0b b0 69 cf 27 b0 0b 3a 22 d8 9a   :x.z...i.'..:"..
+0050  f4 aa d2 42 cb 59 24 bb 87 92 fe 5e ae 7c 90 40   ...B.Y$....^.|.@
+0060  e5 92 1a 98 01 7f 21 70 86 04 21 e6 fc 66 f0 a1   ......!p..!..f..
+0070  ad e1 38 91 5f de 85 0c d1 57 27 0c 5f 3d 1a b5   ..8._....W'._=..
+0080  ae 90 b3 00 a3 bb 15 e1 04 de 0c da f5 06 df 1a   ................
+0090  0f 55 d6 a9 1c 83 43 bc 25 f3 40 3c 0c 4c 3d b5   .U....C.%.@<.L=.
+00a0  93 50 d3 4a e0 bd 1f 2c ba d7 05 88 6d 4e d8 ee   .P.J...,....mN..
+00b0  d5 ab 9e b9 3a 0f 7a a0 00 00 aa 55               ....:.z....U
+    Data: 000055aa0000000000000013000000ac0000000023d01e5fef56833314cef60fb086ed33…
+    [Length: 188]
+
+Frame 7: 230 bytes on wire (1840 bits), 230 bytes captured (1840 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.694886000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.694886000 seconds
+    [Time delta from previous captured frame: 0.000434000 seconds]
+    [Time delta from previous displayed frame: 0.000434000 seconds]
+    [Time since reference or first frame: 0.287740000 seconds]
+    Frame Number: 7
+    Frame Length: 230 bytes (1840 bits)
+    Capture Length: 230 bytes (1840 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:udp:data]
+Ethernet II, Src: Espressi_8b:a7:6f (c4:4f:33:8b:a7:6f), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+    Destination: Broadcast (ff:ff:ff:ff:ff:ff)
+        Address: Broadcast (ff:ff:ff:ff:ff:ff)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+    Source: Espressi_8b:a7:6f (c4:4f:33:8b:a7:6f)
+        Address: Espressi_8b:a7:6f (c4:4f:33:8b:a7:6f)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 192.168.0.35, Dst: 255.255.255.255
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes (5)
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 216
+    Identification: 0x391f (14623)
+    Flags: 0x00
+        0... .... = Reserved bit: Not set
+        .0.. .... = Don't fragment: Not set
+        ..0. .... = More fragments: Not set
+    Fragment Offset: 0
+    Time to Live: 255
+    Protocol: UDP (17)
+    Header Checksum: 0xc12a [validation disabled]
+    [Header checksum status: Unverified]
+    Source Address: 192.168.0.35
+    Destination Address: 255.255.255.255
+User Datagram Protocol, Src Port: 49154, Dst Port: 6667
+    Source Port: 49154
+    Destination Port: 6667
+    Length: 196
+    Checksum: 0xd07e [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 5]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (188 bytes)
+Data (188 bytes)
+
+0000  00 00 55 aa 00 00 00 00 00 00 00 13 00 00 00 ac   ..U.............
+0010  00 00 00 00 23 d0 1e 5f ef 56 83 33 14 ce f6 0f   ....#.._.V.3....
+0020  b0 86 ed 33 eb ff 60 c8 ff 68 6a d8 f1 23 5a 00   ...3..`..hj..#Z.
+0030  5d e0 4d c1 45 ba 73 5f f2 37 95 2b 65 8e bf c6   ].M.E.s_.7.+e...
+0040  00 2f 84 81 68 46 fd 5c 1c b4 c3 1b c7 07 52 b6   ./..hF.\......R.
+0050  45 3e 45 27 cb 59 24 bb 87 92 fe 5e ae 7c 90 40   E>E'.Y$....^.|.@
+0060  e5 92 1a 98 01 7f 21 70 86 04 21 e6 fc 66 f0 a1   ......!p..!..f..
+0070  ad e1 38 91 5f de 85 0c d1 57 27 0c 5f 3d 1a b5   ..8._....W'._=..
+0080  ae 90 b3 00 a3 bb 15 e1 04 de 0c da f5 06 df 1a   ................
+0090  0f 55 d6 a9 1c 83 43 bc 25 f3 40 3c 0c 4c 3d b5   .U....C.%.@<.L=.
+00a0  93 50 d3 4a e0 bd 1f 2c ba d7 05 88 6d 4e d8 ee   .P.J...,....mN..
+00b0  d5 ab 9e b9 8f 3f a0 4f 00 00 aa 55               .....?.O...U
+    Data: 000055aa0000000000000013000000ac0000000023d01e5fef56833314cef60fb086ed33…
+    [Length: 188]
+
+Frame 8: 275 bytes on wire (2200 bits), 275 bytes captured (2200 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.708682000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.708682000 seconds
+    [Time delta from previous captured frame: 0.013796000 seconds]
+    [Time delta from previous displayed frame: 0.013796000 seconds]
+    [Time since reference or first frame: 0.301536000 seconds]
+    Frame Number: 8
+    Frame Length: 275 bytes (2200 bits)
+    Capture Length: 275 bytes (2200 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:tls]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2600:6c7f:f000:202::7
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0110 0110 1100 0001 0000 = Flow Label: 0x66c10
+    Payload Length: 221
+    Next Header: TCP (6)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2600:6c7f:f000:202::7
+Transmission Control Protocol, Src Port: 53477, Dst Port: 443, Seq: 1, Ack: 1, Len: 189
+    Source Port: 53477
+    Destination Port: 443
+    [Stream index: 0]
+    [TCP Segment Len: 189]
+    Sequence Number: 1    (relative sequence number)
+    Sequence Number (raw): 3193975189
+    [Next Sequence Number: 190    (relative sequence number)]
+    Acknowledgment Number: 1    (relative ack number)
+    Acknowledgment number (raw): 2251298460
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 4096
+    [Calculated window size: 4096]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0x775d [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 674616148, TSecr 3752458963
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 674616148
+            Timestamp echo reply: 3752458963
+    [SEQ/ACK analysis]
+        [Bytes in flight: 189]
+        [Bytes sent since last PSH flag: 189]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.000000000 seconds]
+        [Time since previous frame in this TCP stream: 0.000000000 seconds]
+    TCP payload (189 bytes)
+Transport Layer Security
+    TLSv1.2 Record Layer: Application Data Protocol: http-over-tls
+        Content Type: Application Data (23)
+        Version: TLS 1.2 (0x0303)
+        Length: 184
+        Encrypted Application Data: f134408c5123eb33a040011b53cd69d53e8c2db715c8a227299868d31c7087cd8ca1fd60…
+        [Application Data Protocol: http-over-tls]
+
+Frame 9: 275 bytes on wire (2200 bits), 275 bytes captured (2200 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.708745000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.708745000 seconds
+    [Time delta from previous captured frame: 0.000063000 seconds]
+    [Time delta from previous displayed frame: 0.000063000 seconds]
+    [Time since reference or first frame: 0.301599000 seconds]
+    Frame Number: 9
+    Frame Length: 275 bytes (2200 bits)
+    Capture Length: 275 bytes (2200 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:tls]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2600:6c7f:f000:202::7
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0110 0110 1100 0001 0000 = Flow Label: 0x66c10
+    Payload Length: 221
+    Next Header: TCP (6)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2600:6c7f:f000:202::7
+Transmission Control Protocol, Src Port: 53477, Dst Port: 443, Seq: 190, Ack: 1, Len: 189
+    Source Port: 53477
+    Destination Port: 443
+    [Stream index: 0]
+    [TCP Segment Len: 189]
+    Sequence Number: 190    (relative sequence number)
+    Sequence Number (raw): 3193975378
+    [Next Sequence Number: 379    (relative sequence number)]
+    Acknowledgment Number: 1    (relative ack number)
+    Acknowledgment number (raw): 2251298460
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 4096
+    [Calculated window size: 4096]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0xdcca [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 674616148, TSecr 3752458963
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 674616148
+            Timestamp echo reply: 3752458963
+    [SEQ/ACK analysis]
+        [Bytes in flight: 378]
+        [Bytes sent since last PSH flag: 189]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.000063000 seconds]
+        [Time since previous frame in this TCP stream: 0.000063000 seconds]
+    TCP payload (189 bytes)
+Transport Layer Security
+    TLSv1.2 Record Layer: Application Data Protocol: http-over-tls
+        Content Type: Application Data (23)
+        Version: TLS 1.2 (0x0303)
+        Length: 184
+        Encrypted Application Data: a20caa31e2f774769a090d884db3518b811e9bfdf8c1a12c4ca952b769d34add50ee4c47…
+        [Application Data Protocol: http-over-tls]
+
+Frame 10: 95 bytes on wire (760 bits), 95 bytes captured (760 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.775789000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.775789000 seconds
+    [Time delta from previous captured frame: 0.067044000 seconds]
+    [Time delta from previous displayed frame: 0.067044000 seconds]
+    [Time since reference or first frame: 0.368643000 seconds]
+    Frame Number: 10
+    Frame Length: 95 bytes (760 bits)
+    Capture Length: 95 bytes (760 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:data]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4023:c0b::bd
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1101 0010 1010 0011 1011 = Flow Label: 0xd2a3b
+    Payload Length: 41
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4023:c0b::bd
+User Datagram Protocol, Src Port: 54631, Dst Port: 443
+    Source Port: 54631
+    Destination Port: 443
+    Length: 41
+    Checksum: 0xca89 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 6]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (33 bytes)
+Data (33 bytes)
+
+0000  48 d6 8a ad f0 c1 59 19 95 93 63 3f 47 c1 2b 67   H.....Y...c?G.+g
+0010  ba c8 c9 f8 7a 50 37 5c b1 15 eb a4 3f 11 c4 3e   ....zP7\....?..>
+0020  1f                                                .
+    Data: 48d68aadf0c159199593633f47c12b67bac8c9f87a50375cb115eba43f11c43e1f
+    [Length: 33]
+
+Frame 11: 86 bytes on wire (688 bits), 86 bytes captured (688 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.787508000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.787508000 seconds
+    [Time delta from previous captured frame: 0.011719000 seconds]
+    [Time delta from previous displayed frame: 0.011719000 seconds]
+    [Time since reference or first frame: 0.380362000 seconds]
+    Frame Number: 11
+    Frame Length: 86 bytes (688 bits)
+    Capture Length: 86 bytes (688 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2600:6c7f:f000:202::7, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 32
+    Next Header: TCP (6)
+    Hop Limit: 52
+    Source Address: 2600:6c7f:f000:202::7
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+Transmission Control Protocol, Src Port: 443, Dst Port: 53477, Seq: 1, Ack: 379, Len: 0
+    Source Port: 443
+    Destination Port: 53477
+    [Stream index: 0]
+    [TCP Segment Len: 0]
+    Sequence Number: 1    (relative sequence number)
+    Sequence Number (raw): 2251298460
+    [Next Sequence Number: 1    (relative sequence number)]
+    Acknowledgment Number: 379    (relative ack number)
+    Acknowledgment number (raw): 3193975567
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x010 (ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······A····]
+    Window: 16326
+    [Calculated window size: 16326]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0xf103 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 3752464863, TSecr 674616148
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 3752464863
+            Timestamp echo reply: 674616148
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 9]
+        [The RTT to ACK the segment was: 0.078763000 seconds]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.078826000 seconds]
+        [Time since previous frame in this TCP stream: 0.078763000 seconds]
+
+Frame 12: 290 bytes on wire (2320 bits), 290 bytes captured (2320 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.787541000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.787541000 seconds
+    [Time delta from previous captured frame: 0.000033000 seconds]
+    [Time delta from previous displayed frame: 0.000033000 seconds]
+    [Time since reference or first frame: 0.380395000 seconds]
+    Frame Number: 12
+    Frame Length: 290 bytes (2320 bits)
+    Capture Length: 290 bytes (2320 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:tls]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2600:6c7f:f000:202::7, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 236
+    Next Header: TCP (6)
+    Hop Limit: 52
+    Source Address: 2600:6c7f:f000:202::7
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+Transmission Control Protocol, Src Port: 443, Dst Port: 53477, Seq: 1, Ack: 379, Len: 204
+    Source Port: 443
+    Destination Port: 53477
+    [Stream index: 0]
+    [TCP Segment Len: 204]
+    Sequence Number: 1    (relative sequence number)
+    Sequence Number (raw): 2251298460
+    [Next Sequence Number: 205    (relative sequence number)]
+    Acknowledgment Number: 379    (relative ack number)
+    Acknowledgment number (raw): 3193975567
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 16326
+    [Calculated window size: 16326]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0xa329 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 3752464863, TSecr 674616148
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 3752464863
+            Timestamp echo reply: 674616148
+    [SEQ/ACK analysis]
+        [Bytes in flight: 204]
+        [Bytes sent since last PSH flag: 204]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.078859000 seconds]
+        [Time since previous frame in this TCP stream: 0.000033000 seconds]
+    TCP payload (204 bytes)
+Transport Layer Security
+    TLSv1.2 Record Layer: Application Data Protocol: http-over-tls
+        Content Type: Application Data (23)
+        Version: TLS 1.2 (0x0303)
+        Length: 199
+        Encrypted Application Data: 9c1e7687b6899f2cacd04b1e1447d8a23def01dfe63a694a34cf1658cc6d7e27d52e667e…
+        [Application Data Protocol: http-over-tls]
+
+Frame 13: 86 bytes on wire (688 bits), 86 bytes captured (688 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.787667000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.787667000 seconds
+    [Time delta from previous captured frame: 0.000126000 seconds]
+    [Time delta from previous displayed frame: 0.000126000 seconds]
+    [Time since reference or first frame: 0.380521000 seconds]
+    Frame Number: 13
+    Frame Length: 86 bytes (688 bits)
+    Capture Length: 86 bytes (688 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2600:6c7f:f000:202::7
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0110 0110 1100 0001 0000 = Flow Label: 0x66c10
+    Payload Length: 32
+    Next Header: TCP (6)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2600:6c7f:f000:202::7
+Transmission Control Protocol, Src Port: 53477, Dst Port: 443, Seq: 379, Ack: 205, Len: 0
+    Source Port: 53477
+    Destination Port: 443
+    [Stream index: 0]
+    [TCP Segment Len: 0]
+    Sequence Number: 379    (relative sequence number)
+    Sequence Number (raw): 3193975567
+    [Next Sequence Number: 379    (relative sequence number)]
+    Acknowledgment Number: 205    (relative ack number)
+    Acknowledgment number (raw): 2251298664
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x010 (ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······A····]
+    Window: 4089
+    [Calculated window size: 4089]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0x1fb9 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 674616224, TSecr 3752464863
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 674616224
+            Timestamp echo reply: 3752464863
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 12]
+        [The RTT to ACK the segment was: 0.000126000 seconds]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.078985000 seconds]
+        [Time since previous frame in this TCP stream: 0.000126000 seconds]
+
+Frame 14: 306 bytes on wire (2448 bits), 306 bytes captured (2448 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.789150000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.789150000 seconds
+    [Time delta from previous captured frame: 0.001483000 seconds]
+    [Time delta from previous displayed frame: 0.001483000 seconds]
+    [Time since reference or first frame: 0.382004000 seconds]
+    Frame Number: 14
+    Frame Length: 306 bytes (2448 bits)
+    Capture Length: 306 bytes (2448 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:tls]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2600:6c7f:f000:202::7, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 252
+    Next Header: TCP (6)
+    Hop Limit: 52
+    Source Address: 2600:6c7f:f000:202::7
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+Transmission Control Protocol, Src Port: 443, Dst Port: 53477, Seq: 205, Ack: 379, Len: 220
+    Source Port: 443
+    Destination Port: 53477
+    [Stream index: 0]
+    [TCP Segment Len: 220]
+    Sequence Number: 205    (relative sequence number)
+    Sequence Number (raw): 2251298664
+    [Next Sequence Number: 425    (relative sequence number)]
+    Acknowledgment Number: 379    (relative ack number)
+    Acknowledgment number (raw): 3193975567
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x018 (PSH, ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 1... = Push: Set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······AP···]
+    Window: 16326
+    [Calculated window size: 16326]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0x4c26 [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 3752464863, TSecr 674616148
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 3752464863
+            Timestamp echo reply: 674616148
+    [SEQ/ACK analysis]
+        [Bytes in flight: 220]
+        [Bytes sent since last PSH flag: 220]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.080468000 seconds]
+        [Time since previous frame in this TCP stream: 0.001483000 seconds]
+    TCP payload (220 bytes)
+Transport Layer Security
+    TLSv1.2 Record Layer: Application Data Protocol: http-over-tls
+        Content Type: Application Data (23)
+        Version: TLS 1.2 (0x0303)
+        Length: 215
+        Encrypted Application Data: cdf6611e87f47e9991f17198ccd16914d603ef1ab9977f79d5925e6cfcfd302fcb2df222…
+        [Application Data Protocol: http-over-tls]
+
+Frame 15: 86 bytes on wire (688 bits), 86 bytes captured (688 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.789226000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.789226000 seconds
+    [Time delta from previous captured frame: 0.000076000 seconds]
+    [Time delta from previous displayed frame: 0.000076000 seconds]
+    [Time since reference or first frame: 0.382080000 seconds]
+    Frame Number: 15
+    Frame Length: 86 bytes (688 bits)
+    Capture Length: 86 bytes (688 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2600:6c7f:f000:202::7
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0110 0110 1100 0001 0000 = Flow Label: 0x66c10
+    Payload Length: 32
+    Next Header: TCP (6)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2600:6c7f:f000:202::7
+Transmission Control Protocol, Src Port: 53477, Dst Port: 443, Seq: 379, Ack: 425, Len: 0
+    Source Port: 53477
+    Destination Port: 443
+    [Stream index: 0]
+    [TCP Segment Len: 0]
+    Sequence Number: 379    (relative sequence number)
+    Sequence Number (raw): 3193975567
+    [Next Sequence Number: 379    (relative sequence number)]
+    Acknowledgment Number: 425    (relative ack number)
+    Acknowledgment number (raw): 2251298884
+    1000 .... = Header Length: 32 bytes (8)
+    Flags: 0x010 (ACK)
+        000. .... .... = Reserved: Not set
+        ...0 .... .... = Nonce: Not set
+        .... 0... .... = Congestion Window Reduced (CWR): Not set
+        .... .0.. .... = ECN-Echo: Not set
+        .... ..0. .... = Urgent: Not set
+        .... ...1 .... = Acknowledgment: Set
+        .... .... 0... = Push: Not set
+        .... .... .0.. = Reset: Not set
+        .... .... ..0. = Syn: Not set
+        .... .... ...0 = Fin: Not set
+        [TCP Flags: ·······A····]
+    Window: 4089
+    [Calculated window size: 4089]
+    [Window size scaling factor: -1 (unknown)]
+    Checksum: 0x1edc [unverified]
+    [Checksum Status: Unverified]
+    Urgent Pointer: 0
+    Options: (12 bytes), No-Operation (NOP), No-Operation (NOP), Timestamps
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - No-Operation (NOP)
+            Kind: No-Operation (1)
+        TCP Option - Timestamps: TSval 674616225, TSecr 3752464863
+            Kind: Time Stamp Option (8)
+            Length: 10
+            Timestamp value: 674616225
+            Timestamp echo reply: 3752464863
+    [SEQ/ACK analysis]
+        [This is an ACK to the segment in frame: 14]
+        [The RTT to ACK the segment was: 0.000076000 seconds]
+    [Timestamps]
+        [Time since first frame in this TCP stream: 0.080544000 seconds]
+        [Time since previous frame in this TCP stream: 0.000076000 seconds]
+
+Frame 16: 1392 bytes on wire (11136 bits), 1392 bytes captured (11136 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.790835000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.790835000 seconds
+    [Time delta from previous captured frame: 0.001609000 seconds]
+    [Time delta from previous displayed frame: 0.001609000 seconds]
+    [Time since reference or first frame: 0.383689000 seconds]
+    Frame Number: 16
+    Frame Length: 1392 bytes (11136 bits)
+    Capture Length: 1392 bytes (11136 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic:tls]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c11::65
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1100 0000 0100 1000 1110 = Flow Label: 0xc048e
+    Payload Length: 1338
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c11::65
+User Datagram Protocol, Src Port: 59327, Dst Port: 443
+    Source Port: 59327
+    Destination Port: 443
+    Length: 1338
+    Checksum: 0x9bfd [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (1330 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 1330]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..00 .... = Packet Type: Initial (0)
+    .... 00.. = Reserved: 0
+    .... ..00 = Packet Number Length: 1 bytes (0)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 8
+    Destination Connection ID: 7028cae3b6af0522
+    Source Connection ID Length: 0
+    Token Length: 55
+    Token: 00f49769635083686be23d32bcf99d67a5ee1ef4665f7f980c18c63d1fb67373e811aa13…
+    Length: 1257
+    Packet Number: 1
+    Payload: 40a5da170529bef5659becdeb5f90f738ae2b06fce7750448365cef854bbfd269d2e68d8…
+    TLSv1.3 Record Layer: Handshake Protocol: Client Hello
+        Frame Type: CRYPTO (0x0000000000000006)
+        Offset: 0
+        Length: 652
+        Crypto Data
+        Handshake Protocol: Client Hello
+            Handshake Type: Client Hello (1)
+            Length: 648
+            Version: TLS 1.2 (0x0303)
+            Random: cac99e395094f73826c63f285f0c3fa48c5f312dcd3631d79f9ab75c0c31a18b
+            Session ID Length: 0
+            Cipher Suites Length: 6
+            Cipher Suites (3 suites)
+                Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
+                Cipher Suite: TLS_AES_256_GCM_SHA384 (0x1302)
+                Cipher Suite: TLS_CHACHA20_POLY1305_SHA256 (0x1303)
+            Compression Methods Length: 1
+            Compression Methods (1 method)
+                Compression Method: null (0)
+            Extensions Length: 601
+            Extension: server_name (len=24)
+                Type: server_name (0)
+                Length: 24
+                Server Name Indication extension
+                    Server Name list length: 22
+                    Server Name Type: host_name (0)
+                    Server Name length: 19
+                    Server Name: calendar.google.com
+            Extension: supported_groups (len=8)
+                Type: supported_groups (10)
+                Length: 8
+                Supported Groups List Length: 6
+                Supported Groups (3 groups)
+                    Supported Group: x25519 (0x001d)
+                    Supported Group: secp256r1 (0x0017)
+                    Supported Group: secp384r1 (0x0018)
+            Extension: application_layer_protocol_negotiation (len=5)
+                Type: application_layer_protocol_negotiation (16)
+                Length: 5
+                ALPN Extension Length: 3
+                ALPN Protocol
+                    ALPN string length: 2
+                    ALPN Next Protocol: h3
+            Extension: signature_algorithms (len=20)
+                Type: signature_algorithms (13)
+                Length: 20
+                Signature Hash Algorithms Length: 18
+                Signature Hash Algorithms (9 algorithms)
+                    Signature Algorithm: ecdsa_secp256r1_sha256 (0x0403)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: rsa_pss_rsae_sha256 (0x0804)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (4)
+                    Signature Algorithm: rsa_pkcs1_sha256 (0x0401)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: ecdsa_secp384r1_sha384 (0x0503)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: rsa_pss_rsae_sha384 (0x0805)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (5)
+                    Signature Algorithm: rsa_pkcs1_sha384 (0x0501)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: rsa_pss_rsae_sha512 (0x0806)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (6)
+                    Signature Algorithm: rsa_pkcs1_sha512 (0x0601)
+                        Signature Hash Algorithm Hash: SHA512 (6)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: rsa_pkcs1_sha1 (0x0201)
+                        Signature Hash Algorithm Hash: SHA1 (2)
+                        Signature Hash Algorithm Signature: RSA (1)
+            Extension: key_share (len=38)
+                Type: key_share (51)
+                Length: 38
+                Key Share extension
+                    Client Key Share Length: 36
+                    Key Share Entry: Group: x25519, Key Exchange length: 32
+                        Group: x25519 (29)
+                        Key Exchange Length: 32
+                        Key Exchange: 3977ee3036f10532201d722f83b64775de7f64f3133a7875125273290d90ac44
+            Extension: psk_key_exchange_modes (len=2)
+                Type: psk_key_exchange_modes (45)
+                Length: 2
+                PSK Key Exchange Modes Length: 1
+                PSK Key Exchange Mode: PSK with (EC)DHE key establishment (psk_dhe_ke) (1)
+            Extension: supported_versions (len=3)
+                Type: supported_versions (43)
+                Length: 3
+                Supported Versions length: 2
+                Supported Version: TLS 1.3 (0x0304)
+            Extension: quic_transport_parameters (len=136)
+                Type: quic_transport_parameters (57)
+                Length: 136
+                Parameter: max_idle_timeout (len=4) 30000 ms
+                    Type: max_idle_timeout (0x01)
+                    Length: 4
+                    Value: 80007530
+                    max_idle_timeout: 30000
+                Parameter: max_udp_payload_size (len=2) 1472
+                    Type: max_udp_payload_size (0x03)
+                    Length: 2
+                    Value: 45c0
+                    max_udp_payload_size: 1472
+                Parameter: initial_max_data (len=4) 15728640
+                    Type: initial_max_data (0x04)
+                    Length: 4
+                    Value: 80f00000
+                    initial_max_data: 15728640
+                Parameter: initial_max_stream_data_bidi_local (len=4) 6291456
+                    Type: initial_max_stream_data_bidi_local (0x05)
+                    Length: 4
+                    Value: 80600000
+                    initial_max_stream_data_bidi_local: 6291456
+                Parameter: initial_max_stream_data_bidi_remote (len=4) 6291456
+                    Type: initial_max_stream_data_bidi_remote (0x06)
+                    Length: 4
+                    Value: 80600000
+                    initial_max_stream_data_bidi_remote: 6291456
+                Parameter: initial_max_stream_data_uni (len=4) 6291456
+                    Type: initial_max_stream_data_uni (0x07)
+                    Length: 4
+                    Value: 80600000
+                    initial_max_stream_data_uni: 6291456
+                Parameter: initial_max_streams_bidi (len=2) 100
+                    Type: initial_max_streams_bidi (0x08)
+                    Length: 2
+                    Value: 4064
+                    initial_max_streams_bidi: 100
+                Parameter: initial_max_streams_uni (len=2) 103
+                    Type: initial_max_streams_uni (0x09)
+                    Length: 2
+                    Value: 4067
+                    initial_max_streams_uni: 103
+                Parameter: max_datagram_frame_size (len=4) 65536
+                    Type: max_datagram_frame_size (0x20)
+                    Length: 4
+                    Value: 80010000
+                    max_datagram_frame_size: 65536
+                Parameter: google_initial_rtt (len=4) 94817 us
+                    Type: google_initial_rtt (0x3127)
+                    Length: 4
+                    Value: 80017261
+                    Google Initial RTT: 94817
+                Parameter: initial_source_connection_id (len=0)
+                    Type: initial_source_connection_id (0x0f)
+                    Length: 0
+                    Value: <MISSING>
+                    Initial Source Connection ID: <MISSING>
+                Parameter: google_user_agent (len=43)
+                    Type: google_user_agent (0x3129)
+                    Length: 43
+                    Value: 4368726f6d652f39312e302e343437322e31313420496e74656c204d6163204f53205820…
+                    Google UserAgent: Chrome/91.0.4472.114 Intel Mac OS X 10_13_6
+                Parameter: google_quic_version (len=4)
+                    Type: google_quic_version (0x4752)
+                    Length: 4
+                    Value: 00000001
+                    Google QUIC version: 1 (0x00000001)
+                Parameter: GREASE (len=15)
+                    Type: GREASE (0x1f1a715a53c758ab)
+                    Length: 15
+                    Value: 5f1701084bd6815f5ffa3afd77eb80
+            Extension: compress_certificate (len=3)
+                Type: compress_certificate (27)
+                Length: 3
+                Algorithms Length: 2
+                Algorithm: brotli (2)
+            Extension: Unknown type 17513 (len=5)
+                Type: Unknown (17513)
+                Length: 5
+                Data: 0003026833
+            Extension: pre_shared_key (len=313)
+                Type: pre_shared_key (41)
+                Length: 313
+                Pre-Shared Key extension
+                    Identities Length: 276
+                    PSK Identity (length: 270)
+                        Identity Length: 270
+                        Identity: 01a9b1179d3b9d423484da0da33b4b7e20d6e586458ac29f65b3ed9c1b05a93ff4a92fab…
+                        Obfuscated Ticket Age: 4077027473
+                    PSK Binders length: 33
+                    PSK Binders
+    PADDING Length: 584
+        Frame Type: PADDING (0x0000000000000000)
+        [Padding Length: 584]
+
+Frame 17: 1392 bytes on wire (11136 bits), 1392 bytes captured (11136 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.813878000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.813878000 seconds
+    [Time delta from previous captured frame: 0.023043000 seconds]
+    [Time delta from previous displayed frame: 0.023043000 seconds]
+    [Time since reference or first frame: 0.406732000 seconds]
+    Frame Number: 17
+    Frame Length: 1392 bytes (11136 bits)
+    Capture Length: 1392 bytes (11136 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic:tls]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4007:80a::2003
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0111 1011 0011 0111 1101 = Flow Label: 0x7b37d
+    Payload Length: 1338
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4007:80a::2003
+User Datagram Protocol, Src Port: 59328, Dst Port: 443
+    Source Port: 59328
+    Destination Port: 443
+    Length: 1338
+    Checksum: 0x52b3 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 8]
+    [Timestamps]
+        [Time since first frame: 0.000000000 seconds]
+        [Time since previous frame: 0.000000000 seconds]
+    UDP payload (1330 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 1]
+    [Packet Length: 1330]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..00 .... = Packet Type: Initial (0)
+    .... 00.. = Reserved: 0
+    .... ..00 = Packet Number Length: 1 bytes (0)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 8
+    Destination Connection ID: c3eef62e63309495
+    Source Connection ID Length: 0
+    Token Length: 55
+    Token: 00a1ff6d5a33387aa142462a23e501d0707d8310ea59b568bd3cabf476d59324667e0dd7…
+    Length: 1257
+    Packet Number: 1
+    Payload: 41b1e736427f586e2eaef07d75c6ff38337b136ef1bcd34ea6b3f4a21612303e6aaade15…
+    TLSv1.3 Record Layer: Handshake Protocol: Client Hello
+        Frame Type: CRYPTO (0x0000000000000006)
+        Offset: 0
+        Length: 633
+        Crypto Data
+        Handshake Protocol: Client Hello
+            Handshake Type: Client Hello (1)
+            Length: 629
+            Version: TLS 1.2 (0x0303)
+            Random: c13270d02acba522c6eb7f3f374e48f184d6f14a2b58d954d148da0c5d459966
+            Session ID Length: 0
+            Cipher Suites Length: 6
+            Cipher Suites (3 suites)
+                Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
+                Cipher Suite: TLS_AES_256_GCM_SHA384 (0x1302)
+                Cipher Suite: TLS_CHACHA20_POLY1305_SHA256 (0x1303)
+            Compression Methods Length: 1
+            Compression Methods (1 method)
+                Compression Method: null (0)
+            Extensions Length: 582
+            Extension: server_name (len=20)
+                Type: server_name (0)
+                Length: 20
+                Server Name Indication extension
+                    Server Name list length: 18
+                    Server Name Type: host_name (0)
+                    Server Name length: 15
+                    Server Name: ssl.gstatic.com
+            Extension: supported_groups (len=8)
+                Type: supported_groups (10)
+                Length: 8
+                Supported Groups List Length: 6
+                Supported Groups (3 groups)
+                    Supported Group: x25519 (0x001d)
+                    Supported Group: secp256r1 (0x0017)
+                    Supported Group: secp384r1 (0x0018)
+            Extension: application_layer_protocol_negotiation (len=5)
+                Type: application_layer_protocol_negotiation (16)
+                Length: 5
+                ALPN Extension Length: 3
+                ALPN Protocol
+                    ALPN string length: 2
+                    ALPN Next Protocol: h3
+            Extension: signature_algorithms (len=20)
+                Type: signature_algorithms (13)
+                Length: 20
+                Signature Hash Algorithms Length: 18
+                Signature Hash Algorithms (9 algorithms)
+                    Signature Algorithm: ecdsa_secp256r1_sha256 (0x0403)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: rsa_pss_rsae_sha256 (0x0804)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (4)
+                    Signature Algorithm: rsa_pkcs1_sha256 (0x0401)
+                        Signature Hash Algorithm Hash: SHA256 (4)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: ecdsa_secp384r1_sha384 (0x0503)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: ECDSA (3)
+                    Signature Algorithm: rsa_pss_rsae_sha384 (0x0805)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (5)
+                    Signature Algorithm: rsa_pkcs1_sha384 (0x0501)
+                        Signature Hash Algorithm Hash: SHA384 (5)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: rsa_pss_rsae_sha512 (0x0806)
+                        Signature Hash Algorithm Hash: Unknown (8)
+                        Signature Hash Algorithm Signature: Unknown (6)
+                    Signature Algorithm: rsa_pkcs1_sha512 (0x0601)
+                        Signature Hash Algorithm Hash: SHA512 (6)
+                        Signature Hash Algorithm Signature: RSA (1)
+                    Signature Algorithm: rsa_pkcs1_sha1 (0x0201)
+                        Signature Hash Algorithm Hash: SHA1 (2)
+                        Signature Hash Algorithm Signature: RSA (1)
+            Extension: key_share (len=38)
+                Type: key_share (51)
+                Length: 38
+                Key Share extension
+                    Client Key Share Length: 36
+                    Key Share Entry: Group: x25519, Key Exchange length: 32
+                        Group: x25519 (29)
+                        Key Exchange Length: 32
+                        Key Exchange: b24043c0840e3728bcbe7e91faf1f9622b811f68fe8c44936a69b4883fa9a61b
+            Extension: psk_key_exchange_modes (len=2)
+                Type: psk_key_exchange_modes (45)
+                Length: 2
+                PSK Key Exchange Modes Length: 1
+                PSK Key Exchange Mode: PSK with (EC)DHE key establishment (psk_dhe_ke) (1)
+            Extension: supported_versions (len=3)
+                Type: supported_versions (43)
+                Length: 3
+                Supported Versions length: 2
+                Supported Version: TLS 1.3 (0x0304)
+            Extension: quic_transport_parameters (len=121)
+                Type: quic_transport_parameters (57)
+                Length: 121
+                Parameter: max_idle_timeout (len=4) 30000 ms
+                    Type: max_idle_timeout (0x01)
+                    Length: 4
+                    Value: 80007530
+                    max_idle_timeout: 30000
+                Parameter: max_udp_payload_size (len=2) 1472
+                    Type: max_udp_payload_size (0x03)
+                    Length: 2
+                    Value: 45c0
+                    max_udp_payload_size: 1472
+                Parameter: initial_max_data (len=4) 15728640
+                    Type: initial_max_data (0x04)
+                    Length: 4
+                    Value: 80f00000
+                    initial_max_data: 15728640
+                Parameter: initial_max_stream_data_bidi_local (len=4) 6291456
+                    Type: initial_max_stream_data_bidi_local (0x05)
+                    Length: 4
+                    Value: 80600000
+                    initial_max_stream_data_bidi_local: 6291456
+                Parameter: initial_max_stream_data_bidi_remote (len=4) 6291456
+                    Type: initial_max_stream_data_bidi_remote (0x06)
+                    Length: 4
+                    Value: 80600000
+                    initial_max_stream_data_bidi_remote: 6291456
+                Parameter: initial_max_stream_data_uni (len=4) 6291456
+                    Type: initial_max_stream_data_uni (0x07)
+                    Length: 4
+                    Value: 80600000
+                    initial_max_stream_data_uni: 6291456
+                Parameter: initial_max_streams_bidi (len=2) 100
+                    Type: initial_max_streams_bidi (0x08)
+                    Length: 2
+                    Value: 4064
+                    initial_max_streams_bidi: 100
+                Parameter: initial_max_streams_uni (len=2) 103
+                    Type: initial_max_streams_uni (0x09)
+                    Length: 2
+                    Value: 4067
+                    initial_max_streams_uni: 103
+                Parameter: max_datagram_frame_size (len=4) 65536
+                    Type: max_datagram_frame_size (0x20)
+                    Length: 4
+                    Value: 80010000
+                    max_datagram_frame_size: 65536
+                Parameter: google_initial_rtt (len=4) 100852 us
+                    Type: google_initial_rtt (0x3127)
+                    Length: 4
+                    Value: 800189f4
+                    Google Initial RTT: 100852
+                Parameter: initial_source_connection_id (len=0)
+                    Type: initial_source_connection_id (0x0f)
+                    Length: 0
+                    Value: <MISSING>
+                    Initial Source Connection ID: <MISSING>
+                Parameter: google_user_agent (len=43)
+                    Type: google_user_agent (0x3129)
+                    Length: 43
+                    Value: 4368726f6d652f39312e302e343437322e31313420496e74656c204d6163204f53205820…
+                    Google UserAgent: Chrome/91.0.4472.114 Intel Mac OS X 10_13_6
+                Parameter: google_quic_version (len=4)
+                    Type: google_quic_version (0x4752)
+                    Length: 4
+                    Value: 00000001
+                    Google QUIC version: 1 (0x00000001)
+                Parameter: GREASE (len=0)
+                    Type: GREASE (0x181df48f56e2af4a)
+                    Length: 0
+                    Value: <MISSING>
+            Extension: compress_certificate (len=3)
+                Type: compress_certificate (27)
+                Length: 3
+                Algorithms Length: 2
+                Algorithm: brotli (2)
+            Extension: Unknown type 17513 (len=5)
+                Type: Unknown (17513)
+                Length: 5
+                Data: 0003026833
+            Extension: pre_shared_key (len=313)
+                Type: pre_shared_key (41)
+                Length: 313
+                Pre-Shared Key extension
+                    Identities Length: 276
+                    PSK Identity (length: 270)
+                        Identity Length: 270
+                        Identity: 01a9b1179d3b9d423484da0da33b4b7ebf61904da3de03c74d7ce6d55a97269c315da19d…
+                        Obfuscated Ticket Age: 2467892533
+                    PSK Binders length: 33
+                    PSK Binders
+    PADDING Length: 603
+        Frame Type: PADDING (0x0000000000000000)
+        [Padding Length: 603]
+
+Frame 18: 1392 bytes on wire (11136 bits), 1392 bytes captured (11136 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.834503000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.834503000 seconds
+    [Time delta from previous captured frame: 0.020625000 seconds]
+    [Time delta from previous displayed frame: 0.020625000 seconds]
+    [Time since reference or first frame: 0.427357000 seconds]
+    Frame Number: 18
+    Frame Length: 1392 bytes (11136 bits)
+    Capture Length: 1392 bytes (11136 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic:tls]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4002:c11::65, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 1338
+    Next Header: UDP (17)
+    Hop Limit: 42
+    Source Address: 2607:f8b0:4002:c11::65
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 59327
+    Source Port: 443
+    Destination Port: 59327
+    Length: 1338
+    Checksum: 0x715a [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.043668000 seconds]
+        [Time since previous frame: 0.043668000 seconds]
+    UDP payload (1330 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 1025]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..00 .... = Packet Type: Initial (0)
+    .... 00.. = Reserved: 0
+    .... ..00 = Packet Number Length: 1 bytes (0)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 0
+    Source Connection ID Length: 8
+    Source Connection ID: 7028cae3b6af0522
+    Token Length: 0
+    Length: 1007
+    Packet Number: 1
+    Payload: 70e5854297729bf92ff0b23c3c9ecc0a2a8c1884057b9d2d08751cc4fe63990edea714c3…
+    ACK
+        Frame Type: ACK (0x0000000000000002)
+        Largest Acknowledged: 1
+        ACK Delay: 525
+        ACK Range Count: 0
+        First ACK Range: 0
+    TLSv1.3 Record Layer: Handshake Protocol: Server Hello
+        Frame Type: CRYPTO (0x0000000000000006)
+        Offset: 0
+        Length: 96
+        Crypto Data
+        Handshake Protocol: Server Hello
+            Handshake Type: Server Hello (2)
+            Length: 92
+            Version: TLS 1.2 (0x0303)
+            Random: 549f6f558e3788e1d03abaf1997a0a9c688eba4d25eddca1e1bdb8f7957491ee
+            Session ID Length: 0
+            Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
+            Compression Method: null (0)
+            Extensions Length: 52
+            Extension: pre_shared_key (len=2)
+                Type: pre_shared_key (41)
+                Length: 2
+                Pre-Shared Key extension
+                    Selected Identity: 0
+            Extension: key_share (len=36)
+                Type: key_share (51)
+                Length: 36
+                Key Share extension
+                    Key Share Entry: Group: x25519, Key Exchange length: 32
+                        Group: x25519 (29)
+                        Key Exchange Length: 32
+                        Key Exchange: c20b605493facb6ca9511ce8f0cdee833351bb60e88fdae4f2991cb7a31c9970
+            Extension: supported_versions (len=2)
+                Type: supported_versions (43)
+                Length: 2
+                Supported Version: TLS 1.3 (0x0304)
+    PADDING Length: 884
+        Frame Type: PADDING (0x0000000000000000)
+        [Padding Length: 884]
+QUIC IETF
+    [Packet Length: 242]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..10 .... = Packet Type: Handshake (2)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 0
+    Source Connection ID Length: 8
+    Source Connection ID: 7028cae3b6af0522
+    Length: 225
+    [Expert Info (Warning/Decryption): Failed to create decryption context: Secrets are not available]
+        [Failed to create decryption context: Secrets are not available]
+        [Severity level: Warning]
+        [Group: Decryption]
+    Remaining Payload: 4dcb3f51fbbca2fd5d7164dd609586eae0f0f703f23c4e0566cf484c059f5d347a93b92c…
+QUIC IETF
+    [Packet Length: 63]
+    QUIC Short Header
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+    [Expert Info (Warning/Decryption): Failed to create decryption context: Secrets are not available]
+        [Failed to create decryption context: Secrets are not available]
+        [Severity level: Warning]
+        [Group: Decryption]
+    Remaining Payload: 87c620eb426284f54ce0603925ee26ce77423d71edc3d64f6af7cb96b2495f7e78aa585f…
+
+Frame 19: 222 bytes on wire (1776 bits), 222 bytes captured (1776 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.835643000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.835643000 seconds
+    [Time delta from previous captured frame: 0.001140000 seconds]
+    [Time delta from previous displayed frame: 0.001140000 seconds]
+    [Time since reference or first frame: 0.428497000 seconds]
+    Frame Number: 19
+    Frame Length: 222 bytes (1776 bits)
+    Capture Length: 222 bytes (1776 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c11::65
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1100 0000 0100 1000 1110 = Flow Label: 0xc048e
+    Payload Length: 168
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c11::65
+User Datagram Protocol, Src Port: 59327, Dst Port: 443
+    Source Port: 59327
+    Destination Port: 443
+    Length: 168
+    Checksum: 0x39b2 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.044808000 seconds]
+        [Time since previous frame: 0.001140000 seconds]
+    UDP payload (160 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 89]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..10 .... = Packet Type: Handshake (2)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 8
+    Destination Connection ID: 7028cae3b6af0522
+    Source Connection ID Length: 0
+    Length: 72
+    [Expert Info (Warning/Decryption): Failed to create decryption context: Secrets are not available]
+        [Failed to create decryption context: Secrets are not available]
+        [Severity level: Warning]
+        [Group: Decryption]
+    Remaining Payload: bb89321e7a9dbd7616f48f21793e12379d596978c4db3f668b667f58df183aa61b91fc0d…
+QUIC IETF
+    [Packet Length: 71]
+    QUIC Short Header DCID=7028cae3b6af0522
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+        Destination Connection ID: 7028cae3b6af0522
+    Remaining Payload: e3a8475281b9b2bc9dcc31699d606537535ef6b656de71935ad6a562279d86edc2057cab…
+
+Frame 20: 1388 bytes on wire (11104 bits), 1388 bytes captured (11104 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.836189000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.836189000 seconds
+    [Time delta from previous captured frame: 0.000546000 seconds]
+    [Time delta from previous displayed frame: 0.000546000 seconds]
+    [Time since reference or first frame: 0.429043000 seconds]
+    Frame Number: 20
+    Frame Length: 1388 bytes (11104 bits)
+    Capture Length: 1388 bytes (11104 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c11::65
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1100 0000 0100 1000 1110 = Flow Label: 0xc048e
+    Payload Length: 1334
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c11::65
+User Datagram Protocol, Src Port: 59327, Dst Port: 443
+    Source Port: 59327
+    Destination Port: 443
+    Length: 1334
+    Checksum: 0x5ecf [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.045354000 seconds]
+        [Time since previous frame: 0.000546000 seconds]
+    UDP payload (1326 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 1326]
+    QUIC Short Header DCID=7028cae3b6af0522
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+        Destination Connection ID: 7028cae3b6af0522
+    Remaining Payload: d8d3e8ae1855bca7a0725a58c0975c903b5127c0e1b0ba29bff4a15573493f097ec9e3dc…
+
+Frame 21: 1019 bytes on wire (8152 bits), 1019 bytes captured (8152 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.836202000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.836202000 seconds
+    [Time delta from previous captured frame: 0.000013000 seconds]
+    [Time delta from previous displayed frame: 0.000013000 seconds]
+    [Time since reference or first frame: 0.429056000 seconds]
+    Frame Number: 21
+    Frame Length: 1019 bytes (8152 bits)
+    Capture Length: 1019 bytes (8152 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c11::65
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1100 0000 0100 1000 1110 = Flow Label: 0xc048e
+    Payload Length: 965
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c11::65
+User Datagram Protocol, Src Port: 59327, Dst Port: 443
+    Source Port: 59327
+    Destination Port: 443
+    Length: 965
+    Checksum: 0x20ba [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.045367000 seconds]
+        [Time since previous frame: 0.000013000 seconds]
+    UDP payload (957 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 957]
+    QUIC Short Header DCID=7028cae3b6af0522
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+        Destination Connection ID: 7028cae3b6af0522
+    Remaining Payload: 88e0d92e9520c4a2b004da7f5b02491aacb8ec0e640f46df1fb5cc4833b0750daeb773e5…
+
+Frame 22: 684 bytes on wire (5472 bits), 684 bytes captured (5472 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.874642000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.874642000 seconds
+    [Time delta from previous captured frame: 0.038440000 seconds]
+    [Time delta from previous displayed frame: 0.038440000 seconds]
+    [Time since reference or first frame: 0.467496000 seconds]
+    Frame Number: 22
+    Frame Length: 684 bytes (5472 bits)
+    Capture Length: 684 bytes (5472 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4002:c11::65, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 630
+    Next Header: UDP (17)
+    Hop Limit: 42
+    Source Address: 2607:f8b0:4002:c11::65
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 59327
+    Source Port: 443
+    Destination Port: 59327
+    Length: 630
+    Checksum: 0xc23a [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.083807000 seconds]
+        [Time since previous frame: 0.038440000 seconds]
+    UDP payload (622 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 622]
+    QUIC Short Header
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+    Remaining Payload: 8e557675c09fd74b2d636a29a9c0d3929f868bed494eac81a7ade8d6dd37f831efe7bb1d…
+
+Frame 23: 139 bytes on wire (1112 bits), 139 bytes captured (1112 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.874647000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.874647000 seconds
+    [Time delta from previous captured frame: 0.000005000 seconds]
+    [Time delta from previous displayed frame: 0.000005000 seconds]
+    [Time since reference or first frame: 0.467501000 seconds]
+    Frame Number: 23
+    Frame Length: 139 bytes (1112 bits)
+    Capture Length: 139 bytes (1112 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4002:c11::65, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 85
+    Next Header: UDP (17)
+    Hop Limit: 43
+    Source Address: 2607:f8b0:4002:c11::65
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 59327
+    Source Port: 443
+    Destination Port: 59327
+    Length: 85
+    Checksum: 0x51c4 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.083812000 seconds]
+        [Time since previous frame: 0.000005000 seconds]
+    UDP payload (77 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 77]
+    QUIC Short Header
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+    Remaining Payload: 7b1f928cf71f61db73ffaf1a18ff54a2aafebf273e92ff551182b1f88a89e147a230c017…
+
+Frame 24: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.874648000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.874648000 seconds
+    [Time delta from previous captured frame: 0.000001000 seconds]
+    [Time delta from previous displayed frame: 0.000001000 seconds]
+    [Time since reference or first frame: 0.467502000 seconds]
+    Frame Number: 24
+    Frame Length: 87 bytes (696 bits)
+    Capture Length: 87 bytes (696 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4002:c11::65, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 33
+    Next Header: UDP (17)
+    Hop Limit: 58
+    Source Address: 2607:f8b0:4002:c11::65
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 59327
+    Source Port: 443
+    Destination Port: 59327
+    Length: 33
+    Checksum: 0xe27c [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.083813000 seconds]
+        [Time since previous frame: 0.000001000 seconds]
+    UDP payload (25 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 25]
+    QUIC Short Header
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+    Remaining Payload: f8b5a53c11f1ff7ca87b3bc225e94076c76b7055ff63d9f1
+
+Frame 25: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.874649000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.874649000 seconds
+    [Time delta from previous captured frame: 0.000001000 seconds]
+    [Time delta from previous displayed frame: 0.000001000 seconds]
+    [Time since reference or first frame: 0.467503000 seconds]
+    Frame Number: 25
+    Frame Length: 87 bytes (696 bits)
+    Capture Length: 87 bytes (696 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4002:c11::65, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 33
+    Next Header: UDP (17)
+    Hop Limit: 58
+    Source Address: 2607:f8b0:4002:c11::65
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 59327
+    Source Port: 443
+    Destination Port: 59327
+    Length: 33
+    Checksum: 0x785c [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.083814000 seconds]
+        [Time since previous frame: 0.000001000 seconds]
+    UDP payload (25 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 25]
+    QUIC Short Header
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+    Remaining Payload: f775369bde6ebffe03756aef484471f0b53b68918a308e57
+
+Frame 26: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.874650000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.874650000 seconds
+    [Time delta from previous captured frame: 0.000001000 seconds]
+    [Time delta from previous displayed frame: 0.000001000 seconds]
+    [Time since reference or first frame: 0.467504000 seconds]
+    Frame Number: 26
+    Frame Length: 87 bytes (696 bits)
+    Capture Length: 87 bytes (696 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:data]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4023:c0b::bd, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 33
+    Next Header: UDP (17)
+    Hop Limit: 39
+    Source Address: 2607:f8b0:4023:c0b::bd
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 54631
+    Source Port: 443
+    Destination Port: 54631
+    Length: 33
+    Checksum: 0xee47 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 6]
+    [Timestamps]
+        [Time since first frame: 0.098861000 seconds]
+        [Time since previous frame: 0.098861000 seconds]
+    UDP payload (25 bytes)
+Data (25 bytes)
+
+0000  4c e6 41 e9 c2 b4 a5 40 12 ec 7c 5f 61 49 64 75   L.A....@..|_aIdu
+0010  ee 8d 81 1f 37 17 9f 90 c9                        ....7....
+    Data: 4ce641e9c2b4a54012ec7c5f61496475ee8d811f37179f90c9
+    [Length: 25]
+
+Frame 27: 96 bytes on wire (768 bits), 96 bytes captured (768 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.875016000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.875016000 seconds
+    [Time delta from previous captured frame: 0.000366000 seconds]
+    [Time delta from previous displayed frame: 0.000366000 seconds]
+    [Time since reference or first frame: 0.467870000 seconds]
+    Frame Number: 27
+    Frame Length: 96 bytes (768 bits)
+    Capture Length: 96 bytes (768 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c11::65
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1100 0000 0100 1000 1110 = Flow Label: 0xc048e
+    Payload Length: 42
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c11::65
+User Datagram Protocol, Src Port: 59327, Dst Port: 443
+    Source Port: 59327
+    Destination Port: 443
+    Length: 42
+    Checksum: 0x7b63 [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.084181000 seconds]
+        [Time since previous frame: 0.000367000 seconds]
+    UDP payload (34 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 34]
+    QUIC Short Header DCID=7028cae3b6af0522
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+        Destination Connection ID: 7028cae3b6af0522
+    Remaining Payload: fabcd479b4befb9c9f37e9a197e8b93338f671cd343e660f7d
+
+Frame 28: 60 bytes on wire (480 bits), 60 bytes captured (480 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.899237000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.899237000 seconds
+    [Time delta from previous captured frame: 0.024221000 seconds]
+    [Time delta from previous displayed frame: 0.024221000 seconds]
+    [Time since reference or first frame: 0.492091000 seconds]
+    Frame Number: 28
+    Frame Length: 60 bytes (480 bits)
+    Capture Length: 60 bytes (480 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:arp]
+Ethernet II, Src: Espressi_14:1a:64 (24:a1:60:14:1a:64), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+    Destination: Broadcast (ff:ff:ff:ff:ff:ff)
+        Address: Broadcast (ff:ff:ff:ff:ff:ff)
+        .... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+        .... ...1 .... .... .... .... = IG bit: Group address (multicast/broadcast)
+    Source: Espressi_14:1a:64 (24:a1:60:14:1a:64)
+        Address: Espressi_14:1a:64 (24:a1:60:14:1a:64)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: ARP (0x0806)
+    Padding: 000000000000000000000000000000000000
+Address Resolution Protocol (ARP Announcement)
+    Hardware type: Ethernet (1)
+    Protocol type: IPv4 (0x0800)
+    Hardware size: 6
+    Protocol size: 4
+    Opcode: request (1)
+    [Is gratuitous: True]
+    [Is announcement: True]
+    Sender MAC address: Espressi_14:1a:64 (24:a1:60:14:1a:64)
+    Sender IP address: 192.168.0.70
+    Target MAC address: 00:00:00_00:00:00 (00:00:00:00:00:00)
+    Target IP address: 192.168.0.70
+
+Frame 29: 95 bytes on wire (760 bits), 95 bytes captured (760 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.901082000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.901082000 seconds
+    [Time delta from previous captured frame: 0.001845000 seconds]
+    [Time delta from previous displayed frame: 0.001845000 seconds]
+    [Time since reference or first frame: 0.493936000 seconds]
+    Frame Number: 29
+    Frame Length: 95 bytes (760 bits)
+    Capture Length: 95 bytes (760 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic]
+Ethernet II, Src: Apple_99:9f:a4 (d0:e1:40:99:9f:a4), Dst: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+    Destination: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2603:7000:7e07:fc00:8092:e100:adf7:53e2, Dst: 2607:f8b0:4002:c11::65
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 1100 0000 0100 1000 1110 = Flow Label: 0xc048e
+    Payload Length: 41
+    Next Header: UDP (17)
+    Hop Limit: 64
+    Source Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    Destination Address: 2607:f8b0:4002:c11::65
+User Datagram Protocol, Src Port: 59327, Dst Port: 443
+    Source Port: 59327
+    Destination Port: 443
+    Length: 41
+    Checksum: 0xd87c [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 7]
+    [Timestamps]
+        [Time since first frame: 0.110247000 seconds]
+        [Time since previous frame: 0.026066000 seconds]
+    UDP payload (33 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 0]
+    [Packet Length: 33]
+    QUIC Short Header DCID=7028cae3b6af0522
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+        Destination Connection ID: 7028cae3b6af0522
+    Remaining Payload: 02aab397d45a0e1b7017ed238e8096503c623438eb818d49
+
+Frame 30: 1392 bytes on wire (11136 bits), 1392 bytes captured (11136 bits) on interface en0, id 0
+    Interface id: 0 (en0)
+        Interface name: en0
+        Interface description: Wi-Fi
+    Encapsulation type: Ethernet (1)
+    Arrival Time: Jul 25, 2021 17:55:02.929592000 EDT
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1627250102.929592000 seconds
+    [Time delta from previous captured frame: 0.028510000 seconds]
+    [Time delta from previous displayed frame: 0.028510000 seconds]
+    [Time since reference or first frame: 0.522446000 seconds]
+    Frame Number: 30
+    Frame Length: 1392 bytes (11136 bits)
+    Capture Length: 1392 bytes (11136 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:udp:quic:tls]
+Ethernet II, Src: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7), Dst: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+    Destination: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        Address: Apple_99:9f:a4 (d0:e1:40:99:9f:a4)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        Address: ARRISGro_eb:7e:b7 (98:6b:3d:eb:7e:b7)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: 2607:f8b0:4007:80a::2003, Dst: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic Class: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        .... 0000 00.. .... .... .... .... .... = Differentiated Services Codepoint: Default (0)
+        .... .... ..00 .... .... .... .... .... = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    .... .... .... 0000 0000 0000 0000 0000 = Flow Label: 0x00000
+    Payload Length: 1338
+    Next Header: UDP (17)
+    Hop Limit: 56
+    Source Address: 2607:f8b0:4007:80a::2003
+    Destination Address: 2603:7000:7e07:fc00:8092:e100:adf7:53e2
+User Datagram Protocol, Src Port: 443, Dst Port: 59328
+    Source Port: 443
+    Destination Port: 59328
+    Length: 1338
+    Checksum: 0x6feb [unverified]
+    [Checksum Status: Unverified]
+    [Stream index: 8]
+    [Timestamps]
+        [Time since first frame: 0.115714000 seconds]
+        [Time since previous frame: 0.115714000 seconds]
+    UDP payload (1330 bytes)
+QUIC IETF
+    QUIC Connection information
+        [Connection Number: 1]
+    [Packet Length: 1027]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..00 .... = Packet Type: Initial (0)
+    .... 00.. = Reserved: 0
+    .... ..00 = Packet Number Length: 1 bytes (0)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 0
+    Source Connection ID Length: 8
+    Source Connection ID: c3eef62e63309495
+    Token Length: 0
+    Length: 1009
+    Packet Number: 1
+    Payload: dd8361dece41a313b1a8642c391427352b6dc3bd5ab6405c397731d454e9bda312f32f8b…
+    ACK
+        Frame Type: ACK (0x0000000000000002)
+        Largest Acknowledged: 1
+        ACK Delay: 3068
+        ACK Range Count: 0
+        First ACK Range: 0
+    TLSv1.3 Record Layer: Handshake Protocol: Server Hello
+        Frame Type: CRYPTO (0x0000000000000006)
+        Offset: 0
+        Length: 96
+        Crypto Data
+        Handshake Protocol: Server Hello
+            Handshake Type: Server Hello (2)
+            Length: 92
+            Version: TLS 1.2 (0x0303)
+            Random: f2af829e72e65428cce7e67c2a52ee5d69290996932298ec816b49c01793d691
+            Session ID Length: 0
+            Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
+            Compression Method: null (0)
+            Extensions Length: 52
+            Extension: pre_shared_key (len=2)
+                Type: pre_shared_key (41)
+                Length: 2
+                Pre-Shared Key extension
+                    Selected Identity: 0
+            Extension: key_share (len=36)
+                Type: key_share (51)
+                Length: 36
+                Key Share extension
+                    Key Share Entry: Group: x25519, Key Exchange length: 32
+                        Group: x25519 (29)
+                        Key Exchange Length: 32
+                        Key Exchange: ec060da32fabdb829f46d6b09d6d12d724b213f4646e7788836f6b018bbcaa4a
+            Extension: supported_versions (len=2)
+                Type: supported_versions (43)
+                Length: 2
+                Supported Version: TLS 1.3 (0x0304)
+    PADDING Length: 886
+        Frame Type: PADDING (0x0000000000000000)
+        [Padding Length: 886]
+QUIC IETF
+    [Packet Length: 242]
+    1... .... = Header Form: Long Header (1)
+    .1.. .... = Fixed Bit: True
+    ..10 .... = Packet Type: Handshake (2)
+    Version: 1 (0x00000001)
+    Destination Connection ID Length: 0
+    Source Connection ID Length: 8
+    Source Connection ID: c3eef62e63309495
+    Length: 225
+    [Expert Info (Warning/Decryption): Failed to create decryption context: Secrets are not available]
+        [Failed to create decryption context: Secrets are not available]
+        [Severity level: Warning]
+        [Group: Decryption]
+    Remaining Payload: 29f08e248a43ea50cf5dc0e945f3e8b7f458f6f46a296c7fb67f634084b18f5b7c4afd31…
+QUIC IETF
+    [Packet Length: 61]
+    QUIC Short Header
+        0... .... = Header Form: Short Header (0)
+        .1.. .... = Fixed Bit: True
+        ..0. .... = Spin Bit: False
+    [Expert Info (Warning/Decryption): Failed to create decryption context: Secrets are not available]
+        [Failed to create decryption context: Secrets are not available]
+        [Severity level: Warning]
+        [Group: Decryption]
+    Remaining Payload: f7a4b1df1419cab3c38cae4aee39b19440432e33d6264bfa924f2b95cebc8003c4e0cd29…
+
