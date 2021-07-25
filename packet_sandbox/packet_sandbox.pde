@@ -13,8 +13,9 @@ int screenLine = 0;
 //int yStart = 0;
 //int line = 0;
 int cln;
+int yScreen;
 
-Screen[] textBuffers;
+ArrayList<Screen> textBuffers;
 int numScreens;
 
 //color t = color(75, 255, 85);
@@ -22,6 +23,7 @@ int numScreens;
 
 void setup() {
   size(800, 800);
+  frameRate(10);
   background(0);
   //f = createFont("Arial", 16);
   //textFont(f, 24);
@@ -30,24 +32,33 @@ void setup() {
   inputText = loadStrings("packets2_test.txt");
   //x = 20;
   //y = 20;
-  background(0);
+  background(0, 127);
   howManyLines = inputText.length;
   //println(howManyLines);
   numScreens = ceil(howManyLines/10);
-  textBuffers = new Screen[numScreens];
+  //println(howManyLines);
+  textBuffers = new ArrayList<Screen>();
   currentLineNum = 0;
-  PVector offScreen = new PVector(20, 420); //location of portal
+  yScreen = 420;
+  PVector offScreen = new PVector(20, yScreen); //location of portal
   linesPerScreen = 9;
   for (int i = 0; i < numScreens; i++) {
-    Screen s = new Screen(offScreen, currentLineNum); //this is going to need the portal location + some to y
-    currentLineNum += 10;
-    
-    
-    textBuffers[i] = s;
+    Screen s = new Screen(offScreen, currentLineNum); //this is going to need the portal location + some to y //<>//
+    s.initalize();  //<>//
+    //println(currentLineNum);
+    currentLineNum += 9; // *** think about this //<>//
+    offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space
+    print("offScreen.y is: ");
+    println(offScreen.y);
+   // print("currentLineNum is: ");
+    //println(currentLineNum); //<>//
+    textBuffers.add(s);
+
+    //textBuffers[i] = s;
   }
-  textBuffers[0].initalize();
-  
-  
+  //textBuffers[0].initalize(); // very important
+
+
 
   //println(screenLine);
   //cln = initalize(currentLineNum);
@@ -57,10 +68,13 @@ void setup() {
 
 
 void draw() {
-   background(0);
-   textBuffers[0].run(); // needs opacity to feed in
-   //textBuffers[0].scrollUp();
- 
+  background(0);
+  //textBuffers[0].scrollUp();
+  //textBuffers[0].run(); // needs opacity to feed in
+  for(Screen s : textBuffers){
+    s.run();
+  }
+
   //text("hello", 20, 20);
 
   //displayScreen();
@@ -127,9 +141,9 @@ void pullNewFile() {
 
 void mousePressed() {
   //displayScreen();
-  println(cln);
-  cln = cln+10;
-  print("updated cln: ");
-  println(cln);
+  //println(cln);
+  //cln = cln+10;
+  //print("updated cln: ");
+  //println(cln);
   //initalize(cln);
 }
