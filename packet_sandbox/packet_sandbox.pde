@@ -23,7 +23,7 @@ int numScreens;
 
 void setup() {
   size(800, 800);
-  frameRate(10);
+  //frameRate(10);
   background(0);
   //f = createFont("Arial", 16);
   //textFont(f, 24);
@@ -47,11 +47,7 @@ void setup() {
     s.initalize();  //<>//
     //println(currentLineNum);
     currentLineNum += 9; // *** think about this //<>//
-    offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space
-    print("offScreen.y is: ");
-    println(offScreen.y);
-   // print("currentLineNum is: ");
-    //println(currentLineNum); //<>//
+    offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space //<>//
     textBuffers.add(s);
 
     //textBuffers[i] = s;
@@ -68,11 +64,18 @@ void setup() {
 
 
 void draw() {
+  
+  //if(frameCount %2 == 0) background(0);
   background(0);
   //textBuffers[0].scrollUp();
   //textBuffers[0].run(); // needs opacity to feed in
   for(Screen s : textBuffers){
     s.run();
+  }
+  
+  for(int i = textBuffers.size()-1; i >=0; i--){
+    Screen s = textBuffers.get(i);
+    if((s.screen_location.y + (10 * 22)) < 0) textBuffers.remove(i);
   }
 
   //text("hello", 20, 20);

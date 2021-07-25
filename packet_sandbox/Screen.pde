@@ -1,4 +1,4 @@
-class Screen {
+class Screen { //<>// //<>//
 
   PFont f;
   PVector screen_location, text_location;
@@ -11,8 +11,8 @@ class Screen {
 
   Screen(PVector l, int s) {
     start = s; //location in text file
-   // print("start of this screen is: ");
-   // println(start); //<>//
+    // print("start of this screen is: ");
+    // println(start);
     screen_location = l.copy();
     //text_location = l.copy();
     //text_location.add(10, 10); // in and down a smidge
@@ -40,8 +40,8 @@ class Screen {
     // take the first 10 lines and load them in to screen array
     // println("loading up more text");
     int limit = start + linesPerScreen; // current lineNum + 9
-   // print("limit inside initalize is: ");
-   // println(limit); //<>//
+    // print("limit inside initalize is: ");
+    // println(limit);
     int l_num = 0; // increment marker for which line on this screen we are on
     pushMatrix();
     translate(screen_location.x, (screen_location.y+250));
@@ -68,8 +68,8 @@ class Screen {
   void update() {
     topacity+=5;
     if (topacity > 255) topacity = 255;
-   // println(topacity);
-    
+    // println(topacity);
+
     // update scroll variables
     // topacity = top;
   }
@@ -93,7 +93,7 @@ class Screen {
     // move up and then show the next lines that are hidden (scrolling)
     //int maxPortHeight = linesPerScreen * 25 + 10;
     //for (int y_ = yStart; y_ < height; y_+= 25) {
-    screen_location.y -= 5;
+    screen_location.y-=35; //speed of scroll
     /*******
      for this for-loop to work, we must draw the text inside the loop.
      Or, we do the manipulation of the y, elsewhere
@@ -121,8 +121,8 @@ class Screen {
   }
 
   void displayScreen() {
- //    println(topacity); 
-    fill(t, topacity);
+    //    println(topacity); 
+
     //x = 0;
     pushMatrix();
     translate(screen_location.x, screen_location.y);
@@ -130,6 +130,12 @@ class Screen {
     //println(screen_location);
     //println();
     text_location = new PVector(10, 30); // need to reset it 
+    if (frameCount % 10 == 0) {
+      text_location.x+=50;
+    } else {
+      text_location.x =10;
+    }
+    fill(t, topacity);
     for (int i = 0; i < line.length-1; i++) { //last spot in array is empty due to initalize()'s for-loop structure
       //screen[i].scrollUp();
       //screen[i].display();
@@ -143,6 +149,10 @@ class Screen {
     //if (frameCount %28 == 0) {
     //  y--;
     //}
+    if (frameCount % 26 == 0) {
+      fill(0, 130);
+      rect(80, 30, 600, 200);
+    }
     popMatrix();
   } // displayScreen
 } //class
