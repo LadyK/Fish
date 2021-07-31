@@ -1,4 +1,4 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*; // send back to max, which funnels it to machine running projection mapping
@@ -69,7 +69,7 @@ void setup() {
   server = new SyphonServer(this, "Processing Syphon");
   //size(displayWidth, 300 ); 
   //  size(800, 800, P3D);
-  //frameRate(50);
+  //frameRate(30);
   //background(0);
   colorMode(RGB, 1.0, 1.0, 1.0, 255);
 
@@ -482,7 +482,7 @@ void oscEvent(OscMessage theOscMessage) {
 
 
 void flash(PVector l_) {
-  Shape spot = new Shape(int(l_.x), int(l_.y), 7, ius);
+  Shape spot = new Shape(int(l_.x), int(l_.y), 20, ius); //7
   triggers.add(spot);
   //println("New Trigger added");
 }
@@ -499,7 +499,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 50, 15, 30, 10, false);  // loc, prox, radius, #, o, portalRelated?  ***** <----- new cloud here
+  Cloud tester = new Cloud(newbie, 50, 15,30, 10, false);  // loc, prox, radius, #, o, portalRelated?  ***** <----- new cloud here
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}

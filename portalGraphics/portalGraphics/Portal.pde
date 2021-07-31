@@ -20,6 +20,10 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   float scale ;
   PVector change;
   PVector loc, acceleration, velocity, loc_original;
+  String[] inputText;
+  int currentLineNum, howManyLines, linesPerScreen, cln, yScreen, screenLine, numScreens;
+  ArrayList<Screen> textBuffers;
+
 
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
@@ -53,6 +57,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
     }
+    screenLine = 0;
   }
 
   void runClouds() {

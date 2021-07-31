@@ -53,7 +53,7 @@ class BasicShapeElement {
     //else if (randO >= 0) {opacity = int(random(10, 15));}//op_start= 0;  // was 0   // 60 for testing ****
     //stepSize = 3; // crazy at 5 very jiggly
     //r = radius;
-    r = radius_;  //used to set initial coordinates; also used in shrink/expand
+    r = radius_ * 2;  //used to set initial coordinates; also used in shrink/expand
     line = false;
     smooth();
     //   rd = 0;
