@@ -22,30 +22,30 @@ class Screen { //<>//
     yStart = int(screen_location.y) + 200; 
     topacity = 100;
     t = color(75, 255, 85, topacity);
-    f = createFont("Arial", 16);
+    f = createFont("Arial", 12);
     textFont(f, 24);
     textAlign(LEFT);
     fill(t);
-    
-    linesPerScreen = 9;
+
+
     line = new String[10];
     //line = 0;
     //initalize();
   }
 
-  int initalize() { // load the array (for screen) up with text
+  int initalize(int l, String[] packetText) { // load the array (for screen) up with text
     fill(t, topacity);
     // show first 10 lines
     // take the first 10 lines and load them in to screen array
     // println("loading up more text");
-    int limit = start + linesPerScreen; // current lineNum + 9
+    int limit = start + l; // current lineNum + 9
     // print("limit inside initalize is: ");
     // println(limit);
     int l_num = 0; // increment marker for which line on this screen we are on
     pushMatrix();
     translate(screen_location.x, (screen_location.y+250));
     for (int i = start; i < limit; i++) { // i used for inputText line number
-      String temp = inputText[i]; //<<<<----- stuck
+      String temp = packetText[i]; //<<<<----- stuck
       line[l_num] = temp; //new Line(i, location); //location for inputText gets passed in
       //println(line[l_num]);
       // make them visual vvvv
@@ -128,6 +128,7 @@ class Screen { //<>//
 
     //x = 0;
     pushMatrix();
+    scale(.25);
     translate(screen_location.x, screen_location.y);
     //print("screen location is: "); 
     //println(screen_location);

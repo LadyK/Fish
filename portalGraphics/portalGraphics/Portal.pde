@@ -50,17 +50,29 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //origY = y_;
     portalClouds = new ArrayList<Cloud>(); // this holds the fields of clouds for each
     pcloudsAppear = false;
-    
+
     //packet text setup:
     inputText = loadStrings("packets.txt");
     howManyLines = inputText.length;
     numScreens = ceil(howManyLines/10);
     textBuffers = new ArrayList<Screen>();
     currentLineNum = 0;
+    linesPerScreen = 9;
     yScreen = 420; // ***needs modification
+    //PVector offscreen = new PVector(20, yScreen); //** location of portal
+    PVector offScreen = loc.copy();
+    linesPerScreen = 9;
+    int nextStart = 0;
+    for (int i = 0; i <numScreens; i++) {
+      Screen s = new Screen(offScreen, nextStart); //** this is going to need the portal location + some y to it
+      nextStart = s.initalize(linesPerScreen, inputText);
+      offScreen.y = offScreen.y + (10 * 22); // each LINE plus some space
+      textBuffers.add(s);
+    }
+    // end of text setup
 
     // create a bunch of clouds and add them:
-    for (int i = 0; i <= 0; i++) {
+    for (int i = 0; i <= 5; i++) {  // lowered this
       PVector spot = new PVector(xie, yie);
       Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
@@ -107,10 +119,11 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
           applyForce(move);
           updateVectors();
         }
-        
       }
       showText(loc, 5); // then change second parameter to less
     }
+
+
     PVector spot = new PVector();
     if (frameCount % 2 == 0 && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       float randX = random(-20, 20) + loc.x;
@@ -145,37 +158,44 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   }
 
   void showText(PVector l, int s) {  // flip on or fade up once portal expands enough
-    //if (frameCount % 2 == 0) {
-    //  change *= .5; //working to get the text to move as shape expands
-    //}
-    textAlign(CENTER);
-    noStroke();
-    fill(0);
-    textFont(f, 10);
-    String t = "this is a test of the LadyK broadcasting system";
-    // riff off Dan Shiffman's Learning Processing example 17-4:
-    pushMatrix();
+    for (Screen sc : textBuffers) {
+      sc.run();
+    }
+    for ( int i = textBuffers.size()-1; i >= 0; i--) {
+      Screen sn = textBuffers.get(i);
+      if ((sn.screen_location.y + (10 * 22)) < 0) textBuffers.remove(i);
+    }
 
-    translate(l.x, l.y);
-    scale = s;
-    //float scale = 5; // unit scale. this will change
-    float cols = p_width/scale;  // <-- need to work on this so all text can be seen
-    float rows = p_width/scale;
-    int charCount = 0;
 
-    for (int j = 0; j < rows; j++) {
-      for (int i = 0; i < cols; i++) {
-        //where are we, pixel-wise:
-        float x = i * scale;
-        float y = j * scale;
-        text(t.charAt(charCount), x, y);
-        //text(t, xLoc, yLoc); // starter code
-        //move to next character
-        charCount = (charCount + 1) % t.length();
-      }
-    } // for-loops
-    popMatrix();
-
+    /* initial test code:
+     textAlign(CENTER);
+     noStroke();
+     fill(0);
+     textFont(f, 10);
+     String t = "this is a test of the LadyK broadcasting system";
+     // riff off Dan Shiffman's Learning Processing example 17-4:
+     pushMatrix();
+     
+     translate(l.x, l.y);
+     scale = s;
+     //float scale = 5; // unit scale. this will change
+     float cols = p_width/scale;  // <-- need to work on this so all text can be seen
+     float rows = p_width/scale;
+     int charCount = 0;
+     
+     for (int j = 0; j < rows; j++) {
+     for (int i = 0; i < cols; i++) {
+     //where are we, pixel-wise:
+     float x = i * scale;
+     float y = j * scale;
+     text(t.charAt(charCount), x, y);
+     //text(t, xLoc, yLoc); // starter code
+     //move to next character
+     charCount = (charCount + 1) % t.length();
+     }
+     } // for-loops
+     popMatrix();
+     */
   }// showText
 
 
