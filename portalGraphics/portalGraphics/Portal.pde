@@ -50,6 +50,14 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //origY = y_;
     portalClouds = new ArrayList<Cloud>(); // this holds the fields of clouds for each
     pcloudsAppear = false;
+    
+    //packet text setup:
+    inputText = loadStrings("packets.txt");
+    howManyLines = inputText.length;
+    numScreens = ceil(howManyLines/10);
+    textBuffers = new ArrayList<Screen>();
+    currentLineNum = 0;
+    yScreen = 420; // ***needs modification
 
     // create a bunch of clouds and add them:
     for (int i = 0; i <= 0; i++) {
