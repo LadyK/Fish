@@ -72,7 +72,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // end of text setup
 
     // create a bunch of clouds and add them:
-    for (int i = 0; i <= 5; i++) {  // lowered this
+    for (int i = 0; i <= 1; i++) {  // lowered this
       PVector spot = new PVector(xie, yie);
       Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad, howM_, o, portal?
       portalClouds.add(0, tester);
