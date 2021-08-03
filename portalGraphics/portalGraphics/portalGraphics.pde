@@ -36,7 +36,7 @@ ArrayList<Shape> triggers;
 //HashMap<String, Cloud> storm = new HashMap<String, Cloud>();
 
 boolean trigger;
-int distDiff= 10; // how much of a difference in mouse location needed
+//int distDiff= 10; // how much of a difference in mouse location needed
 long movedStamp;
 boolean portalTrig;
 //Portal entry;
@@ -107,7 +107,7 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-//  whereimsending = new NetAddress("192.168.1.4", 12001); // hostname, port
+  //  whereimsending = new NetAddress("192.168.1.4", 12001); // hostname, port
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -152,7 +152,18 @@ void draw() {
       if (c.shapes.size() <= 0) { // if the size of the shapes array (ie, cloud elements) in the cloud object is (nearly) empty
         demos.remove(i);
         //   println("removed one");
-      } else {
+      } else {  // too few, fast and a glitch:
+        //if (frameCount % 63 == 0) {
+        //  if (c.siblings == c.howMany) { // if we've reached our siblings max, skip
+        //    continue;
+        //  } else { // otherwise, create a new one:
+        //    c.randX = int(random(-c.randoX, c.randoX)) + int(c.loc.x);
+        //    c.randY = int(random(-c.randoY * 8, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
+        //    BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando); 
+        //    c.shapes.add(0, temp);
+        //    c.siblings++;
+        //  }
+        //}
 
         c.run();
       }
@@ -188,23 +199,23 @@ void draw() {
     //   print("birth is: ");
     //    println(b);
     long stamp = millis() - b;
- //   println(stamp);
+    //   println(stamp);
     // when the portal is young, have it expand
     if (stamp < 15000) { // the portals can only last so long. make sure they are young
       // if it's a bit older, shift it a bit:
       if (stamp > 3000 && frameCount % 2 == 0) {
         p_.featureShifter(1);
-        p_.pcloudsAppear = true;  // clouds appear
+        p_.pcloudsAppear = true;  // clouds appear  <--- took this out to speed up code
       }
       p_.expand_(); //grow();
-      p_.display(true, stamp);  
+      p_.display(true, stamp);
     }
     // if we are even older, start the clouds behind it:
     else if ( stamp > 15000 && stamp < 25000) {
       //p_.runClouds();
-      
+
       p_.featureShifter(1);
-      p_.display(true, stamp);  
+      p_.display(true, stamp);
     } // if we are old, start shrinking:
     else if (stamp >= 25000 && stamp < 36000) {
       if (frameCount % 2 == 0) {
@@ -212,12 +223,12 @@ void draw() {
       }
       //p_.runClouds(); more vibrant glitter
       p_.shrink();
-      p_.display(true, stamp);  
+      p_.display(true, stamp);
     } else {
       //if (frameCount % 2 == 0) {
       //  p_.featureShifter(1);
       //}
-     // p_.runClouds();
+      // p_.runClouds();
       //p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
 
@@ -241,9 +252,9 @@ void siblingsCheck() {  // change clouds so first one appears at source, then th
     for (int i= demos.size()-1; i >= 0; i--) {  // since new ones are added to the end, start there
       // PVector loc = all_locations.get(i);
       Cloud c = demos.get(i);
-      if (c.siblings == c.howMany) { // if we've reached our siblings max, skip
-        continue;
-      } else { // otherwise, create a new one:
+      if (c.siblings != c.howMany) { // if we've reached our siblings max, skip
+        // continue;
+        //} else { // otherwise, create a new one:
         c.randX = int(random(-c.randoX, c.randoX)) + int(c.loc.x);
         c.randY = int(random(-c.randoY * 8, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
         BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando); 
@@ -401,19 +412,24 @@ boolean checkLocations(PVector nLoc) {
     //Shape s = triggers.get(i);
     if (c.tooclose(nLoc) == true ) { // if we are too close as a previous spot:
       tooClose = true;
-
-      // currently: cloud life is shorter, than portal. should be independent? Or portal launch clouds around if still there?
-      if (c.portalTrigger == false) {  
-        //launch a portal if we've been there awhile:
-        if (millis() - c.birth > intervalPort) {   //portal work***
-          Portal temp = new Portal(nLoc.x, nLoc.y, 5, 10); // make a new portal
-          portals.add(temp); // add it to the array
-          c.portalTrigger = true;
-        }
-      }
-
-
-
+      // portals are too close to one another. need to check the location of portals as well:
+      //for (int j = portals.size()-1; j >=0; j--) {
+      //  Portal p_ = portals.get(j);
+      //  println("can we make a portal?");
+      //  if (p_.tooclose(nLoc) == false) { // if we are not on top of another portal
+      //   println("perhaps...");
+          // currently: cloud life is shorter, than portal. should be independent? Or portal launch clouds around if still there?
+          if (c.portalTrigger == false) {  
+          //  println("making a portal");
+            //launch a portal if we've been there awhile:
+            if (millis() - c.birth > intervalPort) {   //portal work***
+              Portal temp = new Portal(nLoc.x, nLoc.y, 5, 20); // make a new portal  points, radius
+              portals.add(temp); // add it to the array
+              c.portalTrigger = true;
+            }
+          }
+      //  }
+      //}
       break;
     } else {
       tooClose = false;
@@ -499,7 +515,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 50, 15,30, 10, false);  // loc, prox, radius, #, o, portalRelated?  ***** <----- new cloud here
+  Cloud tester = new Cloud(newbie, 50, 15, 30, 10, false);  // loc, prox, radius, # (was 30), o, portalRelated?  ***** <----- new cloud here
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}

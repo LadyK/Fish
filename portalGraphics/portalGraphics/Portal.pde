@@ -26,7 +26,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
 
   Portal(float x_, float y_, int p_, int r) {
-    super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany, opacity, proximity
+    super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany 15?, opacity, proximity
     loc = new PVector(x_, y_);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
@@ -74,7 +74,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // create a bunch of clouds and add them:
     for (int i = 0; i <= 1; i++) {  // lowered this
       PVector spot = new PVector(xie, yie);
-      Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad, howM_, o, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad,  more here **howM_, o, portal?
       portalClouds.add(0, tester);
     }
     screenLine = 0;
@@ -114,7 +114,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       // limit location so not beyond boundaries
 
       PVector move = new PVector(-0.10, -0.10);  //slowly move
-      if (frameCount % 10 == 8) { //update not so often so as to move more slowly
+      if (frameCount % 25 == 0) { //update not so often so as to move more slowly
         if ((loc.x > loc_original.x - 25) && (loc.y > loc_original.y - 25)) {
           applyForce(move);
           updateVectors();
@@ -123,7 +123,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       showText(loc, 5); // then change second parameter to less
     }
 
-
+     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
     PVector spot = new PVector();
     if (frameCount % 2 == 0 && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       float randX = random(-20, 20) + loc.x;
@@ -131,7 +131,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
       spot = new PVector(randX, randY);
       // these add the sparkle (10), but not crazy full ones before disappearing
-      Cloud tester = new Cloud(spot, 100, 15, 20, 15, true);  //proximity, rad, howM_ 20, o 10, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 20, 15, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
       portalClouds.add(0, tester);
     }
   }
@@ -145,6 +145,18 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     velocity.add(acceleration);
     loc.add(velocity);
     acceleration.mult(0);
+  }
+  
+  Boolean tooclose(PVector l) {
+    //Boolean toClose = false;
+    float d = dist(loc.x, loc.y, l.x, l.y);
+    if ( d < (rad * 4) ) {
+      //stillThere = millis();   // this was start of portal development
+      return true;
+    } else {
+      return false;
+    }
+    //return toClose;
   }
 
   void addSiblings(Cloud cp_) {

@@ -96,7 +96,7 @@ class Cloud {
   Boolean tooclose(PVector l) {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
-    if ( d < radius * .5) {
+    if ( d < (radius * 4) ) {
       //stillThere = millis();   // this was start of portal development
       return true;
     } else {
