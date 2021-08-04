@@ -1,7 +1,7 @@
 class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
 
   PFont f;
-  PVector screen_location, text_location, velocity;
+  PVector screen_location, text_location, velocity, acceleration;
   // color t;
 
   String[] line;
@@ -13,15 +13,16 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     start = s; //location in text file
     // print("start of this screen is: ");
     // println(start);
-    velocity = new PVector(0, -35);
+    acceleration = new PVector(0, -.1);
+    velocity = new PVector(0, 0);
     screen_location = l.copy();
-    print("screen inside constructor is: ");
-    println(screen_location);
+   // print("screen inside constructor is: ");
+   // println(screen_location);
     //text_location = l.copy();
     //text_location.add(10, 10); // in and down a smidge
     text_location = new PVector(screen_location.x, screen_location.y);  // was (10, 30) for testing
-    print("text loc inside constructor is: ");
-    println(text_location);
+   // print("text loc inside constructor is: ");
+   // println(text_location);
     // not sure what to do with this line here with reference to line vvvvv
     //yStart = int(screen_location.y) + 200; 
     topacity = 100;
@@ -74,7 +75,9 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     topacity+=5;
     if (topacity > 255) topacity = 255;
     // println(topacity);
-
+    velocity.add(acceleration);
+    println(velocity);
+    velocity.limit(10);
     // update scroll variables
     // topacity = top;
   }
