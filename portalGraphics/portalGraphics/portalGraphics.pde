@@ -401,38 +401,49 @@ void mouseMoved() {
   }
 }
 
+/* make this into zones?  
+If in zone a, b, c... make clouds
+if we get another ding in an active zone, make a portal (one portal zone) with clouds fast and active behind for length of portal
 
+
+*/
 boolean checkLocations(PVector nLoc) {
   // print("demo size: "); 
   //println(demos.size());
-  boolean tooClose = false;
+  boolean tooClose = false; // what the point of putting this here? mucks it all up
   for (int i= demos.size()-1; i >= 0; i--) {
     // PVector loc = all_locations.get(i);
     Cloud c = demos.get(i);
     //Shape s = triggers.get(i);
-    if (c.tooclose(nLoc) == true ) { // if we are too close as a previous spot:
+    if (c.tooclose(nLoc) == true ) { // if we are too close to a previous spot:
       tooClose = true;
+      //if(portals.size() > 0){
       // portals are too close to one another. need to check the location of portals as well:
       //for (int j = portals.size()-1; j >=0; j--) {
       //  Portal p_ = portals.get(j);
       //  println("can we make a portal?");
-      //  if (p_.tooclose(nLoc) == false) { // if we are not on top of another portal
-      //   println("perhaps...");
+     //   if (p_.tooclose(nLoc) == false) { // if we are not on top of another portal
+       //  println("making...");
+          
           // currently: cloud life is shorter, than portal. should be independent? Or portal launch clouds around if still there?
-          if (c.portalTrigger == false) {  
+          if (c.portalTrigger == false) {  // and we do not have a portal for this cloud...
           //  println("making a portal");
             //launch a portal if we've been there awhile:
             if (millis() - c.birth > intervalPort) {   //portal work***
               Portal temp = new Portal(nLoc.x, nLoc.y, 5, 20); // make a new portal  points, radius
               portals.add(temp); // add it to the array
-              c.portalTrigger = true;
+             c.portalTrigger = true;
             }
           }
-      //  }
+          if(c.portalTrigger == true){
+           // println("doing nothing. no creation.");
+          }
+    //  }
+      //}
       //}
       break;
     } else {
-      tooClose = false;
+      tooClose = false;  // which will then make a new cloud
     }
   }
   return tooClose;
@@ -461,16 +472,23 @@ void oscEvent(OscMessage theOscMessage) {
 
   // splice theOscMessage.addrPattern()
   //areWeRunning = true;
+//    println("got an event");
+   
   String [] newLocations = splitTokens(theOscMessage.addrPattern());
+
   for (int j =0; j < newLocations.length; j ++) {
     screenLoc[j] = int(newLocations[j]);
   }
-  /*
+
+
+/*
   print(screenLoc[0]); 
    print(", ");
    println(screenLoc[1]);
-   */
+ */
   //println(theOscMessage.addrPattern().length());
+  
+  
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
 
@@ -479,6 +497,7 @@ void oscEvent(OscMessage theOscMessage) {
   //   PVector tester = new PVector(mouseX + randX, mouseY + randY);
   //newLoc = new PVector(tempX + randX, tempY + randY);
   newLoc = new PVector(tempX, tempY);
+  //print("new location is: ");
   //println(newLoc);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     //newLoc.x = map(newLoc.x, 0, 640, 0, width);
@@ -489,10 +508,12 @@ void oscEvent(OscMessage theOscMessage) {
     newSpot(newLoc); // new cloud
     //println("new cloud and ring");
 
-    //println("Made new cloud");
+   // println("Made new cloud");
   } else if (checkLocations(newLoc) == true) {
-    //println("none made");
+   // println("none made");
   }
+  
+ 
 }
 
 

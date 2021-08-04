@@ -1,8 +1,8 @@
-class Screen { //<>//
+class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
 
   PFont f;
   PVector screen_location, text_location, velocity;
-  color t;
+  // color t;
 
   String[] line;
   int topacity;
@@ -15,17 +15,21 @@ class Screen { //<>//
     // println(start);
     velocity = new PVector(0, -35);
     screen_location = l.copy();
+    print("screen inside constructor is: ");
+    println(screen_location);
     //text_location = l.copy();
     //text_location.add(10, 10); // in and down a smidge
-    text_location = new PVector(10, 30);
+    text_location = new PVector(screen_location.x, screen_location.y);  // was (10, 30) for testing
+    print("text loc inside constructor is: ");
+    println(text_location);
     // not sure what to do with this line here with reference to line vvvvv
-    yStart = int(screen_location.y) + 200; 
+    //yStart = int(screen_location.y) + 200; 
     topacity = 100;
-    t = color(75, 255, 85, topacity);
-    f = createFont("Arial", 12);
-    textFont(f, 24);
-    textAlign(LEFT);
-    fill(t);
+    //t = color(75, 255, 85, topacity);
+    //f = createFont("Arial", 12);
+    //textFont(f, 24);
+    //textAlign(LEFT);
+    //fill(t);
 
 
     line = new String[10];
@@ -34,7 +38,7 @@ class Screen { //<>//
   }
 
   int initalize(int l, String[] packetText) { // load the array (for screen) up with text
-    fill(t, topacity);
+    //    fill(t, topacity);
     // show first 10 lines
     // take the first 10 lines and load them in to screen array
     // println("loading up more text");
@@ -42,29 +46,31 @@ class Screen { //<>//
     // print("limit inside initalize is: ");
     // println(limit);
     int l_num = 0; // increment marker for which line on this screen we are on
-    pushMatrix();
-    translate(screen_location.x, (screen_location.y+250));
+    //    pushMatrix();
+    //    translate(screen_location.x, (screen_location.y)); // added +250 to the y
     for (int i = start; i < limit; i++) { // i used for inputText line number
-      String temp = packetText[i]; //<<<<----- stuck
+      String temp = packetText[i]; //
+      // load the packet info into the array 
       line[l_num] = temp; //new Line(i, location); //location for inputText gets passed in
       //println(line[l_num]);
       // make them visual vvvv
       //print("text_location is: "); println(text_location);
-      text(line[l_num], text_location.x, text_location.y);
-      text_location.y += 25;
+      //      text(line[l_num], 10, 30 ); //text_location.x, text_location.y
+      //      text_location.y += 25;
 
       //screen[l_num].display();
       l_num++;
       //print("s is: ");
       //println(s);
     }
-    popMatrix();
+    //    popMatrix();
     //displayScreen();
 
     return limit;
   }
 
   void update() {
+
     topacity+=5;
     if (topacity > 255) topacity = 255;
     // println(topacity);
@@ -127,36 +133,50 @@ class Screen { //<>//
     //    println(topacity); 
 
     //x = 0;
-    pushMatrix();
-    scale(.25);
-    translate(screen_location.x, screen_location.y);
-    //print("screen location is: "); 
-    //println(screen_location);
+    //pushMatrix();
+    ////scale(.25);
+    //translate(screen_location.x, screen_location.y);
+    //scale(.5);
+    //    print("screen location in display screen is: "); 
+    //    println(screen_location);
     //println();
-    text_location = new PVector(10, 30); // need to reset it 
+    text_location = new PVector( (-20), 30); // need to reset it // but with the matrix translation, it should be fine
+    //    print("text loc inside displayScreen is: ");
+    //    println(text_location);
     if (frameCount % 10 == 0) {
-      text_location.x+=50;
+      text_location.x+= 50; //(screen_location.x + 50);
     } else {
-      text_location.x =10;
+      text_location.x = -20; //screen_location.x + 10;
     }
-    fill(t, topacity);
+    // t = color(75, 255, 85, 100);
+    fill(75, 255, 85, topacity);
     for (int i = 0; i < line.length-1; i++) { //last spot in array is empty due to initalize()'s for-loop structure
       //screen[i].scrollUp();
       //screen[i].display();
-      //print("text_location is: "); 
-      //println(text_location);
+      //  print("text_location y is: "); 
+      // println(text_location.y);
+      pushMatrix();
+      //scale(.25);
+      translate(screen_location.x, screen_location.y);
+      scale(.5);
       text(line[i], text_location.x, text_location.y);
-      //x += textWidth(screen[y]);
-      //x++;
-      text_location.y+= 25; //***** issue here, no? just want the text scrolling up, once it's appeared
+      popMatrix();
+      if ( i != line.length-2) {
+        text_location.y+= 25; //***** issue here, no? just want the text scrolling up, once it's appeared
+      }
     }
     //if (frameCount %28 == 0) {
     //  y--;
     //}
     if (frameCount % 26 == 0) {
+      pushMatrix();
+      //scale(.25);
+      translate(screen_location.x, screen_location.y);
+      scale(.5);
       fill(0, 130);
       rect(80, 30, 600, 200);
+       popMatrix();
     }
-    popMatrix();
+   // popMatrix();
   } // displayScreen
 } //class

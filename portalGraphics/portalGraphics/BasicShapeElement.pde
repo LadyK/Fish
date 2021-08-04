@@ -123,7 +123,7 @@ class BasicShapeElement {
     age();
     if (age <= 30) {
       //if (frameCount % 2 == 0) {
-      opacity +=1;  // increase, not decrease
+      opacity +=2;  // increase, not decrease
       //}
     } else if ( (age > 30) && (age <= 45)) {
       opacity -=1; //0.5; // not going to work. on a scale of 255
@@ -242,7 +242,7 @@ Depending on how wide the shapes are, as well as how many of them there are, and
         //}
       }
     }
-    //println("expanding");
+    //println(r);
   }
 
   void shrink() {

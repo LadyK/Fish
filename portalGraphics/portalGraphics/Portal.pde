@@ -23,10 +23,12 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   String[] inputText;
   int currentLineNum, howManyLines, linesPerScreen, cln, yScreen, screenLine, numScreens;
   ArrayList<Screen> textBuffers;
+  color t;
+  //int topacity;
 
 
   Portal(float x_, float y_, int p_, int r) {
-    super(x_, y_, p_, r, 1, 200, 0); // location, points, radius, howMany 15?, opacity, proximity
+    super(x_, y_, p_, r, 15, 200, 0); // location, points, radius, howMany 15?, opacity, proximity
     loc = new PVector(x_, y_);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
@@ -49,7 +51,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //origX = x_;
     //origY = y_;
     portalClouds = new ArrayList<Cloud>(); // this holds the fields of clouds for each
-    pcloudsAppear = false;
+    pcloudsAppear = true;
 
     //packet text setup:
     inputText = loadStrings("packets.txt");
@@ -60,15 +62,30 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     linesPerScreen = 9;
     yScreen = 420; // ***needs modification
     //PVector offscreen = new PVector(20, yScreen); //** location of portal
-    PVector offScreen = loc.copy();
+    //PVector offScreen = loc.copy();
     linesPerScreen = 9;
     int nextStart = 0;
     for (int i = 0; i <numScreens; i++) {
-      Screen s = new Screen(offScreen, nextStart); //** this is going to need the portal location + some y to it
+      Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
+      println("creating a screen");
+      print("loc is: "); 
+      print(loc.x); 
+      println(loc.y);
+      println();
       nextStart = s.initalize(linesPerScreen, inputText);
-      offScreen.y = offScreen.y + (10 * 22); // each LINE plus some space
+      loc.y = loc.y + (10 * 10.9); // each LINE plus some space; was * 22; need to tweak if scale changes
       textBuffers.add(s);
+      print("Portal location "); 
+      println(loc);
     }
+    //topacity = 100;
+    //t = color(75, 255, 85, 100);
+    f = createFont("Arial", 12);
+    textFont(f, 24);
+    textAlign(LEFT);
+    fill(t);
+    fill(t, 100); // was topacity
+
     // end of text setup
 
     // create a bunch of clouds and add them:
@@ -123,7 +140,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       showText(loc, 5); // then change second parameter to less
     }
 
-     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
+    // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
     PVector spot = new PVector();
     if (frameCount % 2 == 0 && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       float randX = random(-20, 20) + loc.x;
@@ -146,7 +163,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     loc.add(velocity);
     acceleration.mult(0);
   }
-  
+
   Boolean tooclose(PVector l) {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
@@ -175,7 +192,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     }
     for ( int i = textBuffers.size()-1; i >= 0; i--) {
       Screen sn = textBuffers.get(i);
-      if ((sn.screen_location.y + (10 * 22)) < 0) textBuffers.remove(i);
+      if ((sn.screen_location.y ) < 0) textBuffers.remove(i);  // + (10 * 22
     }
 
 
