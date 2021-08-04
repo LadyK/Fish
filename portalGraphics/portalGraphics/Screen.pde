@@ -72,11 +72,11 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
 
   void update() {
 
-    topacity+=5;
+    topacity+=1;
     if (topacity > 255) topacity = 255;
-    // println(topacity);
+    println(topacity);
     velocity.add(acceleration);
-    println(velocity);
+   // println(velocity);
     velocity.limit(10);
     // update scroll variables
     // topacity = top;
@@ -152,7 +152,8 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
       text_location.x = -20; //screen_location.x + 10;
     }
     // t = color(75, 255, 85, 100);
-    fill(75, 255, 85, topacity);
+    //fill(255, 0, 0);
+    fill(75, 255, 85);
     for (int i = 0; i < line.length-1; i++) { //last spot in array is empty due to initalize()'s for-loop structure
       //screen[i].scrollUp();
       //screen[i].display();

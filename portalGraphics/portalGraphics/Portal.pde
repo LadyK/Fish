@@ -192,7 +192,12 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     }
     for ( int i = textBuffers.size()-1; i >= 0; i--) {
       Screen sn = textBuffers.get(i);
-      if ((sn.screen_location.y ) < 0) textBuffers.remove(i);  // + (10 * 22
+      // vv still a bit weird. need to figure rhythm out more
+      if ((sn.screen_location.y ) < -20){ // play with this value if scale more (was 10 * 22)
+  //      println(sn.screen_location.y);
+        textBuffers.remove(i);  // + (10 * 22
+ //       println("removed one");
+      }
     }
 
 
