@@ -16,16 +16,16 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     acceleration = new PVector(0, -.1);
     velocity = new PVector(0, 0);
     screen_location = l.copy();
-   // print("screen inside constructor is: ");
-   // println(screen_location);
+    // print("screen inside constructor is: ");
+    // println(screen_location);
     //text_location = l.copy();
     //text_location.add(10, 10); // in and down a smidge
     text_location = new PVector(screen_location.x, screen_location.y);  // was (10, 30) for testing
-   // print("text loc inside constructor is: ");
-   // println(text_location);
+    // print("text loc inside constructor is: ");
+    // println(text_location);
     // not sure what to do with this line here with reference to line vvvvv
     //yStart = int(screen_location.y) + 200; 
-    topacity = 100;
+    topacity = 80;
     //t = color(75, 255, 85, topacity);
     //f = createFont("Arial", 12);
     //textFont(f, 24);
@@ -74,9 +74,9 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
 
     topacity+=1;
     if (topacity > 255) topacity = 255;
-    println(topacity);
+    //println(topacity);
     velocity.add(acceleration);
-   // println(velocity);
+    // println(velocity);
     velocity.limit(10);
     // update scroll variables
     // topacity = top;
@@ -152,8 +152,8 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
       text_location.x = -20; //screen_location.x + 10;
     }
     // t = color(75, 255, 85, 100);
-    //fill(255, 0, 0);
-    fill(75, 255, 85);
+    fill(0, 255, 0, topacity);
+
     for (int i = 0; i < line.length-1; i++) { //last spot in array is empty due to initalize()'s for-loop structure
       //screen[i].scrollUp();
       //screen[i].display();
@@ -163,6 +163,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
       //scale(.25);
       translate(screen_location.x, screen_location.y);
       scale(.5);
+      //fill(75, 255, 85, 255);
       text(line[i], text_location.x, text_location.y);
       popMatrix();
       if ( i != line.length-2) {
@@ -179,8 +180,8 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
       scale(.5);
       fill(0, 130);
       rect(80, 30, 600, 200);
-       popMatrix();
+      popMatrix();
     }
-   // popMatrix();
+    // popMatrix();
   } // displayScreen
 } //class

@@ -67,24 +67,24 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     int nextStart = 0;
     for (int i = 0; i <numScreens; i++) {
       Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
-      println("creating a screen");
-      print("loc is: "); 
-      print(loc.x); 
-      println(loc.y);
-      println();
+      //println("creating a screen");
+      //print("loc is: "); 
+      //print(loc.x); 
+      //println(loc.y);
+      //println();
       nextStart = s.initalize(linesPerScreen, inputText);
       loc.y = loc.y + (10 * 10.9); // each LINE plus some space; was * 22; need to tweak if scale changes
       textBuffers.add(s);
-      print("Portal location "); 
-      println(loc);
+      //print("Portal location "); 
+      //println(loc);
     }
     //topacity = 100;
     //t = color(75, 255, 85, 100);
     f = createFont("Arial", 12);
     textFont(f, 24);
     textAlign(LEFT);
-    fill(t);
-    fill(t, 100); // was topacity
+    //fill(t);
+    //fill(t, 100); // was topacity
 
     // end of text setup
 
@@ -137,6 +137,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
           updateVectors();
         }
       }
+
       showText(loc, 5); // then change second parameter to less
     }
 
@@ -187,16 +188,19 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   }
 
   void showText(PVector l, int s) {  // flip on or fade up once portal expands enough
+    //fill(75, 255, 85, 255);
+    //fill(0, 255, 0, 100); // <-- topacity here
     for (Screen sc : textBuffers) {
+
       sc.run();
     }
     for ( int i = textBuffers.size()-1; i >= 0; i--) {
       Screen sn = textBuffers.get(i);
       // vv still a bit weird. need to figure rhythm out more
-      if ((sn.screen_location.y ) < -20){ // play with this value if scale more (was 10 * 22)
-  //      println(sn.screen_location.y);
+      if ((sn.screen_location.y + (10 * 10.9) ) < 0) { // play with this value if scale more (was 10 * 22)
+        //      println(sn.screen_location.y);
         textBuffers.remove(i);  // + (10 * 22
- //       println("removed one");
+        //       println("removed one");
       }
     }
 
@@ -289,7 +293,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       //centerY += (spread.y-centerY) * 0.001;
       //  centerX += (mouseX-centerX) * -0.03;
       //  centerY += (mouseY-centerY) * -0.03;
-      println(centerX);
+      //println(centerX);
     }
   }
 }
