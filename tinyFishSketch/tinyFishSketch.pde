@@ -14,6 +14,11 @@ School school;
 
 void setup() {
   size(800, 800, P3D);
+  float fov = PI/3.0;
+  float cameraZ = (height/2.0) / tan(fov/2.0);
+  perspective(fov, float(width)/float(height), 
+    cameraZ/10.0, cameraZ*10.0);
+  //perspective();
   school = new School();
   PVector loc = new PVector(width/2, height/2);
   for (int i = 0; i < 30; i++) {
@@ -50,48 +55,48 @@ void draw() {
   //  t += 0.1;
   //  noiseVal = noise(t);
   //  noiseValCum += noiseVal;
-  
-    //   flt colorNoise = noise(t);
-    //   float1 = random(0, 1);
-    //float noiseX = map(mouseX, 0, width, 0, 400); //change these off the mouse
-    //float noiseY = map(mouseY, 0, height, 0, 400);
-    //float z1 = noise(noiseX, noiseY);
-    //float noiseYM = max(0, z1);
-    //println(noiseVal
+
+  //   flt colorNoise = noise(t);
+  //   float1 = random(0, 1);
+  //float noiseX = map(mouseX, 0, width, 0, 400); //change these off the mouse
+  //float noiseY = map(mouseY, 0, height, 0, 400);
+  //float z1 = noise(noiseX, noiseY);
+  //float noiseYM = max(0, z1);
+  //println(noiseVal
   //  println(noiseValCum);
-    //if (noiseValCum > 4) {
+  //if (noiseValCum > 4) {
 
-    //  float randieC = random(0, 4);
-    //  float amount = map(randieC, 0, 4, 0, 1);
-    //  interColor = lerpColor(midColor, topColor, amount);
-    //  noiseValCum = 0;
-    //} else {
-    //  float randieC = random(0, 2);
-    //  float amount= map(randieC, 0, 2, 0.5, 1);
-    //  interColor = lerpColor(bottomColor, midColor, amount);
-    //}
+  //  float randieC = random(0, 4);
+  //  float amount = map(randieC, 0, 4, 0, 1);
+  //  interColor = lerpColor(midColor, topColor, amount);
+  //  noiseValCum = 0;
+  //} else {
+  //  float randieC = random(0, 2);
+  //  float amount= map(randieC, 0, 2, 0.5, 1);
+  //  interColor = lerpColor(bottomColor, midColor, amount);
+  //}
 
-    ///float noiseamountoi  ///shimmer =nt(shimmer + noiseVal);
-   // shimmer = interColor;
-    // *intercolor = shimmer;/
-    /*  //no
-     else if (rand < .6){
-     shimmer = 150;
-     }
-     else if (rand < .4){
-     shimmer = 100;
-     }
-     */
-    ///* // yes
-    /*
+  ///float noiseamountoi  ///shimmer =nt(shimmer + noiseVal);
+  // shimmer = interColor;
+  // *intercolor = shimmer;/
+  /*  //no
+   else if (rand < .6){
+   shimmer = 150;
+   }
+   else if (rand < .4){
+   shimmer = 100;
+   }
+   */
+  ///* // yes
+  /*
     else if (rand < .2) {
-     shimmer = 50;
-     } else {
-     shimmer = 20;
-     }
-     */
-    //float r = random(-.5, .5);
- // }
+   shimmer = 50;
+   } else {
+   shimmer = 20;
+   }
+   */
+  //float r = random(-.5, .5);
+  // }
 
 
 

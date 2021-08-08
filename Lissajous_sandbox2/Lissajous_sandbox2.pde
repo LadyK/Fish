@@ -23,10 +23,10 @@ int changeY = 1;
 int changeX = 1;
 
 void setup() {
-  size(800, 800);
+  size(800, 800, P2D);
   smooth();
 
-  frameRate(5);
+  //frameRate(5);
 }
 
 
@@ -34,34 +34,34 @@ void setup() {
 
 void draw() {
   background(255);
-  stroke(0);
-  strokeWeight(1);
+noStroke();
+fill(37, 94, 250, 100);
+beginShape();
+ vertex(50, 50);
+ vertex(250, 50);
+ 
+ vertex(175, 480);
+ vertex(80, 450);
 
 
-  factorX = width/2-margin;
-  factorY = height/2-margin;
-  pushMatrix();
-  translate(0, 200);
-  beginShape();
-  for (int i = 0; i <= pointCount; i++) {
-    angle = map(i, 0, pointCount, 0, TWO_PI);
-    modFreq();
-    float info = sin(angle * freq + radians(phi));
-    float carrier = cos(angle * modFreq);
-    y = info * carrier;
-    //fun:
-    //float r_ = random(0, .5);
-    //if (r_ > .489) {
-    //  y = y + .05;
-    //}
-    //println(y);
-    y = y * (height/4);
-    vertex(i, y);
-  }
-  endShape();
-  popMatrix();
 
-  translate(width/2+ 200, height/2);
+endShape();
+
+
+  //pushMatrix();
+  //translate(0, 300);
+  //curveMe(53, .389, .2);
+  //popMatrix();
+
+
+  //pushMatrix();
+  //translate(400, 0);
+  //rotate(radians(90));
+  
+  //curveMe(10, .589, .1);
+  //popMatrix();
+
+  //translate(width/2+ 200, height/2);
 
 
   //pointCount = int(map(mouseX, 0, width, 0, 600));
@@ -102,29 +102,74 @@ void draw() {
   pushMatrix();
   translate(0, 150);
   scale(.5);
-  beginShape();
-  for (int i=0; i<=pointCount; i++) {
-    angle = map(i, 0, pointCount, 0, TWO_PI);
+  //beginShape();
+  //for (int i=0; i<=pointCount; i++) {
+  //  angle = map(i, 0, pointCount, 0, TWO_PI);
 
-    // modFreq();
-    //float info = sin(angle * freq + radians(phi));
-    //float carrier = cos(angle * modFreq);
-    //y = info * carrier;
+  //  // modFreq();
+  //  //float info = sin(angle * freq + radians(phi));
+  //  //float carrier = cos(angle * modFreq);
+  //  //y = info * carrier;
 
-    modFreqX();
+  //  modFreqX();
 
-    x = sin(angle*freqX + radians(phi))  * cos(angle * modFreqX);
-    y = sin(angle*freqY) * cos(angle * modFreqY);
+  //  x = sin(angle*freqX + radians(phi))  * cos(angle * modFreqX);
+  //  y = sin(angle*freqY) * cos(angle * modFreqY);
 
-    x = x * factorX;
-    y = y * factorY;
+  //  x = x * factorX;
+  //  y = y * factorY;
 
-    vertex(x, y);
-  }
-  endShape();
+  //  vertex(x, y);
+  //}
+  //endShape();
   popMatrix();
 
   //noLoop();
+}
+
+void curveMe(int o, float h, float l) {
+
+  beginShape();
+  //fill(37, 94, 250, 100);
+  stroke(37, 94, 250, 100);
+  strokeWeight(2);
+  for (int i = 0; i <= pointCount; i++) {
+
+    if ( i % 200 == 0) {
+      fill(0, 0, 255, 100);
+      //} else if ( i % 10 == 0) {
+      //  fill(0, 0, 255, 50);
+      //} else if ( i % 5 == 0) {
+      //  fill(0, 0, 255, 80);
+      //} else if ( i % 2 == 0) {
+      //  fill(0, 0, 255, 200);
+    } else {
+      noFill();
+    }
+
+    angle = map(i, 0, pointCount, 0, TWO_PI);
+    modFreq(o, h, l);
+    float info = sin(angle * freq + radians(phi));
+    float carrier = cos(angle * modFreq);
+    y = info * carrier;
+    //fun:
+    //float r_ = random(0, .5);
+    //if (r_ > .489) {
+    //  y = y + .05;
+    //}
+    //println(y);
+
+    //    x = sin(angle*freqX + radians(phi))  * cos(angle * modFreq);
+    //    y = sin(angle*freqY) * cos(angle * modFreq);
+
+    //    x = x * factorX;
+    //    y = y * factorY;
+
+
+    y = y * (height/4);
+    vertex(i, y);
+  }
+  endShape();
 }
 
 
@@ -160,27 +205,27 @@ void maniFreqX() {
 }
 
 
-void modFreq() {
-  if (frameCount %53 == 0) {
+void modFreq(int often, float high, float low) {
+  if (frameCount % often == 0) {  // was 53  // 10
     float r = random(0, .5);
 
-    if (r > .389) {
+    if (r > high) { // .389
       modFreq += changeMod;
     }
-    if (r < .2) {
+    if (r < low) {  // .2
       modFreq -= changeMod;
     }
     //}
 
-    if (modFreq > 14) {
+    if (modFreq > 10) {
       modFreq = 1;
     }
 
-    if (modFreq < -14) {
+    if (modFreq < -10) {
       modFreq = 1;
     }
 
-    //println(modFreq);
+    println(modFreq);
   }
 }
 
