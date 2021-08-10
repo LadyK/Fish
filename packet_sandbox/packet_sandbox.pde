@@ -1,5 +1,17 @@
 //PFont f; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 //float x, y;
+
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import netP5.*;
+import codeanticode.syphon.*; //
+
+PGraphics canvas; // need this for projection mapping thru syphon via madmapper
+SyphonServer server;
+
+OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
+NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
+String messageselector;
+
 int index = 0;
 
 String[] inputText;
@@ -23,6 +35,8 @@ int numScreens;
 
 void setup() {
   size(800, 800);
+   server = new SyphonServer(this, "Processing Syphon Text");
+   whereimlistening = new OscP5(this, 12001);
   //frameRate(10);
   background(0);
   //f = createFont("Arial", 16);
@@ -40,19 +54,19 @@ void setup() {
   textBuffers = new ArrayList<Screen>();
   currentLineNum = 0;
   yScreen = 420; // will need to be modified ****
-  PVector offScreen = new PVector(20, yScreen); //location of portal ****
+//  PVector offScreen = new PVector(20, yScreen); //location of portal ****
   linesPerScreen = 9;
   int nextStart = 0;
-  for (int i = 0; i < numScreens; i++) { //<>//
-    Screen s = new Screen(offScreen, nextStart); //this is going to need the portal location + some to y //<>//
-    nextStart = s.initalize();  //<>//
-    //println(currentLineNum);
-    //currentLineNum += 9; // *** think about this
-    offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space
-    textBuffers.add(s);
+  //for (int i = 0; i < numScreens; i++) { //<>//
+  //  Screen s = new Screen(offScreen, nextStart); //this is going to need the portal location + some to y //<>//
+  //  nextStart = s.initalize();  //<>//
+  //  //println(currentLineNum);
+  //  //currentLineNum += 9; // *** think about this
+  //  offScreen.y = offScreen.y + (10 * 22); //each LINE plus some space
+  //  textBuffers.add(s);
 
     //textBuffers[i] = s;
-  }
+//  }
   //textBuffers[0].initalize(); // very important
 
 
@@ -85,7 +99,7 @@ void draw() {
 
   // every X seconds: 
   //scrollUp();
- 
+ server.sendScreen();
 }
 
 //int initalize(int s) {
@@ -151,4 +165,21 @@ void mousePressed() {
   //print("updated cln: ");
   //println(cln);
   //initalize(cln);
+}
+
+/* incoming osc message are forwarded to the oscEvent method. */
+void oscEvent(OscMessage theOscMessage) {
+  /* print the address pattern and the typetag of the received OscMessage */
+  print("### received an osc message.");
+  print(" addrpattern: "+theOscMessage.addrPattern());
+  println(" typetag: "+theOscMessage.typetag());
+  
+  for (int i = 0; i <numScreens; i++) {
+      Screen s = new Screen(loc, nextStart);
+       nextStart = s.initalize(linesPerScreen, inputText);
+      loc.y = loc.y + (10 * 10.9); // each LINE plus some space; was * 22; need to tweak if scale changes
+      textBuffers.add(s);
+  }
+    screenLine = 0;
+
 }

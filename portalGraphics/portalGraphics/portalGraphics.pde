@@ -8,29 +8,23 @@ SyphonServer server;
 
 int checker = 0;
 int loopChecker = 0;
-OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
-NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
+OscP5 oscP5max; /// equivalent to [udpreceive] in max, e.g. it's listening
+OscP5 oscP5 = new OscP5(this, 12002); // portal info to other processing sketch
+NetAddress otherProcessing = new NetAddress("127.0.0.1", 12003); // hostname, port; send location to other Processing script for madmapper
+// equivalent to [udpsend] in max - it's sending
 String messageselector;
-
-
-
 
 /* a NetAddress contains the ip address and port number of a remote location in the network. */
 
 // need graphics to be more responsive to max values. spread north + south?
 
-
-
 Integer[] screenLoc = {0, 0};
 //ArrayList <PVector> all_locations;
 //PVector[] locations;
 
-
 ArrayList <Cloud> demos;
 //BasicShapeElement[] demos;
 ArrayList <Portal> portals;
-
-
 ArrayList<Shape> triggers;
 
 //HashMap<String, Cloud> storm = new HashMap<String, Cloud>();
@@ -59,8 +53,7 @@ float  rd, gn, blu, rdshift, gnshift, blushift;
 color  kuler, paint, previousKuler, lerpKuler;
 long intervalPort;
 
-
-
+ 
 void setup() {
   size(640, 480, P3D);  // need to send less to max to send out? 800?
   //canvas = createGraphics(1280, 1024, P3D); // out to syphon
@@ -107,13 +100,13 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  //  whereimsending = new NetAddress("192.168.1.4", 12001); // hostname, port
+ 
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
-  whereimlistening = new OscP5(this, 12000); // takes tracking values from Max
-
+  oscP5max = new OscP5(this, 12000); // takes tracking values from Max
+  //oscp5 = new OscP5(this, 12002); // send values to other processing sketch
   //screenLoc[0] = 0;
   //screenLoc[1] = 0;
   currentLocation = new PVector(-400, -400);

@@ -14,16 +14,16 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   Cloud cp;
   boolean pcloudsAppear;
   boolean text;
-  PFont f;
+  //PFont f;
   int rad;
   int p_width;
   float scale ;
   PVector change;
   PVector loc, acceleration, velocity, loc_original;
   String[] inputText;
-  int currentLineNum, howManyLines, linesPerScreen, cln, yScreen, screenLine, numScreens;
-  ArrayList<Screen> textBuffers;
-  color t;
+//  int currentLineNum, howManyLines, linesPerScreen, cln, yScreen, screenLine, numScreens;
+//  ArrayList<Screen> textBuffers;
+ // color t;
   //int topacity;
 
 
@@ -42,7 +42,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     birth = millis();
     // life = 10000;
     mature = 18000;
-    f = createFont("Courier", 12);
+  //  f = createFont("Courier", 12);
     rad = r;
     p_width = rad * 2;
     change = new PVector(0, 0);
@@ -54,35 +54,35 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     pcloudsAppear = true;
 
     //packet text setup:
-    inputText = loadStrings("packets.txt");
-    howManyLines = inputText.length;
-    numScreens = ceil(howManyLines/10);
-    textBuffers = new ArrayList<Screen>();
-    currentLineNum = 0;
-    linesPerScreen = 9;
-    yScreen = 420; // ***needs modification
+ //   inputText = loadStrings("packets.txt");
+ //   howManyLines = inputText.length;
+ //   numScreens = ceil(howManyLines/10);
+ //   textBuffers = new ArrayList<Screen>();
+  //  currentLineNum = 0;
+  //  linesPerScreen = 9;
+  //  yScreen = 420; // ***needs modification
     //PVector offscreen = new PVector(20, yScreen); //** location of portal
     //PVector offScreen = loc.copy();
-    linesPerScreen = 9;
-    int nextStart = 0;
-    for (int i = 0; i <numScreens; i++) {
-      Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
+//    linesPerScreen = 9;
+    //int nextStart = 0;
+    //for (int i = 0; i <numScreens; i++) {
+    //  Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
       //println("creating a screen");
       //print("loc is: "); 
       //print(loc.x); 
       //println(loc.y);
       //println();
-      nextStart = s.initalize(linesPerScreen, inputText);
-      loc.y = loc.y + (10 * 10.9); // each LINE plus some space; was * 22; need to tweak if scale changes
-      textBuffers.add(s);
+      //nextStart = s.initalize(linesPerScreen, inputText);
+      //loc.y = loc.y + (10 * 10.9); // each LINE plus some space; was * 22; need to tweak if scale changes
+      //textBuffers.add(s);
       //print("Portal location "); 
       //println(loc);
-    }
+ //   }
     //topacity = 100;
     //t = color(75, 255, 85, 100);
-    f = createFont("Arial", 12);
-    textFont(f, 24);
-    textAlign(LEFT);
+    //f = createFont("Arial", 12);
+    //textFont(f, 24);
+    //textAlign(LEFT);
     //fill(t);
     //fill(t, 100); // was topacity
 
@@ -94,7 +94,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad,  more here **howM_, o, portal?
       portalClouds.add(0, tester);
     }
-    screenLine = 0;
+   // screenLine = 0;
   }
 
   void runClouds() {
@@ -137,8 +137,15 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
           updateVectors();
         }
       }
-
-      showText(loc, 5); // then change second parameter to less
+     // instead of showing the text through this script....
+     // showText(loc, 5); // then change second parameter to less
+     // send the text to the other processing script to send out to madmapper
+      print("loc is: "); println(loc);
+      OscMessage myMSG = new OscMessage("");
+      myMSG.add(loc.y);
+      myMSG.add(loc.x);
+      /* send the message */
+      oscP5.send(myMSG, otherProcessing);
     }
 
     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
@@ -190,6 +197,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   void showText(PVector l, int s) {  // flip on or fade up once portal expands enough
     //fill(75, 255, 85, 255);
     //fill(0, 255, 0, 100); // <-- topacity here
+    /*
     for (Screen sc : textBuffers) {
 
       sc.run();
@@ -203,6 +211,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
         //       println("removed one");
       }
     }
+    */
 
 
     /* initial test code:
