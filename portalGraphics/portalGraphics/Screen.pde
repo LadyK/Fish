@@ -165,7 +165,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       scale(.5);
       //fill(75, 255, 85, 255);
       rectMode(CORNER);
-      text(line[i], text_location.x, text_location.y,  125, 28); // fudz with y2
+      text(line[i], text_location.x -20, text_location.y,  125, 28); // fudz with y2
       popMatrix();
       //if(line[i] == " ") println("empty");
       if ( i != line.length-2) {
@@ -179,9 +179,9 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       pushMatrix();
       //scale(.25);
       translate(screen_location.x, screen_location.y);
-      scale(.5);
-      fill(0, 130);
-      rect(80, 30, 600, 200);
+     // scale(.5);
+      fill(0, 40);
+      rect(-30, 30, 100, (28 * 10));
       popMatrix();
     }
     // popMatrix();
