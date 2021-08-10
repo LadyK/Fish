@@ -147,9 +147,9 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //    print("text loc inside displayScreen is: ");
     //    println(text_location);
     if (frameCount % 10 == 0) {
-   //   text_location.x+= 35; //(screen_location.x + 50);
+      text_location.x+= 35; //(screen_location.x + 50);
     } else {
-    //  text_location.x = -20; //screen_location.x + 10;
+      text_location.x = -20; //screen_location.x + 10;
     }
     // t = color(75, 255, 85, 100);
     fill(0, 255, 0, topacity);
@@ -165,10 +165,11 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       scale(.5);
       //fill(75, 255, 85, 255);
       rectMode(CORNER);
-      text(line[i], text_location.x, text_location.y,  100, 50);
+      text(line[i], text_location.x, text_location.y,  125, 28); // fudz with y2
       popMatrix();
+      //if(line[i] == " ") println("empty");
       if ( i != line.length-2) {
-        text_location.y+= 15; //***** issue here, no? just want the text scrolling up, once it's appeared
+        text_location.y+= 20; //***** fudz with
       }
     }
     //if (frameCount %28 == 0) {
