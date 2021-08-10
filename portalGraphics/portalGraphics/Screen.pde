@@ -1,4 +1,4 @@
-class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
+class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   PFont f;
   PVector screen_location, text_location, velocity, acceleration;
@@ -13,7 +13,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     start = s; //location in text file
     // print("start of this screen is: ");
     // println(start);
-    acceleration = new PVector(0, -.1);
+    acceleration = new PVector(0, -.05);
     velocity = new PVector(0, 0);
     screen_location = l.copy();
     // print("screen inside constructor is: ");
@@ -33,7 +33,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     //fill(t);
 
 
-    line = new String[10];
+    line = new String[20]; // must be one more than linesPerScreen ?  //*** this
     //line = 0;
     //initalize();
   }
@@ -51,7 +51,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     //    translate(screen_location.x, (screen_location.y)); // added +250 to the y
     for (int i = start; i < limit; i++) { // i used for inputText line number
       String temp = packetText[i]; //
-      // load the packet info into the array 
+      // load the packet info into the array // ***this vvv gets stuck
       line[l_num] = temp; //new Line(i, location); //location for inputText gets passed in
       //println(line[l_num]);
       // make them visual vvvv
@@ -77,7 +77,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     //println(topacity);
     velocity.add(acceleration);
     // println(velocity);
-    velocity.limit(10);
+    velocity.limit(5);
     // update scroll variables
     // topacity = top;
   }
@@ -147,7 +147,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
     //    print("text loc inside displayScreen is: ");
     //    println(text_location);
     if (frameCount % 10 == 0) {
-      text_location.x+= 50; //(screen_location.x + 50);
+      text_location.x+= 35; //(screen_location.x + 50);
     } else {
       text_location.x = -20; //screen_location.x + 10;
     }
@@ -164,7 +164,8 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>//
       translate(screen_location.x, screen_location.y);
       scale(.5);
       //fill(75, 255, 85, 255);
-      text(line[i], text_location.x, text_location.y);
+      rectMode(CORNER);
+      text(line[i], text_location.x, text_location.y, text_location.x + 100, text_location.y + (12* 20));
       popMatrix();
       if ( i != line.length-2) {
         text_location.y+= 25; //***** issue here, no? just want the text scrolling up, once it's appeared
