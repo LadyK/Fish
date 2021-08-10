@@ -25,6 +25,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   ArrayList<Screen> textBuffers;
   color t;
   //int topacity;
+  int fontSize;
 
 
   Portal(float x_, float y_, int p_, int r) {
@@ -42,7 +43,6 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     birth = millis();
     // life = 10000;
     mature = 18000;
-    f = createFont("Courier", 12);
     rad = r;
     p_width = rad * 2;
     change = new PVector(0, 0);
@@ -54,16 +54,22 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     pcloudsAppear = true;
 
     //packet text setup:
+    fontSize = 24;
+     f = createFont("Courier", fontSize);
     inputText = loadStrings("packets.txt");
     howManyLines = inputText.length;
-    numScreens = ceil(howManyLines/20); // *** this
+    print("number of lines: ");
+    println(howManyLines);
+     linesPerScreen = 19; //*** this
+    numScreens = ceil(howManyLines/(linesPerScreen + 1)); // *** this
+    print("number of screens: "); println(numScreens);
     textBuffers = new ArrayList<Screen>();
     currentLineNum = 0;
     //linesPerScreen = 9;
     yScreen = 420; // ***needs modification
     //PVector offscreen = new PVector(20, yScreen); //** location of portal
     //PVector offScreen = loc.copy();
-    linesPerScreen = 19; //*** this
+   
     int nextStart = 0;
     for (int i = 0; i <numScreens; i++) {
       Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
@@ -73,16 +79,15 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
       //println(loc.y);
       //println();
       nextStart = s.initalize(linesPerScreen, inputText);
-      loc.y = loc.y + (12 * 20); // each LINE plus some space; was * 22; need to tweak if scale changes
+      loc.y = loc.y + ( linesPerScreen + 20 ); // each LINE plus some space; was * 22; need to tweak if scale changes  //* (fontSize *.5)
       textBuffers.add(s);
-      //print("Portal location "); 
-      //println(loc);
+      
     }
     //topacity = 100;
     //t = color(75, 255, 85, 100);
-    f = createFont("Arial", 12);
-    textFont(f, 24);
-    textAlign(LEFT);
+   
+    textFont(f, fontSize);
+   
     //fill(t);
     //fill(t, 100); // was topacity
 
@@ -193,11 +198,13 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     for (Screen sc : textBuffers) {
 
       sc.run();
+      //print("Screen number: "); 
+      //println(sc);
     }
     for ( int i = textBuffers.size()-1; i >= 0; i--) {
       Screen sn = textBuffers.get(i);
       // vv still a bit weird. need to figure rhythm out more
-      if ((sn.screen_location.y + (10 * 10.9) ) < 0) { // play with this value if scale more (was 10 * 22)
+      if ((sn.screen_location.y + (linesPerScreen * fontSize) ) < 0) { // play with this value if scale more (was 10 * 22)
         //      println(sn.screen_location.y);
         textBuffers.remove(i);  // + (10 * 22
         //       println("removed one");

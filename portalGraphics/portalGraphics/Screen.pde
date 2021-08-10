@@ -20,7 +20,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     // println(screen_location);
     //text_location = l.copy();
     //text_location.add(10, 10); // in and down a smidge
-    text_location = new PVector(screen_location.x, screen_location.y);  // was (10, 30) for testing
+    //text_location = new PVector(screen_location.x, screen_location.y);  // was (10, 30) for testing
     // print("text loc inside constructor is: ");
     // println(text_location);
     // not sure what to do with this line here with reference to line vvvvv
@@ -142,14 +142,14 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //scale(.5);
     //    print("screen location in display screen is: "); 
     //    println(screen_location);
-    //println();
+   textAlign(CENTER, BOTTOM);
     text_location = new PVector( (-20), 30); // need to reset it // but with the matrix translation, it should be fine
     //    print("text loc inside displayScreen is: ");
     //    println(text_location);
     if (frameCount % 10 == 0) {
-      text_location.x+= 35; //(screen_location.x + 50);
+   //   text_location.x+= 35; //(screen_location.x + 50);
     } else {
-      text_location.x = -20; //screen_location.x + 10;
+    //  text_location.x = -20; //screen_location.x + 10;
     }
     // t = color(75, 255, 85, 100);
     fill(0, 255, 0, topacity);
@@ -161,14 +161,14 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       // println(text_location.y);
       pushMatrix();
       //scale(.25);
-      translate(screen_location.x, screen_location.y);
+      translate(screen_location.x, screen_location.y); //** <--- futz with it here?
       scale(.5);
       //fill(75, 255, 85, 255);
       rectMode(CORNER);
-      text(line[i], text_location.x, text_location.y, text_location.x + 100, text_location.y + (12* 20));
+      text(line[i], text_location.x, text_location.y,  100, 50);
       popMatrix();
       if ( i != line.length-2) {
-        text_location.y+= 25; //***** issue here, no? just want the text scrolling up, once it's appeared
+        text_location.y+= 15; //***** issue here, no? just want the text scrolling up, once it's appeared
       }
     }
     //if (frameCount %28 == 0) {
