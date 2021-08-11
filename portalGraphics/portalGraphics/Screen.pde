@@ -77,7 +77,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //println(topacity);
     velocity.add(acceleration);
     // println(velocity);
-    velocity.limit(3);
+    velocity.limit(1);
     // update scroll variables
     // topacity = top;
   }
