@@ -26,15 +26,16 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   color t;
   //int topacity;
   int fontSize;
+  int cloudLimit, cloudNum;
 
 
   Portal(float x_, float y_, int p_, int r) {
-    super(x_, y_, p_, r, 15, 200, 0); // location, points, radius, howMany 15?, opacity, proximity
+    super(x_, y_, p_, r, 2, 200, 0); // location, points, radius, howMany 15?, opacity, proximity
     loc = new PVector(x_, y_);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     loc_original= new PVector(x_, y_); // need to see how much location changes
-
+    cloudLimit = 300;
 
     rd = 0;
     gn = int(random(128, 255));
@@ -73,11 +74,6 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     int nextStart = 0;
     for (int i = 0; i <numScreens; i++) {
       Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
-      //println("creating a screen");
-      //print("loc is: "); 
-      //print(loc.x); 
-      //println(loc.y);
-      //println();
       nextStart = s.initalize(linesPerScreen, inputText);
       loc.y = loc.y + ( linesPerScreen + 20 ); // each LINE plus some space; was * 22; need to tweak if scale changes  //* (fontSize *.5)
       textBuffers.add(s);
@@ -94,9 +90,9 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // end of text setup
 
     // create a bunch of clouds and add them:
-    for (int i = 0; i <= 1; i++) {  // lowered this
+    for (int i = 0; i <= 15; i++) {  // lowered this
       PVector spot = new PVector(xie, yie);
-      Cloud tester = new Cloud(spot, 100, 15, 2, 10, true);  //proximity, rad,  more here **howM_, o, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 8, 10, true);  //proximity, rad,  more here **howM_, o, portal?
       portalClouds.add(0, tester);
     }
     screenLine = 0;
@@ -148,14 +144,17 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
     PVector spot = new PVector();
-    if (frameCount % 2 == 0 && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
-      float randX = random(-20, 20) + loc.x;
-      float randY = random(-15, 15) + loc.y;
-
+    //print("loc.y is: "); println(loc_original);
+    if ( cloudNum < cloudLimit && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
+      float randX = random(-20, 20) + loc_original.x;
+      float randY = random(-55, 15) + loc_original.y;
+      //println("creating a spot");
       spot = new PVector(randX, randY);
+      print("new spot is: "); println(spot);
       // these add the sparkle (10), but not crazy full ones before disappearing
-      Cloud tester = new Cloud(spot, 100, 15, 20, 15, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
+      Cloud tester = new Cloud(spot, 100, 15, 20, 50, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
       portalClouds.add(0, tester);
+      cloudNum++;
     }
   }
 
@@ -173,7 +172,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   Boolean tooclose(PVector l) {
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
-    if ( d < (rad * 4) ) {
+    if ( d < (rad * 10) ) {
       //stillThere = millis();   // this was start of portal development
       return true;
     } else {
@@ -182,9 +181,9 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //return toClose;
   }
 
-  void addSiblings(Cloud cp_) {
+  void addSiblings(Cloud cp_) {  // 4 was tweaked to 8
     cp_.randX = int(random(-cp_.randoX, cp.randoX)) + int(cp_.loc.x);
-    cp_.randY = int(random(-cp_.randoY * 4, (cp_.randoY * .2))) + int(cp_.loc.y); // increase this along the y-axis via for-loop ?
+    cp_.randY = int(random(-cp_.randoY * 8, (cp_.randoY * .2))) + int(cp_.loc.y); // increase this along the y-axis via for-loop ?
     BasicShapeElement temp = new BasicShapeElement(cp_.randX, cp_.randY, 7, cp_.radius, cp_.howMany, cp_.alpha, cp_.rando); 
     // (float x_, float y_, int pts, int radius_, int howMany, int o, int prox) 
     cp_.shapes.add(0, temp);

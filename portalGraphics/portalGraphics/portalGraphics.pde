@@ -153,7 +153,7 @@ void draw() {
         demos.remove(i);
         //   println("removed one");
       } else {  // too few, fast and a glitch:
-        //if (frameCount % 63 == 0) {
+        //if (frameCount % 93 == 0) {
         //  if (c.siblings == c.howMany) { // if we've reached our siblings max, skip
         //    continue;
         //  } else { // otherwise, create a new one:
@@ -212,7 +212,7 @@ void draw() {
     }
     // if we are even older, start the clouds behind it:
     else if ( stamp > 15000 && stamp < 25000) {
-      //p_.runClouds();
+      p_.runClouds();  // not sure if this is working ***
 
       p_.featureShifter(1);
       p_.display(true, stamp);
@@ -221,14 +221,14 @@ void draw() {
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
-      //p_.runClouds(); more vibrant glitter
+      p_.runClouds(); //more vibrant glitter // was also turned off before ***
       p_.shrink();
       p_.display(true, stamp);
     } else {
       //if (frameCount % 2 == 0) {
       //  p_.featureShifter(1);
       //}
-      // p_.runClouds();
+      p_.runClouds(); // also was off
       //p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
 
@@ -402,11 +402,11 @@ void mouseMoved() {
 }
 
 /* make this into zones?  
-If in zone a, b, c... make clouds
-if we get another ding in an active zone, make a portal (one portal zone) with clouds fast and active behind for length of portal
-
-
-*/
+ If in zone a, b, c... make clouds
+ if we get another ding in an active zone, make a portal (one portal zone) with clouds fast and active behind for length of portal
+ 
+ 
+ */
 boolean checkLocations(PVector nLoc) {
   // print("demo size: "); 
   //println(demos.size());
@@ -422,31 +422,32 @@ boolean checkLocations(PVector nLoc) {
       //for (int j = portals.size()-1; j >=0; j--) {
       //  Portal p_ = portals.get(j);
       //  println("can we make a portal?");
-     //   if (p_.tooclose(nLoc) == false) { // if we are not on top of another portal
-       //  println("making...");
-          
-          // currently: cloud life is shorter, than portal. should be independent? Or portal launch clouds around if still there?
-          if (c.portalTrigger == false) {  // and we do not have a portal for this cloud...
-          //  println("making a portal");
-            //launch a portal if we've been there awhile:
-            if (millis() - c.birth > intervalPort) {   //portal work***
-              Portal temp = new Portal(nLoc.x, nLoc.y, 5, 20); // make a new portal  points, radius
-              portals.add(temp); // add it to the array
-             c.portalTrigger = true;
-            }
-          }
-          if(c.portalTrigger == true){
-           // println("doing nothing. no creation.");
-          }
-    //  }
+      //   if (p_.tooclose(nLoc) == false) { // if we are not on top of another portal
+      //  println("making...");
+
+      // currently: cloud life is shorter, than portal. should be independent? Or portal launch clouds around if still there?
+      if (c.portalTrigger == false) {  // and we do not have a portal for this cloud...
+        //  println("making a portal");
+        //launch a portal if we've been there awhile:
+        if (millis() - c.birth > intervalPort) {   //portal work***
+          Portal temp = new Portal(nLoc.x, nLoc.y, 5, 20); // make a new portal  points, radius
+          portals.add(temp); // add it to the array
+          c.portalTrigger = true;
+        }
+      }
+      if (c.portalTrigger == true) {
+        // println("doing nothing. no creation.");
+      }
+      //  }
       //}
       //}
       break;
-    } else {
-      tooClose = false;  // which will then make a new cloud
+    }else {
+        tooClose = false;  // which will then make a new cloud
+      }
     }
-  }
-  return tooClose;
+    return tooClose;
+  
 }
 
 boolean checkTriggers(PVector nLoc) { // rings that communicate feedback
@@ -472,8 +473,8 @@ void oscEvent(OscMessage theOscMessage) {
 
   // splice theOscMessage.addrPattern()
   //areWeRunning = true;
-//    println("got an event");
-   
+  //    println("got an event");
+
   String [] newLocations = splitTokens(theOscMessage.addrPattern());
 
   for (int j =0; j < newLocations.length; j ++) {
@@ -481,14 +482,14 @@ void oscEvent(OscMessage theOscMessage) {
   }
 
 
-/*
+  /*
   print(screenLoc[0]); 
    print(", ");
    println(screenLoc[1]);
- */
+   */
   //println(theOscMessage.addrPattern().length());
-  
-  
+
+
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
 
@@ -508,12 +509,10 @@ void oscEvent(OscMessage theOscMessage) {
     newSpot(newLoc); // new cloud
     //println("new cloud and ring");
 
-   // println("Made new cloud");
+    // println("Made new cloud");
   } else if (checkLocations(newLoc) == true) {
-   // println("none made");
+    // println("none made");
   }
-  
- 
 }
 
 

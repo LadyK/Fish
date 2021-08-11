@@ -37,9 +37,13 @@ class Cloud {
 
     birth = millis();
     if ( p == true) {
-      randX = int(random(-20, 30)) + int(newbie.x);
-      randY = int(random(-30, 40)) + int(newbie.x);
-
+      randX = int(random(-3, 5)) + int(newbie.x);
+      // below here, newbie.x create shimmer, but it's sometimes quite low; and always close together
+      randY = int(random(-30, 40)) + int(newbie.x); //** think this is where I need to change things ?<<<
+      //print("randX is: "); println(randX);
+      //print("randY is: "); println(randY);
+      //print("newbie.y is: "); println(newbie.y);
+      //println();
     } else {
       randX = int(newbie.x); //int(random(-randoX, randoX)) + int(newbie.x);
       randY = int(newbie.y); //int(random(-randoY * 4, randoY * .2)) + int(newbie.y); // increase along y-axis
@@ -93,10 +97,10 @@ class Cloud {
     //}
   } // run
 
-  Boolean tooclose(PVector l) {
+  Boolean tooclose(PVector l) { //*** are portals calling this?
     //Boolean toClose = false;
     float d = dist(loc.x, loc.y, l.x, l.y);
-    if ( d < (radius * 4) ) {
+    if ( d < (radius * 10) ) { // was 4; trying to stop portals from developing so close with the mouse
       //stillThere = millis();   // this was start of portal development
       return true;
     } else {

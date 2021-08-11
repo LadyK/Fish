@@ -13,7 +13,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     start = s; //location in text file
     // print("start of this screen is: ");
     // println(start);
-    acceleration = new PVector(0, -.05);
+    acceleration = new PVector(0, -.01);
     velocity = new PVector(0, 0);
     screen_location = l.copy();
     // print("screen inside constructor is: ");
@@ -77,7 +77,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //println(topacity);
     velocity.add(acceleration);
     // println(velocity);
-    velocity.limit(5);
+    velocity.limit(3);
     // update scroll variables
     // topacity = top;
   }
