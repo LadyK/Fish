@@ -30,7 +30,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
 
   Portal(float x_, float y_, int p_, int r) {
-    super(x_, y_, p_, r, 2, 200, 0); // location, points, radius, howMany 15?, opacity, proximity
+    super(x_, y_, p_, r, 2, 200, 20); // location, points, radius, howMany 15?, opacity, proximity
     loc = new PVector(x_, y_);
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
@@ -88,6 +88,8 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //fill(t, 100); // was topacity
 
     // end of text setup
+    xie = random(x_ - 5, x_ + 5); //*** may need to tweak this
+    yie = random(y_ - 30, y_ + 5);
 
     // create a bunch of clouds and add them:
     for (int i = 0; i <= 15; i++) {  // lowered this

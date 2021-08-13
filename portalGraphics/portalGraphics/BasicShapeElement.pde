@@ -211,6 +211,8 @@ Depending on how wide the shapes are, as well as how many of them there are, and
       controlO = 5;
     } else if (prox_ >= 30 && r_ > 50 && howM_ < 20) {
       controlO = 3;
+    } else if (prox_ <= 50 && r_ > 10 && howM_ > 5){
+      controlO = 2;
     }
   }
 
