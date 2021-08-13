@@ -229,7 +229,7 @@ void draw() {
       //  p_.featureShifter(1);
       //}
       p_.runClouds(); // also was off
-      //p_.display(true, stamp);  //here: eventually expands portal
+      p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
 
       if (stamp > 39000) {
@@ -401,12 +401,7 @@ void mouseMoved() {
   }
 }
 
-/* make this into zones?  
- If in zone a, b, c... make clouds
- if we get another ding in an active zone, make a portal (one portal zone) with clouds fast and active behind for length of portal
- 
- 
- */
+
 boolean checkLocations(PVector nLoc) {
   // print("demo size: "); 
   //println(demos.size());
@@ -535,7 +530,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 50, 15, 30, 10, false);  // loc, prox, radius, # (was 30), o, portalRelated?  ***** <----- new cloud here
+  Cloud tester = new Cloud(newbie, 50, 15, 60, 40, false);  // loc, prox, radius, # (was 30), o, portalRelated?  ***** <----- new cloud here
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}

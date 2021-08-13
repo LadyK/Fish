@@ -19,7 +19,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   int p_width;
   float scale ;
   PVector change;
-  PVector loc, acceleration, velocity, loc_original;
+  PVector loc, acceleration, velocity, loc_original, locdup;
   String[] inputText;
   int currentLineNum, howManyLines, linesPerScreen, cln, yScreen, screenLine, numScreens;
   ArrayList<Screen> textBuffers;
@@ -32,6 +32,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   Portal(float x_, float y_, int p_, int r) {
     super(x_, y_, p_, r, 2, 200, 20); // location, points, radius, howMany 15?, opacity, proximity
     loc = new PVector(x_, y_);
+    locdup =  new PVector(x_, y_);;
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     loc_original= new PVector(x_, y_); // need to see how much location changes
@@ -56,47 +57,51 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
     //packet text setup:
     fontSize = 24;
-     f = createFont("Courier", fontSize);
+    f = createFont("Courier", fontSize);
     inputText = loadStrings("packets.txt");
     howManyLines = inputText.length;
     print("number of lines: ");
     println(howManyLines);
-     linesPerScreen = 19; //*** this
+    linesPerScreen = 19; //*** this
     numScreens = ceil(howManyLines/(linesPerScreen + 1)); // *** this
-    print("number of screens: "); println(numScreens);
+    print("number of screens: "); 
+    println(numScreens);
     textBuffers = new ArrayList<Screen>();
     currentLineNum = 0;
     //linesPerScreen = 9;
-    yScreen = 420; // ***needs modification
+    // yScreen = 420; // ***needs modification
     //PVector offscreen = new PVector(20, yScreen); //** location of portal
     //PVector offScreen = loc.copy();
-   
+    locdup.y -= 130;  // want it to start a bit more north than south
     int nextStart = 0;
     for (int i = 0; i <numScreens; i++) {
-      Screen s = new Screen(loc, nextStart); //** this is going to need the portal location + some y to it
+      Screen s = new Screen(locdup, nextStart); //** this is going to need the portal location + some y to it
       nextStart = s.initalize(linesPerScreen, inputText);
-      loc.y = loc.y + ( linesPerScreen + 20 ); // each LINE plus some space; was * 22; need to tweak if scale changes  //* (fontSize *.5)
+      locdup.y = locdup.y + ( linesPerScreen + 20 ); // each LINE plus some space; was * 22; need to tweak if scale changes  //* (fontSize *.5)
       textBuffers.add(s);
-      
     }
     //topacity = 100;
     //t = color(75, 255, 85, 100);
-   
+
     textFont(f, fontSize);
-   
+
     //fill(t);
     //fill(t, 100); // was topacity
 
     // end of text setup
-    xie = random(x_ - 5, x_ + 5); //*** may need to tweak this
-    yie = random(y_ - 30, y_ + 5);
 
-    // create a bunch of clouds and add them:
-    for (int i = 0; i <= 15; i++) {  // lowered this
-      PVector spot = new PVector(xie, yie);
-      Cloud tester = new Cloud(spot, 100, 15, 8, 10, true);  //proximity, rad,  more here **howM_, o, portal?
-      portalClouds.add(0, tester);
-    }
+    /*
+    xie = random(x_ - 5, x_ + 5); //*** may need to tweak this
+     yie = random(y_ - 30, y_ + 5);
+     
+     // create a bunch of clouds and add them:
+     for (int i = 0; i <= 15; i++) {  // lowered this
+     PVector spot = new PVector(xie, yie);
+     Cloud tester = new Cloud(spot, 100, 15, 8, 10, true);  //proximity, rad,  more here **howM_, o, portal?
+     portalClouds.add(0, tester);
+     }
+     
+     */
     screenLine = 0;
   }
 
@@ -146,17 +151,28 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
 
     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
     PVector spot = new PVector();
+    int cloudOp;
     //print("loc.y is: "); println(loc_original);
-    if ( cloudNum < cloudLimit && s > 3000 && s < 40000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
-      float randX = random(-20, 20) + loc_original.x;
-      float randY = random(-55, 15) + loc_original.y;
+    if ( cloudNum < cloudLimit || s > 3000 && s < 34000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
+      float randX = random(-30, 30) + loc_original.x;
+      float randY = random(-55, 5) + loc_original.y;
       //println("creating a spot");
       spot = new PVector(randX, randY);
-      print("new spot is: "); println(spot);
+      //print("new spot is: "); println(spot);
       // these add the sparkle (10), but not crazy full ones before disappearing
-      Cloud tester = new Cloud(spot, 100, 15, 20, 50, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
+      if (s < 28000) {
+        cloudOp = 80;
+      } else {
+        cloudOp = 25;
+      }
+      Cloud tester = new Cloud(spot, 100, 15, 20, cloudOp, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
       portalClouds.add(0, tester);
       cloudNum++;
+      //println("still adding clouds");
+    } else {
+      //println("we've reached out limit");
+      //print("s is: "); 
+      //println(s);
     }
   }
 
