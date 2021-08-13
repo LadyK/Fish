@@ -155,7 +155,9 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //print("loc.y is: "); println(loc_original);
     if ( cloudNum < cloudLimit || s > 3000 && s < 34000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       float randX = random(-30, 30) + loc_original.x;
-      float randY = random(-55, 5) + loc_original.y;
+      float randY = random(-55, -15) + loc_original.y;
+     // print("randy is: "); println(randY);
+     // print("loc origin y is: "); println(loc_original.y);
       //println("creating a spot");
       spot = new PVector(randX, randY);
       //print("new spot is: "); println(spot);
