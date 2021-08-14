@@ -405,13 +405,13 @@ void mouseMoved() {
 boolean checkLocations(PVector nLoc) {
   // print("demo size: "); 
   //println(demos.size());
-  boolean tooClose = false; // what the point of putting this here? mucks it all up
+  //boolean tooClose = false; // what the point of putting this here? mucks it all up
   for (int i= demos.size()-1; i >= 0; i--) {
     // PVector loc = all_locations.get(i);
     Cloud c = demos.get(i);
     //Shape s = triggers.get(i);
     if (c.tooclose(nLoc) == true ) { // if we are too close to a previous spot:
-      tooClose = true;
+      //tooClose = true;
       //if(portals.size() > 0){
       // portals are too close to one another. need to check the location of portals as well:
       //for (int j = portals.size()-1; j >=0; j--) {
@@ -431,17 +431,19 @@ boolean checkLocations(PVector nLoc) {
         }
       }
       if (c.portalTrigger == true) {
-        // println("doing nothing. no creation.");
+        println("doing nothing. no creation.");
       }
       //  }
       //}
       //}
-      break;
+      //break; // do we really want this here?
+      return true;
     }else {
-        tooClose = false;  // which will then make a new cloud
+        
       }
-    }
-    return tooClose;
+      
+    } // gone through all the demos
+    return false;  // which will then make a new cloud
   
 }
 
