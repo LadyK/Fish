@@ -38,6 +38,12 @@ void setup() {
 
 void draw() {
   background(0);
+  //lights();
+  spotLight(254, 252, 203, 200, 0, 200, 0, 0, -1, PI/4, 8);
+  spotLight(254, 252, 203, 600, 0, 400, 0, 0, -1, PI/4, 4);
+  pointLight(170, 217, 224, 100, height/2 + 200, 4);
+  pointLight(170, 217, 224, 600, height/2 + 200, 4);
+  //spotLight(254, 252, 203, width/2, height/2, 0, 0, 0, -1, PI/2, 4);
   school.run();
 
   //*/

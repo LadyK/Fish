@@ -8,6 +8,7 @@ float rand;
 class Fish {
   PVector location, velocity, acceleration;
   float r, maxforce, maxspeed;
+  int size;
 
   Fish(PVector l) {
     location = new PVector(l.x, l.y); //, l.z
@@ -16,6 +17,7 @@ class Fish {
     r = 3.0;
     maxspeed = 2;
     maxforce = 0.09;
+    size = 15;
   }
 
   void run(ArrayList<Fish>school, float nV) {
@@ -34,8 +36,8 @@ class Fish {
     PVector ali = align(school);
     PVector coh = cohesion(school);
     //arb. weight forces
-    sep.mult(1.5);
-    ali.mult(1.0);
+    sep.mult(1.5); //1.5
+    ali.mult(1.5);
     coh.mult(1.0);
     //add the force vectors to acceleration
     applyForce(sep);
@@ -68,7 +70,7 @@ class Fish {
     if (location.y > height+r) location.y = -r;
   }
   PVector separate(ArrayList<Fish> school) {
-    float desiredseparation = 35.0f; // was 35.0f;
+    float desiredseparation = 25.0f; // was 35.0f;
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
     for (Fish other : school) {
@@ -139,10 +141,12 @@ class Fish {
    void display(float nV_) {
 
     pushMatrix();
-    translate(location.x, location.y);  
+    translate(location.x, location.y, location.z);  
     rotateY(nV_);
+    rotateZ(nV_);
     fill(shimmer);
-    ellipse(0, 0, 30, 30);
+    //sphere(10);
+    ellipse(0, 0, size, size);
     popMatrix();
   }
 

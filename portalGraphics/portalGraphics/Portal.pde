@@ -154,7 +154,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
     PVector spot = new PVector();
     int cloudOp;
-    //print("loc.y is: "); println(loc_original);
+    //print("loc.y is: "); println(loc_original); 
     if ( cloudNum < cloudLimit || s > 3000 && s < 34000) {  // if a bit more than 30000, like 36, then get flashes of full ones at the end
       float randX = random(-30, 30) + loc_original.x;
       float randY = random(-55, -15) + loc_original.y;
