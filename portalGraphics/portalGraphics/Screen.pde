@@ -8,6 +8,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   int topacity;
   int start;
   int yStart;
+  //boolean young; // controls whether topacity is going up or down
 
   Screen(PVector l, int s) {
     start = s; //location in text file
@@ -26,6 +27,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     // not sure what to do with this line here with reference to line vvvvv
     //yStart = int(screen_location.y) + 200; 
     topacity = 80;
+    //young = true;
     //t = color(75, 255, 85, topacity);
     //f = createFont("Arial", 12);
     //textFont(f, 24);
@@ -70,10 +72,14 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     return limit;
   }
 
-  void update() {
-
-    topacity+=1;
-    if (topacity > 255) topacity = 255;
+  void update(boolean young) {
+    if (young == true) {
+      topacity+=1;
+      if (topacity > 255) topacity = 255;
+    } else if (young == false){
+      topacity--;
+      if(topacity < 10) topacity = 10;
+    }
     //println(topacity);
     velocity.add(acceleration);
     // println(velocity);
@@ -82,8 +88,8 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     // topacity = top;
   }
 
-  void run() {
-    update();
+  void run(boolean youth) {
+    update(youth);
     scrollUp();
     // for (int i = 0; i < linesPerScreen; i++) {
     //screen[i].scrollUp();
@@ -142,7 +148,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //scale(.5);
     //    print("screen location in display screen is: "); 
     //    println(screen_location);
-   textAlign(CENTER, BOTTOM);
+    textAlign(CENTER, BOTTOM);
     text_location = new PVector( (-20), 30); // need to reset it // but with the matrix translation, it should be fine
     //    print("text loc inside displayScreen is: ");
     //    println(text_location);
@@ -165,10 +171,10 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       scale(.5);
       //fill(75, 255, 85, 255);
       rectMode(CORNER);
-      text(line[i], text_location.x -20, text_location.y,  125, 28); // fudz with y2
+      text(line[i], text_location.x -20, text_location.y, 125, 28); // fudz with y2 // was 125, 28 then 110, 35
       popMatrix();
       //if(line[i] == " ") println("empty");
-      if ( i != line.length-2) {
+      if ( i != line.length-2 && i !=line.length-1) {
         text_location.y+= 20; //***** fudz with
       }
     }
@@ -179,7 +185,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       pushMatrix();
       //scale(.25);
       translate(screen_location.x, screen_location.y);
-     // scale(.5);
+      // scale(.5);
       fill(0, 40);
       rect(-30, 30, 100, (28 * 10));
       popMatrix();

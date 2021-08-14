@@ -27,6 +27,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   //int topacity;
   int fontSize;
   int cloudLimit, cloudNum;
+  boolean textop, full; //text opacity
 
 
   Portal(float x_, float y_, int p_, int r) {
@@ -77,13 +78,14 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     for (int i = 0; i <numScreens; i++) {
       Screen s = new Screen(locdup, nextStart); //** this is going to need the portal location + some y to it
       nextStart = s.initalize(linesPerScreen, inputText);
-      locdup.y = locdup.y + ( linesPerScreen + 20 ); // each LINE plus some space; was * 22; need to tweak if scale changes  //* (fontSize *.5)
+      locdup.y = locdup.y + ( linesPerScreen + 20 ); // each LINE plus some space; was * 28; need to tweak if scale changes  //* (fontSize *.5)
       textBuffers.add(s);
     }
     //topacity = 100;
     //t = color(75, 255, 85, 100);
 
     textFont(f, fontSize);
+    textop = true;
 
     //fill(t);
     //fill(t, 100); // was topacity
@@ -146,7 +148,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
         }
       }
 
-      showText(loc, 5); // then change second parameter to less
+      showText(); // then change second parameter to less
     }
 
     // took this out to speed things up vvvvvv  (howM_ was 15, took it to 3)
@@ -160,14 +162,15 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
      // print("loc origin y is: "); println(loc_original.y);
       //println("creating a spot");
       spot = new PVector(randX, randY);
-      //print("new spot is: "); println(spot);
-      // these add the sparkle (10), but not crazy full ones before disappearing
-      if (s < 28000) {
-        cloudOp = 80;
-      } else {
-        cloudOp = 25;
-      }
-      Cloud tester = new Cloud(spot, 100, 15, 20, cloudOp, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
+       // tinkering with slightly different opacities as gets older. seemed to slow down, text lingered and shapes lingered
+      //if (s < 28000) {
+      //  //float opRand = random(30, 60);
+      //  //cloudOp = int(opRand);
+      //  cloudOp = 40;
+      //} else {
+      //  cloudOp = 20;
+      //}
+      Cloud tester = new Cloud(spot, 100, 15, 20, 30, true);  //proximity, rad,was 4 howM_ 20, o 10, portal?
       portalClouds.add(0, tester);
       cloudNum++;
       //println("still adding clouds");
@@ -211,18 +214,20 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     // println("adding");
   }
 
-  void showText(PVector l, int s) {  // flip on or fade up once portal expands enough
+  void showText() {  // flip on or fade up once portal expands enough
     //fill(75, 255, 85, 255);
     //fill(0, 255, 0, 100); // <-- topacity here
+    if(textop == false) full = false;
+    else if (textop == true) full = true;
     for (Screen sc : textBuffers) {
 
-      sc.run();
+      sc.run(full);
       //print("Screen number: "); 
       //println(sc);
     }
     for ( int i = textBuffers.size()-1; i >= 0; i--) {
       Screen sn = textBuffers.get(i);
-      // vv still a bit weird. need to figure rhythm out more
+    
       if ((sn.screen_location.y + (linesPerScreen * fontSize) ) < 0) { // play with this value if scale more (was 10 * 22)
         //      println(sn.screen_location.y);
         textBuffers.remove(i);  // + (10 * 22

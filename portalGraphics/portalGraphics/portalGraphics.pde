@@ -222,6 +222,7 @@ void draw() {
       if (frameCount % 2 == 0) {
         p_.featureShifter(1);
       }
+      p_.textop = false;
       p_.runClouds(); //more vibrant glitter // was also turned off before ***
       p_.shrink();
       p_.display(true, stamp);
@@ -229,6 +230,7 @@ void draw() {
       //if (frameCount % 2 == 0) {
       //  p_.featureShifter(1);
       //}
+      p_.textop = false;
       p_.runClouds(); // also was off
       p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
