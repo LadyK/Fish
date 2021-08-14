@@ -40,8 +40,8 @@ class Cloud {
       randX = int(random(-3, 5)) + int(newbie.x);
       // below here, newbie.x create shimmer, but it's sometimes quite low; and always close together
       randY = int(random(-40, -10)) + int(newbie.y); //** think this is where I need to change things ?<<<
-      print("randX is: "); println(randX);
-      print("randY is: "); println(randY);
+      //print("randX is: "); println(randX);
+      //print("randY is: "); println(randY);
       //print("newbie.y is: "); println(newbie.y);
       //println();
     } else {

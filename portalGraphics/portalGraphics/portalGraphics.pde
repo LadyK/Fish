@@ -57,7 +57,7 @@ int ius = 30;
 
 float  rd, gn, blu, rdshift, gnshift, blushift;
 color  kuler, paint, previousKuler, lerpKuler;
-long intervalPort;
+long intervalPortMin, intervalPortMax;
 
 
 
@@ -90,7 +90,8 @@ void setup() {
   gn = random(1);  // 128, 255
   blu = random(1); // 0, 192
   kuler = color(rd, gn, blu);
-  intervalPort = 8000;   // 10 seconds
+  intervalPortMin = 6000;   // 6 seconds
+  intervalPortMax = 10000;
 
 
   /*
@@ -424,13 +425,12 @@ boolean checkLocations(PVector nLoc) {
       if (c.portalTrigger == false) {  // and we do not have a portal for this cloud...
         //  println("making a portal");
         //launch a portal if we've been there awhile:
-        if (millis() - c.birth > intervalPort) {   //portal work***
+        if ((millis() - c.birth > intervalPortMin) && (millis() - c.birth < intervalPortMax)) {   //portal work***
           Portal temp = new Portal(nLoc.x, nLoc.y, 5, 20); // make a new portal  points, radius
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
         }
-      }
-      if (c.portalTrigger == true) {
+      }else if (c.portalTrigger == true) {
         println("doing nothing. no creation.");
       }
       //  }
@@ -438,13 +438,11 @@ boolean checkLocations(PVector nLoc) {
       //}
       //break; // do we really want this here?
       return true;
-    }else {
-        
-      }
-      
-    } // gone through all the demos
-    return false;  // which will then make a new cloud
-  
+    } else {
+    }
+  }
+  // none of the clouds are close so, thus make a new cloud
+  return false;  // which will then make a new cloud
 }
 
 boolean checkTriggers(PVector nLoc) { // rings that communicate feedback
