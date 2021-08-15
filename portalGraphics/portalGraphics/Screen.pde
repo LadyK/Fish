@@ -14,7 +14,7 @@ class Screen { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     start = s; //location in text file
     // print("start of this screen is: ");
     // println(start);
-    acceleration = new PVector(0, -.01);
+    acceleration = new PVector(0, -.02);
     velocity = new PVector(0, 0);
     screen_location = l.copy();
     // print("screen inside constructor is: ");

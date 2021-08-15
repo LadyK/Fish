@@ -10,6 +10,7 @@ int checker = 0;
 int loopChecker = 0;
 OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
 NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
+OscP5 oscP5send;
 String messageselector;
 
 
@@ -58,6 +59,17 @@ int ius = 30;
 float  rd, gn, blu, rdshift, gnshift, blushift;
 color  kuler, paint, previousKuler, lerpKuler;
 long intervalPortMin, intervalPortMax;
+
+//fish:
+int octaves = 4;
+float falloff = 0.3;
+float noiseScale = 0.2;
+
+color midColor, topColor, bottomColor, interColor;
+float threshold = 0.90;
+
+School school;
+boolean fish;
 
 
 
@@ -108,7 +120,8 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  //  whereimsending = new NetAddress("192.168.1.4", 12001); // hostname, port
+  oscP5send = new OscP5(this, 12002);
+  whereimsending = new NetAddress("192.168.0.77", 12002); // hostname, port PORTAL info
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -121,11 +134,35 @@ void setup() {
   //  PVector tester = new PVector(mouseX, mouseY);
   newSpot(currentLocation);
   //  previousMouse = new PVector(-100, -200);
+  
+  //Fish:
+  float fov = PI/3.0;
+  float cameraZ = (height/2.0) / tan(fov/2.0);
+  perspective(fov, float(width)/float(height), 
+    cameraZ/10.0, cameraZ*10.0);
+  //perspective();
+  school = new School();
+  PVector loc = new PVector(width/2, height/2);
+  for (int i = 0; i < 15; i++) {
+    Fish f = new Fish(loc);
+    school.addFish(f);
+  }
+  shimmer = 127;
+   noStroke();
+   noiseDetail(octaves, falloff);
+  topColor = color(160);
+  midColor = color(127);
+  bottomColor = color(100);
+  fish = true;
 }
 
 void draw() {
 
   background(0);
+ 
+  
+  
+  
   /* not so noticible now bc more fog-like; 
    // ************* old code (before refactor)
    
@@ -140,10 +177,13 @@ void draw() {
    }
    }
    */
+   
+ colorMode(RGB, 1.0, 1.0, 1.0, 255);
   siblingsCheck(); // are all of the clouds fully formed with all of their shapes? (getting the to appear/form a bit morme gradually)
 
   // run the demos if we have any:
   if (demos.size() > 0) {
+    fish = false;
     colorChange(); // not sure why opacity is so bright when controlling color here, versus within the class
     // print("Demos is: ");
     // println(demos.size()-1);
@@ -169,6 +209,20 @@ void draw() {
         c.run();
       }
     }
+  } else if (demos.size() == 0 || fish == true){
+    if(frameCount % 46 == 0) colorChange();
+     //fish:
+  colorMode(RGB, 255, 255, 255);
+  spotLight(254, 252, 203, width/4, 0, 200, 0, 0, -1, PI/4, 8);
+  spotLight(254, 252, 203, (width/4) * 3, 0, 400, 0, 0, -1, PI/4, 4);
+  pointLight(170, 217, 224, 100, height/2 + 200, 4);
+  pointLight(170, 217, 224, width - 100, height/2 + 200, 4);
+  spotLight(254, 252, 203, width/2, height/2, 0, 0, 0, -1, PI/2, 4);
+  colorMode(RGB, 1.0, 1.0, 1.0, 255);
+  school.run();
+
+    
+    
   }
   // run triggers/rings feedback on user presence:
 
@@ -245,8 +299,9 @@ void draw() {
       }
     }
   }
-  //  */
+  
   server.sendScreen(); // sends screen to max to send out
+  
 } // draw loop
 
 
@@ -293,9 +348,15 @@ void colorChange() {
 
     previousKuler = color(rdshift, gnshift, blushift);
   }
+  
+  topColor = kuler;
+  midColor = lerpKuler;
+  bottomColor = previousKuler;
 
   paint = kuler;
   lerpKuler = lerpColor(paint, previousKuler, 0.5);
+  
+   
 }
 
 
@@ -327,18 +388,18 @@ void mousePressed() {
    // }
    */
 
-  //PVector newLoc = new PVector(mouseX, mouseY);
-  //if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-  //  //newLoc.x = map(newLoc.x, 0, 640, 0, width);
-  //  //newLoc.y = map(newLoc.y, 0, 480, 0, height);
-  //  flash(newLoc); // ring triggers
-  //  newSpot(newLoc); // new cloud
-  //  //println();
-  //  //println("new cloud and ring");
-  //  //println("Made new cloud");
-  //} else if (checkLocations(newLoc) == true) {
-  //  // println("none made");
-  //}
+  PVector newLoc = new PVector(mouseX, mouseY);
+  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+    //newLoc.x = map(newLoc.x, 0, 640, 0, width);
+    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+    flash(newLoc); // ring triggers
+    newSpot(newLoc); // new cloud
+    //println();
+    //println("new cloud and ring");
+    //println("Made new cloud");
+  } else if (checkLocations(newLoc) == true) {
+    // println("none made");
+  }
 }
 
 void keyPressed() {
@@ -402,6 +463,8 @@ void mouseMoved() {
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
+  
+ 
 }
 
 
@@ -431,6 +494,11 @@ boolean checkLocations(PVector nLoc) {
           Portal temp = new Portal(nLoc.x, nLoc.y, 5, 20); // make a new portal  points, radius
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
+          //send portal trigger to Max:
+           OscMessage myMessage = new OscMessage("");
+           myMessage.add(1); /* add an int to the osc message */
+          /* send the message */
+          oscP5send.send(myMessage, whereimsending);  
         }
       }else if (c.portalTrigger == true) {
         println("doing nothing. no creation.");
