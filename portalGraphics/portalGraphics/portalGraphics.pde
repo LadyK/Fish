@@ -120,8 +120,8 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  oscP5send = new OscP5(this, 12002);
-  whereimsending = new NetAddress("192.168.0.77", 12002); // hostname, port PORTAL info
+  oscP5send = new OscP5(this, 12003);
+  whereimsending = new NetAddress("192.168.0.77", 12003); // hostname, port PORTAL info
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -448,7 +448,7 @@ void mouseMoved() {
   //    newSpot(newLoc);
 
 
-
+/*  testing purposes only
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     // strained because of masking in madmapper re:studio prototype
@@ -463,7 +463,7 @@ void mouseMoved() {
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
-  
+ */ 
  
 }
 
@@ -495,10 +495,12 @@ boolean checkLocations(PVector nLoc) {
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
           //send portal trigger to Max:
-           OscMessage myMessage = new OscMessage("");
-           myMessage.add(1); /* add an int to the osc message */
+           OscMessage portalTrigger = new OscMessage("");
+          // portalTrigger.add(1); /* add an int to the osc message */
+           portalTrigger.add(nLoc.y);
+           portalTrigger.add(nLoc.x);
           /* send the message */
-          oscP5send.send(myMessage, whereimsending);  
+          oscP5send.send(portalTrigger, whereimsending);  
         }
       }else if (c.portalTrigger == true) {
         println("doing nothing. no creation.");
