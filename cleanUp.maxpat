@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 52.0, 301.0, 1321.0, 763.0 ],
+		"rect" : [ 51.0, 304.0, 1321.0, 763.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,12 +40,24 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-128",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 239.0, 50.0, 71.0, 22.0 ],
+					"text" : "fromsymbol"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-126",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 189.0, 25.0, 104.0, 22.0 ],
+					"patching_rect" : [ 180.0, 8.0, 104.0, 22.0 ],
 					"text" : "udpreceive 12042"
 				}
 
@@ -3020,7 +3032,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1160.366667866706848, 534.0, 106.0, 35.0 ],
-					"text" : "\"portal location\" 264. 337."
+					"text" : "\"portal location\" 259. 284."
 				}
 
 			}
@@ -17513,22 +17525,22 @@
 																									"AutoGainRate" : 31.000000000000185,
 																									"AutoNetRate" : 24.375999000000117,
 																									"AutoRandNetwork" : 1.0,
-																									"GL-Delay" : 7.0,
-																									"GL-Freq" : 36.0,
+																									"GL-Delay" : 90.0,
+																									"GL-Freq" : 22.0,
 																									"GL-Q" : 35.560001,
 																									"RandInLevels" : 1.0,
 																									"RandSmooth" : 1.0,
 																									"randTrig" : 0.0,
 																									"wet/dry" : 1.0,
 																									"blob" : 																									{
-																										"FB-Gain" : [ 43.25 ],
-																										"FB-level" : [ 42.717196564503048 ],
+																										"FB-Gain" : [ 40.0 ],
+																										"FB-level" : [ 59.30093371232276 ],
 																										"InLevelMinMax" : [ 0, 103 ],
-																										"modIn-1" : [ 52.451486398508131 ],
-																										"modIn-2" : [ 78.599998952955318 ],
-																										"modIn-3" : [ 57.653961143695973 ],
-																										"modIn-4" : [ 69.054552820498031 ],
-																										"modIn-5" : [ 62.920238921891148 ]
+																										"modIn-1" : [ 50.666445580063247 ],
+																										"modIn-2" : [ 77.029377314536617 ],
+																										"modIn-3" : [ 55.985360852205801 ],
+																										"modIn-4" : [ 68.596435092835506 ],
+																										"modIn-5" : [ 70.002440960121703 ]
 																									}
 
 																								}
@@ -17560,22 +17572,22 @@
 																												"AutoGainRate" : 31.000000000000185,
 																												"AutoNetRate" : 24.375999000000117,
 																												"AutoRandNetwork" : 1.0,
-																												"GL-Delay" : 7.0,
-																												"GL-Freq" : 36.0,
+																												"GL-Delay" : 90.0,
+																												"GL-Freq" : 22.0,
 																												"GL-Q" : 35.560001,
 																												"RandInLevels" : 1.0,
 																												"RandSmooth" : 1.0,
 																												"randTrig" : 0.0,
 																												"wet/dry" : 1.0,
 																												"blob" : 																												{
-																													"FB-Gain" : [ 43.25 ],
-																													"FB-level" : [ 42.717196564503048 ],
+																													"FB-Gain" : [ 40.0 ],
+																													"FB-level" : [ 59.30093371232276 ],
 																													"InLevelMinMax" : [ 0, 103 ],
-																													"modIn-1" : [ 52.451486398508131 ],
-																													"modIn-2" : [ 78.599998952955318 ],
-																													"modIn-3" : [ 57.653961143695973 ],
-																													"modIn-4" : [ 69.054552820498031 ],
-																													"modIn-5" : [ 62.920238921891148 ]
+																													"modIn-1" : [ 50.666445580063247 ],
+																													"modIn-2" : [ 77.029377314536617 ],
+																													"modIn-3" : [ 55.985360852205801 ],
+																													"modIn-4" : [ 68.596435092835506 ],
+																													"modIn-5" : [ 70.002440960121703 ]
 																												}
 
 																											}
@@ -32039,8 +32051,15 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
+					"destination" : [ "obj-128", 0 ],
 					"source" : [ "obj-126", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-128", 0 ]
 				}
 
 			}
