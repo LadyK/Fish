@@ -1,4 +1,5 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+ //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*; // send back to max, which funnels it to machine running projection mapping
@@ -448,7 +449,7 @@ void mouseMoved() {
   //    newSpot(newLoc);
 
 
-/*  testing purposes only
+///*  testing purposes only
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     // strained because of masking in madmapper re:studio prototype
@@ -463,7 +464,7 @@ void mouseMoved() {
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
- */ 
+ //*/ 
  
 }
 
@@ -495,17 +496,17 @@ boolean checkLocations(PVector nLoc) {
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
           //send portal trigger to Max:
-           OscMessage portalTrigger = new OscMessage("");
+           OscMessage portalTrigger = new OscMessage("portal location");
           // portalTrigger.add(1); /* add an int to the osc message */
            portalTrigger.add(nLoc.y);
            portalTrigger.add(nLoc.x);
+
           /* send the message */
           oscP5send.send(portalTrigger, whereimsending);  
-          print("sending: ");
-          println(portalTrigger + " " + whereimsending);
+          
         }
       }else if (c.portalTrigger == true) {
-        println("doing nothing. no creation.");
+        //println("doing nothing. no creation.");
       }
       //  }
       //}
