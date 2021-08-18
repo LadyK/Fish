@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 82.0, 461.0, 1321.0, 763.0 ],
+		"rect" : [ 52.0, 301.0, 1321.0, 763.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,18 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-126",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 189.0, 25.0, 104.0, 22.0 ],
+					"text" : "udpreceive 12042"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-127",
 					"linecount" : 2,
@@ -592,7 +604,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ -66.0, 79.0, 1321.0, 763.0 ],
+						"rect" : [ 88.0, 133.0, 1321.0, 763.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -620,7 +632,6 @@
 						"style" : "",
 						"subpatcher_template" : "",
 						"assistshowspatchername" : 0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-14",
@@ -3003,12 +3014,13 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-86",
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1160.366667866706848, 534.0, 106.0, 22.0 ],
-					"text" : "1 251. 90."
+					"patching_rect" : [ 1160.366667866706848, 534.0, 106.0, 35.0 ],
+					"text" : "\"portal location\" 264. 337."
 				}
 
 			}
@@ -17501,22 +17513,22 @@
 																									"AutoGainRate" : 31.000000000000185,
 																									"AutoNetRate" : 24.375999000000117,
 																									"AutoRandNetwork" : 1.0,
-																									"GL-Delay" : 45.0,
-																									"GL-Freq" : 14.0,
+																									"GL-Delay" : 7.0,
+																									"GL-Freq" : 36.0,
 																									"GL-Q" : 35.560001,
 																									"RandInLevels" : 1.0,
 																									"RandSmooth" : 1.0,
 																									"randTrig" : 0.0,
 																									"wet/dry" : 1.0,
 																									"blob" : 																									{
-																										"FB-Gain" : [ 38.75 ],
-																										"FB-level" : [ 22.172714881135011 ],
+																										"FB-Gain" : [ 43.25 ],
+																										"FB-level" : [ 42.717196564503048 ],
 																										"InLevelMinMax" : [ 0, 103 ],
-																										"modIn-1" : [ 84.128255785908735 ],
-																										"modIn-2" : [ 68.093745862595441 ],
-																										"modIn-3" : [ 83.83741779699146 ],
-																										"modIn-4" : [ 68.466259301987094 ],
-																										"modIn-5" : [ 58.915288602135689 ]
+																										"modIn-1" : [ 52.451486398508131 ],
+																										"modIn-2" : [ 78.599998952955318 ],
+																										"modIn-3" : [ 57.653961143695973 ],
+																										"modIn-4" : [ 69.054552820498031 ],
+																										"modIn-5" : [ 62.920238921891148 ]
 																									}
 
 																								}
@@ -17548,22 +17560,22 @@
 																												"AutoGainRate" : 31.000000000000185,
 																												"AutoNetRate" : 24.375999000000117,
 																												"AutoRandNetwork" : 1.0,
-																												"GL-Delay" : 45.0,
-																												"GL-Freq" : 14.0,
+																												"GL-Delay" : 7.0,
+																												"GL-Freq" : 36.0,
 																												"GL-Q" : 35.560001,
 																												"RandInLevels" : 1.0,
 																												"RandSmooth" : 1.0,
 																												"randTrig" : 0.0,
 																												"wet/dry" : 1.0,
 																												"blob" : 																												{
-																													"FB-Gain" : [ 38.75 ],
-																													"FB-level" : [ 22.172714881135011 ],
+																													"FB-Gain" : [ 43.25 ],
+																													"FB-level" : [ 42.717196564503048 ],
 																													"InLevelMinMax" : [ 0, 103 ],
-																													"modIn-1" : [ 84.128255785908735 ],
-																													"modIn-2" : [ 68.093745862595441 ],
-																													"modIn-3" : [ 83.83741779699146 ],
-																													"modIn-4" : [ 68.466259301987094 ],
-																													"modIn-5" : [ 58.915288602135689 ]
+																													"modIn-1" : [ 52.451486398508131 ],
+																													"modIn-2" : [ 78.599998952955318 ],
+																													"modIn-3" : [ 57.653961143695973 ],
+																													"modIn-4" : [ 69.054552820498031 ],
+																													"modIn-5" : [ 62.920238921891148 ]
 																												}
 
 																											}
@@ -26479,6 +26491,7 @@
 , 											{
 												"box" : 												{
 													"id" : "obj-198",
+													"int" : 1,
 													"maxclass" : "gswitch",
 													"numinlets" : 3,
 													"numoutlets" : 1,
@@ -31393,7 +31406,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 212.666667699813843, 26.5, 223.0, 47.0 ],
+					"patching_rect" : [ 292.0, 18.5, 223.0, 47.0 ],
 					"text" : "Info from tracking patch :\n - passes active channel (initialStates)\n- triggers sound"
 				}
 
@@ -31798,7 +31811,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 52.833335399627686, 31.999997317790985, 140.0, 22.0 ],
+					"patching_rect" : [ 15.58332884311676, 26.5, 140.0, 22.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
 					"presentation_rect" : [ 0.0, 0.0, 100.0, 49.0 ],
@@ -32021,6 +32034,13 @@
 					"destination" : [ "obj-87", 0 ],
 					"order" : 0,
 					"source" : [ "obj-122", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-126", 0 ]
 				}
 
 			}
@@ -32561,13 +32581,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
 					"source" : [ "obj-66", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"source" : [ "obj-66", 1 ]
 				}
 
 			}
