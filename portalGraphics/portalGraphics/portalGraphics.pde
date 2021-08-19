@@ -134,7 +134,7 @@ void setup() {
   //  PVector tester = new PVector(mouseX, mouseY);
   newSpot(currentLocation);
   //  previousMouse = new PVector(-100, -200);
-  
+
   //Fish:
   float fov = PI/3.0;
   float cameraZ = (height/2.0) / tan(fov/2.0);
@@ -148,8 +148,8 @@ void setup() {
     school.addFish(f);
   }
   shimmer = 127;
-   noStroke();
-   noiseDetail(octaves, falloff);
+  noStroke();
+  noiseDetail(octaves, falloff);
   topColor = color(160);
   midColor = color(127);
   bottomColor = color(100);
@@ -159,10 +159,10 @@ void setup() {
 void draw() {
 
   background(0);
- 
-  
-  
-  
+
+
+
+
   /* not so noticible now bc more fog-like; 
    // ************* old code (before refactor)
    
@@ -177,8 +177,8 @@ void draw() {
    }
    }
    */
-   
- colorMode(RGB, 1.0, 1.0, 1.0, 255);
+
+  colorMode(RGB, 1.0, 1.0, 1.0, 255);
   siblingsCheck(); // are all of the clouds fully formed with all of their shapes? (getting the to appear/form a bit morme gradually)
 
   // run the demos if we have any:
@@ -209,20 +209,17 @@ void draw() {
         c.run();
       }
     }
-  } else if (demos.size() == 0 || fish == true){
-    if(frameCount % 46 == 0) colorChange();
-     //fish:
-  colorMode(RGB, 255, 255, 255);
-  spotLight(254, 252, 203, width/4, 0, 200, 0, 0, -1, PI/4, 8);
-  spotLight(254, 252, 203, (width/4) * 3, 0, 400, 0, 0, -1, PI/4, 4);
-  pointLight(170, 217, 224, 100, height/2 + 200, 4);
-  pointLight(170, 217, 224, width - 100, height/2 + 200, 4);
-  spotLight(254, 252, 203, width/2, height/2, 0, 0, 0, -1, PI/2, 4);
-  colorMode(RGB, 1.0, 1.0, 1.0, 255);
-  school.run();
-
-    
-    
+  } else if (demos.size() == 0 || fish == true) {
+    if (frameCount % 46 == 0) colorChange();
+    //fish:
+    colorMode(RGB, 255, 255, 255);
+    spotLight(254, 252, 203, width/4, 0, 200, 0, 0, -1, PI/4, 8);
+    spotLight(254, 252, 203, (width/4) * 3, 0, 400, 0, 0, -1, PI/4, 4);
+    pointLight(170, 217, 224, 100, height/2 + 200, 4);
+    pointLight(170, 217, 224, width - 100, height/2 + 200, 4);
+    spotLight(254, 252, 203, width/2, height/2, 0, 0, 0, -1, PI/2, 4);
+    colorMode(RGB, 1.0, 1.0, 1.0, 255);
+    school.run();
   }
   // run triggers/rings feedback on user presence:
 
@@ -279,6 +276,20 @@ void draw() {
       p_.textop = false;
       p_.runClouds(); //more vibrant glitter // was also turned off before ***
       p_.shrink();
+      //***** send off/lower volume to max patch with location ID
+
+
+      OscMessage portalLose = new OscMessage("");
+      // portalTrigger.add(1); /* add an int to the osc message */
+      portalLose.add(p_.loc.y); // y comes first
+      portalLose.add(p_.loc.x);
+      portalLose.add(0); // turn off
+      /* send the message */
+      oscP5send.send(portalLose, whereimsending);  
+      print("sending: ");
+      println(portalLose + " " + whereimsending);
+      // *******
+
       p_.display(true, stamp);
     } else {
       //if (frameCount % 2 == 0) {
@@ -299,9 +310,8 @@ void draw() {
       }
     }
   }
-  
+
   server.sendScreen(); // sends screen to max to send out
-  
 } // draw loop
 
 
@@ -348,15 +358,13 @@ void colorChange() {
 
     previousKuler = color(rdshift, gnshift, blushift);
   }
-  
+
   topColor = kuler;
   midColor = lerpKuler;
   bottomColor = previousKuler;
 
   paint = kuler;
   lerpKuler = lerpColor(paint, previousKuler, 0.5);
-  
-   
 }
 
 
@@ -448,23 +456,22 @@ void mouseMoved() {
   //    newSpot(newLoc);
 
 
-/*  testing purposes only
-  PVector newLoc = new PVector(mouseX, mouseY);
-  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-    // strained because of masking in madmapper re:studio prototype
-    //newLoc.x = map(newLoc.x, 0, 640, 104, 450);
-    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
-
-    flash(newLoc); // ring triggers
-    newSpot(newLoc); // new cloud
-    //println();
-    //println("new cloud and ring");
-    //println("Made new cloud");
-  } else if (checkLocations(newLoc) == true) {
-    // println("none made");
-  }
- */ 
- 
+  /*  testing purposes only
+   PVector newLoc = new PVector(mouseX, mouseY);
+   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+   // strained because of masking in madmapper re:studio prototype
+   //newLoc.x = map(newLoc.x, 0, 640, 104, 450);
+   //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+   
+   flash(newLoc); // ring triggers
+   newSpot(newLoc); // new cloud
+   //println();
+   //println("new cloud and ring");
+   //println("Made new cloud");
+   } else if (checkLocations(newLoc) == true) {
+   // println("none made");
+   }
+   */
 }
 
 
@@ -495,16 +502,16 @@ boolean checkLocations(PVector nLoc) {
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
           //send portal trigger to Max:
-           OscMessage portalTrigger = new OscMessage("");
+          OscMessage portalTrigger = new OscMessage("");
           // portalTrigger.add(1); /* add an int to the osc message */
-           portalTrigger.add(nLoc.y);
-           portalTrigger.add(nLoc.x);
+          portalTrigger.add(nLoc.y);
+          portalTrigger.add(nLoc.x);
           /* send the message */
           oscP5send.send(portalTrigger, whereimsending);  
           print("sending: ");
           println(portalTrigger + " " + whereimsending);
         }
-      }else if (c.portalTrigger == true) {
+      } else if (c.portalTrigger == true) {
         println("doing nothing. no creation.");
       }
       //  }
