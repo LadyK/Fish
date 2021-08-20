@@ -10,7 +10,7 @@ SyphonServer server;
 int checker = 0;
 int loopChecker = 0;
 OscP5 whereimlistening; // equivalent to [udpreceive] in max, e.g. it's listening
-NetAddress whereimsending; // equivalent to [udpsend] in max - it's sending
+NetAddress whereimsending, whereimsendingTriggerLoc; // equivalent to [udpsend] in max - it's sending
 OscP5 oscP5send;
 String messageselector;
 
@@ -121,8 +121,11 @@ void setup() {
   /* create a new NetAddress. a NetAddress is used when sending osc messages
    * with the oscP5.send method.
    */
-  oscP5send = new OscP5(this, 12002);
+  oscP5send = new OscP5(this, 12002); // sends portal location over to max
   whereimsending = new NetAddress("192.168.0.77", 12002); // hostname, port PORTAL info
+  
+  oscP5send = new OscP5(this, 12042); // to send info to max that trigger/initial graphics are closing
+  whereimsendingTriggerLoc = new NetAddress("192.168.0.77", 12042);
   /* create a new instance of oscP5. 
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -192,6 +195,14 @@ void draw() {
       // PVector loc = all_locations.get(i);
       Cloud c = demos.get(i);
       if (c.shapes.size() <= 0) { // if the size of the shapes array (ie, cloud elements) in the cloud object is (nearly) empty
+           // sending info to Max re:location (ie, which one) so to kill sound
+           OscMessage triggerLoc = new OscMessage("trigger location");
+           triggerLoc.add(c.loc.y);
+           triggerLoc.add(c.loc.x);
+           triggerLoc.add(0); /* this lowers volume for this location */
+          /* send the message */
+          oscP5send.send(triggerLoc, whereimsendingTriggerLoc);  
+        
         demos.remove(i);
         //   println("removed one");
       } else {  // too few, fast and a glitch:
@@ -280,6 +291,15 @@ void draw() {
       p_.textop = false;
       p_.runClouds(); //more vibrant glitter // was also turned off before ***
       p_.shrink();
+      // kill portal sound
+      OscMessage portalTrigger = new OscMessage("portal location");
+      portalTrigger.add(p_.loc.y);
+      portalTrigger.add(p_.loc.x);
+      portalTrigger.add(0); /* turn off portal */
+
+     /* send the message */
+     oscP5send.send(portalTrigger, whereimsending);  
+      
       p_.display(true, stamp);
     } else {
       //if (frameCount % 2 == 0) {
@@ -497,9 +517,9 @@ boolean checkLocations(PVector nLoc) {
           c.portalTrigger = true;
           //send portal trigger to Max:
            OscMessage portalTrigger = new OscMessage("portal location");
-          // portalTrigger.add(1); /* add an int to the osc message */
            portalTrigger.add(nLoc.y);
            portalTrigger.add(nLoc.x);
+           portalTrigger.add(1); /* turn on portal */
 
           /* send the message */
           oscP5send.send(portalTrigger, whereimsending);  
