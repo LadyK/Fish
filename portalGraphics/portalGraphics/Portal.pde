@@ -61,12 +61,12 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     f = createFont("Courier", fontSize);
     inputText = loadStrings("packets.txt");
     howManyLines = inputText.length;
-    print("number of lines: ");
-    println(howManyLines);
+    //print("number of lines: ");
+    //println(howManyLines);
     linesPerScreen = 19; //*** this
     numScreens = ceil(howManyLines/(linesPerScreen + 1)); // *** this
-    print("number of screens: "); 
-    println(numScreens);
+   //print("number of screens: "); 
+    //println(numScreens);
     textBuffers = new ArrayList<Screen>();
     currentLineNum = 0;
     //linesPerScreen = 9;
