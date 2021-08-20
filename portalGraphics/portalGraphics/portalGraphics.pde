@@ -1,4 +1,5 @@
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+ //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*; // send back to max, which funnels it to machine running projection mapping
@@ -456,22 +457,24 @@ void mouseMoved() {
   //    newSpot(newLoc);
 
 
-  /*  testing purposes only
-   PVector newLoc = new PVector(mouseX, mouseY);
-   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
-   // strained because of masking in madmapper re:studio prototype
-   //newLoc.x = map(newLoc.x, 0, 640, 104, 450);
-   //newLoc.y = map(newLoc.y, 0, 480, 0, height);
-   
-   flash(newLoc); // ring triggers
-   newSpot(newLoc); // new cloud
-   //println();
-   //println("new cloud and ring");
-   //println("Made new cloud");
-   } else if (checkLocations(newLoc) == true) {
-   // println("none made");
-   }
-   */
+
+///*  testing purposes only
+  PVector newLoc = new PVector(mouseX, mouseY);
+  if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
+    // strained because of masking in madmapper re:studio prototype
+    //newLoc.x = map(newLoc.x, 0, 640, 104, 450);
+    //newLoc.y = map(newLoc.y, 0, 480, 0, height);
+
+    flash(newLoc); // ring triggers
+    newSpot(newLoc); // new cloud
+    //println();
+    //println("new cloud and ring");
+    //println("Made new cloud");
+  } else if (checkLocations(newLoc) == true) {
+    // println("none made");
+  }
+ //*/ 
+ 
 }
 
 
@@ -502,17 +505,19 @@ boolean checkLocations(PVector nLoc) {
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
           //send portal trigger to Max:
-          OscMessage portalTrigger = new OscMessage("");
+           OscMessage portalTrigger = new OscMessage("portal location");
           // portalTrigger.add(1); /* add an int to the osc message */
-          portalTrigger.add(nLoc.y);
-          portalTrigger.add(nLoc.x);
+           portalTrigger.add(nLoc.y);
+           portalTrigger.add(nLoc.x);
+
           /* send the message */
           oscP5send.send(portalTrigger, whereimsending);  
-          print("sending: ");
-          println(portalTrigger + " " + whereimsending);
+          
         }
-      } else if (c.portalTrigger == true) {
-        println("doing nothing. no creation.");
+
+      }else if (c.portalTrigger == true) {
+        //println("doing nothing. no creation.");
+
       }
       //  }
       //}
