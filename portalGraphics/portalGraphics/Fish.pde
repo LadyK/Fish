@@ -17,7 +17,7 @@ class Fish {
     r = 3.0;
     maxspeed = 3;
     maxforce = 0.09;
-    size = 15;
+    size = 5; // was 15 for initial testing
   }
 
   void run(ArrayList<Fish>school, float nV) {
@@ -70,7 +70,7 @@ class Fish {
     if (location.y > height+r) location.y = -r;
   }
   PVector separate(ArrayList<Fish> school) {
-    float desiredseparation = 25.0f; // was 35.0f;
+    float desiredseparation = 10.0f; // was 35.0f; // was 25.0f with size 15
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
     for (Fish other : school) {

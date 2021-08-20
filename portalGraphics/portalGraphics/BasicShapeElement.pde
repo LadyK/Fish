@@ -136,7 +136,7 @@ class BasicShapeElement {
       }
     } else if ( age > 60 && age <= 80) {
       float randy = random(1);
-      if (randy <= .05) {
+      if (randy <= .08) {
         opacity +=3;
       } else {
         //opacity -=1;

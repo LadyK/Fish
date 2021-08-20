@@ -65,10 +65,8 @@ long intervalPortMin, intervalPortMax;
 int octaves = 4;
 float falloff = 0.3;
 float noiseScale = 0.2;
-
 color midColor, topColor, bottomColor, interColor;
 float threshold = 0.90;
-
 School school;
 boolean fish;
 
@@ -103,8 +101,8 @@ void setup() {
   gn = random(1);  // 128, 255
   blu = random(1); // 0, 192
   kuler = color(rd, gn, blu);
-  intervalPortMin = 6000;   // 6 seconds
-  intervalPortMax = 10000;
+  intervalPortMin = 15000;   // was 6 seconds
+  intervalPortMax = 30000;  // was 10 seconds
 
 
   /*
@@ -147,7 +145,7 @@ void setup() {
   //perspective();
   school = new School();
   PVector loc = new PVector(width/2, height/2);
-  for (int i = 0; i < 15; i++) {
+  for (int i = 0; i < 30; i++) {  // was 15 when size was 15
     Fish f = new Fish(loc);
     school.addFish(f);
   }
@@ -625,7 +623,7 @@ PVector newSpot(PVector newbie) {
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
   //print("parameters are: "); println(newbie.y);
-  Cloud tester = new Cloud(newbie, 50, 15, 60, 40, false);  // loc, prox, radius, # (was 30), o, portalRelated?  ***** <----- new cloud here
+  Cloud tester = new Cloud(newbie, 50, 15, 60, 30, false);  // loc, prox, radius, # (was 30), o, portalRelated?  ***** <----- new cloud here
   //println(tester.birth);
   demos.add(tester); // took out (0, tester)
   //}
