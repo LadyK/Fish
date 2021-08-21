@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 103.0, 1457.0, 763.0 ],
+		"rect" : [ 370.0, 203.0, 1457.0, 763.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -339,7 +339,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 221.0, 383.0, 1457.0, 763.0 ],
+						"rect" : [ 284.0, 171.0, 1457.0, 763.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -407,12 +407,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-19",
+									"linecount" : 7,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 523.0, 131.0, 97.0, 22.0 ],
-									"text" : "words"
+									"patching_rect" : [ 506.0, 126.0, 97.0, 102.0 ],
+									"text" : "open Untitled:/Applications/Max.app/Contents/Resources/C74/media/Luciferins/R9_43_01.wav"
 								}
 
 							}
@@ -423,7 +424,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 523.0, 165.0, 97.0, 22.0 ],
+									"patching_rect" : [ 506.0, 237.29787278175354, 97.0, 22.0 ],
 									"text" : "prepend open"
 								}
 
@@ -616,7 +617,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 209.702127933502197, 447.0, 69.0, 22.0 ],
-									"text" : "0.2, 0 2000"
+									"text" : "0.5, 0 2000"
 								}
 
 							}
@@ -628,7 +629,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 47.0, 419.936170220375061, 69.0, 22.0 ],
-									"text" : "0, 0.3 4000"
+									"text" : "0, 0.5 4000"
 								}
 
 							}
@@ -915,13 +916,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-49", 0 ],
-									"source" : [ "obj-15", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-15", 0 ],
 									"source" : [ "obj-19", 0 ]
 								}
@@ -937,7 +931,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-28", 0 ],
+									"destination" : [ "obj-49", 0 ],
 									"order" : 1,
 									"source" : [ "obj-2", 0 ]
 								}
@@ -1329,7 +1323,7 @@
 						"followglobaltempo" : 0,
 						"formantcorrection" : 0,
 						"mode" : "basic",
-						"originallength" : [ 58710.051700680181966, "ticks" ],
+						"originallength" : [ 72726.117006802611286, "ticks" ],
 						"originaltempo" : 119.999999999999815,
 						"pitchcorrection" : 0,
 						"quality" : "basic",
