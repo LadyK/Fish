@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 370.0, 203.0, 1457.0, 763.0 ],
+		"rect" : [ 190.0, 287.0, 1457.0, 763.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,30 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-20",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 56.0, 299.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-16",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 230.0, 201.148935675621033, 150.0, 33.0 ],
+					"text" : "don't we need a prepend open with file name?"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-19",
 					"maxclass" : "newobj",
@@ -166,7 +190,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "int" ],
 					"patching_rect" : [ 523.241133610407473, 144.0, 30.0, 30.0 ]
 				}
 
@@ -339,7 +363,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 284.0, 171.0, 1457.0, 763.0 ],
+						"rect" : [ 592.0, 364.0, 1457.0, 763.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -369,6 +393,18 @@
 						"assistshowspatchername" : 0,
 						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-12",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 64.5, 113.0, 58.0, 47.0 ],
+									"text" : "bang to report info"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-30",
 									"maxclass" : "message",
@@ -407,13 +443,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-19",
-									"linecount" : 7,
+									"linecount" : 9,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 506.0, 126.0, 97.0, 102.0 ],
-									"text" : "open Untitled:/Applications/Max.app/Contents/Resources/C74/media/Luciferins/R9_43_01.wav"
+									"patching_rect" : [ 506.0, 126.0, 97.0, 129.0 ],
+									"text" : "open Untitled:/Applications/Max.app/Contents/Resources/C74/media/Luciferins_beeps/websdr_recording_beeps.3kHz.wav"
 								}
 
 							}
@@ -468,11 +504,12 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-13",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 171.5, 31.0, 150.0, 20.0 ],
-									"text" : "sfplay signal"
+									"patching_rect" : [ 143.5, 31.0, 150.0, 33.0 ],
+									"text" : "sfplay signal to be mixed with for volume"
 								}
 
 							}
@@ -485,7 +522,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "signal" ],
-									"patching_rect" : [ 139.5, 17.0, 30.0, 30.0 ]
+									"patching_rect" : [ 111.5, 17.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -790,7 +827,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 77.0, 85.0, 106.0, 20.0 ],
+									"patching_rect" : [ 6.5, 202.0, 106.0, 20.0 ],
 									"text" : "initial volume rise"
 								}
 
@@ -1281,7 +1318,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
+					"outlettype" : [ "int" ],
 					"patching_rect" : [ 115.0, 95.0, 30.0, 30.0 ]
 				}
 
@@ -1305,7 +1342,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 176.755319118499756, 213.148935675621033, 51.0, 22.0 ],
+					"patching_rect" : [ 170.755319118499756, 177.148935675621033, 51.0, 22.0 ],
 					"text" : "speed 1"
 				}
 
@@ -1323,7 +1360,7 @@
 						"followglobaltempo" : 0,
 						"formantcorrection" : 0,
 						"mode" : "basic",
-						"originallength" : [ 72726.117006802611286, "ticks" ],
+						"originallength" : [ 155865.486725663446123, "ticks" ],
 						"originaltempo" : 119.999999999999815,
 						"pitchcorrection" : 0,
 						"quality" : "basic",
@@ -1901,6 +1938,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-123", 4 ],
 					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-123", 0 ],
+					"source" : [ "obj-20", 0 ]
 				}
 
 			}
