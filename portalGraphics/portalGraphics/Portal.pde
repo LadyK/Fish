@@ -59,6 +59,9 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     //packet text setup:
     fontSize = 24;
     f = createFont("Courier", fontSize);
+    
+    
+    
     inputText = loadStrings("packets.txt");
     howManyLines = inputText.length;
     //print("number of lines: ");
