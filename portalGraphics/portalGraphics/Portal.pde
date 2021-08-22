@@ -28,6 +28,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
   int fontSize;
   int cloudLimit, cloudNum;
   boolean textop, full; //text opacity
+  boolean shrinkMSG;
 
 
   Portal(float x_, float y_, int p_, int r) {
@@ -38,6 +39,7 @@ class Portal extends BasicShapeElement { //<>// //<>// //<>// //<>//
     velocity = new PVector(0, 0);
     loc_original= new PVector(x_, y_); // need to see how much location changes
     cloudLimit = 300;
+    shrinkMSG = false;
 
     rd = 0;
     gn = int(random(128, 255));

@@ -194,21 +194,21 @@ void draw() {
       Cloud c = demos.get(i);
       if (c.shapes.size() <= 0) { // if the size of the shapes array (ie, cloud elements) in the cloud object is (nearly) empty
         // sending info to Max re:location (ie, which one) so to kill sound
-        
+
         /*
         OscMessage triggerLoc = new OscMessage("trigger location");
-        triggerLoc.add(int(c.loc.y));
-        triggerLoc.add(int(c.loc.x));
-        triggerLoc.add(0); /* this lowers volume for this location */
+         triggerLoc.add(int(c.loc.y));
+         triggerLoc.add(int(c.loc.x));
+         triggerLoc.add(0); /* this lowers volume for this location */
         /* send the message */
         /*
         oscP5send.send(triggerLoc, whereimsendingTriggerLoc);
-        print("sending trigger off: ");
-        print(c.loc.y);
-        print(   c.loc.x);
-        println();
-        
-        */
+         print("sending trigger off: ");
+         print(c.loc.y);
+         print(   c.loc.x);
+         println();
+         
+         */
         demos.remove(i);
         //   println("removed one");
       } else {  // too few, fast and a glitch:
@@ -294,21 +294,24 @@ void draw() {
       p_.textop = false;
       p_.runClouds(); //more vibrant glitter // was also turned off before ***
       p_.shrink();
+      if (p_.shrinkMSG == false) {
+        p_.shrinkMSG = true;
+        OscMessage portalTrigger = new OscMessage("portal location");
+        portalTrigger.add(int(p_.loc.y));
+        portalTrigger.add(int(p_.loc.x));
+        portalTrigger.add(0); /* turn off portal */
+
+        print("sending trigger off: ");
+        print(p_.loc.y);
+        print(    p_.loc.x);
+        println();
+
+        /* send the message */
+        oscP5send.send(portalTrigger, whereimsending);
+        print("killing portal ");
+        println(portalTrigger);
+      }
       // kill portal sound
-      OscMessage portalTrigger = new OscMessage("portal location");
-      portalTrigger.add(int(p_.loc.y));
-      portalTrigger.add(int(p_.loc.x));
-      portalTrigger.add(0); /* turn off portal */
-
-      print("sending trigger off: ");
-      print(p_.loc.y);
-      print(    p_.loc.x);
-      println();
-
-      /* send the message */
-      oscP5send.send(portalTrigger, whereimsending);
-      print("killing portal ");
-      println(portalTrigger);
 
       p_.display(true, stamp);
     } else {
