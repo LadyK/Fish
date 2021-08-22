@@ -1,5 +1,5 @@
- //<>//
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+ //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*; // send back to max, which funnels it to machine running projection mapping
@@ -52,9 +52,9 @@ boolean firstLoc = true;
 //int portalPoints = 18;
 //int locations_indice = 0;
 PVector newLoc, currentLocation;
-int numColors = 600;    
+int numColors = 600;
 float c_rand;
-PVector previousMouse; 
+PVector previousMouse;
 int ius = 30;
 
 float  rd, gn, blu, rdshift, gnshift, blushift;
@@ -76,9 +76,9 @@ void setup() {
   size(640, 480, P3D);  // need to send less to max to send out? 800?
   //canvas = createGraphics(1280, 1024, P3D); // out to syphon
 
-  // Create syhpon server to send frames out.
+  // Create syhpon server to send frames out. to madmapper
   server = new SyphonServer(this, "Processing Syphon");
-  //size(displayWidth, 300 ); 
+  //size(displayWidth, 300 );
   //  size(800, 800, P3D);
   //frameRate(30);
   //background(0);
@@ -121,10 +121,10 @@ void setup() {
    */
   oscP5send = new OscP5(this, 12002); // sends portal location over to max
   whereimsending = new NetAddress("192.168.0.77", 12002); // hostname, port PORTAL info
-  
+
   oscP5send = new OscP5(this, 12042); // to send info to max that trigger/initial graphics are closing
   whereimsendingTriggerLoc = new NetAddress("192.168.0.77", 12042);
-  /* create a new instance of oscP5. 
+  /* create a new instance of oscP5.
    * 12000 is the port number you are listening for incoming osc messages.
    */
   /* start oscP5, listening for incoming messages at port 12000 */
@@ -136,11 +136,11 @@ void setup() {
   //  PVector tester = new PVector(mouseX, mouseY);
   newSpot(currentLocation);
   //  previousMouse = new PVector(-100, -200);
-  
+
   //Fish:
   float fov = PI/3.0;
   float cameraZ = (height/2.0) / tan(fov/2.0);
-  perspective(fov, float(width)/float(height), 
+  perspective(fov, float(width)/float(height),
     cameraZ/10.0, cameraZ*10.0);
   //perspective();
   school = new School();
@@ -150,8 +150,8 @@ void setup() {
     school.addFish(f);
   }
   shimmer = 127;
-   noStroke();
-   noiseDetail(octaves, falloff);
+  noStroke();
+  noiseDetail(octaves, falloff);
   topColor = color(160);
   midColor = color(127);
   bottomColor = color(100);
@@ -161,11 +161,11 @@ void setup() {
 void draw() {
 
   background(0);
- 
-  
-  
-  
-  /* not so noticible now bc more fog-like; 
+
+
+
+
+  /* not so noticible now bc more fog-like;
    // ************* old code (before refactor)
    
    // randomly kill off a few _shapes_ from within the cloud herd
@@ -173,14 +173,14 @@ void draw() {
    for (int i = 5; i < 0; i--) {
    int rando = floor(random(0, demos.size()-1));
    Cloud temp = demos.get(rando);
-   temp.plague(); 
+   temp.plague();
    //float whichOne = abs(random(1, herd.size()));
-   // herd.remove(whichOne); 
+   // herd.remove(whichOne);
    }
    }
    */
-   
- colorMode(RGB, 1.0, 1.0, 1.0, 255);
+
+  colorMode(RGB, 1.0, 1.0, 1.0, 255);
   siblingsCheck(); // are all of the clouds fully formed with all of their shapes? (getting the to appear/form a bit morme gradually)
 
   // run the demos if we have any:
@@ -193,14 +193,22 @@ void draw() {
       // PVector loc = all_locations.get(i);
       Cloud c = demos.get(i);
       if (c.shapes.size() <= 0) { // if the size of the shapes array (ie, cloud elements) in the cloud object is (nearly) empty
-           // sending info to Max re:location (ie, which one) so to kill sound
-           OscMessage triggerLoc = new OscMessage("trigger location");
-           triggerLoc.add(c.loc.y);
-           triggerLoc.add(c.loc.x);
-           triggerLoc.add(0); /* this lowers volume for this location */
-          /* send the message */
-          oscP5send.send(triggerLoc, whereimsendingTriggerLoc);  
+        // sending info to Max re:location (ie, which one) so to kill sound
         
+        /*
+        OscMessage triggerLoc = new OscMessage("trigger location");
+        triggerLoc.add(int(c.loc.y));
+        triggerLoc.add(int(c.loc.x));
+        triggerLoc.add(0); /* this lowers volume for this location */
+        /* send the message */
+        /*
+        oscP5send.send(triggerLoc, whereimsendingTriggerLoc);
+        print("sending trigger off: ");
+        print(c.loc.y);
+        print(   c.loc.x);
+        println();
+        
+        */
         demos.remove(i);
         //   println("removed one");
       } else {  // too few, fast and a glitch:
@@ -210,7 +218,7 @@ void draw() {
         //  } else { // otherwise, create a new one:
         //    c.randX = int(random(-c.randoX, c.randoX)) + int(c.loc.x);
         //    c.randY = int(random(-c.randoY * 8, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
-        //    BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando); 
+        //    BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando);
         //    c.shapes.add(0, temp);
         //    c.siblings++;
         //  }
@@ -219,20 +227,17 @@ void draw() {
         c.run();
       }
     }
-  } else if (demos.size() == 0 || fish == true){
-    if(frameCount % 46 == 0) colorChange();
-     //fish:
-  colorMode(RGB, 255, 255, 255);
-  spotLight(254, 252, 203, width/4, 0, 200, 0, 0, -1, PI/4, 8);
-  spotLight(254, 252, 203, (width/4) * 3, 0, 400, 0, 0, -1, PI/4, 4);
-  pointLight(170, 217, 224, 100, height/2 + 200, 4);
-  pointLight(170, 217, 224, width - 100, height/2 + 200, 4);
-  spotLight(254, 252, 203, width/2, height/2, 0, 0, 0, -1, PI/2, 4);
-  colorMode(RGB, 1.0, 1.0, 1.0, 255);
-  school.run();
-
-    
-    
+  } else if (demos.size() == 0 || fish == true) {
+    if (frameCount % 46 == 0) colorChange();
+    //fish:
+    colorMode(RGB, 255, 255, 255);
+    spotLight(254, 252, 203, width/4, 0, 200, 0, 0, -1, PI/4, 8);
+    spotLight(254, 252, 203, (width/4) * 3, 0, 400, 0, 0, -1, PI/4, 4);
+    pointLight(170, 217, 224, 100, height/2 + 200, 4);
+    pointLight(170, 217, 224, width - 100, height/2 + 200, 4);
+    spotLight(254, 252, 203, width/2, height/2, 0, 0, 0, -1, PI/2, 4);
+    colorMode(RGB, 1.0, 1.0, 1.0, 255);
+    school.run();
   }
   // run triggers/rings feedback on user presence:
 
@@ -291,13 +296,20 @@ void draw() {
       p_.shrink();
       // kill portal sound
       OscMessage portalTrigger = new OscMessage("portal location");
-      portalTrigger.add(p_.loc.y);
-      portalTrigger.add(p_.loc.x);
+      portalTrigger.add(int(p_.loc.y));
+      portalTrigger.add(int(p_.loc.x));
       portalTrigger.add(0); /* turn off portal */
 
-     /* send the message */
-     oscP5send.send(portalTrigger, whereimsending);  
-      
+      print("sending trigger off: ");
+      print(p_.loc.y);
+      print(    p_.loc.x);
+      println();
+
+      /* send the message */
+      oscP5send.send(portalTrigger, whereimsending);
+      print("killing portal ");
+      println(portalTrigger);
+
       p_.display(true, stamp);
     } else {
       //if (frameCount % 2 == 0) {
@@ -318,9 +330,8 @@ void draw() {
       }
     }
   }
-  
+
   server.sendScreen(); // sends screen to max to send out
-  
 } // draw loop
 
 
@@ -334,7 +345,7 @@ void siblingsCheck() {  // change clouds so first one appears at source, then th
         //} else { // otherwise, create a new one:
         c.randX = int(random(-c.randoX, c.randoX)) + int(c.loc.x);
         c.randY = int(random(-c.randoY * 8, (c.randoY * .2))) + int(c.loc.y); // increase this along the y-axis via for-loop ?
-        BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando); 
+        BasicShapeElement temp = new BasicShapeElement(c.randX, c.randY, 7, c.radius, c.howMany, c.alpha, c.rando);
         c.shapes.add(0, temp);
         c.siblings++;
       }
@@ -356,7 +367,7 @@ void colorChange() {
 
     rd = sin(curTime * 0.8f + i * 0.0011f) + 0.5f; //R  + 0.8f
     gn = sin(curTime * 0.7f + i * 0.0013f) + 0.5f; //G * 0.5f + 0.5f   + 0.5f
-    blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f; 
+    blu = sin(curTime * 0.3f + i * 0.0017f) + 0.5f;
     rdshift = abs(rd - .5);
     gnshift = abs(gn - .5);
     blushift = abs(blu - .5);
@@ -367,15 +378,13 @@ void colorChange() {
 
     previousKuler = color(rdshift, gnshift, blushift);
   }
-  
+
   topColor = kuler;
   midColor = lerpKuler;
   bottomColor = previousKuler;
 
   paint = kuler;
   lerpKuler = lerpColor(paint, previousKuler, 0.5);
-  
-   
 }
 
 
@@ -460,14 +469,14 @@ void mouseMoved() {
   //  //fill(255, 0, 0);
   //  //ellipse(mouseX, mouseY, 20, 20);
   //  // launch portal if a long time been here
-  //} 
+  //}
   //previousMouse = m;
   //  newLoc = new PVector(mouseX, mouseY);
   //  if (!checkLocations(newLoc)) { // <---- same spot?
   //    newSpot(newLoc);
 
 
-///*  testing purposes only
+  ///*  testing purposes only
   PVector newLoc = new PVector(mouseX, mouseY);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     // strained because of masking in madmapper re:studio prototype
@@ -482,13 +491,12 @@ void mouseMoved() {
   } else if (checkLocations(newLoc) == true) {
     // println("none made");
   }
- //*/ 
- 
+  //*/
 }
 
 
 boolean checkLocations(PVector nLoc) {
-  // print("demo size: "); 
+  // print("demo size: ");
   //println(demos.size());
   //boolean tooClose = false; // what the point of putting this here? mucks it all up
   for (int i= demos.size()-1; i >= 0; i--) {
@@ -514,16 +522,15 @@ boolean checkLocations(PVector nLoc) {
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
           //send portal trigger to Max:
-           OscMessage portalTrigger = new OscMessage("portal location");
-           portalTrigger.add(nLoc.y);
-           portalTrigger.add(nLoc.x);
-           portalTrigger.add(1); /* turn on portal */
+          OscMessage portalTrigger = new OscMessage("portal location");
+          portalTrigger.add(nLoc.y);
+          portalTrigger.add(nLoc.x);
+          portalTrigger.add(1); /* turn on portal */
 
           /* send the message */
-          oscP5send.send(portalTrigger, whereimsending);  
-          
+          oscP5send.send(portalTrigger, whereimsending);
         }
-      }else if (c.portalTrigger == true) {
+      } else if (c.portalTrigger == true) {
         //println("doing nothing. no creation.");
       }
       //  }
@@ -571,7 +578,7 @@ void oscEvent(OscMessage theOscMessage) {
 
 
   /*
-  print(screenLoc[0]); 
+  print(screenLoc[0]);
    print(", ");
    println(screenLoc[1]);
    */
@@ -618,7 +625,7 @@ PVector newSpot(PVector newbie) {
   //for (int i = 0; i < 4; i++) {
   //float randX = random((-radius), (radius));
   //float randY = random((-radius), (radius));
-  //BasicShapeElement tester = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius); 
+  //BasicShapeElement tester = new BasicShapeElement(int(newbie.x) + randX, int(newbie.y) + randY, 7, radius);
 
   // must map values from 640, 480 interface to a 1280, 1024 sketch
 
