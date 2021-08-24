@@ -171,13 +171,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-84",
-									"linecount" : 3,
+									"linecount" : 4,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 391.0, 438.0, 89.0, 49.0 ],
-									"text" : "prepend delete 6 7 9 9 1 2 3 4 5 6 7 8 9 1"
+									"patching_rect" : [ 391.0, 438.0, 89.0, 62.0 ],
+									"text" : "prepend delete 6 7 9 9 1 2 3 4 5 6 7 8 9 1 2 3 4"
 								}
 
 							}
@@ -859,7 +859,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1061.899998585382946, 643.0, 74.933334589004517, 22.0 ],
-					"text" : "open"
+					"text" : "close"
 				}
 
 			}
@@ -895,7 +895,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 959.066665410995483, 643.0, 74.933334589004517, 22.0 ],
-					"text" : "open"
+					"text" : "close"
 				}
 
 			}
@@ -1015,7 +1015,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 580.0, 338.0, 50.0, 22.0 ],
-					"text" : "6 4"
+					"text" : "6 6"
 				}
 
 			}
@@ -7261,7 +7261,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1207.366660038630016, 511.866668939590454, 106.0, 22.0 ],
-					"text" : "open 277 307"
+					"text" : "close 297 305 0"
 				}
 
 			}
@@ -7391,7 +7391,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 98.5, 447.0, 205.0, 62.0 ],
-									"text" : "open Untitled:/Applications/Max.app/Contents/Resources/C74/media/Luciferins/R9_26_morebirds_01.WAV"
+									"text" : "open Untitled:/Applications/Max.app/Contents/Resources/C74/media/Luciferins/birds_042_01.wav"
 								}
 
 							}
@@ -8355,7 +8355,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 573.0, 87.0, 122.0, 22.0 ],
-									"text" : "64174.580499"
+									"text" : "61156.303855"
 								}
 
 							}
@@ -11864,7 +11864,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 104.0, 297.0, 50.0, 22.0 ],
-									"text" : "6 4"
+									"text" : "6 6"
 								}
 
 							}
@@ -26243,22 +26243,22 @@
 																									"AutoGainRate" : 31.000000000000185,
 																									"AutoNetRate" : 24.375999000000117,
 																									"AutoRandNetwork" : 1.0,
-																									"GL-Delay" : 17.0,
-																									"GL-Freq" : 0.0,
+																									"GL-Delay" : 61.0,
+																									"GL-Freq" : 52.0,
 																									"GL-Q" : 35.560001,
 																									"RandInLevels" : 1.0,
 																									"RandSmooth" : 1.0,
 																									"randTrig" : 0.0,
 																									"wet/dry" : 1.0,
 																									"blob" : 																									{
-																										"FB-Gain" : [ 0.0 ],
-																										"FB-level" : [ 54.247337812277721 ],
+																										"FB-Gain" : [ 59.499999999999986 ],
+																										"FB-level" : [ 127.0 ],
 																										"InLevelMinMax" : [ 0, 103 ],
-																										"modIn-1" : [ 61.881950316032537 ],
-																										"modIn-2" : [ 53.750665772587595 ],
-																										"modIn-3" : [ 82.353814943443595 ],
-																										"modIn-4" : [ 61.601276795753527 ],
-																										"modIn-5" : [ 73.01704724006558 ]
+																										"modIn-1" : [ 70.545039041154411 ],
+																										"modIn-2" : [ 57.518690018921383 ],
+																										"modIn-3" : [ 67.162831531679316 ],
+																										"modIn-4" : [ 69.669597175556575 ],
+																										"modIn-5" : [ 82.784937387301881 ]
 																									}
 
 																								}
@@ -26290,22 +26290,22 @@
 																												"AutoGainRate" : 31.000000000000185,
 																												"AutoNetRate" : 24.375999000000117,
 																												"AutoRandNetwork" : 1.0,
-																												"GL-Delay" : 17.0,
-																												"GL-Freq" : 0.0,
+																												"GL-Delay" : 61.0,
+																												"GL-Freq" : 52.0,
 																												"GL-Q" : 35.560001,
 																												"RandInLevels" : 1.0,
 																												"RandSmooth" : 1.0,
 																												"randTrig" : 0.0,
 																												"wet/dry" : 1.0,
 																												"blob" : 																												{
-																													"FB-Gain" : [ 0.0 ],
-																													"FB-level" : [ 54.247337812277721 ],
+																													"FB-Gain" : [ 59.499999999999986 ],
+																													"FB-level" : [ 127.0 ],
 																													"InLevelMinMax" : [ 0, 103 ],
-																													"modIn-1" : [ 61.881950316032537 ],
-																													"modIn-2" : [ 53.750665772587595 ],
-																													"modIn-3" : [ 82.353814943443595 ],
-																													"modIn-4" : [ 61.601276795753527 ],
-																													"modIn-5" : [ 73.01704724006558 ]
+																													"modIn-1" : [ 70.545039041154411 ],
+																													"modIn-2" : [ 57.518690018921383 ],
+																													"modIn-3" : [ 67.162831531679316 ],
+																													"modIn-4" : [ 69.669597175556575 ],
+																													"modIn-5" : [ 82.784937387301881 ]
 																												}
 
 																											}
