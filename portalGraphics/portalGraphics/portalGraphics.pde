@@ -1,5 +1,5 @@
- //<>// //<>//
-import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+//<>// //<>// //<>//
+import oscP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import netP5.*;
 import java.util.Map;
 import codeanticode.syphon.*; // send back to max, which funnels it to machine running projection mapping
@@ -294,23 +294,25 @@ void draw() {
       p_.textop = false;
       p_.runClouds(); //more vibrant glitter // was also turned off before ***
       p_.shrink();
-      if (p_.shrinkMSG == false) {
-        p_.shrinkMSG = true;
-        OscMessage portalTrigger = new OscMessage("portal location");
-        portalTrigger.add(int(p_.loc.y));
-        portalTrigger.add(int(p_.loc.x));
-        portalTrigger.add(0); /* turn off portal */
+      //if (p_.shrinkMSG == false) {
+      //  p_.shrinkMSG = true;
+      //coming in too quickly
+      //OscMessage portalTrigger = new OscMessage("close");
+      //portalTrigger.add(int(p_.loc.y));
+      //portalTrigger.add(int(p_.loc.x));
+      //portalTrigger.add(0); /* turn off portal */
 
-        print("sending trigger off: ");
-        print(p_.loc.y);
-        print(    p_.loc.x);
-        println();
+      //print("turning portal trigger off: ");
+      //print(int(p_.loc.y));
+      //print(", ");
+      //print(    int(p_.loc.x));
+      //println();
 
-        /* send the message */
-        oscP5send.send(portalTrigger, whereimsending);
-        print("killing portal ");
-        println(portalTrigger);
-      }
+      ///* send the message */
+      //oscP5send.send(portalTrigger, whereimsending);
+      //print("killing portal ");
+      //println(portalTrigger);
+      //}
       // kill portal sound
 
       p_.display(true, stamp);
@@ -323,10 +325,30 @@ void draw() {
       p_.display(true, stamp);  //here: eventually expands portal
       p_.shrink();
 
+      if (stamp > 37000) {
+        if (p_.shrinkMSG == false) {
+          p_.shrinkMSG = true;
+          OscMessage portalTrigger = new OscMessage("close");
+          portalTrigger.add(int(p_.loc.y));
+          portalTrigger.add(int(p_.loc.x));
+          portalTrigger.add(0); /* turn off portal */
+
+          print("turning portal trigger off: ");
+          print(int(p_.loc.y));
+          print(", ");
+          print(    int(p_.loc.x));
+          println();
+
+          /* send the message */
+          oscP5send.send(portalTrigger, whereimsending);
+          print("killing portal ");
+        }
+      }
+
       if (stamp > 39000) {
         //delay(500);
         stamp = 0;
-        // why does still expand a touch before being removed?
+
         portals.remove(i);
         println("portal removed");
         println(p_.portalClouds.size());
@@ -525,10 +547,10 @@ boolean checkLocations(PVector nLoc) {
           portals.add(temp); // add it to the array
           c.portalTrigger = true;
           //send portal trigger to Max:
-          OscMessage portalTrigger = new OscMessage("portal location");
-          portalTrigger.add(nLoc.y);
-          portalTrigger.add(nLoc.x);
-          portalTrigger.add(1); /* turn on portal */
+          OscMessage portalTrigger = new OscMessage("open");
+          portalTrigger.add(int(temp.loc.y));
+          portalTrigger.add(int(temp.loc.x));
+          //portalTrigger.add(1); /* turn on portal */
 
           /* send the message */
           oscP5send.send(portalTrigger, whereimsending);
