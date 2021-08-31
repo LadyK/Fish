@@ -15,9 +15,9 @@ class Fish {
     acceleration = new PVector (0, 0); //, 0
     velocity = new PVector(random(-1, 1), random(-1, 1)); //, random(-1, 1)
     r = 3.0;
-    maxspeed = 3;
+    maxspeed = 1;
     maxforce = 0.09;
-    size = 5; // was 15 for initial testing
+    size = 10; // was 15 for initial testing
   }
 
   void run(ArrayList<Fish>school, float nV) {

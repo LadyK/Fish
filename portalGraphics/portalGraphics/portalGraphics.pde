@@ -120,10 +120,10 @@ void setup() {
    * with the oscP5.send method.
    */
   oscP5send = new OscP5(this, 12002); // sends portal location over to max
-  whereimsending = new NetAddress("192.168.0.77", 12002); // hostname, port PORTAL info
+  whereimsending = new NetAddress("192.168.11.2", 12002); // hostname, port PORTAL info
 
   oscP5send = new OscP5(this, 12042); // to send info to max that trigger/initial graphics are closing
-  whereimsendingTriggerLoc = new NetAddress("192.168.0.77", 12042);
+  whereimsendingTriggerLoc = new NetAddress("192.168.11.2", 12042);
   /* create a new instance of oscP5.
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -343,9 +343,12 @@ void draw() {
           oscP5send.send(portalTrigger, whereimsending);
           print("killing portal ");
         }
+        
+        p_.shrink();
       }
 
       if (stamp > 39000) {
+        p_.shrink();
         //delay(500);
         stamp = 0;
 
