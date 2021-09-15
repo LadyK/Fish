@@ -70,7 +70,7 @@ class Fish {
     if (location.y > height+r) location.y = -r;
   }
   PVector separate(ArrayList<Fish> school) {
-    float desiredseparation = 10.0f; // was 35.0f; // was 25.0f with size 15
+    float desiredseparation = 12.0f; // was 35.0f; // was 25.0f with size 15
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
     for (Fish other : school) {

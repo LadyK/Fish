@@ -101,7 +101,7 @@ void setup() {
   gn = random(1);  // 128, 255
   blu = random(1); // 0, 192
   kuler = color(rd, gn, blu);
-  intervalPortMin = 15000;   // was 6 seconds
+  intervalPortMin = 20000;   // was 6 seconds
   intervalPortMax = 30000;  // was 10 seconds
 
 
@@ -328,20 +328,20 @@ void draw() {
       if (stamp > 37000) {
         if (p_.shrinkMSG == false) {
           p_.shrinkMSG = true;
-          OscMessage portalTrigger = new OscMessage("close");
-          portalTrigger.add(int(p_.loc.y));
-          portalTrigger.add(int(p_.loc.x));
-          portalTrigger.add(0); /* turn off portal */
+          //OscMessage portalTrigger = new OscMessage("close");
+          //portalTrigger.add(int(p_.loc.y));
+          //portalTrigger.add(int(p_.loc.x));
+          //portalTrigger.add(0); /* turn off portal */
 
-          print("turning portal trigger off: ");
-          print(int(p_.loc.y));
-          print(", ");
-          print(    int(p_.loc.x));
-          println();
+          //print("turning portal trigger off: ");
+          //print(int(p_.loc.y));
+          //print(", ");
+          //print(    int(p_.loc.x));
+          //println();
 
-          /* send the message */
-          oscP5send.send(portalTrigger, whereimsending);
-          print("killing portal ");
+          ///* send the message */
+          //oscP5send.send(portalTrigger, whereimsending);
+          //print("killing portal ");
         }
         
         p_.shrink();
