@@ -42582,8 +42582,8 @@
 																									"AutoGainRate" : 31.000000000000185,
 																									"AutoNetRate" : 24.375999000000117,
 																									"AutoRandNetwork" : 1.0,
-																									"GL-Delay" : 101.0,
-																									"GL-Freq" : 79.0,
+																									"GL-Delay" : 72.0,
+																									"GL-Freq" : 39.0,
 																									"GL-Q" : 35.560001,
 																									"RandInLevels" : 1.0,
 																									"RandSmooth" : 1.0,
@@ -42593,11 +42593,11 @@
 																										"FB-Gain" : [ 127.0 ],
 																										"FB-level" : [ 127.0 ],
 																										"InLevelMinMax" : [ 0, 103 ],
-																										"modIn-1" : [ 63.2729641796059 ],
-																										"modIn-2" : [ 59.210980312263331 ],
-																										"modIn-3" : [ 55.853552553027171 ],
-																										"modIn-4" : [ 67.866207948130466 ],
-																										"modIn-5" : [ 72.772597133761096 ]
+																										"modIn-1" : [ 78.032141629028047 ],
+																										"modIn-2" : [ 58.133611075533857 ],
+																										"modIn-3" : [ 74.807523268777302 ],
+																										"modIn-4" : [ 46.440267368851053 ],
+																										"modIn-5" : [ 56.227023174837441 ]
 																									}
 
 																								}
@@ -42629,8 +42629,8 @@
 																												"AutoGainRate" : 31.000000000000185,
 																												"AutoNetRate" : 24.375999000000117,
 																												"AutoRandNetwork" : 1.0,
-																												"GL-Delay" : 101.0,
-																												"GL-Freq" : 79.0,
+																												"GL-Delay" : 72.0,
+																												"GL-Freq" : 39.0,
 																												"GL-Q" : 35.560001,
 																												"RandInLevels" : 1.0,
 																												"RandSmooth" : 1.0,
@@ -42640,11 +42640,11 @@
 																													"FB-Gain" : [ 127.0 ],
 																													"FB-level" : [ 127.0 ],
 																													"InLevelMinMax" : [ 0, 103 ],
-																													"modIn-1" : [ 63.2729641796059 ],
-																													"modIn-2" : [ 59.210980312263331 ],
-																													"modIn-3" : [ 55.853552553027171 ],
-																													"modIn-4" : [ 67.866207948130466 ],
-																													"modIn-5" : [ 72.772597133761096 ]
+																													"modIn-1" : [ 78.032141629028047 ],
+																													"modIn-2" : [ 58.133611075533857 ],
+																													"modIn-3" : [ 74.807523268777302 ],
+																													"modIn-4" : [ 46.440267368851053 ],
+																													"modIn-5" : [ 56.227023174837441 ]
 																												}
 
 																											}
@@ -51568,21 +51568,21 @@
 		"dependency_cache" : [ 			{
 				"name" : "chanPlayerBleed.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "chanPlayerExp.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Timer15.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -51595,21 +51595,21 @@
 , 			{
 				"name" : "urn-jb.maxpat",
 				"bootpath" : "~/Library/Application Support/Cycling '74/Max 8/Examples/max-tricks/random_with_no_repeat",
-				"patcherrelativepath" : "../../../../../../Library/Application Support/Cycling '74/Max 8/Examples/max-tricks/random_with_no_repeat",
+				"patcherrelativepath" : "../../../../../Users/katherinebennett/Library/Application Support/Cycling '74/Max 8/Examples/max-tricks/random_with_no_repeat",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Timer30.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "portal.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -51622,35 +51622,35 @@
 , 			{
 				"name" : "allChannelCheckers.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "portals2.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "fileOrganizer.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "channelCheckerSlim.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "player2.maxpat",
 				"bootpath" : "/Volumes/Attic/GI_2021/oldLady/Fish_github_main",
-				"patcherrelativepath" : "../../../../../../../../Volumes/Attic/GI_2021/oldLady/Fish_github_main",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
