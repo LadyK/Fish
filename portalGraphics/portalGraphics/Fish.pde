@@ -15,9 +15,9 @@ class Fish {
     acceleration = new PVector (0, 0); //, 0
     velocity = new PVector(random(-1, 1), random(-1, 1)); //, random(-1, 1)
     r = 3.0;
-    maxspeed = 3;
+    maxspeed = 1;
     maxforce = 0.09;
-    size = 5; // was 15 for initial testing
+    size = 10; // was 15 for initial testing
   }
 
   void run(ArrayList<Fish>school, float nV) {
@@ -70,7 +70,7 @@ class Fish {
     if (location.y > height+r) location.y = -r;
   }
   PVector separate(ArrayList<Fish> school) {
-    float desiredseparation = 10.0f; // was 35.0f; // was 25.0f with size 15
+    float desiredseparation = 12.0f; // was 35.0f; // was 25.0f with size 15
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
     for (Fish other : school) {

@@ -101,7 +101,7 @@ void setup() {
   gn = random(1);  // 128, 255
   blu = random(1); // 0, 192
   kuler = color(rd, gn, blu);
-  intervalPortMin = 15000;   // was 6 seconds
+  intervalPortMin = 20000;   // was 6 seconds
   intervalPortMax = 30000;  // was 10 seconds
 
 
@@ -120,10 +120,10 @@ void setup() {
    * with the oscP5.send method.
    */
   oscP5send = new OscP5(this, 12002); // sends portal location over to max
-  whereimsending = new NetAddress("192.168.0.77", 12002); // hostname, port PORTAL info
+  whereimsending = new NetAddress("192.168.11.3", 12002); // hostname, port PORTAL info
 
-  oscP5send = new OscP5(this, 12042); // to send info to max that trigger/initial graphics are closing
-  whereimsendingTriggerLoc = new NetAddress("192.168.0.77", 12042);
+  //oscP5send = new OscP5(this, 12042); // to send info to max that trigger/initial graphics are closing
+  //whereimsendingTriggerLoc = new NetAddress("192.168.11.2", 12042);
   /* create a new instance of oscP5.
    * 12000 is the port number you are listening for incoming osc messages.
    */
@@ -328,24 +328,27 @@ void draw() {
       if (stamp > 37000) {
         if (p_.shrinkMSG == false) {
           p_.shrinkMSG = true;
-          OscMessage portalTrigger = new OscMessage("close");
-          portalTrigger.add(int(p_.loc.y));
-          portalTrigger.add(int(p_.loc.x));
-          portalTrigger.add(0); /* turn off portal */
+          //OscMessage portalTrigger = new OscMessage("close");
+          //portalTrigger.add(int(p_.loc.y));
+          //portalTrigger.add(int(p_.loc.x));
+          //portalTrigger.add(0); /* turn off portal */
 
-          print("turning portal trigger off: ");
-          print(int(p_.loc.y));
-          print(", ");
-          print(    int(p_.loc.x));
-          println();
+          //print("turning portal trigger off: ");
+          //print(int(p_.loc.y));
+          //print(", ");
+          //print(    int(p_.loc.x));
+          //println();
 
-          /* send the message */
-          oscP5send.send(portalTrigger, whereimsending);
-          print("killing portal ");
+          ///* send the message */
+          //oscP5send.send(portalTrigger, whereimsending);
+          //print("killing portal ");
         }
+        
+        p_.shrink();
       }
 
       if (stamp > 39000) {
+        p_.shrink();
         //delay(500);
         stamp = 0;
 
@@ -612,6 +615,10 @@ void oscEvent(OscMessage theOscMessage) {
 
   int tempX = int(screenLoc[0]);
   int tempY = int(screenLoc[1]);
+  //print("tempX is:  ");
+  //println(tempX);
+  //print("tempY is:  ");
+  //println(tempY);
 
   // float randX = random((-radius), (radius));
   // float randY = random((-radius), (radius));
@@ -622,7 +629,7 @@ void oscEvent(OscMessage theOscMessage) {
   //println(newLoc);
   if (checkLocations(newLoc) == false && checkTriggers(newLoc) == false) { // <---- same spot?
     //newLoc.x = map(newLoc.x, 0, 640, 0, width);
-    newLoc.x = map(newLoc.x, 0, 640, 124, 500);  // strained because of masking in madmapper
+    newLoc.x = map(newLoc.x, 0, 640, 0, width);  // was124, 500 strained because of masking in madmapper
     //newLoc.x = constrain(newLoc.x, 104, 376);
     newLoc.y = map(newLoc.y, 0, 480, 0, height);
     flash(newLoc); // ring triggers
