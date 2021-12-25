@@ -161,15 +161,16 @@ void loop() {
     triggerTime = millis(); // take a time stamp
     */
   }
-/*  
+  
   // if we are not new, but lite, animate:
-  else if ( lite == true) { //if any of the timers are still going
+  else if ( one.lite == true) { //if any of the timers are still going
     //long howOld = millis() - triggerTime;  // moved to class
-    Serial.print(" current time - trigger is : ");
-    Serial.println(howOld);
-    Serial.println();
-    if (newStructure == false && howOld < lightPeriod) {
-      Serial.println("lighting lighting");
+    // Serial.print(" current time - trigger is : ");
+    // Serial.println(howOld);
+    // Serial.println();
+    //if (newStructure == false && howOld < lightPeriod) {
+     // Serial.println("lighting lighting");
+     one.go(pixelHue);
       pixelHue += 500;
       Serial.print(" Hue is: ");
       Serial.println(pixelHue);
@@ -182,8 +183,8 @@ void loop() {
         Serial.println("**almost up**");
       }
   */
-//      lightLights(pixelHue, tAlmostUp, startAddress);
-//    }
+  //   lightLights(pixelHue, tAlmostUp, startAddress);
+    }
     /* moved to class's howOld method:
     // if we aren't new and we are out of time:
     else if (newStructure == false && howOld > lightPeriod) {
@@ -200,8 +201,8 @@ void loop() {
     Serial.println();
   }
 */
-  Serial.print("lite is:   ");
-  Serial.println(lite);
+  //Serial.print("lite is:   ");
+  //Serial.println(lite);
 
   // once lite, same color to each
   //  if (newStructure == false && triggered == true) {

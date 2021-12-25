@@ -5,16 +5,17 @@
 
 Structure::Structure(int sNum, int startAdd, Adafruit_NeoPixel s)
 {
-	_sNum = sNum;
-	_startAdd = startAdd;
-	lite = false;
+	_sNum = sNum;  // structure number
+	_startAdd = startAdd; // address of LED
+	lite = false;  // are we lite up?
 	lightPeriod = 40000; // how long it will stay lite
-	_tAlmostUp = false; 
+	tAlmostUp = false; // are we close to dying?
 	fadeValue = 255;
-   strip = s;
+    strip = s;  // neoPixel pin?
 	
 
 }
+
 
 
 void Structure::turnOn(int pixelHue)
@@ -40,10 +41,19 @@ void Structure::turnOn(int pixelHue)
 
 }
 
+void Structure::go(int pH)
+{
+
+	howOld(bt, lp, tA, l); //birthTime, lightPeriod, tAlmostUp, lite
+	light(pH);
+	
+}
+
+
 
 void Structure::light(int pixelHue)
 {
-	if ( _tAlmostUp == true && lite == true) { // if we should be fading
+	if ( tAlmostUp == true && lite == true) { // if we should be fading
     Serial.println("INSIDE FADE MECHANISM");
     for (int j = 255; j >= 80; j -= 5) { //fade down
       // set all the pixels at once (3 at a time):
@@ -60,7 +70,7 @@ void Structure::light(int pixelHue)
     }
     lite = false;
   }
-  else if (_tAlmostUp == false && lite == true) {
+  else if (tAlmostUp == false && lite == true) {
     //fadeValue = 255;
     Serial.println("    not fading");
     for (int i = _startAdd; i < _startAdd + 2 ; i++) { // For each pixel in strip...
@@ -76,7 +86,7 @@ void Structure::light(int pixelHue)
     Serial.println(fade);
     */
   }
-  else if (_tAlmostUp == true && lite == false){
+  else if (tAlmostUp == true && lite == false){
   	turnOff(0, 3);
   	/*
   	Serial.println("*****no Lights****")
@@ -102,12 +112,26 @@ void Structure::turnOff(uint32_t color, int wait)
     delay(wait);                           //  Pause for a moment
   }
 }
-
-long howOld(){
-	long age = millis() - &birthTime;
-    if( age > (&lightPeriod - 10000)){
-      tAlmostUp = true;
+/*
+void howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
+	long age = millis() - birthTime; //millis() - birthTime
+	long temp_almostDead = lightPeriod - 10000; // = lightPeriod - 10000
+    if( age > temp_almostDead){
+      tAlmostUp = true; //_tAlmostUp
     }
-    if(age > &lightPeriod) *lite = false;
-	return age;
+    if(age > lightPeriod) lite = false; // if(age > lightPeriod) lite = false
+	//return age;
 }
+*/
+
+///*
+void howOld(long bt, long lp, bool tA, bool l){ //birthTime, lightPeriod, tAlmostUp, lite
+	long age = millis() - bt; //millis() - birthTime
+	long temp_almostDead = lp - 10000; // = lightPeriod - 10000
+    if( age > temp_almostDead){
+      tA = true; //_tAlmostUp
+    }
+    if(age > lp) l = false; // if(age > lightPeriod) lite = false
+	//return age;
+}
+//*/
