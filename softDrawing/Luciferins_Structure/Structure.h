@@ -19,17 +19,17 @@ class Structure
 	public:
 	   Structure(int sNum, int startAdd, Adafruit_NeoPixel s);
 	   void turnOn(int pixelHue);
-	   void light(int pixelHue);
+	   bool light(int pixelHue);
 	   void turnOff(uint32_t color, int wait);
-	   void howOld(long bt, long lp, bool tA, bool l);
-	   void go(int pH);
+	   void howOld();
+	   bool go(int pH);
 	   bool lite;
-	   unsigned long birthTime;
-	   unsigned long lightPeriod;
+	   //unsigned long birthTime;
+	   //unsigned long lightPeriod;
 	   int fadeValue;
 	   Adafruit_NeoPixel strip;
 	   unsigned long age;
-	   unsigned long tAlmostUp;
+	   //unsigned long tAlmostUp;
 	
 
 
@@ -38,6 +38,10 @@ class Structure
 		int _startAdd;
 		//long _tAlmostUp;
 		unsigned long _temp_almostDead;
+		unsigned long _birthTime;
+		unsigned long _lightPeriod;
+		unsigned long _tAlmostUp;
+		bool _lite;
 
 
 };

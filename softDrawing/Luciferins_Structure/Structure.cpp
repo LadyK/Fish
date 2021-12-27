@@ -7,9 +7,9 @@ Structure::Structure(int sNum, int startAdd, Adafruit_NeoPixel s)
 {
 	_sNum = sNum;  // structure number
 	_startAdd = startAdd; // address of LED
-	lite = false;  // are we lite up?
-	lightPeriod = 40000; // how long it will stay lite
-	tAlmostUp = false; // are we close to dying?
+	_lite = false;  // are we lite up?
+	_lightPeriod = 40000; // how long it will stay lite
+	_tAlmostUp = false; // are we close to dying?
 	fadeValue = 255;
     strip = s;  // neoPixel pin?
 	
@@ -20,8 +20,8 @@ Structure::Structure(int sNum, int startAdd, Adafruit_NeoPixel s)
 
 void Structure::turnOn(int pixelHue)
 {
-	lite = true;
-	birthTime = millis();
+	_lite = true;
+	_birthTime = millis();
 	int sat = 105; // was 150
   // turn each on, one at a time (for one structure):
   for (int i = _startAdd; i < 3; i++) {
@@ -41,19 +41,21 @@ void Structure::turnOn(int pixelHue)
 
 }
 
-void Structure::go(int pH)
+bool Structure::go(int pH)
 {
 
-	howOld(bt, lp, tA, l); //birthTime, lightPeriod, tAlmostUp, lite
-	light(pH);
+  
+	howOld(); //birthTime, lightPeriod, tAlmostUp, lite
+	bool dead = light(pH);
+  if( dead == true) return false;
 	
 }
 
 
 
-void Structure::light(int pixelHue)
+bool Structure::light(int pixelHue)
 {
-	if ( tAlmostUp == true && lite == true) { // if we should be fading
+	if ( _tAlmostUp == true && _lite == true) { // if we should be fading
     Serial.println("INSIDE FADE MECHANISM");
     for (int j = 255; j >= 80; j -= 5) { //fade down
       // set all the pixels at once (3 at a time):
@@ -68,9 +70,11 @@ void Structure::light(int pixelHue)
       strip.show();
       delay(500);  // Pause for a moment
     }
-    lite = false;
+    _lite = false;
+    lite = _lite;
   }
-  else if (tAlmostUp == false && lite == true) {
+
+  else if (_tAlmostUp == false && _lite == true) {
     //fadeValue = 255;
     Serial.println("    not fading");
     for (int i = _startAdd; i < _startAdd + 2 ; i++) { // For each pixel in strip...
@@ -85,14 +89,17 @@ void Structure::light(int pixelHue)
     Serial.print("    fade is: ");
     Serial.println(fade);
     */
+    lite = true;
   }
-  else if (tAlmostUp == true && lite == false){
+  else if (_tAlmostUp == true && _lite == false){
   	turnOff(0, 3);
-  	/*
-  	Serial.println("*****no Lights****")
+    lite = false;
+  	///*
+  	Serial.println("*****no Lights****");
   	Serial.println();
-  	*/
+  	//*/
   }
+  return lite;
 
 }
 
@@ -125,13 +132,17 @@ void howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
 */
 
 ///*
-void howOld(long bt, long lp, bool tA, bool l){ //birthTime, lightPeriod, tAlmostUp, lite
-	long age = millis() - bt; //millis() - birthTime
-	long temp_almostDead = lp - 10000; // = lightPeriod - 10000
+void Structure::howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
+	long age = millis() - _birthTime; //millis() - birthTime
+	long temp_almostDead = _lightPeriod - 10000; // = lightPeriod - 10000
     if( age > temp_almostDead){
-      tA = true; //_tAlmostUp
+      //tA = true;
+      _tAlmostUp = true; //_tAlmostUp
     }
-    if(age > lp) l = false; // if(age > lightPeriod) lite = false
+    if(age > _lightPeriod) {
+      //l = false;
+    _lite = false; // if(age > lightPeriod) lite = false
+  }
 	//return age;
 }
 //*/

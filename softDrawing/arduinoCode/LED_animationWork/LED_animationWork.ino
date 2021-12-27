@@ -1,7 +1,7 @@
 
 #include <Adafruit_NeoPixel.h>
 //#include <CapacitiveSensor.h>
-#include <HCSR04.h>
+//#include <HCSR04.h>
 #include <Structure.h>
 
 // Which pin on the Arduino is connected to the NeoPixels?
@@ -22,14 +22,34 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
-Structure one(1,0, strip); // (snumber, start LED address, adafruit_neoPixel_Strip)
+int startAdd = 0; // LED start address
+
+// declare each structure:
+Structure one(1, startAdd, strip); // (snumber, start LED address, adafruit_neoPixel_Strip)
+Structure two(2, startAdd + 3, strip);
+/*
+  Structure three(3,startAdd + 3, strip);
+  Structure four(4,startAdd + 3, strip);
+  Structure five(5,startAdd + 3, strip);
+  Structure six(6,startAdd + 3, strip);
+  Structure seven(7,startAdd + 3, strip);
+  Structure eight(8,startAdd + 3, strip);
+*/
+
+// load structures into array:
+//Structure structures[8] = {one, two, three, four, five, six, seven, eight};
+Structure structures[2] = {one, two};
 
 boolean newStructure;  //
 long pixelHue; //
 int wait;
 
 //HCSR04 hc(9, 5); // initization of HCSR04 (trigger pin, echo pin);
-HCSR04 hc(9, new int[1] {5}, 1); //initization of HCSR04 (trigger pin, {echo pins(s)}, number of sensors)
+//HCSR04 hc(9, new int[1] {5}, 1); //initization of HCSR04 (trigger pin, {echo pins(s)}, number of sensors)
+const int trig = 9;
+const int echo = 5;
+long time, dist;
+
 float distance[1];
 float maxDistanceThresholds[1]; //distance limits
 int numSensors = 1;
@@ -45,12 +65,12 @@ boolean someoneNear;
 */
 
 
-boolean lite, triggered;
+boolean liteAny, triggered;
 /* moved to class
-long lightPeriod;
-long triggerTime, lastTime; 
-int startAddress;
-long tAlmostUp;
+  long lightPeriod;
+  long triggerTime, lastTime;
+  int startAddress;
+  long tAlmostUp;
 
 */
 
@@ -72,28 +92,32 @@ void setup() {
   // threshold = 500;
 
   someoneNear = false;
+  // /*
   // take max readings to calibrate sensors:
   Serial.println("Calibrating: finding current distance limits");
   Serial.println();
   for (int i = 0; i < numSensors; i++) {
-    maxDistanceThresholds[i] = hc.dist(i);
+    maxDistanceThresholds[i] = 70; //hc.dist(i);
     Serial.print("Max Dist ");
     Serial.print(i);
     Serial.print(": ");
     Serial.println(maxDistanceThresholds[i]);
     delay(70);
   }
+  //*/
+
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
 
 
-
- // lightPeriod = 40000; //moved to class
-//  lite = false; // is one lite?
+  // lightPeriod = 40000; //moved to class
+  //  lite = false; // is one lite?
   triggered = false; // recent trigger
-//  triggerTime = 0;
-//  lastTime = 0;
+  //  triggerTime = 0;
+  //  lastTime = 0;
   //fadeValue = 255; // moved to class
- // tAlmostUp = false; // moved to class
-//  startAddress = 0; // pixel address to start with
+  // tAlmostUp = false; // moved to class
+  //  startAddress = 0; // pixel address to start with
 }
 
 void loop() {
@@ -105,14 +129,49 @@ void loop() {
 
 
   // ********** sensor reading: **********
-
-  for (int i = 0; i < numSensors; i++) {
-    distance[i] = hc.dist(i);
-    if(distance[i] < maxDistanceThresholds[i]){
-      someoneNear = true;
-      break;
+  /*
+    for (int i = 0; i < numSensors; i++) {
+      distance[i] = hc.dist(i);
+      Serial.print("distance is: ");
+      Serial.println(distance[i]);
+       delay(70);
     }
-    delay(70);
+  */
+  //distance[0] = hc.dist();
+  //delay(60);
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+
+  time = pulseIn(echo, HIGH);
+  dist = (time / 2) / 29.1;
+  if (dist > 500 or dist == 0) Serial.println("Out of Range");
+  else {
+    Serial.print(dist);
+    Serial.println(" cm");
+  }
+  delay(500);
+
+  distance[0] = dist;
+  //Serial.println(distance[0]);
+
+
+  // ********* reading evaluation: **********
+  for (int i = 0; i < numSensors; i++) {
+    // if distance is less than the threshold:
+    if (distance[i] != 0 && distance[i] < maxDistanceThresholds[i]) {
+      someoneNear = true;
+      liteAny = true;
+      Serial.println("              trigger");
+      break;
+    } else if ( distance[i] > maxDistanceThresholds[i]) { // if distance is greater than threshold
+      someoneNear = false;
+     // liteAny = false;
+      Serial.println("             NOT trigger");
+    }
+
   }
   /*
     for (long i = 0; i < 4; i++) {
@@ -132,77 +191,59 @@ void loop() {
     }
     lastReading = currentReading;
 
-  */
+  **********************************
+  */ 
 
+  
   // ******** change color *********
   //
   //  //change color:
-  if ( lite == true) {  //change this variable to be associated with any of them lite
+  if ( liteAny == true) {  //change this variable to be associated with any of them lite
     pixelHue += 256;
     if (pixelHue > 5 * 65536) {
       pixelHue = 0;
     }
+    Serial.print("pixelHue is: ");
+    Serial.println(pixelHue);
   }
-  Serial.print("pixelHue is: ");
-  Serial.println(pixelHue);
 
   //  for (long firstPixelHue = pixelHue; firstPixelHue < 5 * 65536; firstPixelHue += 256) {
   //  }
 
 
+  // ***** if someone is near: light 1 structure gradually
   // light 3 gradually
   if (someoneNear == true) {
-// ** transform this considering class:    lightNewbie(startAddress);
+
     one.turnOn(pixelHue);
     someoneNear = false;
-    Serial.println("            can't repeat until new trigger");
-    /* moved to class
-    lite = true; // we are lite
-    triggerTime = millis(); // take a time stamp
-    */
+    //Serial.println("            can't repeat until new trigger");
   }
-  
+
+
+  // ***** animate for life of structure trigger
   // if we are not new, but lite, animate:
-  else if ( one.lite == true) { //if any of the timers are still going
-    //long howOld = millis() - triggerTime;  // moved to class
-    // Serial.print(" current time - trigger is : ");
-    // Serial.println(howOld);
-    // Serial.println();
-    //if (newStructure == false && howOld < lightPeriod) {
-     // Serial.println("lighting lighting");
-     one.go(pixelHue);
-      pixelHue += 500;
-      Serial.print(" Hue is: ");
-      Serial.println(pixelHue);
-      Serial.println();
-
-  /*  Inside a class:
-      //** if triggerTime is almost up, dimm lights
-      if (howOld > (lightPeriod - 10000) ) {
-        tAlmostUp = true;
-        Serial.println("**almost up**");
+  else if ( liteAny == true) { //if any of the timers are still going
+    int offCount = 0;
+    for (int i = 0; i < sizeof(structures) - 1; i++) {
+      if (structures[i].go(pixelHue) == false) {
+        offCount++;
       }
-  */
-  //   lightLights(pixelHue, tAlmostUp, startAddress);
     }
-    /* moved to class's howOld method:
-    // if we aren't new and we are out of time:
-    else if (newStructure == false && howOld > lightPeriod) {
-      lite = false;
+    // if the offCount is less than the number of structures that we have:
+    if (offCount < sizeof(structures) - 1) {
+      pixelHue += 500;
+    } else if (offCount >= sizeof(structures) - 1){ // if we are all off then:
+      liteAny = false;
     }
-    */
-//  } // lite = true
- 
-  /* moved to class
-  if (lite == false) { // no timers are going
-    colorWipe(0, 3); // turn off
-
-    Serial.println("*****no lights******");
+    Serial.print(" Hue (while lighting) is: ");
+    Serial.println(pixelHue);
     Serial.println();
-  }
-*/
-  //Serial.print("lite is:   ");
-  //Serial.println(lite);
+  } // lite = true
+
+
+  Serial.print("liteAny is:   ");
+  Serial.println(liteAny);
 
   // once lite, same color to each
   //  if (newStructure == false && triggered == true) {
@@ -250,7 +291,7 @@ void loop() {
 }// loop
 
 /* moved to class
-void lightLights(long color, bool fade, int pixelNum) {
+  void lightLights(long color, bool fade, int pixelNum) {
   //
   if ( fade == true ) { // if we should be fading
     Serial.println("INSIDE FADE MECHANISM");
@@ -286,15 +327,15 @@ void lightLights(long color, bool fade, int pixelNum) {
   }
 
 
-}
+  }
 */
 
 
 /*
- * Moved to the Structure Class/Library
+   Moved to the Structure Class/Library
 
 
-void lightNewbie(int ledNum) {
+  void lightNewbie(int ledNum) {
   //** fade up in color
   //  pixelHue += 127;
   //  if (pixelHue > 5 * 65536) {
@@ -316,7 +357,7 @@ void lightNewbie(int ledNum) {
     strip.show();
     delay(500);
   }
-}
+  }
 */
 
 
@@ -345,16 +386,16 @@ void rainbow(int wait) {
 }
 
 /* moved to class
-// Fill strip pixels one after another with a color. Strip is NOT cleared
-// first; anything there will be covered pixel by pixel. Pass in color
-// (as a single 'packed' 32-bit value, which you can get by calling
-// strip.Color(red, green, blue) as shown in the loop() function above),
-// and a delay time (in milliseconds) between pixels.
-void colorWipe(uint32_t color, int wait) {
+  // Fill strip pixels one after another with a color. Strip is NOT cleared
+  // first; anything there will be covered pixel by pixel. Pass in color
+  // (as a single 'packed' 32-bit value, which you can get by calling
+  // strip.Color(red, green, blue) as shown in the loop() function above),
+  // and a delay time (in milliseconds) between pixels.
+  void colorWipe(uint32_t color, int wait) {
   for (int i = 0; i < strip.numPixels(); i++) { // For each pixel in strip...
     strip.setPixelColor(i, color);         //  Set pixel's color (in RAM)
     strip.show();                          //  Update strip to match
     delay(wait);                           //  Pause for a moment
   }
-}
+  }
 */
