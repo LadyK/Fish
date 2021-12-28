@@ -53,20 +53,28 @@ bool Structure::go(int pH)
 
 
 
-bool Structure::light(int pixelHue)
+bool Structure::light(int pixelHue_)
 {
+
+      Serial.print("       light tAlmost up is:  ");
+      Serial.println(_tAlmostUp);
+      Serial.println();
+      Serial.print("       light lite is:  ");
+      Serial.println(_lite);
+      Serial.println();
+
 	if ( _tAlmostUp == true && _lite == true) { // if we should be fading
     Serial.println("INSIDE FADE MECHANISM");
-    for (int j = 255; j >= 80; j -= 5) { //fade down
+    for (int j = 255; j >= 80; j -= 1) { //fade down
       // set all the pixels at once (3 at a time):
       for (int i = _startAdd; i < _startAdd + 3 ; i++) { // For each pixel in strip...
-        strip.setPixelColor(_startAdd, strip.gamma32(strip.ColorHSV(pixelHue, 255, j)));
+        strip.setPixelColor(_startAdd, strip.gamma32(strip.ColorHSV(pixelHue_, 255, j)));
       }
-/*
+///*
       Serial.print("    fadeValue is: ");
       Serial.println(j);
       Serial.println("    FADING ");
-*/
+//*/
       strip.show();
       delay(500);  // Pause for a moment
     }
@@ -77,8 +85,8 @@ bool Structure::light(int pixelHue)
   else if (_tAlmostUp == false && _lite == true) {
     //fadeValue = 255;
     Serial.println("    not fading");
-    for (int i = _startAdd; i < _startAdd + 2 ; i++) { // For each pixel in strip...
-      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue, 255, 255)));
+    for (int i = _startAdd; i < _startAdd + 3 ; i++) { // For each pixel in strip...
+      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue_, 255, 255)));
     }
     //update them all at once:
     strip.show(); // Update strip with new contents at once
@@ -113,10 +121,13 @@ void Structure::turnOff(uint32_t color, int wait)
 // strip.Color(red, green, blue) as shown in the loop() function above),
 // and a delay time (in milliseconds) between pixels.
 
-  for (int i = _startAdd; i < _startAdd + 2; i++) { // For each pixel in strip...
+  for (int i = _startAdd; i < _startAdd + 3; i++) { // For each pixel in strip...
     strip.setPixelColor(i, color);         //  Set pixel's color (in RAM)
     strip.show();                          //  Update strip to match
     delay(wait);                           //  Pause for a moment
+    //Serial.print("off address is: ");
+    //Serial.println(i);
+    //Serial.println();
   }
 }
 /*
@@ -138,10 +149,16 @@ void Structure::howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
     if( age > temp_almostDead){
       //tA = true;
       _tAlmostUp = true; //_tAlmostUp
+      Serial.print("       howOld tAlmost up is:  ");
+      Serial.println(_tAlmostUp);
+      Serial.println();
     }
     if(age > _lightPeriod) {
       //l = false;
     _lite = false; // if(age > lightPeriod) lite = false
+    Serial.print("       howOld lite is:  ");
+    Serial.println(_lite);
+    Serial.println();
   }
 	//return age;
 }

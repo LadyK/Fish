@@ -19,7 +19,7 @@ class Structure
 	public:
 	   Structure(int sNum, int startAdd, Adafruit_NeoPixel s);
 	   void turnOn(int pixelHue);
-	   bool light(int pixelHue);
+	   bool light(int pixelHue_);
 	   void turnOff(uint32_t color, int wait);
 	   void howOld();
 	   bool go(int pH);
