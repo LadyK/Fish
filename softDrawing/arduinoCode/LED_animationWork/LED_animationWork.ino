@@ -54,6 +54,7 @@ float distance[1];
 float maxDistanceThresholds[1]; //distance limits
 int numSensors = 1;
 boolean someoneNear;
+long lastTrigger, lastTriggerPeriod;
 
 /*
   CapacitiveSensor   cs_10_11 = CapacitiveSensor(10, 11);       // 10M resistor between pins 4 & 2, pin 2 is sensor pin, add a wire and or foil if desired
@@ -75,6 +76,7 @@ boolean liteAny, triggered;
 */
 
 int fadeValue;
+int offCount;
 
 
 void setup() {
@@ -113,6 +115,7 @@ void setup() {
   // lightPeriod = 40000; //moved to class
   //  lite = false; // is one lite?
   triggered = false; // recent trigger
+  lastTriggerPeriod = 100000;
   //  triggerTime = 0;
   //  lastTime = 0;
   //fadeValue = 255; // moved to class
@@ -142,7 +145,8 @@ void loop() {
     if (distance[i] != 0 && distance[i] < maxDistanceThresholds[i]) {
       someoneNear = true;
       liteAny = true;
-      Serial.println("              trigger");
+      lastTrigger = millis();
+      Serial.println("              TRIGGERED!!");
       break;
     } else if ( distance[i] > maxDistanceThresholds[i]) { // if distance is greater than threshold
       someoneNear = false;
@@ -199,70 +203,88 @@ void loop() {
   }
 
 
+  // just if, not else if -->
   // ***** animate for life of structure trigger
   // if we are not new, but lite, animate:
   else if ( someoneNear == false && liteAny == true) { //if any of the timers are still going
-    int offCount = 0;
-    Serial.print("      inside else if:    ");
-    Serial.println(sizeof(structures) / sizeof(structures[0]));
-    for (int i = 0; i < (sizeof(structures) / sizeof(structures[0])); i++) {
-      // have each one do it's thing.
-      bool on_off = structures[i].go(pixelHue);
-      Serial.print("for-loop to run: ");
-      Serial.println();
-      //If it's off, count it
-      if (on_off == false) {
-        offCount++;
-      }
-    }
-    // if the offCount is less than the number of structures that we have:
-    if (offCount < (sizeof(structures) / sizeof(structures[0]))) {
-      pixelHue += 500;
-    } else if (offCount >= (sizeof(structures) / sizeof(structures[0]))) { // if we are all off then:
-      liteAny = false;
-    }
+    offCount = 0;
+    //Serial.print("      inside else if    ");
+    //Serial.println(sizeof(structures) / sizeof(structures[0]));
+    while (offCount <= (sizeof(structures) / sizeof(structures[0])) + 1) {
+      for (int i = 0; i < (sizeof(structures) / sizeof(structures[0])); i++) {
+        // have each one do it's thing.
+        /*
+          Serial.print("pixelHue: ");
+          Serial.println(pixelHue);
+          Serial.println();
+        */
+        Serial.println("doing it's thing");
+        bool on_off = structures[i].go(pixelHue);
+        /*
+          Serial.print("structure went: ");
+          Serial.println(on_off);
+          Serial.println();
+        */
+        //If it's off, count it
+        if (on_off == false) {
+          offCount++;
+        }
+        /*
+          Serial.print("offCount: ");
+          Serial.println(offCount);
+          Serial.println();
+        */
+      } // for loop
+      //pixelHue += 500;
+    } // while loop
+    offCount = 0;
+    Serial.println("offCount zero'd");
+    liteAny = false;
+
+  } // lite = true
+
+
+  /*
+    Serial.print(" Hue (while lighting) is: ");
+    Serial.println(pixelHue);
+    Serial.println();
+
     Serial.print("offCount: ");
     Serial.println(offCount);
     Serial.println();
 
-    /*
-      Serial.print(" Hue (while lighting) is: ");
-      Serial.println(pixelHue);
-      Serial.println();
+    Serial.print("# structures: ");
+    Serial.println(sizeof(structures));
+    Serial.println();
 
-      Serial.print("offCount: ");
-      Serial.println(offCount);
-      Serial.println();
-
-      Serial.print("# structures: ");
-      Serial.println(sizeof(structures));
-      Serial.println();
-
-      Serial.print("liteAny is: ");
-      Serial.println(liteAny);
-      Serial.println();
-    */
+    Serial.print("liteAny is: ");
+    Serial.println(liteAny);
+    Serial.println();
+  */
 
 
-  } // lite = true
 
-  Serial.print("       someoneNear is: ");
-  Serial.println(someoneNear);
-  Serial.print("       liteAny is: ");
-  Serial.println(liteAny);
+  /*
+    Serial.print("       offCount: ");
+    Serial.println(offCount);
+    Serial.println();
 
-  delay(3000);
-  Serial.print(" Hue (while lighting) is: ");
-  Serial.println(pixelHue);
-  Serial.println();
+    Serial.print("       someoneNear is: ");
+    Serial.println(someoneNear);
+    Serial.print("       liteAny is: ");
+    Serial.println(liteAny);
+
+    delay(3000);
+    Serial.print(" Hue (while lighting) is: ");
+    Serial.println(pixelHue);
+    Serial.println();
+  */
   /*
     Serial.print("# structures: ");
     Serial.println(sizeof(structures) / sizeof(structures[0]));
     Serial.println();
   */
-  Serial.print("liteAny is in main loop:   ");
-  Serial.println(liteAny);
-  Serial.println();
+
 
   // once lite, same color to each
   //  if (newStructure == false && triggered == true) {
