@@ -192,6 +192,10 @@ void loop() {
   //  for (long firstPixelHue = pixelHue; firstPixelHue < 5 * 65536; firstPixelHue += 256) {
   //  }
 
+  //  if( (sizeof(structures) / sizeof(structures[0]) >= 1) ) {
+  //
+  //  }
+
 
   // ***** if someone is near: light 1 structure gradually
   // light 3 gradually
@@ -210,36 +214,97 @@ void loop() {
     offCount = 0;
     //Serial.print("      inside else if    ");
     //Serial.println(sizeof(structures) / sizeof(structures[0]));
-    while (offCount <= (sizeof(structures) / sizeof(structures[0])) + 1) {
-      for (int i = 0; i < (sizeof(structures) / sizeof(structures[0])); i++) {
-        // have each one do it's thing.
-        /*
-          Serial.print("pixelHue: ");
-          Serial.println(pixelHue);
-          Serial.println();
-        */
-        Serial.println("doing it's thing");
-        bool on_off = structures[i].go(pixelHue);
-        /*
-          Serial.print("structure went: ");
-          Serial.println(on_off);
-          Serial.println();
-        */
-        //If it's off, count it
-        if (on_off == false) {
-          offCount++;
-        }
-        /*
-          Serial.print("offCount: ");
-          Serial.println(offCount);
-          Serial.println();
-        */
-      } // for loop
-      //pixelHue += 500;
-    } // while loop
+    // while (offCount <= (sizeof(structures) / sizeof(structures[0])) + 1) {
+    Serial.println();
+    Serial.println();
+    Serial.println();
+    for (int i = 0; i < (sizeof(structures) / sizeof(structures[0])); i++) {
+      // have each one do it's thing.
+      /*
+        Serial.print("pixelHue: ");
+        Serial.println(pixelHue);
+        Serial.println();
+      */
+      //Serial.println("doing it's thing");
+      Structure temp = structures[i];
+      temp.age = millis() - temp.birthTime;
+      if (temp.age < temp.lightPeriod) {
+        temp.lite = true;
+        Serial.println(" we are still going");
+      } /*else if (temp.age > temp.lightPeriod) {
+        temp.lite = false;
+        Serial.println( " we are dead");
+      }
+      if (temp.age < temp.almostDead) {
+        temp.almostUp = false;
+        Serial.println(" we are young and still going");
+      }*/ else if (temp.age > temp.almostDead && temp.lite == true) {
+        temp.almostUp = true;
+        Serial.println(" we are old. Our time is almost up. should fade");
+      } else if (temp.age > temp.lightPeriod && temp.almostUp == true) {
+        temp.lite = false;
+        Serial.println( " we are dead");
+      }
+
+    Serial.print("temp.lite is: ");
+    Serial.println(temp.lite);
+    Serial.print("temp.almostUp is: ");
+    Serial.println(temp.almostUp);
+
+      // run, fade or die:
+      if (temp.almostUp == false && temp.lite == true) {
+        Serial.println("      lighting");
+        temp.light(pixelHue);
+      } else if (temp.almostUp == true && temp.lite == true) {
+        Serial.println("      fading");
+        temp.fadeDown(pixelHue);
+      } else if (temp.almostUp == true && temp.lite == false) {
+        Serial.println("      turnOff");
+        //structures[i].lite = false;
+        temp.turnOff(30, 30);
+        offCount++;
+      }
+
+      // bool on_off = structures[i].go(pixelHue);
+      /*
+        Serial.print("structure went: ");
+        Serial.println(on_off);
+        Serial.println();
+      */
+      //If it's off, count it
+      //        if (on_off == false) {
+      //          offCount++;
+      //        }
+      /*
+        Serial.print("offCount: ");
+        Serial.println(offCount);
+        Serial.println();
+      */
+    } // for loop
+
+    Serial.print("offCount is: ");
+    Serial.println(offCount);
+    delay(2000);
+
+    //    // each will get the same color before the color is changed:
+    //    if ( liteAny == true) {  //change this variable to be associated with any of them lite
+    //      pixelHue += 256;
+    //      if (pixelHue > 5 * 65536) {
+    //        pixelHue = 0;
+    //      }
+    //      Serial.print("pixelHue is: ");
+    //      Serial.println(pixelHue);
+    //    } else
+    if (offCount >= (sizeof(structures) / sizeof(structures[0]))) {
+      liteAny = false;
+      //break; // stop while loop
+      //offCount = 0;
+    }
+    //pixelHue += 500;
+    // } // while loop
     offCount = 0;
     Serial.println("offCount zero'd");
-    liteAny = false;
+    //liteAny = false;
 
   } // lite = true
 
@@ -330,6 +395,12 @@ void loop() {
 
 
 }// loop
+
+void howOld() {
+
+
+
+}
 
 int readSensor() {
   /*

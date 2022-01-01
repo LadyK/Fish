@@ -9,7 +9,7 @@ Structure::Structure(int sNum, int startAdd, Adafruit_NeoPixel s)
 	_startAdd = startAdd; // address of LED
 	lite = false;  // are we lite up?
 	lightPeriod = 40000; // how long it will stay lite
-	tAlmostUp = false; // are we close to dying?
+	almostUp = false; // are we close to dying?
 	fadeValue = 255;
   strip = s;  // neoPixel pin?
 	
@@ -22,6 +22,8 @@ void Structure::turnOn(long pixelHue)
 {
 	lite = true;
 	birthTime = millis();
+
+  almostDead = lightPeriod - 10000; //birthTime - lightPeriod; //when we are about to die
 	int sat = 105; // was 150
   // turn each on, one at a time (for one structure):
   for (int i = _startAdd; i < 3; i++) {
@@ -45,17 +47,17 @@ bool Structure::go(long pH)
 {
 
     
-	  howOld(); //birthTime, lightPeriod, tAlmostUp, lite
+	  //howOld(); //birthTime, lightPeriod, tAlmostUp, lite
 
-    if(tAlmostUp == false && lite == true){
+    if(almostUp == false && lite == true){
       Serial.println("lighting");
       pValue = light(pH);
       return true; // we are alive
-    }else if (tAlmostUp == true && lite == true ){
+    }else if (almostUp == true && lite == true ){
       Serial.println("fading");
       fadeDown(pValue);
       return true; // we are alive
-    }else if (tAlmostUp == true && lite == false){
+    }else if (almostUp == true && lite == false){
       Serial.println("turning off");
       turnOff(0, 3);
       return false;  // we are dead
@@ -128,7 +130,7 @@ void Structure::fadeDown(long pH_){
       strip.show();
       delay(50);  // Pause for a moment
     }
-    //_lite = false;
+    //lite = false;
     //lite = _lite;
   //}
 }
@@ -145,12 +147,13 @@ void Structure::turnOff(uint32_t color, int wait)
 
   for (int i = _startAdd; i < _startAdd + 3; i++) { // For each pixel in strip...
     strip.setPixelColor(i, color);         //  Set pixel's color (in RAM)
-    strip.show();                          //  Update strip to match
-    delay(wait);                           //  Pause for a moment
+                               //  Pause for a moment
     //Serial.print("off address is: ");
     //Serial.println(i);
     //Serial.println();
   }
+    strip.show();                          //  Update strip to match
+    delay(wait);
 }
 /*
 void howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
@@ -166,18 +169,18 @@ void howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
 
 ///*
 void Structure::howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
-	age = millis() - birthTime; //millis() - birthTime
-	temp_almostDead = (lightPeriod - 10000); // = lightPeriod - 10000
-    if( age > temp_almostDead){
+	//age = millis() - birthTime; //millis() - birthTime
+	//temp_almostDead = (lightPeriod - 10000); // = lightPeriod - 10000
+    if( age > almostDead){
       //tA = true;
-      tAlmostUp = true; //_tAlmostUp
+      almostUp = true; //_tAlmostUp
       Serial.print("       howOld tAlmost up is:  ");
-      Serial.println(tAlmostUp);
+      Serial.println(almostUp);
       Serial.println();
-    } else if (age < temp_almostDead){
-      tAlmostUp = false;
+    } else if (age < almostDead){
+      almostUp = false;
       Serial.print("       howOld tAlmost up is:  ");
-      Serial.println(tAlmostUp);
+      Serial.println(almostUp);
       Serial.println();
     }
     if(age > lightPeriod) {
@@ -186,7 +189,7 @@ void Structure::howOld(){ //birthTime, lightPeriod, tAlmostUp, lite
     Serial.print("       howOld lite is:  ");
     Serial.println(lite);
     Serial.println();
-  } else if (age <lightPeriod){
+  } else if (age < lightPeriod){
     lite = true; // if(age > lightPeriod) lite = false
     Serial.print("       howOld lite is:  ");
     Serial.println(lite);

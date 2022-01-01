@@ -30,8 +30,8 @@ class Structure
 	   int fadeValue;
 	   Adafruit_NeoPixel strip;
 	   unsigned long age;
-	   unsigned long tAlmostUp;
-	   unsigned long temp_almostDead;
+	   unsigned long almostUp;
+	   unsigned long almostDead;
 	   long p;
 	   long pValue;
 	
