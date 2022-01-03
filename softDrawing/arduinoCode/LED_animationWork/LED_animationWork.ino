@@ -81,6 +81,8 @@ int offCount;
 
 void setup() {
   Serial.begin(9600);
+  Serial.print("size of stuff is: ");
+  Serial.println((sizeof(structures) / sizeof(structures[0])));
 
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
@@ -200,10 +202,23 @@ void loop() {
   // ***** if someone is near: light 1 structure gradually
   // light 3 gradually
   if (someoneNear == true) {
+    for (int i = 0; i < (sizeof(structures) / sizeof(structures[0])); i++) {
+      Structure temp = structures[i];
+      // one.turnOn(pixelHue);
+      temp.turnOn(pixelHue);
+      // capture these just once:
+      //one.age = millis() - one.birthTime;
+      temp.age = millis() - temp.birthTime;
+      //one.lightPeriod += one.age; // lightperiod in relation to current time
+      temp.lightPeriod += temp.age; // lightperiod in relation to current time
+      temp.almostDead = temp.lightPeriod - 20000;
+      structures[i] = temp; // must put it back in/update it
 
-    one.turnOn(pixelHue);
+      Serial.print("age is: ");
+      Serial.println(temp.age);
+    }
     someoneNear = false;
-    //Serial.println("            can't repeat until new trigger");
+    Serial.println("            can't repeat until new trigger");
   }
 
 
@@ -228,33 +243,51 @@ void loop() {
       //Serial.println("doing it's thing");
       Structure temp = structures[i];
       temp.age = millis() - temp.birthTime;
-      if (temp.age < temp.lightPeriod) {
+      Serial.print("temp.age is: ");
+      Serial.println(structures[i].age);
+      Serial.print("temp.lightPeriod is: ");
+      Serial.println(temp.lightPeriod);
+      Serial.print("temp.almostDead is: ");
+      Serial.println(temp.almostDead);
+
+
+      Serial.println();
+      Serial.println();
+      Serial.println();
+      if (temp.age < temp.lightPeriod ) {
         temp.lite = true;
         Serial.println(" we are still going");
-      } /*else if (temp.age > temp.lightPeriod) {
+        if (temp.age > temp.almostDead) {
+          temp.almostUp = true;
+          Serial.println(" we are old. Our time is almost up. should fade");
+        }
+      } /*else if (temp.age > temp.lightPeriod)mu {
         temp.lite = false;
         Serial.println( " we are dead");
       }
       if (temp.age < temp.almostDead) {
         temp.almostUp = false;
         Serial.println(" we are young and still going");
-      }*/ else if (temp.age > temp.almostDead && temp.lite == true) {
-        temp.almostUp = true;
-        Serial.println(" we are old. Our time is almost up. should fade");
-      } else if (temp.age > temp.lightPeriod && temp.almostUp == true) {
+      }*/
+      //else if (temp.age > temp.almostDead && temp.lite == true ) {
+      //        temp.almostUp = true;
+      //        Serial.println(" we are old. Our time is almost up. should fade");
+      //}
+      else if (temp.age > temp.lightPeriod && temp.almostUp == true) {
         temp.lite = false;
         Serial.println( " we are dead");
       }
+      Serial.print("temp.lite is: ");
+      Serial.println(temp.lite);
+      Serial.print("temp.almostUp is: ");
+      Serial.println(temp.almostUp);
 
-    Serial.print("temp.lite is: ");
-    Serial.println(temp.lite);
-    Serial.print("temp.almostUp is: ");
-    Serial.println(temp.almostUp);
+
 
       // run, fade or die:
       if (temp.almostUp == false && temp.lite == true) {
         Serial.println("      lighting");
-        temp.light(pixelHue);
+        pixelHue = temp.light(pixelHue);  // <--- need to return color as it's changing a bit in the class
       } else if (temp.almostUp == true && temp.lite == true) {
         Serial.println("      fading");
         temp.fadeDown(pixelHue);
@@ -280,6 +313,7 @@ void loop() {
         Serial.println(offCount);
         Serial.println();
       */
+      structures[i] = temp; // must put it back in/update it
     } // for loop
 
     Serial.print("offCount is: ");
@@ -302,8 +336,8 @@ void loop() {
     }
     //pixelHue += 500;
     // } // while loop
-    offCount = 0;
-    Serial.println("offCount zero'd");
+ //   offCount = 0;
+  //  Serial.println("offCount zero'd");
     //liteAny = false;
 
   } // lite = true
