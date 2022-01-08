@@ -39,16 +39,18 @@ int startAdd = 0; // LED start address
 // load structures into array:
 //Structure structures[8] = {one, two, three, four, five, six, seven, eight};
 //Structure structures[1] = {one};
-int homeAddress[8] = {0, 3, 6, 9, 12, 15, 18, 21};
+int homeAddress[8] = {0, 3, 6, 9, 12, 15, 18, 21}; // home address for each structure. starting LED # for each structure
 
-int rl[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+int rl[8] = {0, 1, 2, 3, 4, 5, 6, 7}; // these are the indice address to hit from the homeAddress[]
 int mbf[8] = {1, 5, 2, 3, 6, 0, 4, 7};
 int fb[8] = {4, 7, 0, 5, 1, 3, 6, 2};
 int bf[8] = {3, 2, 6, 1, 5, 0, 4, 7};
 int bf2[8] = {6, 3, 5, 2, 1, 7, 4, 0};
 int fb2[8] = {0, 1, 4, 5, 7, 3, 2, 6};
 
-String seqs[8] = {"rl", "mbf", "fb", "bf", "bf2", "fb2", "r", "r"};
+int randfwd[6] = {rl[0], mbf[0], fb[0], bf[0], bf2[0], fb2[0]};
+int randbkd[6] = {rl[7], mbf[7], fb[7], bf[7], bf2[7], fb2[7]};
+
 
 boolean newStructure;  //
 long pixelHue; //
@@ -90,6 +92,15 @@ bool fade;
 int fadeValue;
 int offCount;
 
+
+struct choices {
+  int seq;
+  int d;
+  int direct;
+};
+typedef struct choices Choices;
+
+Choices seqs;
 
 void setup() {
   Serial.begin(9600);
@@ -223,7 +234,9 @@ void loop() {
     // fade = false;
     offCount = 0;
     //Serial.println("            can't repeat until new trigger");
-    animationSelection();
+
+    seqs = animationSelection();
+    lightAnimation(seqs.seq, seqs.d, pixelHue, seqs.direct);
   } // someoneNear
 
 
@@ -240,71 +253,77 @@ void loop() {
 
       // startAddress,  delay:
       //for (int i = startAddress; i < sizeof(homeAddress) / sizeof(int); i += 3) {
-      int count = 0;
-      while (count < sizeof(homeAddress) / sizeof(int) ) {
+      //int count = 0;
+      // /*
+      // while (count < sizeof(homeAddress) / sizeof(int) ) {
 
-        // Serial.print("pixelHue is: ");
-        // Serial.println(pixelHue);
-        pixelHue = light(pixelHue, homeAddress[startAddress]); // eventually make startAddress  = i
-        Serial.println("        Just lighting");
-        count++;
-        delay(3000);
+      // Serial.print("pixelHue is: ");
+      // Serial.println(pixelHue);
+      //*** lighting each one:
+      pixelHue += lightAnimation(seqs.seq, seqs.d, pixelHue, seqs.direct);
+      //pixelHue = light(pixelHue, homeAddress[startAddress]); // eventually make startAddress  = i
+      Serial.println("        Just lighting");
+      //count++;
+      //delay(3000);
+    }
+    //*/
+
+  }
+  /*
+      else if ( someoneNear == false && liteAny == true && lifeSpan < millis() ) { // flip off
+        liteAny = false;
+        lifeSpan = 0;  // reset here ?
+        Serial.println("        off");
       }
+  */
+
+  if ( (fade == false) && liteAny == true) {
 
 
-    }
-    else if ( someoneNear == false && liteAny == true && lifeSpan < millis() ) { // flip off
-      liteAny = false;
-      lifeSpan = 0;  // reset here ?
-      Serial.println("        off");
-    }
+  }
 
+  else if (fade == true && liteAny == true) {
+    // fade structure:
+    //fadeDown(pixelHue, startAddress);
+    fadeDownAnimation(seqs.seq, seqs.d, pixelHue, seqs.direct);
+    fade = false;
+  } else if (liteAny == false) {  // turn structure off
+    turnOff(startAddress, 50);
+    //offCount++;
+  }
 
-    if ( (fade == false) && liteAny == true) {
+  //  // run, fade or die:
+  //  if (temp.almostUp == false && temp.lite == true) {
+  //    Serial.println("      lighting");
+  //    pixelHue = temp.light(pixelHue);  // <--- need to return color as it's changing a bit in the class
+  //  } else if (temp.almostUp == true && temp.lite == true) {
+  //    // Serial.println("      fading");
+  //    // temp.fadeDown(pixelHue);
+  //  } else if (temp.almostUp == true && temp.lite == false) {
+  //    // Serial.println("      turnOff");
+  //    //structures[i].lite = false;
+  //    // temp.turnOff(0, 30);
+  //    offCount++;
+  //  }
 
-
-    }
-
-    else if (fade == true && liteAny == true) {
-      fadeDown(pixelHue, startAddress);
-      fade = false;
-    } else if (liteAny == false) {
-      turnOff(startAddress, 50);
-      //offCount++;
-    }
-
-    //  // run, fade or die:
-    //  if (temp.almostUp == false && temp.lite == true) {
-    //    Serial.println("      lighting");
-    //    pixelHue = temp.light(pixelHue);  // <--- need to return color as it's changing a bit in the class
-    //  } else if (temp.almostUp == true && temp.lite == true) {
-    //    // Serial.println("      fading");
-    //    // temp.fadeDown(pixelHue);
-    //  } else if (temp.almostUp == true && temp.lite == false) {
-    //    // Serial.println("      turnOff");
-    //    //structures[i].lite = false;
-    //    // temp.turnOff(0, 30);
-    //    offCount++;
-    //  }
-
-    // bool on_off = structures[i].go(pixelHue);
-    /*
-      Serial.print("structure went: ");
-      Serial.println(on_off);
-      Serial.println();
-    */
-    //If it's off, count it
-    //        if (on_off == false) {
-    //          offCount++;
-    //        }
-    /*
-      Serial.print("offCount: ");
-      Serial.println(offCount);
-      Serial.println();
-    */
-    //structures[i] = temp; // must put it back in/update it
-    delay(2000);
-  } // lite and young
+  // bool on_off = structures[i].go(pixelHue);
+  /*
+    Serial.print("structure went: ");
+    Serial.println(on_off);
+    Serial.println();
+  */
+  //If it's off, count it
+  //        if (on_off == false) {
+  //          offCount++;
+  //        }
+  /*
+    Serial.print("offCount: ");
+    Serial.println(offCount);
+    Serial.println();
+  */
+  //structures[i] = temp; // must put it back in/update it
+  delay(2000);
+  //} // lite and young
 
   //Serial.print("offCount is: ");
   //Serial.println(offCount);
@@ -421,46 +440,315 @@ void loop() {
 
 }// loop
 
-void animationSelection() { // delay, structure order
+
+
+Choices animationSelection() { // delay, structure order
   //int homeAddress[8] = {0, 3, 6, 9, 12, 15, 18, 21}; // put here for reference
-  String sequence;
-  int ranSeq = int(random(1, 10);
-  if (randSeq < 1) {
-  sequence = seqs[0];
+
+  // pick a sequence, then pick on how to move through the sequence and the delay time between each light
+  int randSeq = int(random(1, 10));
+  int d = int(random(250, 5000));
+  int dir = int(random(1, 11));
+  Serial.print("randSeq is:  ");
+  Serial.println(randSeq);
+  Serial.print("delay is:  ");
+  Serial.println(d);
+  seqs.direct = dir;
+  seqs.seq = randSeq;
+  seqs.d = d;
+  return seqs;  //returns a struct
+}
+
+long lightAnimation(int randSeq, int d, long ph, int dir) {
+  if (randSeq < 2) {
+
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) { // iterate through all the structures
+        int temp = rl[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = rl[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } // else
   }
-  else if (randSeq < 2) {
-  sequence = seqs[1];
-  }
+
   else if (randSeq < 3) {
-  sequence = seqs[2];
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = mbf[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = mbf[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } // else
+
   }
+
   else if (randSeq < 4) {
-  sequence = seqs[3];
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = fb[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = fb[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } // else
   }
+
   else if (randSeq < 5) {
-  sequence = seqs[4];
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = bf[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = bf[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } // else
+
   }
+
   else if (randSeq < 6) {
-  sequence = seqs[5];
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = bf2[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = bf2[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } // else
+
   }
+
   else if (randSeq < 7) {
-  sequence = seqs[6];
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = fb2[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = fb2[i]; // pull out structure # for particular animation sequence
+        ph = light(ph, homeAddress[temp], d);
+      }
+    } // else
+
   }
+  /*
+     int randfwd[6] = {rl[0], mbf[0], fb[0], bf[0], bf2[0], fb2[0]};
+    int randbkd[6] = {rl[7], mbf[7], fb[7], bf[7], bf2[7], fb2[7]};
+  */
+
   else if (randSeq < 8) {
-  sequence = seqs[7];
+    //int randieSeq = int(random(0, 8));
+    //randfwd[randieSeq];
+    //for (int i = 0; i < 8; i++) {
+    int structure = 0;
+    while (structure <= 7) {
+      int r = int(random(0, 8));
+      ph = light(ph, homeAddress[r], d);
+      structure++;
+    }
   }
+
+
+
   else if (randSeq < 9) {
-  sequence = seqs[8];
+    //int randieSeq = int(random(0, 8));
+    //randfwd[randieSeq];
+    //for (int i = 0; i < 8; i++) {
+    int structure = 0;
+    while (structure <= 7) {
+      int r = int(random(0, 8));
+      ph = light(ph, homeAddress[r], d);
+      structure++;
+    }
   }
-  Serial.print("seq selected is: ");
-  Serial.println(sequence);
-  
 
+  /*
+    else if (randSeq < 10) {
 
-  int randDelay = int(random(1000, 5000));
+    }
+  */
+  //int randDelay = int(random(1000, 5000));
+
+  return ph;
+}
+
+void fadeDownAnimation(int randSeq, int d, long ph, int dir) {
+  if (randSeq < 2) {
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) { // iterate through all the structures
+        int temp = rl[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = rl[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } // else
+  }
+
+  else if (randSeq < 3) {
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = mbf[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = mbf[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } // else
+
+  }
+
+  else if (randSeq < 4) {
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = fb[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = fb[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } // else
+  }
+
+  else if (randSeq < 5) {
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = bf[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = bf[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } // else
+
+  }
+
+  else if (randSeq < 6) {
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = bf2[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = bf2[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } // else
+
+  }
+
+  else if (randSeq < 7) {
+    //float randie = random(0, 1);
+    if (dir < 5) {
+      for (int i = 0; i < 8; i++) {
+        int temp = fb2[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } else { // reverse the animation sequence
+      for (int i = 7; i >= 0; i--) {
+        int temp = fb2[i]; // pull out structure # for particular animation sequence
+        fadeDown(ph, homeAddress[temp], d);
+      }
+    } // else
+
+  }
+  /*
+     int randfwd[6] = {rl[0], mbf[0], fb[0], bf[0], bf2[0], fb2[0]};
+    int randbkd[6] = {rl[7], mbf[7], fb[7], bf[7], bf2[7], fb2[7]};
+  */
+
+  else if (randSeq < 8) {
+    //int randieSeq = int(random(0, 8));
+    //randfwd[randieSeq];
+    //for (int i = 0; i < 8; i++) {
+    int structure = 0;
+    while (structure <= 7) {
+      int r = int(random(0, 8));
+      fadeDown(ph, homeAddress[r], d);
+      structure++;
+    }
+  }
+  Serial.println("faded down completed once for each structure");
+
 }
 
 
+
+void fadeDown(long pH, int address, int d) {
+  for (int j = 255; j >= 0; j -= 10) { //fade down opacity
+    // set all the pixels at once (3 at a time):
+    for (int i = address; i < (address + 3) ; i++) { // For each pixel in strip...
+      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pH, 255, j)));
+    }
+    strip.show();
+    delay(d);
+  }
+
+}
+
+
+long light(long pH, int address, long d) {
+  long c; // color to be returned
+  long limit = pH + 100;
+  for (long j = pH; j < limit; j += 500) { // change hue
+    for (int i = address; i < address + 3; i++) { // hit each pixel in a structure
+      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(j, 255, 255)));
+    }
+    // Serial.print("light() color is: ");
+    // Serial.println(j);
+    strip.show();
+    delay(d);
+    c = j;
+  }
+  return c;
+}
+
+void turnOff( int address, int wait) {
+  //strip.clear();
+  Serial.println("just cleared the strip");
+  for (int i = address; i < (address + 3); i++) { // For each pixel in strip...
+    strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(0, 255, 0)));
+  }
+
+  strip.show();                          //  Update strip to match
+  delay(wait);
+}
 
 int readSensor() {
   /*
@@ -490,45 +778,6 @@ int readSensor() {
 
   return dist;
   //Serial.println(distance[0]);
-}
-
-void fadeDown(long pH, int address) {
-  for (int j = 255; j >= 0; j -= 10) { //fade down opacity
-    // set all the pixels at once (3 at a time):
-    for (int i = address; i < (address + 3) ; i++) { // For each pixel in strip...
-      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pH, 255, j)));
-    }
-    strip.show();
-    delay(250);
-  }
-
-}
-
-long light(long pH, int address) {
-  long c; // color to be returned
-  long limit = pH + 100;
-  for (long j = pH; j < limit; j += 500) { // change hue
-    for (int i = address; i < address + 3; i++) { // hit each pixel in a structure
-      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(j, 255, 255)));
-    }
-    // Serial.print("light() color is: ");
-    // Serial.println(j);
-    strip.show();
-    delay(250);
-    c = j;
-  }
-  return c;
-}
-
-void turnOff( int address, int wait) {
-  //strip.clear();
-  Serial.println("just cleared the strip");
-  for (int i = address; i < (address + 3); i++) { // For each pixel in strip...
-    strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(0, 255, 0)));
-  }
-
-  strip.show();                          //  Update strip to match
-  delay(wait);
 }
 
 /*
