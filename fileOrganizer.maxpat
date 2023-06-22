@@ -4,13 +4,21 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 1,
+<<<<<<< Updated upstream
 			"revision" : 8,
+=======
+			"revision" : 11,
+>>>>>>> Stashed changes
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
+<<<<<<< Updated upstream
 		"rect" : [ 34.0, 93.0, 1246.0, 608.0 ],
+=======
+		"rect" : [ 340.0, 268.0, 1455.0, 826.0 ],
+>>>>>>> Stashed changes
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +48,7 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+<<<<<<< Updated upstream
 					"id" : "obj-60",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -155,6 +164,15 @@
 					"outlettype" : [ "int", "", "", "int" ],
 					"patching_rect" : [ 203.0, 89.0, 69.0, 22.0 ],
 					"text" : "counter 0 3"
+=======
+					"id" : "obj-39",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 266.5, 80.166665554046631, 69.0, 22.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -166,7 +184,83 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 196.0, 31.166665554046631, 24.0, 24.0 ]
+=======
+					"patching_rect" : [ 167.0, 64.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-36",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 199.0, 262.0, 29.5, 22.0 ],
+					"text" : "0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-33",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 231.0, 262.0, 29.5, 22.0 ],
+					"text" : "1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-31",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "bang", "bang", "bang" ],
+					"patching_rect" : [ 199.0, 234.0, 42.0, 22.0 ],
+					"text" : "t b b b"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-29",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 199.0, 207.0, 124.0, 22.0 ],
+					"text" : "if $i1 != $i2 then bang"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-27",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 221.0, 526.0, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 295.75, 511.0, 98.5, 22.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -174,11 +268,31 @@
 				"box" : 				{
 					"id" : "obj-8",
 					"maxclass" : "newobj",
+<<<<<<< Updated upstream
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 196.0, 56.166665554046631, 63.0, 22.0 ],
 					"text" : "metro 250"
+=======
+					"numinlets" : 5,
+					"numoutlets" : 4,
+					"outlettype" : [ "int", "", "", "int" ],
+					"patching_rect" : [ 231.0, 476.0, 75.0, 22.0 ],
+					"text" : "counter 0 10"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-16",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 357.483332216739655, 96.0, 135.0, 22.0 ],
+					"text" : "if $i1 % 500 == 0 then 0"
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -186,10 +300,18 @@
 				"box" : 				{
 					"id" : "obj-15",
 					"maxclass" : "newobj",
+<<<<<<< Updated upstream
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 732.0, 41.0, 100.0, 22.0 ]
+=======
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 164.0, 117.0, 63.0, 22.0 ],
+					"text" : "metro 250"
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -200,7 +322,11 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 421.516667783260345, 435.0, 34.0, 22.0 ],
+=======
+					"patching_rect" : [ 372.516667783260345, 394.0, 34.0, 22.0 ],
+>>>>>>> Stashed changes
 					"text" : "sel 1"
 				}
 
@@ -213,7 +339,11 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 364.75, 274.0, 24.0, 24.0 ]
+=======
+					"patching_rect" : [ 364.75, 238.0, 24.0, 24.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -224,7 +354,11 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 364.75, 304.0, 29.5, 22.0 ],
+=======
+					"patching_rect" : [ 364.75, 268.0, 29.5, 22.0 ],
+>>>>>>> Stashed changes
 					"text" : "0"
 				}
 
@@ -237,8 +371,13 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
+<<<<<<< Updated upstream
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 196.0, -3.833334445953369, 30.0, 30.0 ]
+=======
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 164.0, 10.666665554046631, 30.0, 30.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -262,7 +401,11 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 287.0, 469.0, 30.0, 30.0 ]
+=======
+					"patching_rect" : [ 287.0, 433.0, 30.0, 30.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -461,7 +604,11 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "bang", "bang", "bang", "bang", "bang" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 429.983332216739655, 345.0, 62.0, 22.0 ],
+=======
+					"patching_rect" : [ 425.0, 377.0, 62.0, 22.0 ],
+>>>>>>> Stashed changes
 					"text" : "t b b b b b"
 				}
 
@@ -638,7 +785,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 407.0, 381.0, 150.0, 33.0 ],
+=======
+					"patching_rect" : [ 407.0, 345.0, 150.0, 33.0 ],
+>>>>>>> Stashed changes
 					"text" : "once hit 5, sort and get length"
 				}
 
@@ -944,7 +1095,11 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 1,
+<<<<<<< Updated upstream
 							"revision" : 8,
+=======
+							"revision" : 11,
+>>>>>>> Stashed changes
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -1585,7 +1740,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 367.0, 473.0, 150.0, 20.0 ],
+=======
+					"patching_rect" : [ 367.0, 437.0, 150.0, 20.0 ],
+>>>>>>> Stashed changes
 					"text" : "check recents"
 				}
 
@@ -1596,7 +1755,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 183.0, 510.0, 150.0, 20.0 ],
+=======
+					"patching_rect" : [ 25.0, 546.0, 150.0, 20.0 ],
+>>>>>>> Stashed changes
 					"text" : "filtered goes on to play"
 				}
 
@@ -1620,13 +1783,32 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 263.0, 391.0, 88.0, 33.0 ],
+=======
+					"patching_rect" : [ 263.0, 355.0, 88.0, 33.0 ],
+>>>>>>> Stashed changes
 					"text" : "filtered for dups "
 				}
 
 			}
 , 			{
 				"box" : 				{
+<<<<<<< Updated upstream
+=======
+					"id" : "obj-132",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 236.0, 101.5, 142.0, 22.0 ],
+					"text" : "if $i1 % 2000 == 0 then 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+>>>>>>> Stashed changes
 					"id" : "obj-129",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -1656,8 +1838,13 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 318.0, 69.0, 47.0, 22.0 ],
 					"text" : "clocker"
+=======
+					"patching_rect" : [ 253.0, 56.166665554046631, 77.0, 22.0 ],
+					"text" : "clocker 1000"
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -1669,7 +1856,11 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 246.0, 336.5, 50.0, 22.0 ]
+=======
+					"patching_rect" : [ 253.0, 303.0, 50.0, 22.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -1680,7 +1871,11 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 367.0, 391.0, 34.0, 22.0 ],
+=======
+					"patching_rect" : [ 367.0, 355.0, 34.0, 22.0 ],
+>>>>>>> Stashed changes
 					"text" : "sel 0"
 				}
 
@@ -1693,7 +1888,11 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 367.0, 361.0, 24.0, 24.0 ]
+=======
+					"patching_rect" : [ 367.0, 325.0, 24.0, 24.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -1705,7 +1904,11 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 311.5, 304.0, 24.0, 24.0 ]
+=======
+					"patching_rect" : [ 311.5, 268.0, 24.0, 24.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -1717,7 +1920,11 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 311.5, 362.0, 50.0, 22.0 ]
+=======
+					"patching_rect" : [ 311.5, 326.0, 50.0, 22.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -1728,7 +1935,11 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 311.5, 331.0, 90.0, 22.0 ],
+=======
+					"patching_rect" : [ 311.5, 295.0, 90.0, 22.0 ],
+>>>>>>> Stashed changes
 					"text" : "counter 4"
 				}
 
@@ -1897,7 +2108,11 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 1,
+<<<<<<< Updated upstream
 							"revision" : 8,
+=======
+							"revision" : 11,
+>>>>>>> Stashed changes
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -2682,7 +2897,11 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
+<<<<<<< Updated upstream
 					"patching_rect" : [ 253.0, 274.0, 108.0, 22.0 ],
+=======
+					"patching_rect" : [ 281.0, 175.0, 108.0, 22.0 ],
+>>>>>>> Stashed changes
 					"text" : "gate"
 				}
 
@@ -2695,7 +2914,11 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 253.0, 248.0, 24.0, 24.0 ]
+=======
+					"patching_rect" : [ 281.0, 142.0, 24.0, 24.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -2706,7 +2929,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 59.0, 295.0, 150.0, 33.0 ],
+=======
+					"patching_rect" : [ 38.75, 292.0, 150.0, 33.0 ],
+>>>>>>> Stashed changes
 					"text" : "clean out recents that are over 30 seconds old"
 				}
 
@@ -2718,7 +2945,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 59.0, 251.5, 150.0, 33.0 ],
+=======
+					"patching_rect" : [ 38.75, 248.5, 150.0, 33.0 ],
+>>>>>>> Stashed changes
 					"text" : "check new triggers against recents"
 				}
 
@@ -2730,7 +2961,11 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 59.0, 207.0, 150.0, 33.0 ],
+=======
+					"patching_rect" : [ 38.75, 204.0, 150.0, 33.0 ],
+>>>>>>> Stashed changes
 					"text" : "send collection to \"recents\" (30 second hold)"
 				}
 
@@ -2858,7 +3093,11 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 1,
+<<<<<<< Updated upstream
 							"revision" : 8,
+=======
+							"revision" : 11,
+>>>>>>> Stashed changes
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -3430,7 +3669,11 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
+<<<<<<< Updated upstream
 					"patching_rect" : [ 417.0, 56.5, 50.0, 22.0 ]
+=======
+					"patching_rect" : [ 417.0, 56.166665554046631, 50.0, 22.0 ]
+>>>>>>> Stashed changes
 				}
 
 			}
@@ -3545,7 +3788,11 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-60", 0 ],
+=======
+					"destination" : [ "obj-40", 0 ],
+>>>>>>> Stashed changes
 					"source" : [ "obj-122", 0 ]
 				}
 
@@ -3553,12 +3800,34 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
+<<<<<<< Updated upstream
+=======
+					"order" : 0,
+>>>>>>> Stashed changes
 					"source" : [ "obj-124", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
+=======
+					"destination" : [ "obj-8", 0 ],
+					"order" : 1,
+					"source" : [ "obj-124", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"source" : [ "obj-125", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+>>>>>>> Stashed changes
 					"destination" : [ "obj-125", 0 ],
 					"source" : [ "obj-127", 0 ]
 				}
@@ -3580,6 +3849,16 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
+=======
+					"destination" : [ "obj-40", 0 ],
+					"source" : [ "obj-132", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+>>>>>>> Stashed changes
 					"destination" : [ "obj-154", 0 ],
 					"source" : [ "obj-150", 0 ]
 				}
@@ -3608,6 +3887,16 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
+=======
+					"destination" : [ "obj-40", 0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+>>>>>>> Stashed changes
 					"destination" : [ "obj-157", 0 ],
 					"source" : [ "obj-161", 0 ]
 				}
@@ -3761,7 +4050,11 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-8", 0 ],
+=======
+					"destination" : [ "obj-125", 0 ],
+>>>>>>> Stashed changes
 					"source" : [ "obj-19", 0 ]
 				}
 
@@ -3850,6 +4143,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-39", 0 ],
 					"order" : 1,
 					"source" : [ "obj-21", 0 ]
@@ -3866,6 +4160,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-215", 0 ],
 					"source" : [ "obj-213", 0 ]
 				}
@@ -4020,6 +4316,16 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
+=======
+					"destination" : [ "obj-31", 0 ],
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+>>>>>>> Stashed changes
 					"destination" : [ "obj-42", 1 ],
 					"source" : [ "obj-3", 0 ]
 				}
@@ -4027,6 +4333,23 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
+=======
+					"destination" : [ "obj-33", 0 ],
+					"source" : [ "obj-31", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-36", 0 ],
+					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+>>>>>>> Stashed changes
 					"destination" : [ "obj-24", 0 ],
 					"source" : [ "obj-35", 1 ]
 				}
@@ -4041,7 +4364,20 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-41", 0 ],
+=======
+					"destination" : [ "obj-132", 0 ],
+					"order" : 1,
+					"source" : [ "obj-39", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"order" : 0,
+>>>>>>> Stashed changes
 					"source" : [ "obj-39", 0 ]
 				}
 
@@ -4062,6 +4398,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-59", 0 ],
 					"source" : [ "obj-41", 0 ]
 				}
@@ -4069,6 +4406,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-114", 0 ],
 					"order" : 0,
 					"source" : [ "obj-42", 0 ]
@@ -4085,6 +4424,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-40", 0 ],
 					"source" : [ "obj-43", 0 ]
 				}
@@ -4092,6 +4432,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-47", 0 ],
 					"source" : [ "obj-45", 0 ]
 				}
@@ -4120,6 +4462,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-58", 0 ],
 					"source" : [ "obj-50", 0 ]
 				}
@@ -4134,6 +4477,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-45", 3 ],
 					"source" : [ "obj-52", 0 ]
 				}
@@ -4141,6 +4486,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-40", 0 ],
 					"source" : [ "obj-53", 0 ]
 				}
@@ -4148,6 +4494,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-52", 0 ],
 					"source" : [ "obj-54", 0 ]
 				}
@@ -4171,6 +4519,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-53", 0 ],
 					"source" : [ "obj-58", 0 ]
 				}
@@ -4185,6 +4534,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-125", 0 ],
 					"source" : [ "obj-6", 0 ]
 				}
@@ -4192,6 +4543,7 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-40", 0 ],
 					"source" : [ "obj-60", 0 ]
 				}
@@ -4199,6 +4551,8 @@
 			}
 , 			{
 				"patchline" : 				{
+=======
+>>>>>>> Stashed changes
 					"destination" : [ "obj-67", 0 ],
 					"source" : [ "obj-69", 0 ]
 				}
@@ -4206,16 +4560,26 @@
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-127", 0 ],
 					"order" : 0,
+=======
+					"destination" : [ "obj-19", 0 ],
+					"order" : 1,
+>>>>>>> Stashed changes
 					"source" : [ "obj-7", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
+<<<<<<< Updated upstream
 					"destination" : [ "obj-19", 0 ],
 					"order" : 1,
+=======
+					"destination" : [ "obj-6", 0 ],
+					"order" : 0,
+>>>>>>> Stashed changes
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -4244,6 +4608,16 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-21", 0 ],
+<<<<<<< Updated upstream
+=======
+					"source" : [ "obj-8", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+>>>>>>> Stashed changes
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -4314,12 +4688,15 @@
  ],
 		"styles" : [ 			{
 				"name" : "default_style",
+<<<<<<< Updated upstream
 				"newobj" : 				{
 					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"accentcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
 				}
 ,
+=======
+>>>>>>> Stashed changes
 				"button" : 				{
 					"bgcolor" : [ 0.682032, 0.698052, 0.748716, 1.0 ],
 					"color" : [ 0.960784, 0.827451, 0.156863, 1.0 ]
@@ -4331,17 +4708,29 @@
 					"elementcolor" : [ 0.786675, 0.801885, 0.845022, 1.0 ]
 				}
 ,
+<<<<<<< Updated upstream
+=======
+				"newobj" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"accentcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
+				}
+,
+>>>>>>> Stashed changes
 				"parentstyle" : "",
 				"multi" : 1
 			}
 , 			{
 				"name" : "default_style-1",
+<<<<<<< Updated upstream
 				"newobj" : 				{
 					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"accentcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
 				}
 ,
+=======
+>>>>>>> Stashed changes
 				"button" : 				{
 					"bgcolor" : [ 0.682032, 0.698052, 0.748716, 1.0 ],
 					"color" : [ 0.960784, 0.827451, 0.156863, 1.0 ]
@@ -4353,6 +4742,15 @@
 					"elementcolor" : [ 0.786675, 0.801885, 0.845022, 1.0 ]
 				}
 ,
+<<<<<<< Updated upstream
+=======
+				"newobj" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"accentcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
+				}
+,
+>>>>>>> Stashed changes
 				"parentstyle" : "",
 				"multi" : 0
 			}
@@ -4369,6 +4767,7 @@
 					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 ,
+<<<<<<< Updated upstream
 				"newobj" : 				{
 					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -4380,12 +4779,23 @@
 					"color" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 ,
+=======
+>>>>>>> Stashed changes
 				"slider" : 				{
 					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"color" : [ 0.461105, 0.492646, 0.591878, 1.0 ],
 					"elementcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
 				}
 ,
+<<<<<<< Updated upstream
+=======
+				"button" : 				{
+					"bgcolor" : [ 0.682032, 0.698052, 0.748716, 1.0 ],
+					"color" : [ 1.0, 0.95051, 0.0, 1.0 ],
+					"elementcolor" : [ 0.786675, 0.801885, 0.845022, 1.0 ]
+				}
+,
+>>>>>>> Stashed changes
 				"function" : 				{
 					"bgcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ],
 					"color" : [ 0.0, 0.0, 0.0, 1.0 ]
@@ -4397,10 +4807,16 @@
 					"elementcolor" : [ 0.862745, 0.870588, 0.878431, 1.0 ]
 				}
 ,
+<<<<<<< Updated upstream
 				"button" : 				{
 					"bgcolor" : [ 0.682032, 0.698052, 0.748716, 1.0 ],
 					"color" : [ 1.0, 0.95051, 0.0, 1.0 ],
 					"elementcolor" : [ 0.786675, 0.801885, 0.845022, 1.0 ]
+=======
+				"multislider" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"color" : [ 0.0, 0.0, 0.0, 1.0 ]
+>>>>>>> Stashed changes
 				}
 ,
 				"toggle" : 				{
@@ -4409,6 +4825,15 @@
 					"elementcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
 				}
 ,
+<<<<<<< Updated upstream
+=======
+				"newobj" : 				{
+					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"accentcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
+				}
+,
+>>>>>>> Stashed changes
 				"message" : 				{
 					"textcolor_inverse" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"bgfillcolor" : 					{
@@ -4436,6 +4861,7 @@
 
 				}
 ,
+<<<<<<< Updated upstream
 				"kslider" : 				{
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"elementcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
@@ -4443,6 +4869,15 @@
 ,
 				"gain~" : 				{
 					"color" : [ 1.0, 0.861448, 0.16921, 1.0 ],
+=======
+				"gain~" : 				{
+					"color" : [ 1.0, 0.861448, 0.16921, 1.0 ],
+					"elementcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
+				}
+,
+				"kslider" : 				{
+					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
+>>>>>>> Stashed changes
 					"elementcolor" : [ 0.65098, 0.666667, 0.662745, 1.0 ]
 				}
 ,
